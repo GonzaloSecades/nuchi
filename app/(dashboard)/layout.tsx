@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }: Props) => {
   return (
     <>
       <Header />
-      <main className="lg:px14 px-3">{children}</main>
+      <main className="px-3 lg:px-14">{children}</main>
     </>
   );
 };
