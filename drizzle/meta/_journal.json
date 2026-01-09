@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1767988353180,
+      "tag": "0000_optimal_luckman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1767988831112,
+      "tag": "0001_swift_arclight",
+      "breakpoints": true
+    }
+  ]
+}
