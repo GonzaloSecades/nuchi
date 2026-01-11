@@ -96,6 +96,11 @@ export class ApiError extends Error {
  * @param resource - A descriptive name for the resource (e.g., 'accounts', 'transactions')
  * @returns Promise<ApiError> - A structured error with all relevant details
  *
+ * @remarks
+ * This function clones the response before reading the body, so the original
+ * response object remains usable if needed elsewhere. The clone is used to
+ * safely attempt JSON parsing without affecting the original response stream.
+ *
  * @example
  * ```typescript
  * const response = await client.api.accounts.$get();
@@ -105,8 +110,12 @@ export class ApiError extends Error {
  * ```
  */
 export async function createApiError(response: Response, resource: string): Promise<ApiError> {
-  // Safely attempt to parse error data from response body
-  const errorData = await response.json().catch(() => null);
+  // Clone the response before reading the body to preserve the original stream
+  // This allows the caller to read the response body again if needed
+  const clonedResponse = response.clone();
+
+  // Safely attempt to parse error data from the cloned response body
+  const errorData = await clonedResponse.json().catch(() => null);
 
   const details: ApiErrorDetails = {
     status: response.status,
