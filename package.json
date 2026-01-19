@@ -19,8 +19,11 @@
     "@clerk/nextjs": "^6.36.5",
     "@hono/clerk-auth": "^3.0.3",
     "@hono/zod-validator": "^0.7.6",
+    "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "0.9.1",
+    "@paralleldrive/cuid2": "^3.0.6",
     "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-visually-hidden": "^1.2.4",
     "@swc/helpers": "^0.5.18",
@@ -34,10 +37,12 @@
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-hook-form": "^7.71.1",
     "react-use": "^17.6.0",
     "styled-jsx": "^5.1.7",
     "tailwind-merge": "^3.4.0",
-    "zod": "^4.3.5"
+    "zod": "^4.3.5",
+    "zustand": "4.5.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -50,6 +55,7 @@
     "eslint-config-next": "16.1.1",
     "eslint-config-prettier": "^10.1.8",
     "pg": "^8.16.3",
+    "postcss": "^8.5.6",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4",
