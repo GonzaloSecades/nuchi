@@ -7,7 +7,7 @@ import { NewAccountSheet } from '@/features/accounts/components/new-account-shee
 export const SheetProvider = () => {
   const isMounted = useMountedState();
 
-  if (!isMounted()) {
+  if (!isMounted) {
     return null;
   }
 
