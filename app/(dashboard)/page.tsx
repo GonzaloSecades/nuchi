@@ -7,9 +7,7 @@ export default function Home() {
   const { onOpen } = useNewAccount();
 
   const handleClick = () => {
-    console.log('Button clicked!');
     onOpen();
-    console.log('onOpen called');
   };
 
   return (

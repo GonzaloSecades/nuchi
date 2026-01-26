@@ -15,14 +15,26 @@ const app = new Hono()
       return c.json({ error: 'Unauthorized' }, 401);
     }
 
-    const data = await db
-      .select({
-        id: accounts.id,
-        name: accounts.name,
-      })
-      .from(accounts)
-      .where(eq(accounts.userId, auth.userId));
-    return c.json({ data });
+    try {
+      const data = await db
+        .select({
+          id: accounts.id,
+          name: accounts.name,
+        })
+        .from(accounts)
+        .where(eq(accounts.userId, auth.userId));
+      return c.json({ data });
+    } catch {
+      return c.json(
+        {
+          error: {
+            code: 'DB_ERROR',
+            message: 'DatabaseError - Failed to fetch accounts',
+          },
+        },
+        500
+      );
+    }
   })
   .post(
     '/',
@@ -34,17 +46,28 @@ const app = new Hono()
       if (!auth?.userId) {
         return c.json({ error: 'Unauthorized' }, 401);
       }
+      try {
+        const [data] = await db
+          .insert(accounts)
+          .values({
+            id: createId(),
+            userId: auth.userId,
+            ...values,
+          })
+          .returning();
 
-      const [data] = await db
-        .insert(accounts)
-        .values({
-          id: createId(),
-          userId: auth.userId,
-          ...values,
-        })
-        .returning();
-
-      return c.json({ data });
+        return c.json({ data });
+      } catch {
+        return c.json(
+          {
+            error: {
+              code: 'DB_ERROR',
+              message: 'DatabaseError - Failed to create account',
+            },
+          },
+          500
+        );
+      }
     }
   );
 
