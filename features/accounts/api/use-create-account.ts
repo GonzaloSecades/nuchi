@@ -17,7 +17,7 @@ export const useCreateAccount = () => {
       const response = await client.api.accounts.$post({ json });
 
       if (!response.ok) {
-        throw await createApiError(response, 'useCreateAccount');
+        throw await createApiError(response, 'accounts');
       }
       return await response.json();
     },
