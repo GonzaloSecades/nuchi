@@ -1,18 +1,21 @@
-//hook to get accounts to getAccount endpoint
+//hook to get a single account to getAccount endpoint
 
 import { useQuery } from '@tanstack/react-query';
 
 import { createApiError } from '@/lib/api-error';
 import { client } from '@/lib/hono';
 
-export const useGetAccounts = () => {
+export const useGetAccount = (id?: string) => {
   const query = useQuery({
-    queryKey: ['accounts'],
+    enabled: !!id,
+    queryKey: ['accounts', { id }],
     queryFn: async () => {
-      const response = await client.api.accounts.$get();
+      const response = await client.api.accounts[':id'].$get({
+        param: { id },
+      });
 
       if (!response.ok) {
-        throw await createApiError(response, 'accounts');
+        throw await createApiError(response, 'getSingleAccount');
       }
 
       const { data } = await response.json();
