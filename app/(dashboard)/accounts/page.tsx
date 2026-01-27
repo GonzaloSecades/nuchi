@@ -17,7 +17,7 @@ const AccountsPage = () => {
   const accountsQuery = useGetAccounts();
   const accounts = accountsQuery.data || [];
 
-  const isDisaled = accountsQuery.isLoading || deleteAccounts.isPending;
+  const isDisabled = accountsQuery.isLoading || deleteAccounts.isPending;
 
   if (accountsQuery.isLoading) {
     return (
@@ -52,7 +52,7 @@ const AccountsPage = () => {
               const ids = row.map((r) => r.original.id);
               deleteAccounts.mutate({ ids });
             }}
-            disabled={isDisaled}
+            disabled={isDisabled}
           />
         </CardContent>
       </Card>
