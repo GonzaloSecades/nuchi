@@ -8,4 +8,12 @@ This branch (05.FeaturesHooks) implements Hono interaction hooks for the nuchi a
 - **Title**: Create Hono interaction Hooks
 
 ## Changes Included
-This branch includes the implementation of hooks for interacting with the Hono API framework, providing a clean interface for API calls and state management in the application.
+This branch implements React Query hooks that wrap the Hono RPC client for the accounts feature. These hooks provide:
+- `useGetAccounts` - Fetch all accounts
+- `useGetAccount` - Fetch a single account
+- `useCreateAccount` - Create a new account
+- `useEditAccount` - Update an existing account
+- `useDeleteAccount` - Delete a single account
+- `useBulkDelete` - Delete multiple accounts
+- Supporting sheet components for account management
+- Form handling and validation for account operations
