@@ -35,12 +35,21 @@
   },
 
   // ESLint settings
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
 
   // Run ESLint auto-fix on save (optional, but recommended)
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
   },
+
+  // Enable word wrap by default
+  "editor.wordWrap": "on",
 
   // Disable built-in formatters that might conflict
   "typescript.format.enable": false,
