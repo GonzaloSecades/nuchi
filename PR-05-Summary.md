@@ -14,6 +14,6 @@ This branch implements React Query hooks that wrap the Hono RPC client for the a
 - `useCreateAccount` - Create a new account
 - `useEditAccount` - Update an existing account
 - `useDeleteAccount` - Delete a single account
-- `useBulkDelete` - Delete multiple accounts
+- `useBulkDeleteAccounts` - Delete multiple accounts
 - Supporting sheet components for account management
 - Form handling and validation for account operations
