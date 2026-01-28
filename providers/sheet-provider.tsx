@@ -9,7 +9,7 @@ import { EditAccountSheet } from '@/features/accounts/components/edit-account-sh
 export const SheetProvider = () => {
   const isMounted = useMountedState();
 
-  if (!isMounted()) {
+  if (!isMounted) {
     return null;
   }
 
