@@ -1,6 +1,6 @@
 # PR #05 - Features Hooks Summary
 
-This branch (05.FeaturesHooks) implements React Query hooks that wrap the Hono RPC client for the nuchi application.
+This document describes the changes made in branch 05.FeaturesHooks (PR #5).
 
 ## Branch Information
 - **Branch Name**: 05.FeaturesHooks
