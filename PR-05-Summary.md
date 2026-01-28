@@ -1,4 +1,4 @@
-# PR #05 - Features Hooks Summary
+# PR #5 - Features Hooks Summary
 
 This document describes the changes made in branch 05.FeaturesHooks (PR #5).
 
