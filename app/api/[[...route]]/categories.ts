@@ -68,7 +68,7 @@ const app = new Hono()
           {
             error: {
               code: 'DB_ERROR',
-              message: 'DatabaseError - Failed to fetch account',
+              message: 'DatabaseError - Failed to fetch category',
             },
           },
           500
@@ -187,7 +187,7 @@ const app = new Hono()
       const values = c.req.valid('json');
 
       if (!id) {
-        return c.json({ error: 'Missing account id' }, 400);
+        return c.json({ error: 'Missing category id' }, 400);
       }
 
       if (!auth?.userId) {
@@ -202,7 +202,7 @@ const app = new Hono()
           .returning();
 
         if (!data) {
-          return c.json({ error: 'Account not found' }, 404);
+          return c.json({ error: 'Category not found' }, 404);
         }
         return c.json({ data });
       } catch {
@@ -210,7 +210,7 @@ const app = new Hono()
           {
             error: {
               code: 'DB_ERROR',
-              message: 'DatabaseError - Failed to update account',
+              message: 'DatabaseError - Failed to update category',
             },
           },
           500
@@ -232,7 +232,7 @@ const app = new Hono()
       const { id } = c.req.valid('param');
 
       if (!id) {
-        return c.json({ error: 'Missing account id' }, 400);
+        return c.json({ error: 'Missing category id' }, 400);
       }
 
       if (!auth?.userId) {

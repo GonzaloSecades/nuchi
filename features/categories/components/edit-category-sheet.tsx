@@ -29,13 +29,13 @@ export const EditCategorySheet = () => {
     'You are about to delete this category. This action cannot be undone.'
   );
 
-  const categorieQuery = useGetCategory(id);
+  const categoryQuery = useGetCategory(id);
   const editMutation = useEditCategory(id);
   const deleteMutation = useDeleteCategory(id);
 
   const isPending = editMutation.isPending || deleteMutation.isPending;
 
-  const isLoading = categorieQuery.isLoading;
+  const isLoading = categoryQuery.isLoading;
 
   const onSubmit = (values: FormValues) => {
     editMutation.mutate(values, {
@@ -57,9 +57,9 @@ export const EditCategorySheet = () => {
     }
   };
 
-  const defaultValues = categorieQuery.data
+  const defaultValues = categoryQuery.data
     ? {
-        name: categorieQuery.data.name,
+        name: categoryQuery.data.name,
       }
     : {
         name: '',

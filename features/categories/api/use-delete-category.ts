@@ -31,7 +31,7 @@ export const useDeleteCategory = (id?: string) => {
       //TODO: Invalidate Summary and transactions later
     },
     onError: () => {
-      toast.error(`Error to edit category`);
+      toast.error(`Error deleting category`);
     },
   });
   return mutation;

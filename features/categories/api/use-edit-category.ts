@@ -35,7 +35,7 @@ export const useEditCategory = (id?: string) => {
       //TODO: Invalidate Summary and transactions later
     },
     onError: () => {
-      toast.error(`Error to edit category`);
+      toast.error(`Error editing category`);
     },
   });
   return mutation;
