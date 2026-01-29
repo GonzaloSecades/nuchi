@@ -22,6 +22,13 @@
       "when": 1768853611528,
       "tag": "0002_fantastic_puff_adder",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1769630738131,
+      "tag": "0003_rich_clea",
+      "breakpoints": true
     }
   ]
 }
