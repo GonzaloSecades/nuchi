@@ -29,6 +29,20 @@
       "when": 1769630738131,
       "tag": "0003_rich_clea",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1770128300085,
+      "tag": "0004_dazzling_changeling",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1770128307582,
+      "tag": "0005_square_grey_gargoyle",
+      "breakpoints": true
     }
   ]
 }

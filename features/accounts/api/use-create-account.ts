@@ -1,10 +1,10 @@
-import { toast } from 'sonner';
 import { InferRequestType, InferResponseType } from 'hono';
+import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { ApiError, createApiError } from '@/lib/api-error';
 import { client } from '@/lib/hono';
-import { createApiError } from '@/lib/api-error';
 
 type ResponseType = InferResponseType<typeof client.api.accounts.$post>;
 type RequestType = InferRequestType<typeof client.api.accounts.$post>['json'];
@@ -25,8 +25,14 @@ export const useCreateAccount = () => {
       toast.success('Account created successfully');
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
     },
-    onError: () => {
-      toast.error(`Error creating account`);
+    onError: (error) => {
+      const apiMessage =
+        error instanceof ApiError
+          ? (error.details.errorData as { error?: { message?: string } } | null)
+              ?.error?.message
+          : null;
+
+      toast.error(apiMessage ?? 'Error creating category');
     },
   });
   return mutation;

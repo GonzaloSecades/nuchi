@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "accounts_user_id_name_uniq" ON "accounts" ("user_id","name");

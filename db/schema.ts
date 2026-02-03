@@ -20,11 +20,15 @@ export const accounts = pgTable(
   {
     id: text('id').primaryKey(),
     plaidId: text('plaid_id'), // bank data aggregation api.
-    name: text('name').notNull(),
+    name: citext('name').notNull(),
     userId: text('user_id').notNull(),
   },
   (table) => ({
     userIdIdx: index('accounts_user_id_idx').on(table.userId),
+    userIdNameUniq: uniqueIndex('accounts_user_id_name_uniq').on(
+      table.userId,
+      table.name
+    ),
   })
 );
 
