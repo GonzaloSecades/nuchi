@@ -162,6 +162,43 @@ const app = new Hono()
     }
   )
   .post(
+    '/bulk-create',
+    clerkMiddleware(),
+    zValidator('json', z.array(InsertTransactionSchema.omit({ id: true }))),
+    async (c) => {
+      const auth = getAuth(c);
+      const values = c.req.valid('json');
+
+      if (!auth?.userId) {
+        return c.json({ error: 'Unauthorized' }, 401);
+      }
+
+      try {
+        const data = await db
+          .insert(transactions)
+          .values(
+            values.map((value) => ({
+              id: createId(),
+              ...value,
+            }))
+          )
+          .returning();
+
+        return c.json({ data });
+      } catch {
+        return c.json(
+          {
+            error: {
+              code: 'DB_ERROR',
+              message: 'DatabaseError - Failed to create transactions',
+            },
+          },
+          500
+        );
+      }
+    }
+  )
+  .post(
     //orm.drizzle.team/docs/delete - WITH DELETE clause
     '/bulk-delete',
     clerkMiddleware(),
@@ -213,7 +250,7 @@ const app = new Hono()
           {
             error: {
               code: 'DB_ERROR',
-              message: 'DatabaseError - Failed to delete categories',
+              message: 'DatabaseError - Failed to delete transactions',
             },
           },
           500
@@ -338,7 +375,7 @@ const app = new Hono()
           });
 
         if (!data) {
-          return c.json({ error: 'Category not found' }, 404);
+          return c.json({ error: 'Transaction not found' }, 404);
         }
         return c.json({ data });
       } catch {
