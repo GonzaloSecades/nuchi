@@ -32,7 +32,7 @@ export const useCreateAccount = () => {
               ?.error?.message
           : null;
 
-      toast.error(apiMessage ?? 'Error creating category');
+      toast.error(apiMessage ?? 'Error creating account');
     },
   });
   return mutation;
