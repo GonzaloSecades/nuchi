@@ -62,30 +62,35 @@ export const categoriesRelations = relations(categories, ({ many }) => ({
 }));
 
 /**
- * @typedef {Function} transactions
- * @description Defines the schema for the transactions table.
- * @property {integer} amount - Using pg integer to represent the smallest unit of currency (e.g., cents).
- * We are storing them in miliunits to avoid floating point precision issues.
- * @example $10.50 => 10500
- * @property {date} date - The date of the transaction.
- * User can add dates in the past or future. We wont pre-fill it.
+ * Defines the schema for the transactions table.
+ * The `amount` column uses a PostgreSQL integer to represent the smallest unit of currency (e.g., cents),
+ * and values are stored in miliunits to avoid floating point precision issues.
+ * Example: $10.50 => 10500.
+ * The `date` column is the date of the transaction; users can add dates in the past or future, and it is not pre-filled.
  */
 
-export const transactions = pgTable('transactions', {
-  id: text('id').primaryKey(),
-  amount: integer('amount').notNull(),
-  payee: text('payee').notNull(),
-  notes: text('notes'),
-  date: timestamp('date', { mode: 'date' }).notNull(),
-  accountId: text('account_id')
-    .references(() => accounts.id, {
-      onDelete: 'cascade',
-    })
-    .notNull(),
-  categoryId: text('category_id').references(() => categories.id, {
-    onDelete: 'set null',
-  }),
-});
+export const transactions = pgTable(
+  'transactions',
+  {
+    id: text('id').primaryKey(),
+    amount: integer('amount').notNull(),
+    payee: text('payee').notNull(),
+    notes: text('notes'),
+    date: timestamp('date', { mode: 'date' }).notNull(),
+    accountId: text('account_id')
+      .references(() => accounts.id, {
+        onDelete: 'cascade',
+      })
+      .notNull(),
+    categoryId: text('category_id').references(() => categories.id, {
+      onDelete: 'set null',
+    }),
+  },
+  (table) => ({
+    accountIdIdx: index('transactions_account_id_idx').on(table.accountId),
+    categoryIdIdx: index('transactions_category_id_idx').on(table.categoryId),
+  })
+);
 
 export const transactionsRelations = relations(transactions, ({ one }) => ({
   account: one(accounts, {
@@ -97,8 +102,6 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
     references: [categories.id],
   }),
 }));
-
-//for transactions we will index a child table like accounts using accountID
 
 export const InsertAccountSchema = createInsertSchema(accounts);
 export const InsertCategorySchema = createInsertSchema(categories);

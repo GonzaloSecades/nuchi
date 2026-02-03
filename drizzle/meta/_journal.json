@@ -50,6 +50,13 @@
       "when": 1770131317186,
       "tag": "0006_melted_supernaut",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1770133827371,
+      "tag": "0007_modern_virginia_dare",
+      "breakpoints": true
     }
   ]
 }
