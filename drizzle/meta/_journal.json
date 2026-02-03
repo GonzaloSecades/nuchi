@@ -43,6 +43,13 @@
       "when": 1770128307582,
       "tag": "0005_square_grey_gargoyle",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1770131317186,
+      "tag": "0006_melted_supernaut",
+      "breakpoints": true
     }
   ]
 }
