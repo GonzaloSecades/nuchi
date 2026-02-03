@@ -1,10 +1,12 @@
 import { Hono } from 'hono';
 import { handle } from 'hono/vercel';
 
+//route controllers
 import accounts from './accounts';
 import categories from './categories';
-//routes
+import transactions from './transactions';
 
+//routes
 export const runtime = 'edge';
 
 const app = new Hono().basePath('/api');
@@ -12,7 +14,8 @@ const app = new Hono().basePath('/api');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const routes = app
   .route('/accounts', accounts)
-  .route('/categories', categories);
+  .route('/categories', categories)
+  .route('/transactions', transactions);
 
 export const GET = handle(app);
 export const POST = handle(app);
