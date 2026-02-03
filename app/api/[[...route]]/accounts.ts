@@ -97,7 +97,20 @@ const app = new Hono()
           .returning();
 
         return c.json({ data });
-      } catch {
+      } catch (error) {
+        const err = error as { code?: string; constraint?: string };
+        if (err?.code === '23505') {
+          return c.json(
+            {
+              error: {
+                code: 'DUPLICATE_ACCOUNT_NAME',
+                message: 'You already have an account with this name.',
+                constraint: err.constraint,
+              },
+            },
+            409
+          );
+        }
         return c.json(
           {
             error: {
@@ -190,7 +203,20 @@ const app = new Hono()
           return c.json({ error: 'Account not found' }, 404);
         }
         return c.json({ data });
-      } catch {
+      } catch (error) {
+        const err = error as { code?: string; constraint?: string };
+        if (err?.code === '23505') {
+          return c.json(
+            {
+              error: {
+                code: 'DUPLICATE_ACCOUNT_NAME',
+                message: 'You already have an account with this name.',
+                constraint: err.constraint,
+              },
+            },
+            409
+          );
+        }
         return c.json(
           {
             error: {

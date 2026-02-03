@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createApiError } from '@/lib/api-error';
+import { ApiError, createApiError } from '@/lib/api-error';
 import { client } from '@/lib/hono';
 
 type ResponseType = InferResponseType<
@@ -34,8 +34,14 @@ export const useEditAccount = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
       //TODO: Invalidate Summary and transactions later
     },
-    onError: () => {
-      toast.error(`Error to edit account`);
+    onError: (error) => {
+      const apiMessage =
+        error instanceof ApiError
+          ? (error.details.errorData as { error?: { message?: string } } | null)
+              ?.error?.message
+          : null;
+
+      toast.error(apiMessage ?? 'Error editing account');
     },
   });
   return mutation;
