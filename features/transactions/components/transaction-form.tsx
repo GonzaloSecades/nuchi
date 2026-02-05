@@ -3,6 +3,7 @@ import { Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { AmountInput } from '@/components/amount-input';
 import { DatePicker } from '@/components/date-picker';
 import { Select } from '@/components/select';
 import { Button } from '@/components/ui/button';
@@ -17,9 +18,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { InsertTransactionSchema } from '@/db/schema';
+import { convertAmountToMiliunits } from '@/lib/utils';
 
 const formSchema = z.object({
-  date: z.coerce.date(),
+  date: z.date(),
   accountId: z.string(),
   categoryId: z.string().nullable().optional(),
   payee: z.string(),
@@ -68,8 +70,10 @@ export const TransactionForm = ({
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log('Submitted values:', values);
-    //onSubmit(values);
+    const amount = parseFloat(values.amount);
+    const amountInMiliunits = convertAmountToMiliunits(amount);
+
+    onSubmit({ ...values, amount: amountInMiliunits });
   };
 
   const handleDelete = () => {
@@ -88,7 +92,7 @@ export const TransactionForm = ({
             <FormItem>
               <FormControl>
                 <DatePicker
-                  value={field.value as Date | undefined}
+                  value={field.value}
                   onChange={field.onChange}
                   disabled={disabled}
                 />
@@ -155,6 +159,23 @@ export const TransactionForm = ({
           )}
         />
         <FormField
+          name="amount"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Amount</FormLabel>
+              <FormControl>
+                <AmountInput
+                  {...field}
+                  disabled={disabled}
+                  placeholder="0.00"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
           name="notes"
           control={form.control}
           render={({ field }) => (
@@ -184,7 +205,7 @@ export const TransactionForm = ({
             variant="outline"
           >
             <Trash className="mr-2 size-4" />
-            Delete Account
+            Delete Transaction
           </Button>
         )}
       </form>
