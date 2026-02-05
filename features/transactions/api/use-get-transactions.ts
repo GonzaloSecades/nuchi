@@ -1,5 +1,3 @@
-//hook to get accounts to getAccount endpoint
-
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 

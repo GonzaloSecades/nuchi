@@ -315,7 +315,8 @@ const app = new Hono()
         }
 
         return c.json({ data });
-      } catch {
+      } catch (e) {
+        console.log(e);
         return c.json(
           {
             error: {

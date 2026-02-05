@@ -24,7 +24,7 @@ export const useEditTransaction = (id?: string) => {
       });
 
       if (!response.ok) {
-        throw await createApiError(response, 'edit account ');
+        throw await createApiError(response, 'edit transaction ');
       }
       return await response.json();
     },

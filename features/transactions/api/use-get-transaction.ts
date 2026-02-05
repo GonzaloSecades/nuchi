@@ -1,5 +1,3 @@
-//hook to get a single account to getAccount endpoint
-
 import { useQuery } from '@tanstack/react-query';
 
 import { createApiError } from '@/lib/api-error';
