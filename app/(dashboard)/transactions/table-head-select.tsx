@@ -13,7 +13,7 @@ type Props = {
   onChange: (columnIndex: number, value: string | null) => void;
 };
 
-const options = ['amount', 'date', 'payee', 'notes'];
+const options = ['amount', 'date', 'payee'];
 
 export const TableHeadSelect = ({
   columnIndex,
@@ -29,13 +29,16 @@ export const TableHeadSelect = ({
       <SelectTrigger
         className={cn(
           'focus:ring-transaparent border-none bg-transparent capitalize outline-none focus:ring-offset-0',
-          currentSelection && 'text-blue-500'
+          currentSelection && 'text-blue-500',
+          !currentSelection && 'text-muted-foreground italic'
         )}
       >
         <SelectValue placeholder="Skip" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="skip">Skip</SelectItem>
+        <SelectItem value="skip" className="text-muted-foreground italic">
+          Skip
+        </SelectItem>
         {options.map((option, index) => {
           const disabled =
             Object.values(selectedColumns).includes(option) &&
