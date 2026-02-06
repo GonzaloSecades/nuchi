@@ -53,44 +53,29 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
   const progress = Object.values(selectedColumns).filter(Boolean).length;
 
   const handleContinue = () => {
-    const getColumnIndex = (columns: string) => {
-      return columns.split('_')[1];
-    };
-
-    const mappedData = {
-      headers: headers.map((_header, index) => {
-        const columnIndex = getColumnIndex(`column_${index}`);
-        return selectedColumns[`column_${columnIndex}`] || null;
-      }),
-      body: body
-        .map((row) => {
-          const transformedRow = row.map((cell, index) => {
-            const columnIndex = getColumnIndex(`column_${index}`);
-            return selectedColumns[`column_${columnIndex}`] ? cell : null;
-          });
-
-          return transformedRow.every((row) => row === null)
-            ? []
-            : transformedRow;
-        })
-        .filter((row) => row.length > 0),
-    };
-
-    const arrayOfData = mappedData.body.map((row) => {
-      return row.reduce((acc: any, cell, index) => {
-        const header = mappedData.headers[index];
-        if (header !== null) {
-          acc[header] = cell;
-        }
+    const activeColumns = headers.reduce<{ index: number; header: string }[]>(
+      (acc, _header, index) => {
+        const mapped = selectedColumns[`column_${index}`];
+        if (mapped) acc.push({ index, header: mapped });
         return acc;
-      }, {});
-    });
+      },
+      []
+    );
 
-    const formattedData = arrayOfData.map((item) => ({
-      ...item,
-      amount: convertAmountToMiliunits(parseFloat(item.amount)),
-      date: format(parse(item.date, dateFormat, new Date()), outputFormat),
-    }));
+    const formattedData = body
+      .map((row) => {
+        const obj: Record<string, any> = {};
+        for (const { index, header } of activeColumns) {
+          obj[header] = row[index];
+        }
+        return obj;
+      })
+      .filter((obj) => Object.keys(obj).length > 0)
+      .map((item) => ({
+        ...item,
+        amount: convertAmountToMiliunits(parseFloat(item.amount)),
+        date: format(parse(item.date, dateFormat, new Date()), outputFormat),
+      }));
 
     onSubmit(formattedData);
   };
