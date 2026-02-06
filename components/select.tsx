@@ -35,9 +35,9 @@ export const Select = ({
       styles={{
         control: (base: Record<string, unknown>) => ({
           ...base,
-          borderColor: 'e2e8f0',
+          borderColor: '#e2e8f0',
           ':hover': {
-            borderColor: 'e2e8f0',
+            borderColor: '#e2e8f0',
           },
         }),
       }}

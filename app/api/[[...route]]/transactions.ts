@@ -321,7 +321,7 @@ const app = new Hono()
           {
             error: {
               code: 'DB_ERROR',
-              message: 'DatabaseError - Failed to update category',
+              message: 'DatabaseError - Failed to update transaction',
             },
           },
           500
@@ -343,7 +343,7 @@ const app = new Hono()
       const { id } = c.req.valid('param');
 
       if (!id) {
-        return c.json({ error: 'Missing category id' }, 400);
+        return c.json({ error: 'Missing transaction id' }, 400);
       }
 
       if (!auth?.userId) {
