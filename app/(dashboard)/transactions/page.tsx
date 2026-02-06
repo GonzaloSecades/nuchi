@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction';
@@ -10,8 +12,35 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions';
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
 import { columns } from './columns';
+import { ImportCard } from './import-card';
+import { UploadButton } from './upload-button';
+
+enum VARIANTS {
+  LIST = 'LIST',
+  IMPORT = 'IMPORT',
+}
+
+const INITIAL_IMPORT_RESULTS = {
+  data: [],
+  errors: [],
+  meta: {},
+};
 
 const TransactionsPage = () => {
+  const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
+  const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
+
+  const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
+    console.log(results);
+    setImportResults(results);
+    setVariant(VARIANTS.IMPORT);
+  };
+
+  const onCancelImport = () => {
+    setImportResults(INITIAL_IMPORT_RESULTS);
+    setVariant(VARIANTS.LIST);
+  };
+
   const newTransaction = useNewTransaction();
   const deleteTransactions = useBulkDeleteTransactions();
   const transactionsQuery = useGetTransactions();
@@ -34,6 +63,19 @@ const TransactionsPage = () => {
       </div>
     );
   }
+
+  if (variant === VARIANTS.IMPORT) {
+    return (
+      <>
+        <ImportCard
+          data={importResults.data}
+          onCancel={onCancelImport}
+          onSubmit={(data) => console.log(data)}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="mx-auto -mt-24 w-full max-w-(--breakpoint-2xl) pb-10">
       <Card className="border-none drop-shadow-sm">
@@ -41,10 +83,13 @@ const TransactionsPage = () => {
           <CardTitle className="line-clamp-1 text-xl">
             Transactions History
           </CardTitle>
-          <Button onClick={newTransaction.onOpen} size="sm">
-            <Plus className="mr-1 size-4" />
-            Add new
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button onClick={newTransaction.onOpen} size="sm">
+              <Plus className="mr-1 size-4" />
+              Add new
+            </Button>
+            <UploadButton onUpload={onUpload} />
+          </div>
         </CardHeader>
         <CardContent>
           <DataTable
