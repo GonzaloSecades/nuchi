@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { convertAmountToMiliunits } from '@/lib/utils';
+import { format, parse } from 'date-fns';
 import { useState } from 'react';
 import { ImportTable } from './import-table';
 
@@ -50,6 +52,48 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
 
   const progress = Object.values(selectedColumns).filter(Boolean).length;
 
+  const handleContinue = () => {
+    const getColumnIndex = (columns: string) => {
+      return columns.split('_')[1];
+    };
+
+    const mappedData = {
+      headers: headers.map((_header, index) => {
+        const columnIndex = getColumnIndex(`column_${index}`);
+        return selectedColumns[`column_${columnIndex}`] || null;
+      }),
+      body: body
+        .map((row) => {
+          const transformedRow = row.map((cell, index) => {
+            const columnIndex = getColumnIndex(`column_${index}`);
+            return selectedColumns[`column_${columnIndex}`] ? cell : null;
+          });
+
+          return transformedRow.every((row) => row === null)
+            ? []
+            : transformedRow;
+        })
+        .filter((row) => row.length > 0),
+    };
+
+    const arrayOfData = mappedData.body.map((row) => {
+      return row.reduce((acc: any, cell, index) => {
+        const header = mappedData.headers[index];
+        if (header !== null) {
+          acc[header] = cell;
+        }
+        return acc;
+      }, {});
+    });
+
+    const formattedData = arrayOfData.map((item) => ({
+      ...item,
+      amount: convertAmountToMiliunits(parseFloat(item.amount)),
+      date: format(parse(item.date, dateFormat, new Date()), outputFormat),
+    }));
+
+    onSubmit(formattedData);
+  };
   return (
     <Card className="border-none drop-shadow-sm">
       <CardHeader className="gap-y-2 lg:flex lg:flex-row lg:items-center lg:justify-between">
@@ -64,7 +108,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
             className="w-full lg:w-auto"
             size="sm"
             disabled={progress < requiredOptions.length}
-            onClick={() => {}}
+            onClick={handleContinue}
           >
             Continue ({progress} / {requiredOptions.length})
           </Button>
