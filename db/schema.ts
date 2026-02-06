@@ -1,11 +1,15 @@
+import { relations } from 'drizzle-orm';
 import {
   customType,
   index,
+  integer,
   pgTable,
   text,
+  timestamp,
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
 // Postgres CITEXT gives case-insensitive comparisons (and therefore uniqueness).
 // Drizzle pg-core doesn't export citext in all versions, so we map it via customType.
@@ -32,6 +36,10 @@ export const accounts = pgTable(
   })
 );
 
+export const accountsRelations = relations(accounts, ({ many }) => ({
+  transactions: many(transactions),
+}));
+
 export const categories = pgTable(
   'categories',
   {
@@ -49,7 +57,54 @@ export const categories = pgTable(
   })
 );
 
-//for transactions we will index a child table like accounts using accountID
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  transactions: many(transactions),
+}));
+
+/**
+ * Defines the schema for the transactions table.
+ * The `amount` column uses a PostgreSQL integer to represent the smallest unit of currency (e.g., cents),
+ * and values are stored in miliunits to avoid floating point precision issues.
+ * Example: $10.50 => 10500.
+ * The `date` column is the date of the transaction; users can add dates in the past or future, and it is not pre-filled.
+ */
+
+export const transactions = pgTable(
+  'transactions',
+  {
+    id: text('id').primaryKey(),
+    amount: integer('amount').notNull(),
+    payee: text('payee').notNull(),
+    notes: text('notes'),
+    date: timestamp('date', { mode: 'date' }).notNull(),
+    accountId: text('account_id')
+      .references(() => accounts.id, {
+        onDelete: 'cascade',
+      })
+      .notNull(),
+    categoryId: text('category_id').references(() => categories.id, {
+      onDelete: 'set null',
+    }),
+  },
+  (table) => ({
+    accountIdIdx: index('transactions_account_id_idx').on(table.accountId),
+    categoryIdIdx: index('transactions_category_id_idx').on(table.categoryId),
+  })
+);
+
+export const transactionsRelations = relations(transactions, ({ one }) => ({
+  account: one(accounts, {
+    fields: [transactions.accountId],
+    references: [accounts.id],
+  }),
+  categories: one(categories, {
+    fields: [transactions.categoryId],
+    references: [categories.id],
+  }),
+}));
 
 export const InsertAccountSchema = createInsertSchema(accounts);
 export const InsertCategorySchema = createInsertSchema(categories);
+export const InsertTransactionSchema = createInsertSchema(transactions, {
+  date: z.coerce.date(),
+});

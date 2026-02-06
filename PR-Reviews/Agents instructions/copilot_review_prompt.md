@@ -5,8 +5,9 @@ Regenerate and REPLACE the existing PR overview using the LATEST state of this P
 
 OUTPUTS (you must produce BOTH):
 
-1. Update/create a file named PR_OVERVIEW.md with the exact structure below.
-2. Produce a ready-to-paste GitHub PR COMMENT that summarizes what you generated and references PR_OVERVIEW.md.
+1. create a file named {prNumber}.{createAtitle}.md with the exact structure below.
+   e.g:0.5.Accounts-setups.md
+2. Produce a ready-to-paste GitHub PR COMMENT that summarizes what you generated and references the file created in rule 1.
 
 STRICT RULES
 
@@ -18,7 +19,7 @@ STRICT RULES
 - Prefer bullet lists. Be specific and technical.
 
 ========================
-PR_OVERVIEW.md STRUCTURE (MUST MATCH)
+PR OVERVIEW STRUCTURE (MUST MATCH)
 ========================
 
 # PR Overview: <Descriptive Title Based on PR>
@@ -204,7 +205,7 @@ PR COMMENT STRUCTURE (MUST MATCH)
 ========================
 Write a PR comment in Markdown with:
 
-- One-line action summary: “Generated comprehensive technical documentation in PR_OVERVIEW.md.”
+- One-line action summary: “Generated comprehensive technical documentation in {createdPrMDfile}.”
 - “Contents” section: 5–8 bullets summarizing what’s inside (Architecture, Key Changes, Risk Analysis, Technical Debt, Deployment, etc.)
 - “Structure” section: a small tree view of PR_OVERVIEW.md major headings (like a file outline)
 - Do NOT paste the whole document into the comment.

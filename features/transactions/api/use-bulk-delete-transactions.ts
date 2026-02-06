@@ -7,36 +7,32 @@ import { createApiError } from '@/lib/api-error';
 import { client } from '@/lib/hono';
 
 type ResponseType = InferResponseType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)['bulk-delete']['$post']
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)['bulk-delete']['$post']
 >['json'];
 
-export const useEditCategory = (id?: string) => {
+export const useBulkDeleteTransactions = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.categories[':id']['$patch']({
-        param: { id: id },
+      const response = await client.api.transactions['bulk-delete']['$post']({
         json,
       });
 
       if (!response.ok) {
-        throw await createApiError(response, 'edit category ');
+        throw await createApiError(response, 'transactions');
       }
       return await response.json();
     },
     onSuccess: () => {
-      toast.success('Category edited successfully');
-      queryClient.invalidateQueries({ queryKey: ['category', { id }] });
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      toast.success('Transactions deleted successfully');
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      //TODO: Invalidate Summary and transactions later
     },
     onError: () => {
-      toast.error(`Error editing category`);
+      toast.error(`Error deleting transactions`);
     },
   });
   return mutation;

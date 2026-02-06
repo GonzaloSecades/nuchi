@@ -6,34 +6,26 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ApiError, createApiError } from '@/lib/api-error';
 import { client } from '@/lib/hono';
 
-type ResponseType = InferResponseType<
-  (typeof client.api.accounts)[':id']['$patch']
->;
+type ResponseType = InferResponseType<typeof client.api.transactions.$post>;
 type RequestType = InferRequestType<
-  (typeof client.api.accounts)[':id']['$patch']
+  typeof client.api.transactions.$post
 >['json'];
 
-export const useEditAccount = (id?: string) => {
+export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.accounts[':id']['$patch']({
-        param: { id: id },
-        json,
-      });
+      const response = await client.api.transactions.$post({ json });
 
       if (!response.ok) {
-        throw await createApiError(response, 'edit account ');
+        throw await createApiError(response, 'transactions');
       }
       return await response.json();
     },
     onSuccess: () => {
-      toast.success('Account edited successfully');
-      queryClient.invalidateQueries({ queryKey: ['account', { id }] });
-      queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      toast.success('Transaction created successfully');
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      //TODO: Invalidate Summary
     },
     onError: (error) => {
       const apiMessage =
@@ -42,7 +34,7 @@ export const useEditAccount = (id?: string) => {
               ?.error?.message
           : null;
 
-      toast.error(apiMessage ?? 'Error editing account');
+      toast.error(apiMessage ?? 'Error creating transaction');
     },
   });
   return mutation;

@@ -1,0 +1,2 @@
+CREATE INDEX IF NOT EXISTS "transactions_account_id_idx" ON "transactions" ("account_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "transactions_category_id_idx" ON "transactions" ("category_id");
