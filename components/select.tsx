@@ -26,6 +26,9 @@ export const Select = ({
   };
 
   const formattedValue = useMemo(() => {
+    if (value === undefined) {
+      return undefined;
+    }
     return options.find((option) => option.value === value) || null;
   }, [options, value]);
 
@@ -41,7 +44,7 @@ export const Select = ({
           },
         }),
       }}
-      value={formattedValue}
+      {...(formattedValue === undefined ? {} : { value: formattedValue })}
       onChange={onSelect}
       options={options}
       onCreateOption={onCreate}
