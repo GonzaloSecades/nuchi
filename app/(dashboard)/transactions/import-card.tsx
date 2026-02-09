@@ -50,7 +50,9 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
     });
   };
 
-  const progress = Object.values(selectedColumns).filter(Boolean).length;
+  const progress = Object.values(selectedColumns).filter(
+    (v) => v !== null && v !== ''
+  ).length;
 
   const handleContinue = () => {
     const activeColumns = headers.reduce<{ index: number; header: string }[]>(

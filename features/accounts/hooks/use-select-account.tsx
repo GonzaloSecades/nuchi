@@ -16,7 +16,7 @@ import {
 
 export const useSelectAccount = (): [
   () => JSX.Element,
-  () => Promise<unknown>,
+  () => Promise<string | undefined>,
 ] => {
   const accountQuery = useGetAccounts();
   const accountMutation = useCreateAccount();
@@ -34,8 +34,12 @@ export const useSelectAccount = (): [
 
   const selectValue = useRef<string>('');
 
+  const [hasSelection, setHasSelection] = useState(false);
+
   const confirm = () =>
-    new Promise((resolve, reject) => {
+    new Promise<string | undefined>((resolve) => {
+      selectValue.current = '';
+      setHasSelection(false);
       setPromise({ resolve });
     });
 
@@ -54,7 +58,10 @@ export const useSelectAccount = (): [
   };
   //onOpenChange={(open) => !open && handleCancel()}
   const AccountDialog = () => (
-    <Dialog open={promise !== null}>
+    <Dialog
+      open={promise !== null}
+      onOpenChange={(open) => !open && handleCancel()}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Select Account</DialogTitle>
@@ -68,6 +75,7 @@ export const useSelectAccount = (): [
           onCreate={onCreateAccount}
           onChange={(value) => {
             selectValue.current = value ?? '';
+            setHasSelection(Boolean(value));
           }}
           disabled={accountQuery.isLoading || accountMutation.isPending}
         />
@@ -75,7 +83,9 @@ export const useSelectAccount = (): [
           <Button onClick={handleCancel} variant="outline">
             Cancel
           </Button>
-          <Button onClick={handleConfirm}>Confirm</Button>
+          <Button disabled={!hasSelection} onClick={handleConfirm}>
+            Confirm
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

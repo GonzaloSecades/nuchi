@@ -39,13 +39,13 @@ export const TableHeadSelect = ({
         <SelectItem value="skip" className="text-muted-foreground italic">
           Skip
         </SelectItem>
-        {options.map((option, index) => {
+        {options.map((option) => {
           const disabled =
             Object.values(selectedColumns).includes(option) &&
             selectedColumns[`column_${columnIndex}`] !== option;
           return (
             <SelectItem
-              key={index}
+              key={option}
               value={option}
               disabled={disabled}
               className="capitalize"

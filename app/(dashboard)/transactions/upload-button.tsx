@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Upload } from 'lucide-react';
+import type { HTMLAttributes } from 'react';
 import { useCSVReader } from 'react-papaparse';
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
 };
 
 type CSVReaderRenderProps = {
-  getRootProps: () => React.HTMLAttributes<HTMLElement>;
+  getRootProps: () => HTMLAttributes<HTMLElement>;
 };
 
 export const UploadButton = ({ onUpload }: Props) => {
