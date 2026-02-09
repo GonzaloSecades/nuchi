@@ -194,7 +194,7 @@ export const TransactionForm = ({
           )}
         />
         <Button className="w-full" disabled={disabled} type="submit">
-          {!!id ? 'Save Changes' : 'Create Transaction'}
+          {!!id ? 'Save Changes' : 'Edit Transaction'}
         </Button>
         {!!id && (
           <Button

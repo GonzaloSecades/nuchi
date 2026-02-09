@@ -43,4 +43,4 @@ Output Structure (TECH_DEBT_TICKETS.md)
 
 (List tickets from highest to lowest: P0 → P3)
 
-Now generate TECH_DEBT_TICKETS.md from the provided file.
+Now generate TECH_DEBT_TICKETS_PR{prNumber}.md from the provided file.
