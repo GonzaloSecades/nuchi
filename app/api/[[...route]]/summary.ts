@@ -9,6 +9,11 @@ import { accounts, categories, transactions } from '@/db/schema';
 import { calculatePercentageChange, fillMissingDays } from '@/lib/utils';
 import { and, desc, eq, gte, lt, lte, sql, sum } from 'drizzle-orm';
 
+/**
+ * @techDebt
+ * This handler performs several DB queries without a try/catch. Other API routes in this codebase consistently catch DB errors and return a structured { error: { code, message } } payload; align this endpoint with that pattern so failures are handled consistently.
+ */
+
 const app = new Hono()
   .get(
     '/',
@@ -173,6 +178,9 @@ const app = new Hono()
     }
   )
   .get('/asd', async (c) => {
+    //For GithubCopilot review.
+    //This is just for the linter to not break all the structure as more endpoints will be added.
+
     return c.json({
       summary: true,
     });
