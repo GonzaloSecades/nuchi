@@ -53,7 +53,7 @@ const app = new Hono()
                 Number
               ),
             expenses:
-              sql`SUM(CASE WHEN ${transactions.amount} < 0 THEN ${transactions.amount} ELSE 0 END)`.mapWith(
+              sql`SUM(CASE WHEN ${transactions.amount} < 0 THEN ABS(${transactions.amount}) ELSE 0 END)`.mapWith(
                 Number
               ),
             remaining: sum(transactions.amount).mapWith(Number),

@@ -15,7 +15,7 @@ export const useGetSummary = () => {
   const query = useQuery({
     //TODO: Check if params ar needed in the key;
 
-    queryKey: ['summary'],
+    queryKey: ['summary', { from, to, accountId }],
     queryFn: async () => {
       const response = await client.api.summary.$get({
         query: {
@@ -33,11 +33,11 @@ export const useGetSummary = () => {
       return {
         ...data,
         incomeAmount: convertAmountFromMiliunits(data.incomeAmount),
-        expenseAmount: convertAmountFromMiliunits(data.expensesAmount),
+        expensesAmount: convertAmountFromMiliunits(data.expensesAmount),
         remainingAmount: convertAmountFromMiliunits(data.remainingAmount),
         categories: data.categories.map((category) => ({
           ...category,
-          amount: convertAmountFromMiliunits(category.value),
+          value: convertAmountFromMiliunits(category.value),
         })),
         days: data.days.map((day) => ({
           ...day,

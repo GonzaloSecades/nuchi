@@ -32,7 +32,7 @@ export const CustomTooltip = ({ active, payload }: any) => {
             <p className="text-muted-foreground text-sm">Expenses</p>
           </div>
           <p className="text-right text-sm font-medium">
-            {formatCurrency(expenses * -1)}
+            {formatCurrency(expenses)}
           </p>
         </div>
       </div>
