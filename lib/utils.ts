@@ -1,5 +1,5 @@
 import { clsx, type ClassValue } from 'clsx';
-import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
+import { eachDayOfInterval, format, subDays } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -38,30 +38,41 @@ export function fillMissingDays(
   startDate: Date,
   endDate: Date
 ) {
-  if (activeDays.length === 0) return [];
-
   const allDays = eachDayOfInterval({ start: startDate, end: endDate });
 
+  const byDay = new Map<
+    string,
+    { date: Date; income: number; expenses: number }
+  >();
+
+  for (const entry of activeDays) {
+    const key = format(entry.date, 'yyyy-MM-dd');
+    byDay.set(key, entry);
+  }
+
   const transactionsByDay = allDays.map((day) => {
-    const found = activeDays.find((d) => isSameDay(d.date, day));
+    const key = format(day, 'yyyy-MM-dd');
+    const found = byDay.get(key);
 
     if (found) {
       return found;
-    } else {
-      return {
-        date: day,
-        income: 0,
-        expenses: 0,
-      };
     }
+
+    return {
+      date: day,
+      income: 0,
+      expenses: 0,
+    };
   });
 
   return transactionsByDay;
 }
+
 type Period = {
   from: string | Date | undefined;
   to: string | Date | undefined;
 };
+
 export const formatDateRange = (period?: Period) => {
   const defaultTo = new Date();
   const defaultFrom = subDays(defaultTo, 30);
