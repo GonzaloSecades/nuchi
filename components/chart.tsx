@@ -41,6 +41,11 @@ export const Chart = ({ data = [] }: Props) => {
     setChartType(type);
   };
 
+  const isEmpty = data.length === 0;
+  const emptyTransactions = data.every(
+    (item) => item.income === 0 && item.expenses === 0
+  );
+
   return (
     <Card className="border-none drop-shadow-sm">
       <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
@@ -76,7 +81,7 @@ export const Chart = ({ data = [] }: Props) => {
         </Select>
       </CardHeader>
       <CardContent>
-        {data.length === 0 ? (
+        {isEmpty || emptyTransactions ? (
           <div className="flex h-87.5 flex-col items-center justify-center gap-y-4">
             <FileSearch className="text-muted-foreground size-6" />
             <p className="text-muted-foreground text-sm">
