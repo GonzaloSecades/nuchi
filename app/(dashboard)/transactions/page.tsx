@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -144,4 +144,26 @@ const TransactionsPage = () => {
     </div>
   );
 };
-export default TransactionsPage;
+
+const TransactionsPageWrapper = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto -mt-24 w-full max-w-(--breakpoint-2xl) pb-10">
+          <Card className="border-none drop-shadow-sm">
+            <CardHeader>
+              <Skeleton className="h-8 w-48" />
+            </CardHeader>
+            <CardContent className="flex h-125 w-full items-center justify-center">
+              <Loader2 className="size-6 animate-spin text-slate-300" />
+            </CardContent>
+          </Card>
+        </div>
+      }
+    >
+      <TransactionsPage />
+    </Suspense>
+  );
+};
+
+export default TransactionsPageWrapper;

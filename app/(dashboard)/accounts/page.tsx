@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNewAccount } from '@/features/accounts/hooks/use-new-account';
@@ -44,16 +46,18 @@ const AccountsPage = () => {
           </Button>
         </CardHeader>
         <CardContent>
-          <DataTable
-            columns={columns}
-            data={accounts}
-            filterKey="name"
-            onDelete={(row) => {
-              const ids = row.map((r) => r.original.id);
-              deleteAccounts.mutate({ ids });
-            }}
-            disabled={isDisabled}
-          />
+          <Suspense fallback={<Skeleton className="h-105 w-full rounded-lg" />}>
+            <DataTable
+              columns={columns}
+              data={accounts}
+              filterKey="name"
+              onDelete={(row) => {
+                const ids = row.map((r) => r.original.id);
+                deleteAccounts.mutate({ ids });
+              }}
+              disabled={isDisabled}
+            />
+          </Suspense>
         </CardContent>
       </Card>
     </div>

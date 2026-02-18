@@ -11,12 +11,12 @@ interface TooltipPayloadItem {
 }
 
 interface CustomTooltipProps {
-  active: boolean;
-  payload: TooltipPayloadItem[];
+  active?: boolean;
+  payload?: TooltipPayloadItem[];
 }
 
 export const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
-  if (!active) return null;
+  if (!active || !payload || payload.length < 2) return null;
 
   const date = payload[0].payload.date;
   const income = payload[0].value;
