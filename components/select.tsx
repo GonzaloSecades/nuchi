@@ -34,11 +34,13 @@ export const Select = ({
 
   return (
     <CreateableSelect
-      className="h-10 text-sm"
+      className="h-10 text-base md:text-sm"
+      classNamePrefix="nuchi-select"
       styles={{
         control: (base: Record<string, unknown>) => ({
           ...base,
           borderColor: '#e2e8f0',
+          minHeight: '2.5rem',
           ':hover': {
             borderColor: '#e2e8f0',
           },

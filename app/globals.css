@@ -123,3 +123,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media (max-width: 767px) {
+  .nuchi-select__control,
+  .nuchi-select__value-container,
+  .nuchi-select__single-value,
+  .nuchi-select__placeholder,
+  .nuchi-select__input-container input,
+  .nuchi-select__option {
+    font-size: 16px !important;
+  }
+}

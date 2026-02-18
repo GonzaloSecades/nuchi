@@ -15,9 +15,10 @@ import {
   subWeeks,
   subYears,
 } from 'date-fns';
-import { ChevronDown, RotateCcw } from 'lucide-react';
+import { ChevronDown, ChevronLeft, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
+import { useMedia } from 'react-use';
 
 import qs from 'query-string';
 
@@ -31,7 +32,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { formatDateRange } from '@/lib/utils';
+import { cn, formatDateRange } from '@/lib/utils';
 
 type PresetKey =
   | 'today'
@@ -87,6 +88,11 @@ export const DateFilter = () => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<DateRange | undefined>(paramState);
   const [month, setMonth] = useState<Date>(paramState.from);
+  const [activePreset, setActivePreset] = useState<PresetKey | null>(null);
+  const [mobilePanel, setMobilePanel] = useState<'calendar' | 'presets'>(
+    'calendar'
+  );
+  const isMobile = useMedia('(max-width: 640px)', false);
 
   const onOpenChange = (nextOpen: boolean) => {
     setOpen(nextOpen);
@@ -95,6 +101,8 @@ export const DateFilter = () => {
       // re-seed from URL-derived state every time the popover opens
       setDate(paramState);
       setMonth(paramState.from);
+      setActivePreset(null);
+      setMobilePanel('calendar');
     }
   };
 
@@ -128,6 +136,7 @@ export const DateFilter = () => {
 
   const onReset = () => {
     setDate(undefined);
+    setActivePreset(null);
     pushToUrl(undefined, 'clear');
   };
 
@@ -195,9 +204,14 @@ export const DateFilter = () => {
     }
 
     setDate(next);
+    setActivePreset(preset);
 
     if (preset !== 'allTime' && next.from) {
       setMonth(next.from);
+    }
+
+    if (isMobile) {
+      setMobilePanel('calendar');
     }
   };
 
@@ -217,31 +231,99 @@ export const DateFilter = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        align="start"
-        className="w-auto max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl p-0"
+        align={isMobile ? 'center' : 'start'}
+        collisionPadding={isMobile ? 12 : 8}
+        className={cn(
+          'overflow-hidden rounded-xl p-0',
+          isMobile
+            ? 'w-[min(23rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)]'
+            : 'w-auto max-w-[calc(100vw-2rem)]'
+        )}
       >
-        <div className="flex w-fit">
+        <div className={cn('flex', isMobile ? 'w-full' : 'w-fit')}>
           {/* Presets column */}
-          <aside className="bg-muted/20 w-42.5 shrink-0 border-r p-3">
-            <div className="flex flex-col items-start gap-1">
-              {PRESETS.map((preset) => (
-                <Button
-                  key={preset.key}
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onPresetSelect(preset.key)}
-                  className="hover:bg-muted h-8 w-fit justify-start px-2 text-sm font-normal"
-                >
-                  {preset.label}
-                </Button>
-              ))}
-            </div>
+          <aside
+            className={cn(
+              'bg-muted/20 shrink-0 p-3',
+              isMobile
+                ? 'w-full border-b'
+                : 'w-42.5 border-r',
+              isMobile && mobilePanel !== 'presets' && 'hidden'
+            )}
+          >
+            {isMobile ? (
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setMobilePanel('calendar')}
+                    className="-ml-2 h-8 px-2 text-sm font-normal"
+                  >
+                    <ChevronLeft className="mr-1 size-4" />
+                    Calendar
+                  </Button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {PRESETS.map((preset) => (
+                    <Button
+                      key={preset.key}
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => onPresetSelect(preset.key)}
+                      className={cn(
+                        'h-9 w-full justify-center rounded-md border px-2 text-sm font-normal',
+                        activePreset === preset.key
+                          ? 'border-primary bg-primary text-primary-foreground hover:bg-primary/90'
+                          : 'border-border bg-background hover:bg-muted'
+                      )}
+                    >
+                      {preset.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {!isMobile ? (
+              <div className="flex flex-col items-start gap-1">
+                {PRESETS.map((preset) => (
+                  <Button
+                    key={preset.key}
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onPresetSelect(preset.key)}
+                    className="hover:bg-muted h-8 w-fit justify-start px-2 text-sm font-normal"
+                  >
+                    {preset.label}
+                  </Button>
+                ))}
+              </div>
+            ) : null}
           </aside>
 
           {/* Calendar + actions */}
-          <div className="flex-1">
-            <div className="w-fit border-b p-3">
+          <div
+            className={cn(
+              'flex-1',
+              isMobile && mobilePanel === 'presets' && 'hidden'
+            )}
+          >
+            <div className={cn('border-b p-3', isMobile ? 'w-full' : 'w-fit')}>
+              {isMobile ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setMobilePanel('presets')}
+                  className="-ml-2 mb-2 h-8 px-2 text-sm font-normal"
+                >
+                  <ChevronLeft className="mr-1 size-4" />
+                  Presets
+                </Button>
+              ) : null}
               <Calendar
                 disabled={false}
                 autoFocus
@@ -252,9 +334,10 @@ export const DateFilter = () => {
                 selected={selectedDate}
                 onSelect={(range) => {
                   setDate(range);
+                  setActivePreset(null);
                   if (range?.from) setMonth(range.from);
                 }}
-                numberOfMonths={2}
+                numberOfMonths={isMobile ? 1 : 2}
               />
             </div>
 
