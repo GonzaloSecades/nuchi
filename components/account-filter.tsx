@@ -28,14 +28,10 @@ export const AccountFilter = () => {
 
   const onChange = (newValue: string) => {
     const query = {
-      accountId: newValue,
+      accountId: newValue === 'all' ? '' : newValue,
       from,
       to,
     };
-    console.log(query);
-    if (newValue === 'all') {
-      query.accountId = '';
-    }
 
     const url = qs.stringifyUrl(
       {
@@ -44,7 +40,6 @@ export const AccountFilter = () => {
       },
       { skipNull: true, skipEmptyString: true }
     );
-    console.log(url);
 
     router.push(url);
   };

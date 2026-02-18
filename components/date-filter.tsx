@@ -98,12 +98,22 @@ export const DateFilter = () => {
     }
   };
 
-  const pushToUrl = (dateRange: DateRange | undefined) => {
-    const query = {
-      from: format(dateRange?.from || defaultFrom, 'yyyy-MM-dd'),
-      to: format(dateRange?.to || defaultTo, 'yyyy-MM-dd'),
-      accountId,
-    };
+  const pushToUrl = (
+    dateRange: DateRange | undefined,
+    mode: 'set' | 'clear' = 'set'
+  ) => {
+    const query =
+      mode === 'clear'
+        ? {
+            accountId,
+            from: null,
+            to: null,
+          }
+        : {
+            accountId,
+            from: dateRange?.from ? format(dateRange.from, 'yyyy-MM-dd') : null,
+            to: dateRange?.to ? format(dateRange.to, 'yyyy-MM-dd') : null,
+          };
 
     const url = qs.stringifyUrl(
       {
@@ -118,7 +128,7 @@ export const DateFilter = () => {
 
   const onReset = () => {
     setDate(undefined);
-    pushToUrl(undefined);
+    pushToUrl(undefined, 'clear');
   };
 
   const onPresetSelect = (preset: PresetKey) => {
@@ -191,6 +201,8 @@ export const DateFilter = () => {
     }
   };
 
+  const selectedDate = open ? date : paramState;
+
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
@@ -204,43 +216,6 @@ export const DateFilter = () => {
           <ChevronDown className="ml-2 size-4 opacity-50" />
         </Button>
       </PopoverTrigger>
-      {/* <PopoverContent className="w-full p-0 lg:w-auto" align="start">
-        <div className="flex items-center gap-2 border-b p-4">
-          <Calendar
-            disabled={false}
-            autoFocus={true}
-            mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={2}
-          />
-          <div>Hola</div>
-        </div>
-        <div className="flex w-full items-center gap-2 p-4">
-          <PopoverClose asChild>
-            <Button
-              onClick={onReset}
-              disabled={!date?.from || !date?.to}
-              className="h-9 w-9 p-0"
-              variant="outline"
-            >
-              <RotateCcw />
-            </Button>
-          </PopoverClose>
-          <PopoverClose asChild>
-            <Button
-              onClick={() => {
-                pushToUrl(date);
-              }}
-              disabled={!date?.from || !date?.to}
-              className="h-9 flex-1 basis-1/2"
-            >
-              Apply
-            </Button>
-          </PopoverClose>
-        </div>
-      </PopoverContent> */}
       <PopoverContent
         align="start"
         className="w-auto max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl p-0"
@@ -274,7 +249,7 @@ export const DateFilter = () => {
                 month={month}
                 onMonthChange={setMonth}
                 defaultMonth={date?.from}
-                selected={date}
+                selected={selectedDate}
                 onSelect={(range) => {
                   setDate(range);
                   if (range?.from) setMonth(range.from);
