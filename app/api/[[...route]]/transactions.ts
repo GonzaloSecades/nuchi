@@ -12,7 +12,7 @@ import {
   MAX_BULK_CREATE_TRANSACTIONS,
   MAX_BULK_DELETE_BODY_BYTES,
   MAX_BULK_DELETE_TRANSACTIONS,
-  parseStrictDate,
+  parseDateRangeQuery,
 } from '@/lib/transaction-route-utils';
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
 import { zValidator } from '@hono/zod-validator';
@@ -202,8 +202,18 @@ const app = new Hono()
       const defaultTo = new Date();
       const defaultFrom = subDays(defaultTo, 30);
 
-      const startDate = parseStrictDate(from) ?? defaultFrom;
-      const endDate = parseStrictDate(to, { boundary: 'end' }) ?? defaultTo;
+      const dateRange = parseDateRangeQuery({
+        from,
+        to,
+        defaultFrom,
+        defaultTo,
+      });
+
+      if (!dateRange.ok) {
+        return c.json({ error: dateRange.error }, dateRange.status);
+      }
+
+      const { startDate, endDate } = dateRange;
 
       try {
         const data = await db

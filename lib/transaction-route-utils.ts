@@ -1,4 +1,10 @@
-import { endOfDay, format, isValid, parse } from 'date-fns';
+import {
+  differenceInCalendarDays,
+  endOfDay,
+  format,
+  isValid,
+  parse,
+} from 'date-fns';
 
 export {
   MAX_BULK_CREATE_BODY_BYTES,
@@ -17,6 +23,29 @@ let lastMutationRateLimitCleanup = 0;
 type ParseStrictDateOptions = {
   boundary?: 'start' | 'end';
 };
+
+type DateRangeQueryOptions = {
+  from: string | undefined;
+  to: string | undefined;
+  defaultFrom: Date;
+  defaultTo: Date;
+  maxDays?: number;
+};
+
+type DateRangeQueryResult =
+  | {
+      ok: true;
+      startDate: Date;
+      endDate: Date;
+    }
+  | {
+      ok: false;
+      status: 400;
+      error: {
+        code: 'INVALID_QUERY';
+        message: string;
+      };
+    };
 
 export function parseStrictDate(
   value: string | undefined,
@@ -37,6 +66,59 @@ export function parseStrictDate(
   }
 
   return options.boundary === 'end' ? endOfDay(parsed) : parsed;
+}
+
+export function parseDateRangeQuery({
+  from,
+  to,
+  defaultFrom,
+  defaultTo,
+  maxDays = 366,
+}: DateRangeQueryOptions): DateRangeQueryResult {
+  const parsedFrom = parseStrictDate(from);
+  const parsedTo = parseStrictDate(to, { boundary: 'end' });
+
+  if ((from && !parsedFrom) || (to && !parsedTo)) {
+    return {
+      ok: false,
+      status: 400,
+      error: {
+        code: 'INVALID_QUERY',
+        message: 'from and to must use yyyy-MM-dd dates.',
+      },
+    };
+  }
+
+  const startDate = parsedFrom ?? defaultFrom;
+  const endDate = parsedTo ?? defaultTo;
+
+  if (startDate > endDate) {
+    return {
+      ok: false,
+      status: 400,
+      error: {
+        code: 'INVALID_QUERY',
+        message: 'from must be less than or equal to to.',
+      },
+    };
+  }
+
+  if (differenceInCalendarDays(endDate, startDate) + 1 > maxDays) {
+    return {
+      ok: false,
+      status: 400,
+      error: {
+        code: 'INVALID_QUERY',
+        message: `Date range cannot exceed ${maxDays} days.`,
+      },
+    };
+  }
+
+  return {
+    ok: true,
+    startDate,
+    endDate,
+  };
 }
 
 function cleanupMutationRateLimit(now: number) {

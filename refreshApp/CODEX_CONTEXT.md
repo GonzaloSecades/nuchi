@@ -40,6 +40,8 @@
 - `to=yyyy-MM-dd` filters are inclusive through the end of that calendar day, so newly created same-day transactions are not hidden by date filters.
 - Remote Postgres TLS verifies certificates by default; `ALLOW_INSECURE_DATABASE_TLS=true` is required to opt out for known self-signed scenarios.
 - The app Drizzle pool uses a `globalThis` cache outside production to avoid Next.js dev HMR creating multiple `pg.Pool` instances.
+- Transaction list date filters now reject malformed `from`/`to` query values instead of silently falling back to defaults.
+- CSV transaction import validates amount/date/payee per row and shows row-level errors instead of throwing or submitting `NaN`.
 
 ## Verification Commands
 
@@ -56,7 +58,7 @@ PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH bun dev
 - Date: 2026-04-17
 - `bun run lint`: passed.
 - `./node_modules/.bin/tsc --noEmit`: passed.
-- `bun test`: passed focused tests for transaction route utility guards, browser API base URL resolution, import chunking, select option merging, inclusive end-of-day filtering, Postgres TLS configuration, and dev pool caching.
+- `bun test`: passed focused tests for transaction route utility guards, browser API base URL resolution, import chunking, select option merging, inclusive end-of-day filtering, Postgres TLS configuration, dev pool caching, transaction list date range parsing, and CSV import validation.
 - `npm run build`: passed.
 - `bun dev`: pulled/started `postgres:17-alpine`, ran migrations, and booted Next dev. Port 3000 was occupied, so Next used `http://localhost:3001`.
 - Docker state after smoke test: `nuchi-postgres-dev` healthy on host port `54329`.

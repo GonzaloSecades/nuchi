@@ -3,6 +3,7 @@ import { describe, it } from 'node:test';
 
 import {
   isContentLengthTooLarge,
+  parseDateRangeQuery,
   parseStrictDate,
 } from './transaction-route-utils';
 
@@ -41,5 +42,35 @@ describe('isContentLengthTooLarge', () => {
   it('ignores absent or non-numeric content length values', () => {
     assert.equal(isContentLengthTooLarge(undefined, 100), false);
     assert.equal(isContentLengthTooLarge('not-a-number', 100), false);
+  });
+});
+
+describe('parseDateRangeQuery', () => {
+  const defaultFrom = new Date(2026, 3, 1);
+  const defaultTo = new Date(2026, 3, 30);
+
+  it('rejects malformed date filters', () => {
+    const result = parseDateRangeQuery({
+      from: '2026-02-31',
+      to: undefined,
+      defaultFrom,
+      defaultTo,
+    });
+
+    assert.equal(result.ok, false);
+    assert.equal(result.ok ? undefined : result.error.code, 'INVALID_QUERY');
+  });
+
+  it('parses to filters as inclusive end-of-day dates', () => {
+    const result = parseDateRangeQuery({
+      from: '2026-04-17',
+      to: '2026-04-17',
+      defaultFrom,
+      defaultTo,
+    });
+
+    assert.equal(result.ok, true);
+    assert.equal(result.ok ? result.endDate.getHours() : undefined, 23);
+    assert.equal(result.ok ? result.endDate.getMilliseconds() : undefined, 999);
   });
 });
