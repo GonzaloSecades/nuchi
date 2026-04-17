@@ -1,8 +1,20 @@
 import { Separator } from '@/components/ui/separator';
 import { formatCurrency } from '../lib/utils';
 
-export const CategoryTooltip = ({ active, payload }: any) => {
-  if (!active) return null;
+type CategoryTooltipPayload = {
+  payload: {
+    name: string;
+  };
+  value: number;
+};
+
+type CategoryTooltipProps = {
+  active?: boolean;
+  payload?: CategoryTooltipPayload[];
+};
+
+export const CategoryTooltip = ({ active, payload }: CategoryTooltipProps) => {
+  if (!active || !payload?.length) return null;
 
   const name = payload[0].payload.name;
   const value = payload[0].value;

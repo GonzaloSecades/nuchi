@@ -7,12 +7,16 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { TableHeadSelect } from './table-head-select';
+import type { ImportableTransactionField } from './table-head-select';
 
 type Props = {
   headers: string[];
   body: string[][];
-  selectedColumns: Record<string, string | null>;
-  onTableHeadSelectChange: (columnIndex: number, value: string | null) => void;
+  selectedColumns: Record<string, ImportableTransactionField | null>;
+  onTableHeadSelectChange: (
+    columnIndex: number,
+    value: ImportableTransactionField | null
+  ) => void;
 };
 
 export const ImportTable = ({

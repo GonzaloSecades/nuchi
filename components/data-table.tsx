@@ -57,6 +57,8 @@ export function DataTable<TData, TValue>({
 
   const [rowSelection, setRowSelection] = React.useState({});
 
+  // TanStack Table manages mutable internals that React Compiler cannot verify.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,

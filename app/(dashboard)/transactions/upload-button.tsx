@@ -4,11 +4,17 @@ import type { HTMLAttributes } from 'react';
 import { useCSVReader } from 'react-papaparse';
 
 type Props = {
-  onUpload: (results: any) => void;
+  onUpload: (results: CSVUploadResults) => void;
 };
 
 type CSVReaderRenderProps = {
   getRootProps: () => HTMLAttributes<HTMLElement>;
+};
+
+export type CSVUploadResults = {
+  data: string[][];
+  errors: unknown[];
+  meta: Record<string, unknown>;
 };
 
 export const UploadButton = ({ onUpload }: Props) => {

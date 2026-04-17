@@ -1,13 +1,17 @@
 'use client';
 
-import { useMemo } from 'react';
+import {
+  mergeCreatedSelectOption,
+  type SelectOption,
+} from '@/lib/select-options';
+import { useMemo, useState } from 'react';
 import { SingleValue } from 'react-select';
 import CreateableSelect from 'react-select/creatable';
 
 type Props = {
   onChange: (value?: string) => void;
-  onCreate?: (value: string) => void;
-  options?: { label: string; value: string }[];
+  onCreate?: (value: string) => Promise<string | undefined> | string | void;
+  options?: SelectOption[];
   value?: string | null | undefined;
   disabled?: boolean;
   placeholder?: string;
@@ -21,16 +25,39 @@ export const Select = ({
   disabled,
   placeholder,
 }: Props) => {
-  const onSelect = (option: SingleValue<{ label: string; value: string }>) => {
+  const [createdOption, setCreatedOption] = useState<SelectOption | null>(null);
+
+  const mergedOptions = useMemo(
+    () => mergeCreatedSelectOption(options, createdOption),
+    [createdOption, options]
+  );
+
+  const onSelect = (option: SingleValue<SelectOption>) => {
     onChange(option?.value);
+  };
+
+  const onCreateOption = async (label: string) => {
+    const createdId = await onCreate?.(label);
+
+    if (!createdId) {
+      return;
+    }
+
+    const nextCreatedOption = {
+      label,
+      value: createdId,
+    };
+
+    setCreatedOption(nextCreatedOption);
+    onChange(createdId);
   };
 
   const formattedValue = useMemo(() => {
     if (value === undefined) {
       return undefined;
     }
-    return options.find((option) => option.value === value) || null;
-  }, [options, value]);
+    return mergedOptions.find((option) => option.value === value) || null;
+  }, [mergedOptions, value]);
 
   return (
     <CreateableSelect
@@ -48,8 +75,8 @@ export const Select = ({
       }}
       {...(formattedValue === undefined ? {} : { value: formattedValue })}
       onChange={onSelect}
-      options={options}
-      onCreateOption={onCreate}
+      options={mergedOptions}
+      onCreateOption={onCreate ? onCreateOption : undefined}
       isDisabled={disabled}
       placeholder={placeholder}
     />

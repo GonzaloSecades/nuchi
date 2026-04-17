@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+*.zip
 
 # debug
 npm-debug.log*
@@ -43,3 +44,4 @@ next-env.d.ts
 # clerk configuration (can include secrets)
 /.clerk/
 tech_debt_SuggestionsPR08.md
+/codexPrompts
