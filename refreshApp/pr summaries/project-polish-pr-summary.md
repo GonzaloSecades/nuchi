@@ -15,6 +15,8 @@ Create a clean local development restart point and close high-priority security/
 - Added bulk transaction caps, request body guards, request rate limiting, and CSV import chunking.
 - Guarded seed deletes behind `APP_ENV=local`, `ALLOW_DB_SEED=true`, and local DB URL validation.
 - Tightened summary/transaction date filters with strict `yyyy-MM-dd` parsing and inclusive end-of-day `to` ranges.
+- Remote Postgres TLS now verifies certificates by default, with `ALLOW_INSECURE_DATABASE_TLS=true` as an explicit opt-out for known self-signed scenarios.
+- App Drizzle pool creation uses a `globalThis` cache outside production to avoid Next.js dev HMR pool multiplication.
 - Removed the debug `/api/summary/asd` route.
 - Fixed browser API base URL resolution to avoid local dev cross-port CORS errors.
 - Auto-selects inline-created accounts/categories inside transaction flows.
@@ -38,9 +40,11 @@ Create a clean local development restart point and close high-priority security/
 - `lib/api-base-url.ts`
 - `lib/chunk-items.ts`
 - `lib/select-options.ts`
+- `db/connection.test.ts`
 
 ## Tests Added
 
+- `db/connection.test.ts`
 - `lib/transaction-route-utils.test.ts`
 - `lib/api-base-url.test.ts`
 - `lib/chunk-items.test.ts`

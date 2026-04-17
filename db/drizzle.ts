@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 
-import { createPool } from '@/db/connection';
+import { getOrCreateCachedPool } from '@/db/connection';
 
-export const pool = createPool();
+export const pool = getOrCreateCachedPool();
 export const db = drizzle(pool);
