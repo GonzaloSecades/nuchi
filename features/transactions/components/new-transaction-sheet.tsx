@@ -32,10 +32,13 @@ export const NewTransactionSheet = () => {
   //Categories
   const categoryQuery = useGetCategories();
   const categoryMutation = useCreateCategory();
-  const onCreateCategory = (name: string) =>
-    categoryMutation.mutate({
+  const onCreateCategory = async (name: string) => {
+    const category = await categoryMutation.mutateAsync({
       name,
     });
+
+    return 'data' in category ? category.data.id : undefined;
+  };
   const categoryOptions = (categoryQuery.data ?? []).map((category) => ({
     label: category.name,
     value: category.id,
@@ -44,10 +47,13 @@ export const NewTransactionSheet = () => {
   //Accounts
   const accountQuery = useGetAccounts();
   const accountMutation = useCreateAccount();
-  const onCreateAccount = (name: string) =>
-    accountMutation.mutate({
+  const onCreateAccount = async (name: string) => {
+    const account = await accountMutation.mutateAsync({
       name,
     });
+
+    return 'data' in account ? account.data.id : undefined;
+  };
   const accountOptions = (accountQuery.data ?? []).map((account) => ({
     label: account.name,
     value: account.id,

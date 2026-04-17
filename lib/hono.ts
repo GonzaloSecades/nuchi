@@ -39,5 +39,6 @@
 import { hc } from 'hono/client';
 
 import { AppType } from '@/app/api/[[...route]]/route';
+import { resolveApiBaseUrl } from '@/lib/api-base-url';
 
-export const client = hc<AppType>(process.env.NEXT_PUBLIC_API_URL!);
+export const client = hc<AppType>(resolveApiBaseUrl());

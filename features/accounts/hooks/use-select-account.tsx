@@ -21,7 +21,11 @@ export const useSelectAccount = (): [
   const accountQuery = useGetAccounts();
   const accountMutation = useCreateAccount();
 
-  const onCreateAccount = (name: string) => accountMutation.mutate({ name });
+  const onCreateAccount = async (name: string) => {
+    const account = await accountMutation.mutateAsync({ name });
+
+    return 'data' in account ? account.data.id : undefined;
+  };
 
   const accountOptions = (accountQuery.data ?? []).map((account) => ({
     label: account.name,

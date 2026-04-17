@@ -9,11 +9,21 @@ import { cn } from '@/lib/utils';
 
 type Props = {
   columnIndex: number;
-  selectedColumns: Record<string, string | null>;
-  onChange: (columnIndex: number, value: string | null) => void;
+  selectedColumns: Record<string, ImportableTransactionField | null>;
+  onChange: (
+    columnIndex: number,
+    value: ImportableTransactionField | null
+  ) => void;
 };
 
-const options = ['amount', 'date', 'payee'];
+const options = ['amount', 'date', 'payee'] as const;
+
+export type ImportableTransactionField = (typeof options)[number];
+
+const isImportableTransactionField = (
+  value: string
+): value is ImportableTransactionField =>
+  options.includes(value as ImportableTransactionField);
 
 export const TableHeadSelect = ({
   columnIndex,
@@ -24,7 +34,12 @@ export const TableHeadSelect = ({
   return (
     <Select
       value={currentSelection || ''}
-      onValueChange={(value) => onChange(columnIndex, value)}
+      onValueChange={(value) =>
+        onChange(
+          columnIndex,
+          isImportableTransactionField(value) ? value : null
+        )
+      }
     >
       <SelectTrigger
         className={cn(

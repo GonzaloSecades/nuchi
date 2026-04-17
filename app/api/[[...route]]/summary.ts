@@ -1,51 +1,81 @@
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
 import { zValidator } from '@hono/zod-validator';
-import { differenceInDays, parse, subDays } from 'date-fns';
+import { differenceInCalendarDays, subDays } from 'date-fns';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
 import { db } from '@/db/drizzle';
 import { accounts, categories, transactions } from '@/db/schema';
 import { calculatePercentageChange, fillMissingDays } from '@/lib/utils';
+import { parseStrictDate } from '@/lib/transaction-route-utils';
 import { and, desc, eq, gte, lt, lte, sql, sum } from 'drizzle-orm';
 
-/**
- * @techDebt
- * This handler performs several DB queries without a try/catch. Other API routes in this codebase consistently catch DB errors and return a structured { error: { code, message } } payload; align this endpoint with that pattern so failures are handled consistently.
- */
+const app = new Hono().get(
+  '/',
+  clerkMiddleware(),
+  zValidator(
+    'query',
+    z.object({
+      from: z.string().optional(),
+      to: z.string().optional(),
+      accountId: z.string().optional(),
+    })
+  ),
+  async (c) => {
+    const auth = getAuth(c);
+    const { from, to, accountId } = c.req.valid('query');
+    if (!auth?.userId) {
+      return c.json({ error: 'Unauthorized' }, 401);
+    }
 
-const app = new Hono()
-  .get(
-    '/',
-    clerkMiddleware(),
-    zValidator(
-      'query',
-      z.object({
-        from: z.string().optional(),
-        to: z.string().optional(),
-        accountId: z.string().optional(),
-      })
-    ),
-    async (c) => {
-      const auth = getAuth(c);
-      const { from, to, accountId } = c.req.valid('query');
-      if (!auth?.userId) {
-        return c.json({ error: 'Unauthorized' }, 401);
-      }
+    const defaultTo = new Date();
+    const defaultFrom = subDays(defaultTo, 30);
+    const parsedFrom = parseStrictDate(from);
+    const parsedTo = parseStrictDate(to, { boundary: 'end' });
+    const startDate = parsedFrom ?? defaultFrom;
+    const endDate = parsedTo ?? defaultTo;
 
-      const defaultTo = new Date();
-      const defaultFrom = subDays(defaultTo, 30);
+    if ((from && !parsedFrom) || (to && !parsedTo)) {
+      return c.json(
+        {
+          error: {
+            code: 'INVALID_QUERY',
+            message: 'from and to must use yyyy-MM-dd dates.',
+          },
+        },
+        400
+      );
+    }
 
-      const startDate = from
-        ? parse(from, 'yyyy-MM-dd', new Date())
-        : defaultFrom;
+    if (startDate > endDate) {
+      return c.json(
+        {
+          error: {
+            code: 'INVALID_QUERY',
+            message: 'from must be less than or equal to to.',
+          },
+        },
+        400
+      );
+    }
 
-      const endDate = to ? parse(to, 'yyyy-MM-dd', new Date()) : defaultTo;
+    if (differenceInCalendarDays(endDate, startDate) + 1 > 366) {
+      return c.json(
+        {
+          error: {
+            code: 'INVALID_QUERY',
+            message: 'Date range cannot exceed 366 days.',
+          },
+        },
+        400
+      );
+    }
 
-      const periodLength = differenceInDays(endDate, startDate) + 1;
-      const lastPeriodStart = subDays(startDate, periodLength);
-      const lastPeriodEnd = subDays(endDate, periodLength);
+    const periodLength = differenceInCalendarDays(endDate, startDate) + 1;
+    const lastPeriodStart = subDays(startDate, periodLength);
+    const lastPeriodEnd = subDays(endDate, periodLength);
 
+    try {
       async function fetchFinancialData(
         userId: string,
         startDate: Date,
@@ -175,15 +205,18 @@ const app = new Hono()
           days,
         },
       });
+    } catch {
+      return c.json(
+        {
+          error: {
+            code: 'DB_ERROR',
+            message: 'DatabaseError - Failed to fetch summary',
+          },
+        },
+        500
+      );
     }
-  )
-  .get('/asd', async (c) => {
-    //For GithubCopilot review.
-    //This is just for the linter to not break all the structure as more endpoints will be added.
-
-    return c.json({
-      summary: true,
-    });
-  });
+  }
+);
 
 export default app;

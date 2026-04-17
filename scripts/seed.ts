@@ -1,13 +1,33 @@
-import { neon } from '@neondatabase/serverless';
-import { subDays } from 'date-fns';
+import { eachDayOfInterval, format, subDays } from 'date-fns';
 import { config } from 'dotenv';
-import { drizzle } from 'drizzle-orm/neon-http';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import {
+  createPool,
+  getDatabaseUrl,
+  isLocalDatabaseUrl,
+} from '../db/connection';
 import { accounts, categories, transactions } from '../db/schema';
+import { convertAmountToMiliunits } from '@/lib/utils';
 
 config({ path: '.env.local' });
 
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql);
+const databaseUrl = getDatabaseUrl();
+const pool = createPool(databaseUrl);
+const db = drizzle(pool);
+
+function assertSeedAllowed() {
+  if (process.env.APP_ENV !== 'local') {
+    throw new Error('Refusing to seed unless APP_ENV=local');
+  }
+
+  if (process.env.ALLOW_DB_SEED !== 'true') {
+    throw new Error('Refusing to seed unless ALLOW_DB_SEED=true');
+  }
+
+  if (!isLocalDatabaseUrl(databaseUrl)) {
+    throw new Error('Refusing to seed a non-local DATABASE_URL');
+  }
+}
 
 const SEED_USER_ID = 'user_37tiuBEyYiNDFRk2anSrwOM5Oql';
 const SEED_CATEGORIES = [
@@ -41,9 +61,6 @@ const defaultTo = new Date();
 const defaultFrom = subDays(defaultTo, 30);
 
 const SEED_TRANSACTIONS: (typeof transactions.$inferSelect)[] = [];
-
-import { convertAmountToMiliunits } from '@/lib/utils';
-import { eachDayOfInterval, format } from 'date-fns';
 
 const generateRandomAmount = (category: typeof categories.$inferInsert) => {
   switch (category.name) {
@@ -92,6 +109,8 @@ generateTransactions();
 
 const main = async () => {
   try {
+    assertSeedAllowed();
+
     await db.delete(transactions).execute();
     await db.delete(accounts).execute();
     await db.delete(categories).execute();
@@ -102,6 +121,8 @@ const main = async () => {
   } catch (error) {
     console.error('Error seeding database:', error);
     process.exit(1);
+  } finally {
+    await pool.end();
   }
 };
 

@@ -4,21 +4,28 @@ import { convertAmountToMiliunits } from '@/lib/utils';
 import { format, parse } from 'date-fns';
 import { useState } from 'react';
 import { ImportTable } from './import-table';
+import type { ImportableTransactionField } from './table-head-select';
 
 const dateFormat = 'yyyy-MM-dd HH:mm:ss';
 const outputFormat = 'yyyy-MM-dd';
 
-const requiredOptions = ['amount', 'date', 'payee'];
+const requiredOptions = ['amount', 'date', 'payee'] as const;
 
-interface SelectedColumnsState {
-  [key: string]: string | null;
-}
+type SelectedColumnsState = Record<string, ImportableTransactionField | null>;
+
+type RawImportRow = Partial<Record<ImportableTransactionField, string>>;
+
+export type ImportedTransactionRow = {
+  amount: number;
+  date: string;
+  payee: string;
+};
 
 type Props = {
   data: string[][];
   onCancel: () => void;
 
-  onSubmit: (data: any) => void;
+  onSubmit: (data: ImportedTransactionRow[]) => void;
 };
 
 export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
@@ -30,18 +37,14 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
   const body = data.slice(1);
   const onTableHeadSelectChange = (
     columnIndex: number,
-    value: string | null
+    value: ImportableTransactionField | null
   ) => {
     setSelectedColumns((prev) => {
       const newSelectedColumns = { ...prev };
       for (const key in newSelectedColumns) {
-        if (newSelectedColumns[key] === value) {
+        if (value !== null && newSelectedColumns[key] === value) {
           newSelectedColumns[key] = null;
         }
-      }
-
-      if (value === 'skip') {
-        value = null;
       }
 
       newSelectedColumns[`column_${columnIndex}`] = value;
@@ -51,22 +54,21 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
   };
 
   const progress = Object.values(selectedColumns).filter(
-    (v) => v !== null && v !== ''
+    (v) => v !== null
   ).length;
 
   const handleContinue = () => {
-    const activeColumns = headers.reduce<{ index: number; header: string }[]>(
-      (acc, _header, index) => {
-        const mapped = selectedColumns[`column_${index}`];
-        if (mapped) acc.push({ index, header: mapped });
-        return acc;
-      },
-      []
-    );
+    const activeColumns = headers.reduce<
+      { index: number; header: ImportableTransactionField }[]
+    >((acc, _header, index) => {
+      const mapped = selectedColumns[`column_${index}`];
+      if (mapped) acc.push({ index, header: mapped });
+      return acc;
+    }, []);
 
     const formattedData = body
       .map((row) => {
-        const obj: Record<string, any> = {};
+        const obj: RawImportRow = {};
         for (const { index, header } of activeColumns) {
           obj[header] = row[index];
         }
@@ -74,9 +76,12 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
       })
       .filter((obj) => Object.keys(obj).length > 0)
       .map((item) => ({
-        ...item,
-        amount: convertAmountToMiliunits(parseFloat(item.amount)),
-        date: format(parse(item.date, dateFormat, new Date()), outputFormat),
+        amount: convertAmountToMiliunits(parseFloat(item.amount ?? '0')),
+        date: format(
+          parse(item.date ?? '', dateFormat, new Date()),
+          outputFormat
+        ),
+        payee: item.payee ?? '',
       }));
 
     onSubmit(formattedData);

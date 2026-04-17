@@ -1,0 +1,21 @@
+services:
+  nuchi-postgres:
+    image: postgres:17-alpine
+    container_name: nuchi-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nuchi_dev
+      POSTGRES_USER: nuchi
+      POSTGRES_PASSWORD: nuchi_dev_password
+    ports:
+      - '54329:5432'
+    volumes:
+      - nuchi-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U nuchi -d nuchi_dev']
+      interval: 2s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  nuchi-postgres-data:

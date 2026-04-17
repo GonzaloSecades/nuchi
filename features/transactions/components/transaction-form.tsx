@@ -40,8 +40,12 @@ type Props = {
   disabled?: boolean;
   accountOptions: { label: string; value: string }[];
   categoryOptions: { label: string; value: string }[];
-  onCreateAccount: (name: string) => void;
-  onCreateCategory: (name: string) => void;
+  onCreateAccount: (
+    name: string
+  ) => Promise<string | undefined> | string | void;
+  onCreateCategory: (
+    name: string
+  ) => Promise<string | undefined> | string | void;
 };
 
 export const TransactionForm = ({
@@ -194,7 +198,7 @@ export const TransactionForm = ({
           )}
         />
         <Button className="w-full" disabled={disabled} type="submit">
-          {!!id ? 'Save Changes' : 'Edit Transaction'}
+          {!!id ? 'Save Changes' : 'Create Transaction'}
         </Button>
         {!!id && (
           <Button

@@ -8,24 +8,26 @@ import { useBulkCreateTransactions } from '@/features/transactions/api/use-bulk-
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction';
 import { Loader2, Plus } from 'lucide-react';
 
-import { transactions as transactionsSchema } from '@/db/schema';
-
 import { DataTable } from '@/components/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSelectAccount } from '@/features/accounts/hooks/use-select-account';
 import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions';
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
+import { chunkItems } from '@/lib/chunk-items';
+import { MAX_BULK_CREATE_TRANSACTIONS } from '@/lib/transaction-limits';
 import { toast } from 'sonner';
 import { columns } from './columns';
 import { ImportCard } from './import-card';
 import { UploadButton } from './upload-button';
+import type { ImportedTransactionRow } from './import-card';
+import type { CSVUploadResults } from './upload-button';
 
 enum VARIANTS {
   LIST = 'LIST',
   IMPORT = 'IMPORT',
 }
 
-const INITIAL_IMPORT_RESULTS = {
+const INITIAL_IMPORT_RESULTS: CSVUploadResults = {
   data: [],
   errors: [],
   meta: {},
@@ -38,7 +40,7 @@ const TransactionsPage = () => {
 
   const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
 
-  const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
+  const onUpload = (results: CSVUploadResults) => {
     setImportResults(results);
     setVariant(VARIANTS.IMPORT);
   };
@@ -57,9 +59,7 @@ const TransactionsPage = () => {
   const isDisabled =
     transactionsQuery.isLoading || deleteTransactions.isPending;
 
-  const onSubmitImport = async (
-    values: (typeof transactionsSchema.$inferInsert)[]
-  ) => {
+  const onSubmitImport = async (values: ImportedTransactionRow[]) => {
     const accountId = await confirm();
     if (!accountId) {
       return toast.error('You must select an account to import transactions');
@@ -70,15 +70,16 @@ const TransactionsPage = () => {
       accountId: accountId as string,
     }));
 
-    createTransactions.mutate(data, {
-      onSuccess: () => {
-        onCancelImport();
-        toast.success('Transactions imported successfully');
-      },
-      onError: () => {
-        toast.error('Failed to import transactions');
-      },
-    });
+    try {
+      for (const chunk of chunkItems(data, MAX_BULK_CREATE_TRANSACTIONS)) {
+        await createTransactions.mutateAsync(chunk);
+      }
+
+      onCancelImport();
+      toast.success('Transactions imported successfully');
+    } catch {
+      toast.error('Failed to import transactions');
+    }
   };
 
   if (transactionsQuery.isLoading) {
