@@ -45,3 +45,9 @@ next-env.d.ts
 /.clerk/
 tech_debt_SuggestionsPR08.md
 /codexPrompts
+
+# graphify - machine-specific runtime files (graph.json / GRAPH_REPORT.md / cache/ are committed)
+graphify-out/.graphify_python
+graphify-out/.graphify_root
+graphify-out/graph.html
+graphify-out/cost.json
