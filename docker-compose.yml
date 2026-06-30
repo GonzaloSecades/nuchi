@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: nuchi
+      POSTGRES_USER: nuchi
+      POSTGRES_PASSWORD: nuchi
+    ports:
+      - "5432:5432"
+    volumes:
+      - nuchi-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nuchi -d nuchi"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  nuchi-postgres-data:
