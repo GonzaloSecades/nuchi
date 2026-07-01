@@ -37,13 +37,22 @@ bun install
 
 2. Copy environment variables from `.env.example` into `.env.local`.
 
-3. Run database migrations.
+3. Start local Postgres and Mailpit.
+
+```bash
+docker compose up -d postgres mailpit
+```
+
+Postgres listens on `localhost:5432` with `nuchi`/`nuchi` and database `nuchi`.
+Mailpit's SMTP server listens on `localhost:1025`; its UI is at `http://localhost:8025`.
+
+4. Run database migrations.
 
 ```bash
 bun run db:migrate
 ```
 
-4. Start the app.
+5. Start the app.
 
 ```bash
 bun dev
@@ -51,11 +60,26 @@ bun dev
 
 The app runs at `http://localhost:3000`.
 
+To check Postgres:
+
+```bash
+docker compose exec postgres pg_isready -U nuchi -d nuchi
+```
+
+To destroy local service data:
+
+```bash
+docker compose down --volumes
+```
+
 ## Environment Variables
 - `DATABASE_URL`
 - `NEXT_PUBLIC_API_URL`
 - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
 - `CLERK_SECRET_KEY`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `MAILPIT_WEB_URL`
 
 See `.env.example` for the expected local shape.
 
