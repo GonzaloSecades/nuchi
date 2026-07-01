@@ -13,11 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useGetSummary } from '@/features/summary/use-get-summary';
 
 export const AccountFilter = () => {
   const { data: accounts, isLoading: isLoadingAccounts } = useGetAccounts();
-  const { isLoading: isLoadingSummary } = useGetSummary();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -48,7 +46,7 @@ export const AccountFilter = () => {
     <Select
       value={accountId}
       onValueChange={onChange}
-      disabled={isLoadingAccounts || isLoadingSummary}
+      disabled={isLoadingAccounts}
     >
       <SelectTrigger className="h-9 w-full rounded-md border-none bg-white/10 px-3 font-normal text-white transition outline-none hover:bg-white/20 hover:text-white focus:bg-white/30 focus:ring-transparent focus:ring-offset-0 lg:w-auto">
         <SelectValue placeholder="Select account" />
