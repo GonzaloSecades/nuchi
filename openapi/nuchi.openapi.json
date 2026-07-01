@@ -1,0 +1,97 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nuchi API",
+    "version": "0.1.0",
+    "description": "OpenAPI source for the Go backend replacement. Resource behavior is filled in by #29 and the resource parity tickets."
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Same-origin browser API path"
+    },
+    {
+      "url": "http://localhost:8080/api",
+      "description": "Local Go API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "health",
+      "description": "Local backend health checks"
+    },
+    {
+      "name": "auth",
+      "description": "Owned auth endpoints"
+    },
+    {
+      "name": "accounts",
+      "description": "Account resources"
+    },
+    {
+      "name": "categories",
+      "description": "Category resources"
+    },
+    {
+      "name": "transactions",
+      "description": "Transaction resources"
+    },
+    {
+      "name": "summary",
+      "description": "Dashboard summary resources"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "tags": ["health"],
+        "summary": "Check API health",
+        "responses": {
+          "200": {
+            "description": "The API is reachable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                },
+                "examples": {
+                  "ok": {
+                    "value": {
+                      "service": "nuchi-api",
+                      "status": "ok",
+                      "time": "2026-06-29T00:00:00Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "required": ["service", "status", "time"],
+        "properties": {
+          "service": {
+            "type": "string",
+            "example": "nuchi-api"
+          },
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
