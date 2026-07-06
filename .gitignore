@@ -47,8 +47,14 @@ next-env.d.ts
 tech_debt_SuggestionsPR08.md
 /codexPrompts
 
-# graphify - machine-specific runtime files (graph.json / GRAPH_REPORT.md / cache/ are committed)
-graphify-out/.graphify_python
-graphify-out/.graphify_root
+# graphify - portable outputs are committed:
+# graphify-out/graph.json
+# graphify-out/GRAPH_REPORT.md
+# graphify-out/manifest.json
+# graphify-out/.graphify_labels.json
+graphify-out/.graphify_*
+!graphify-out/.graphify_labels.json
+graphify-out/cache/
+graphify-out/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
 graphify-out/graph.html
 graphify-out/cost.json

@@ -1,6 +1,7 @@
 # Nuchi Codex Guide
 
 ## Stack
+
 - Next.js App Router
 - Clerk auth
 - Hono API in `app/api/[[...route]]`
@@ -9,6 +10,7 @@
 - Bun package manager
 
 ## Commands
+
 - `bun dev`
 - `bun run lint`
 - `bun run build`
@@ -16,6 +18,7 @@
 - `bun run db:migrate`
 
 ## Env
+
 - `DATABASE_URL`
 - `NEXT_PUBLIC_API_URL`
 - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
@@ -23,6 +26,7 @@
 - Reference: [`.env.example`](/home/gonzalo/projects/nuchi/.env.example)
 
 ## Repo Rules
+
 - Keep feature code in `features/<domain>/`.
 - Prefer extending typed Hono routes over ad hoc `fetch`.
 - Keep server-state logic in TanStack Query hooks.
@@ -34,6 +38,7 @@
 - Do not leave debug routes, raw `console.log`, or dead commented code in production paths.
 
 ## Current Risk Areas
+
 - Validate ownership in transaction create and bulk-create flows.
 - Harden CSV import validation, typing, and empty-state handling.
 - Keep mutating routes protected; CSRF/rate limiting are still open debt.
@@ -41,9 +46,17 @@
 - Avoid adding more coupling between header filters and summary loading.
 
 ## Verify
+
 - UI-only: `bun run lint`
 - Route/schema changes: `bun run lint` and `bun run build`
 - Schema changes: also run `bun run db:generate` or explain why not
 
+## Pull Requests Hard Rules
+
+- Do not prefix Codex-created branch names with `codex/` or include `codex` in the branch name.
+- For issue-related PRs, title the PR as: `[Issue - #<number>] <PR title>`.
+  Example: `[Issue - #35] Add OpenAPI scaffold and generation commands`
+
 ## Reference
+
 - Active backlog: [`PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`](/home/gonzalo/projects/nuchi/PR_REVIEW_TECH_DEBT_CONSOLIDATED.md)
