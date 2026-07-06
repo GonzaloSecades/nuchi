@@ -42,13 +42,14 @@ Issue #18 replaces that backend surface with a separate Go API and local Dockeri
 Runtime shape:
 
 - Next.js continues to serve the app UI.
-- A separate Go API listens locally, likely on `localhost:8080` per #18 verification examples.
+- A separate Go API listens locally on `localhost:8080` by default.
 - Next rewrites/proxies same-origin `/api/*` requests to the Go API during local development.
 - The frontend keeps TanStack Query hooks as the server-state boundary.
 - The generated TypeScript API client replaces `lib/hono.ts` internals.
 - The generated Go server types bind handlers to the OpenAPI contract.
 - PostgreSQL runs through Docker Compose for local development.
 - Go runs outside Docker for normal local development.
+- The current `backend/` scaffold exposes only `/api/health`; auth, database access, migrations, resource handlers, and frontend integration remain child-issue work.
 
 Backend shape:
 
@@ -77,19 +78,30 @@ OpenAPI is the contract source of truth. It must cover:
 
 Generation plan:
 
+- Keep the hand-edited contract at `openapi/nuchi.openapi.json`.
+- Keep Go generation config at `openapi/oapi-codegen.yaml`.
 - Generate Go server types from OpenAPI for handler request/response shapes.
 - Generate TypeScript client/types from OpenAPI for frontend calls.
 - Keep generated artifacts out of hand-edited business logic.
-- Child issue #29 owns the concrete OpenAPI file layout, generator commands, and exact generated paths.
+- Generated Go types belong under `backend/internal/openapi/`.
+- Generated TypeScript client/types belong under `lib/api/generated/`.
+- Child issue #29 owns filling the full resource contract.
+- Child issue #35 owns pinned generator tooling if generator versions or network-installed tools remain unresolved.
 - Any contract change must update OpenAPI first, then regenerate Go and TypeScript outputs.
 
 Parity rules:
 
+- Treat [`api-parity-fixtures.md`](./api-parity-fixtures.md) as the current Hono API behavior reference.
 - Preserve current JSON envelope shape where practical: success responses return `{ data: ... }`.
+- Preserve explicit JSON API auth failures separately from browser redirects: API handlers return `401` with `{ "error": "Unauthorized" }`.
 - Preserve current query filters: `from`, `to`, and `accountId` for transactions/summary.
 - Preserve current 401/404 behavior for missing auth or missing owned resources.
-- Preserve bulk create/delete all-or-error behavior for transactions.
+- Preserve transaction bulk-create all-or-error validation and ownership checks.
+- Preserve current bulk-delete behavior unless OpenAPI intentionally changes it: missing or unowned IDs are ignored and the response contains only deleted owned IDs.
 - Preserve category as optional on transactions.
+- Preserve oversized transaction bulk-create and bulk-delete request handling.
+- Preserve transaction mutation rate limiting semantics or document an intentional replacement in the relevant child issue.
+- Decide current mismatches explicitly in OpenAPI instead of inheriting them accidentally, especially category duplicate update returning `500` while category duplicate create returns `409`.
 
 ## Auth And Sessions
 
@@ -126,6 +138,7 @@ Security requirements:
 - Refresh token cookie is HttpOnly and scoped to auth refresh/logout paths where practical.
 - Access token is sent as Bearer auth on API calls.
 - Auth-sensitive reads and writes must derive user identity from the verified token, not request body fields.
+- Browser navigation to protected app pages may redirect to custom auth pages, but JSON API endpoints must keep explicit status/error responses.
 
 ## Database And RLS
 
@@ -142,6 +155,8 @@ Current tables to preserve as parity baseline:
 - `accounts`: `id`, `plaid_id`, `name`, `user_id`.
 - `categories`: `id`, `plaid_id`, `name`, `user_id`.
 - `transactions`: `id`, `amount`, `payee`, `notes`, `date`, `account_id`, `category_id`.
+- Account and category names use case-insensitive per-user uniqueness today through Postgres `citext` and unique indexes.
+- Keep account/category user indexes and transaction account/category indexes unless the migration child issue proves a better equivalent.
 
 Target ownership model:
 
@@ -158,6 +173,7 @@ RLS model:
 - Account/category policies allow access only when `user_id` matches the current app user.
 - Transaction policies allow access only through an account owned by the current app user.
 - Application-level ownership checks still return friendly 404/400 responses, but RLS is the security backstop.
+- SQL used by `sqlc` should still include ownership predicates so tests can assert user-facing behavior without relying only on RLS failure modes.
 
 ## Currency And Money
 
@@ -189,10 +205,15 @@ Transactions:
 
 - List owned transactions joined through owned accounts.
 - Support `from`, `to`, and optional `accountId` filters.
+- Default omitted `to` to current server time and omitted `from` to 30 days before current server time.
+- Parse provided date filters as strict `yyyy-MM-dd`; `from` is start of day and `to` is end of day.
+- Keep inclusive date filtering and the 366-day maximum range.
 - Sort list responses by date descending.
 - Create/update require an owned account and, when present, an owned category.
 - Bulk create validates all rows and ownership before inserting.
-- Bulk delete deletes only owned transaction IDs.
+- Bulk create accepts 1 to 500 rows and rejects numeric `Content-Length` above 1,000,000 bytes.
+- Bulk delete deletes only owned transaction IDs, accepts 1 to 500 IDs, and rejects numeric `Content-Length` above 100,000 bytes.
+- Transaction create, bulk-create, update, delete, and bulk-delete keep the current per-user/action mutation limit unless intentionally replaced.
 - Keep account required and category optional.
 
 Summary:
@@ -200,6 +221,18 @@ Summary:
 - Preserve dashboard totals: remaining, income, expenses, category breakdown, daily income/expense series, and change percentages.
 - Preserve date-range and account filters.
 - Keep strict date validation and range limits from the current route behavior.
+- Preserve previous-period comparison behavior and `calculatePercentageChange` semantics.
+- Preserve category aggregation behavior: negative categorized transactions only, top 3 categories returned directly, remaining expense categories grouped into `Other`.
+- Preserve daily series behavior: include every selected calendar day and fill missing income/expense with `0`.
+
+CSV import:
+
+- Keep CSV parsing as a frontend flow that posts validated rows to transaction bulk-create.
+- Keep required mapped fields: `amount`, `date`, and `payee`.
+- Keep amount conversion with `Math.round(amount * 1000)`.
+- Keep CSV date input format `yyyy-MM-dd HH:mm:ss` and API date output `yyyy-MM-dd`.
+- Keep chunking bulk-create requests at 500 transactions.
+- Empty validated CSV data should not produce API calls.
 
 Frontend:
 
@@ -241,15 +274,18 @@ Workflow:
 ## Implementation Order
 
 1. Write and review this spec.
-2. Define the OpenAPI contract.
-3. Port the schema to `goose` migrations and add RLS.
-4. Implement owned auth/session/email flows.
-5. Implement accounts and categories parity.
-6. Implement transactions parity, including CSV import validation rules and currency.
-7. Implement summary parity.
-8. Replace frontend client internals and same-origin rewrite.
-9. Add local dev scripts and explicit reset workflow.
-10. Remove legacy Hono/Drizzle/Neon/Clerk code after parity is verified.
+2. Document current API parity fixtures.
+3. Add OpenAPI scaffold and generation command documentation.
+4. Define the shared API error/auth contract.
+5. Define the full OpenAPI contract.
+6. Wire the Go database foundation.
+7. Add auth tables, finance tables, RLS, and local dev scripts.
+8. Add `sqlc` queries.
+9. Implement owned auth/session/email flows.
+10. Bind authenticated requests to RLS-backed DB access.
+11. Implement accounts, categories, transactions, bulk transactions, and summary parity.
+12. Replace frontend rewrite/client/hook/auth-page internals.
+13. Remove legacy Hono/Drizzle/Neon/Clerk code after parity is verified.
 
 ## Verification
 
@@ -285,19 +321,50 @@ Replacement sprint verification targets:
 
 ## Child Issue Plan
 
-Only `risk:low` children may be labeled `agent:ready`.
+Work the tickets in this exact sequence. A ticket must be merged before the next ticket starts. Only the next unblocked ticket may be considered for `agent:ready`, and only if it is `risk:low`; high-risk tickets remain attended work.
 
-| Issue | Title | Risk | Agent-ready |
-| --- | --- | --- | --- |
-| [#28](https://github.com/GonzaloSecades/nuchi/issues/28) | Write detailed Go backend replacement spec doc | low | yes |
-| [#29](https://github.com/GonzaloSecades/nuchi/issues/29) | Define OpenAPI contract for Go backend and frontend client | high | no |
-| [#21](https://github.com/GonzaloSecades/nuchi/issues/21) | Port current Drizzle schema to Go/PostgreSQL migrations | high | no |
-| [#22](https://github.com/GonzaloSecades/nuchi/issues/22) | Implement owned JWT auth with email verification and password reset | high | no |
-| [#23](https://github.com/GonzaloSecades/nuchi/issues/23) | Implement accounts and categories API parity in Go | high | no |
-| [#24](https://github.com/GonzaloSecades/nuchi/issues/24) | Implement transactions API parity in Go | high | no |
-| [#25](https://github.com/GonzaloSecades/nuchi/issues/25) | Implement summary API parity in Go | high | no |
-| [#26](https://github.com/GonzaloSecades/nuchi/issues/26) | Adapt frontend API client from Hono RPC to Go API | high | no |
-| [#30](https://github.com/GonzaloSecades/nuchi/issues/30) | Add Next rewrite shape for same-origin Go API calls | low | yes |
-| [#31](https://github.com/GonzaloSecades/nuchi/issues/31) | Add backend dev scripts and explicit DB reset workflow | low, blocked | no while blocked |
-| [#27](https://github.com/GonzaloSecades/nuchi/issues/27) | Remove legacy Hono/Drizzle/Neon backend after Go parity | high, blocked | no |
+Completed prerequisites:
 
+| Issue | Title | Status |
+| --- | --- | --- |
+| [#19](https://github.com/GonzaloSecades/nuchi/issues/19) | Scaffold Go backend service and health route | closed |
+| [#20](https://github.com/GonzaloSecades/nuchi/issues/20) | Add Docker Compose Postgres and local mail catcher | closed |
+| [#34](https://github.com/GonzaloSecades/nuchi/issues/34) | Document current API parity fixtures | closed |
+| [#35](https://github.com/GonzaloSecades/nuchi/issues/35) | Add OpenAPI scaffold and generation commands | closed |
+
+Active sequence:
+
+| Seq | Issue | Title | Risk | Dependency | Agent-ready |
+| --- | --- | --- | --- | --- | --- |
+| 01 | [#28](https://github.com/GonzaloSecades/nuchi/issues/28) | Finalize Go backend replacement spec | low | none | yes |
+| 02 | [#36](https://github.com/GonzaloSecades/nuchi/issues/36) | Define shared API error and auth contract | high | #28 | no |
+| 03 | [#29](https://github.com/GonzaloSecades/nuchi/issues/29) | Define full OpenAPI contract | high | #36 | no |
+| 04 | [#37](https://github.com/GonzaloSecades/nuchi/issues/37) | Wire Go database foundation | high | #29 | no |
+| 05 | [#38](https://github.com/GonzaloSecades/nuchi/issues/38) | Create base SQL migrations with users and auth tables | high | #37 | no |
+| 06 | [#39](https://github.com/GonzaloSecades/nuchi/issues/39) | Create finance schema migrations with RLS | high | #38 | no |
+| 07 | [#31](https://github.com/GonzaloSecades/nuchi/issues/31) | Add backend dev scripts and explicit DB reset workflow | low | #39 | no while blocked |
+| 08 | [#40](https://github.com/GonzaloSecades/nuchi/issues/40) | Add sqlc queries for auth and owned resources | high | #31 | no |
+| 09 | [#41](https://github.com/GonzaloSecades/nuchi/issues/41) | Implement password auth and JWT sessions | high | #40 | no |
+| 10 | [#42](https://github.com/GonzaloSecades/nuchi/issues/42) | Implement email verification and password reset | high | #41 | no |
+| 11 | [#43](https://github.com/GonzaloSecades/nuchi/issues/43) | Add Go auth middleware and DB RLS session binding | high | #42 | no |
+| 12 | [#44](https://github.com/GonzaloSecades/nuchi/issues/44) | Implement accounts API parity | high | #43 | no |
+| 13 | [#45](https://github.com/GonzaloSecades/nuchi/issues/45) | Implement categories API parity | high | #44 | no |
+| 14 | [#46](https://github.com/GonzaloSecades/nuchi/issues/46) | Implement transactions CRUD and list parity | high | #45 | no |
+| 15 | [#47](https://github.com/GonzaloSecades/nuchi/issues/47) | Implement transaction bulk create and delete parity | high | #46 | no |
+| 16 | [#48](https://github.com/GonzaloSecades/nuchi/issues/48) | Implement summary API parity | high | #47 | no |
+| 17 | [#30](https://github.com/GonzaloSecades/nuchi/issues/30) | Add Next rewrite shape for same-origin Go API calls | low | #48 | no while blocked |
+| 18 | [#49](https://github.com/GonzaloSecades/nuchi/issues/49) | Replace frontend generated client wiring | high | #30 | no |
+| 19 | [#50](https://github.com/GonzaloSecades/nuchi/issues/50) | Migrate TanStack hooks to generated client | high | #49 | no |
+| 20 | [#51](https://github.com/GonzaloSecades/nuchi/issues/51) | Replace Clerk auth pages with custom auth pages | high | #50 | no |
+| 21 | [#27](https://github.com/GonzaloSecades/nuchi/issues/27) | Remove legacy Hono/Drizzle/Neon/Clerk backend after Go parity | high, blocked | #51 | no |
+
+Superseded duplicates:
+
+| Issue | Replaced by |
+| --- | --- |
+| [#21](https://github.com/GonzaloSecades/nuchi/issues/21) | #37, #38, #39, #40, #43 |
+| [#22](https://github.com/GonzaloSecades/nuchi/issues/22) | #38, #41, #42, #43, #51 |
+| [#23](https://github.com/GonzaloSecades/nuchi/issues/23) | #44, #45 |
+| [#24](https://github.com/GonzaloSecades/nuchi/issues/24) | #46, #47 |
+| [#25](https://github.com/GonzaloSecades/nuchi/issues/25) | #48 |
+| [#26](https://github.com/GonzaloSecades/nuchi/issues/26) | #49, #50, #51 |
