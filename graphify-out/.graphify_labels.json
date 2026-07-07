@@ -501,6 +501,5 @@
   "499": "[typescript]",
   "500": "editor.defaultFormatter",
   "501": "typescript.format.enable",
-  "502": "[typescriptreact]",
-  "503": "editor.defaultFormatter"
+  "502": "[typescriptreact]"
 }
