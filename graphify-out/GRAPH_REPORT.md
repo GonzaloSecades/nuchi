@@ -1,16 +1,16 @@
-# Graph Report - nuchi  (2026-07-06)
+# Graph Report - nuchi  (2026-07-07)
 
 ## Corpus Check
-- 182 files · ~41,518 words
+- 193 files · ~53,348 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1390 nodes · 2548 edges · 106 communities (74 shown, 32 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.88)
+- 1440 nodes · 1814 edges · 504 communities (63 shown, 441 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e8a35a08`
+- Built from commit: `fbcbc66b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -69,19 +69,24 @@
 - [[_COMMUNITY_Transactions Account Id Accounts|Transactions Account Id Accounts]]
 - [[_COMMUNITY_Indexes Columns|Indexes Columns]]
 - [[_COMMUNITY_Accounts Categories|Accounts Categories]]
-- [[_COMMUNITY_Transactions Account Id Accounts|Transactions Account Id Accounts]]
 - [[_COMMUNITY_Nuchi Go Backend|Nuchi Go Backend]]
+- [[_COMMUNITY_README|README.md]]
+- [[_COMMUNITY_extraction-spec|extraction-spec.md]]
+- [[_COMMUNITY_nuchi-postgres-data Volume|nuchi-postgres-data Volume]]
 - [[_COMMUNITY_Accounts Categories|Accounts Categories]]
 - [[_COMMUNITY_Id Notes|Id Notes]]
+- [[_COMMUNITY_Bun Package Manager|Bun Package Manager]]
 - [[_COMMUNITY_Validate Openapi Ts|Validate Openapi Ts]]
 - [[_COMMUNITY_Accounts DELETE Api Id|Accounts DELETE Api Id]]
 - [[_COMMUNITY_Postgres Docker Service|Postgres Docker Service]]
 - [[_COMMUNITY_Columns Tsx|Columns Tsx]]
+- [[_COMMUNITY_CSV Import Hardening Risk|CSV Import Hardening Risk]]
+- [[_COMMUNITY_dbschema.ts Source Of Truth|db/schema.ts Source Of Truth]]
 - [[_COMMUNITY_Transactions GET Api|Transactions GET Api]]
-- [[_COMMUNITY_Package Json|Package Json]]
 - [[_COMMUNITY_Generated Type Script API|Generated Type Script API]]
 - [[_COMMUNITY_Health Handler|Health Handler]]
 - [[_COMMUNITY_Chunk Items Test Ts|Chunk Items Test Ts]]
+- [[_COMMUNITY_NeonPostgres|Neon/Postgres]]
 - [[_COMMUNITY_Date Primary Key|Date Primary Key]]
 - [[_COMMUNITY_Open API|Open API]]
 - [[_COMMUNITY_Shadcn Servers|Shadcn Servers]]
@@ -92,7 +97,7 @@
 - [[_COMMUNITY_Page Tsx|Page Tsx]]
 - [[_COMMUNITY_Vercel Deployment Platform|Vercel Deployment Platform]]
 - [[_COMMUNITY_Next Js Framework|Next Js Framework]]
-- [[_COMMUNITY_Nuchi Brand Identity|Nuchi Brand Identity]]
+- [[_COMMUNITY_Window Icon|Window Icon]]
 - [[_COMMUNITY_Proxy Ts|Proxy Ts]]
 - [[_COMMUNITY_File Icon|File Icon]]
 - [[_COMMUNITY_Eslint Config Mjs|Eslint Config Mjs]]
@@ -119,151 +124,491 @@
 - [[_COMMUNITY_Recurring Transactions Forecasting Roadmap|Recurring Transactions Forecasting Roadmap]]
 - [[_COMMUNITY_Transfers Balances Net Worth|Transfers Balances Net Worth]]
 - [[_COMMUNITY_Unified Import Inbox Roadmap|Unified Import Inbox Roadmap]]
+- [[_COMMUNITY_TanStack Query|TanStack Query]]
+- [[_COMMUNITY_Transaction Milliunits|Transaction Milliunits]]
+- [[_COMMUNITY_Typed Hono Client|Typed Hono Client]]
+- [[_COMMUNITY_Generated Only Go Boundary|Generated Only Go Boundary]]
+- [[_COMMUNITY_Backend Configuration|Backend Configuration]]
+- [[_COMMUNITY_Health Endpoint|Health Endpoint]]
+- [[_COMMUNITY_Nuchi Go Backend README|Nuchi Go Backend README]]
+- [[_COMMUNITY_cache|cache]]
+- [[_COMMUNITY_config|config]]
+- [[_COMMUNITY_createdPools|createdPools]]
+- [[_COMMUNITY_first|first]]
+- [[_COMMUNITY_second|second]]
+- [[_COMMUNITY_Mailpit Docker Service|Mailpit Docker Service]]
+- [[_COMMUNITY_Client-to-Database Request Flow|Client-to-Database Request Flow]]
+- [[_COMMUNITY_Nuchi Project Context (Canonical Docs)|Nuchi Project Context (Canonical Docs)]]
+- [[_COMMUNITY_Accounts API|Accounts API]]
+- [[_COMMUNITY_Bulk Delete Missing IDs Behavior|Bulk Delete Missing IDs Behavior]]
+- [[_COMMUNITY_Categories API|Categories API]]
+- [[_COMMUNITY_Duplicate Category Update Mismatch|Duplicate Category Update Mismatch]]
+- [[_COMMUNITY_GitHub Issue 34 API Parity Fixtures|GitHub Issue #34 API Parity Fixtures]]
+- [[_COMMUNITY_Shared API Behavior|Shared API Behavior]]
+- [[_COMMUNITY_Summary API|Summary API]]
+- [[_COMMUNITY_Summary Calculations|Summary Calculations]]
+- [[_COMMUNITY_Transaction Bulk Create|Transaction Bulk Create]]
+- [[_COMMUNITY_Transaction Date Filters|Transaction Date Filters]]
+- [[_COMMUNITY_Transactions API|Transactions API]]
+- [[_COMMUNITY_API Parity Requirements|API Parity Requirements]]
+- [[_COMMUNITY_ARS Default Currency|ARS Default Currency]]
+- [[_COMMUNITY_Dockerized PostgreSQL|Dockerized PostgreSQL]]
+- [[_COMMUNITY_Generated OpenAPI Clients|Generated OpenAPI Clients]]
+- [[_COMMUNITY_Separate Go API|Separate Go API]]
+- [[_COMMUNITY_Go Outside Docker Development|Go Outside Docker Development]]
+- [[_COMMUNITY_Go Persistence Stack|Go Persistence Stack]]
+- [[_COMMUNITY_GitHub Issue 18 Go Backend Replacement|GitHub Issue #18 Go Backend Replacement]]
+- [[_COMMUNITY_GitHub Issue 21 Schema Migrations|GitHub Issue #21 Schema Migrations]]
+- [[_COMMUNITY_GitHub Issue 22 Owned Auth|GitHub Issue #22 Owned Auth]]
+- [[_COMMUNITY_GitHub Issue 28 Spec Document|GitHub Issue #28 Spec Document]]
+- [[_COMMUNITY_GitHub Issue 29 OpenAPI Contract|GitHub Issue #29 OpenAPI Contract]]
+- [[_COMMUNITY_JWT Access Tokens|JWT Access Tokens]]
+- [[_COMMUNITY_Legacy Backend Cleanup|Legacy Backend Cleanup]]
+- [[_COMMUNITY_Milliunit Money Invariant|Milliunit Money Invariant]]
+- [[_COMMUNITY_OpenAPI Contract Source Of Truth|OpenAPI Contract Source Of Truth]]
+- [[_COMMUNITY_Owned EmailPassword Auth|Owned Email/Password Auth]]
+- [[_COMMUNITY_PostgreSQL RLS Ownership Backstop|PostgreSQL RLS Ownership Backstop]]
+- [[_COMMUNITY_Refresh Token Cookies|Refresh Token Cookies]]
+- [[_COMMUNITY_Same-Origin api Proxy|Same-Origin /api Proxy]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_schema|schema]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_schema|schema]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_plaid_id|plaid_id]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_schema|schema]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_isUnique|isUnique]]
+- [[_COMMUNITY_plaid_id|plaid_id]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_isUnique|isUnique]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_schema|schema]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_plaid_id|plaid_id]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
+- [[_COMMUNITY_categories_user_id_idx|categories_user_id_idx]]
+- [[_COMMUNITY_categories_user_id_name_uniq|categories_user_id_name_uniq]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_categories|categories]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_schema|schema]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_isUnique|isUnique]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_plaid_id|plaid_id]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
+- [[_COMMUNITY_categories_user_id_idx|categories_user_id_idx]]
+- [[_COMMUNITY_categories_user_id_name_uniq|categories_user_id_name_uniq]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_categories|categories]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_isUnique|isUnique]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_plaid_id|plaid_id]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
+- [[_COMMUNITY_accounts_user_id_name_uniq|accounts_user_id_name_uniq]]
+- [[_COMMUNITY_categories_user_id_idx|categories_user_id_idx]]
+- [[_COMMUNITY_categories_user_id_name_uniq|categories_user_id_name_uniq]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_categories|categories]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_schema|schema]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_isUnique|isUnique]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_account_id|account_id]]
+- [[_COMMUNITY_amount|amount]]
+- [[_COMMUNITY_category_id|category_id]]
+- [[_COMMUNITY_date|date]]
+- [[_COMMUNITY_notes|notes]]
+- [[_COMMUNITY_payee|payee]]
+- [[_COMMUNITY_plaid_id|plaid_id]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_transactions_account_id_accounts_id_fk|transactions_account_id_accounts_id_fk]]
+- [[_COMMUNITY_transactions_category_id_categories_id_fk|transactions_category_id_categories_id_fk]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
+- [[_COMMUNITY_accounts_user_id_name_uniq|accounts_user_id_name_uniq]]
+- [[_COMMUNITY_categories_user_id_idx|categories_user_id_idx]]
+- [[_COMMUNITY_categories_user_id_name_uniq|categories_user_id_name_uniq]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_categories|categories]]
+- [[_COMMUNITY_transactions|transactions]]
+- [[_COMMUNITY_columnsTo|columnsTo]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_onDelete|onDelete]]
+- [[_COMMUNITY_tableTo|tableTo]]
+- [[_COMMUNITY_columnsFrom|columnsFrom]]
+- [[_COMMUNITY_onUpdate|onUpdate]]
+- [[_COMMUNITY_tableFrom|tableFrom]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_isUnique|isUnique]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_account_id|account_id]]
+- [[_COMMUNITY_amount|amount]]
+- [[_COMMUNITY_category_id|category_id]]
+- [[_COMMUNITY_date|date]]
+- [[_COMMUNITY_notes|notes]]
+- [[_COMMUNITY_payee|payee]]
+- [[_COMMUNITY_plaid_id|plaid_id]]
+- [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_dialect|dialect]]
+- [[_COMMUNITY_enums|enums]]
+- [[_COMMUNITY_transactions_account_id_accounts_id_fk|transactions_account_id_accounts_id_fk]]
+- [[_COMMUNITY_transactions_category_id_categories_id_fk|transactions_category_id_categories_id_fk]]
+- [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
+- [[_COMMUNITY_accounts_user_id_name_uniq|accounts_user_id_name_uniq]]
+- [[_COMMUNITY_categories_user_id_idx|categories_user_id_idx]]
+- [[_COMMUNITY_categories_user_id_name_uniq|categories_user_id_name_uniq]]
+- [[_COMMUNITY_transactions_account_id_idx|transactions_account_id_idx]]
+- [[_COMMUNITY_transactions_category_id_idx|transactions_category_id_idx]]
+- [[_COMMUNITY__meta|_meta]]
+- [[_COMMUNITY_schemas|schemas]]
+- [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_primaryKey|primaryKey]]
+- [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_notNull|notNull]]
+- [[_COMMUNITY_prevId|prevId]]
+- [[_COMMUNITY_accounts|accounts]]
+- [[_COMMUNITY_categories|categories]]
+- [[_COMMUNITY_transactions|transactions]]
+- [[_COMMUNITY_columnsFrom|columnsFrom]]
+- [[_COMMUNITY_columnsTo|columnsTo]]
+- [[_COMMUNITY_onUpdate|onUpdate]]
+- [[_COMMUNITY_tableFrom|tableFrom]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_onDelete|onDelete]]
+- [[_COMMUNITY_tableTo|tableTo]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_columns|columns]]
+- [[_COMMUNITY_foreignKeys|foreignKeys]]
+- [[_COMMUNITY_indexes|indexes]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_schema|schema]]
+- [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_entries|entries]]
+- [[_COMMUNITY_version|version]]
+- [[_COMMUNITY_Generated OpenAPI Client Types|Generated OpenAPI Client Types]]
+- [[_COMMUNITY_No Hand-Written Query Hooks Boundary|No Hand-Written Query Hooks Boundary]]
+- [[_COMMUNITY_items|items]]
+- [[_COMMUNITY_createdOption|createdOption]]
+- [[_COMMUNITY_options|options]]
+- [[_COMMUNITY_defaultFrom|defaultFrom]]
+- [[_COMMUNITY_defaultTo|defaultTo]]
+- [[_COMMUNITY_parsed|parsed]]
+- [[_COMMUNITY_result|result]]
+- [[_COMMUNITY_Dependency-Free OpenAPI Validator|Dependency-Free OpenAPI Validator]]
+- [[_COMMUNITY_Hand-Edited OpenAPI Contract Source|Hand-Edited OpenAPI Contract Source]]
+- [[_COMMUNITY_GitHub Issue 35 Generator Tooling Deferred|GitHub Issue #35 Generator Tooling Deferred]]
+- [[_COMMUNITY_nuchi.openapi.json|nuchi.openapi.json]]
+- [[_COMMUNITY_OpenAPI Directory README|OpenAPI Directory README]]
+- [[_COMMUNITY_TypeScript Fetch Client Generation|TypeScript Fetch Client Generation]]
+- [[_COMMUNITY_github.comGonzaloSecadesnuchibackend|github.com/GonzaloSecades/nuchi/backend]]
+- [[_COMMUNITY_Clerk Authentication|Clerk Authentication]]
+- [[_COMMUNITY_CSV Transaction Import Feature|CSV Transaction Import Feature]]
+- [[_COMMUNITY_Dashboard Analytics|Dashboard Analytics]]
+- [[_COMMUNITY_Drizzle ORM with Neon Postgres|Drizzle ORM with Neon Postgres]]
+- [[_COMMUNITY_Hono API Layer|Hono API Layer]]
+- [[_COMMUNITY_Local Postgres|Local Postgres]]
+- [[_COMMUNITY_Mailpit Local SMTP|Mailpit Local SMTP]]
+- [[_COMMUNITY_Milliunit Amount Storage Convention|Milliunit Amount Storage Convention]]
+- [[_COMMUNITY_Next.js 16 App Router Stack|Next.js 16 App Router Stack]]
+- [[_COMMUNITY_Nuchi Application|Nuchi Application]]
+- [[_COMMUNITY_Nuchi Personal Finance App|Nuchi Personal Finance App]]
+- [[_COMMUNITY_Nuchi README|Nuchi README]]
+- [[_COMMUNITY_TanStack Query Server State|TanStack Query Server State]]
+- [[_COMMUNITY_Local Docker Postgres Dev Setup|Local Docker Postgres Dev Setup]]
+- [[_COMMUNITY_CSV Import Chunked Bulk-Create Submission|CSV Import Chunked Bulk-Create Submission]]
+- [[_COMMUNITY_globalThis Drizzle Pool HMR Cache|globalThis Drizzle Pool HMR Cache]]
+- [[_COMMUNITY_Inclusive End-of-Day Date Filter Fix|Inclusive End-of-Day Date Filter Fix]]
+- [[_COMMUNITY_node-postgres Drizzle Runtime Switch|node-postgres Drizzle Runtime Switch]]
+- [[_COMMUNITY_Remote Postgres TLS Certificate Verification|Remote Postgres TLS Certificate Verification]]
+- [[_COMMUNITY_Tech Debt Backlog (Consolidated)|Tech Debt Backlog (Consolidated)]]
+- [[_COMMUNITY_CSRF Protection for Mutating Endpoints (P0)|CSRF Protection for Mutating Endpoints (P0)]]
+- [[_COMMUNITY_CSV Import Validation Hardening (P0)|CSV Import Validation Hardening (P0)]]
+- [[_COMMUNITY_Debug Summary Endpoint Removal (P1)|Debug Summary Endpoint Removal (P1)]]
+- [[_COMMUNITY_Transaction Ownership Validation Gap (P0)|Transaction Ownership Validation Gap (P0)]]
+- [[_COMMUNITY_recommendations|recommendations]]
+- [[_COMMUNITY_servers|servers]]
+- [[_COMMUNITY_shadcn|shadcn]]
+- [[_COMMUNITY_args|args]]
+- [[_COMMUNITY_command|command]]
+- [[_COMMUNITY_editor.codeActionsOnSave|editor.codeActionsOnSave]]
+- [[_COMMUNITY_source.fixAll.eslint|source.fixAll.eslint]]
+- [[_COMMUNITY_source.organizeImports|source.organizeImports]]
+- [[_COMMUNITY_editor.formatOnSave|editor.formatOnSave]]
+- [[_COMMUNITY_editor.wordWrap|editor.wordWrap]]
+- [[_COMMUNITY_eslint.validate|eslint.validate]]
+- [[_COMMUNITY_html|[html]]]
+- [[_COMMUNITY_javascript|[javascript]]]
+- [[_COMMUNITY_javascript.format.enable|javascript.format.enable]]
+- [[_COMMUNITY_javascriptreact|[javascriptreact]]]
+- [[_COMMUNITY_json|[json]]]
+- [[_COMMUNITY_jsonc|[jsonc]]]
+- [[_COMMUNITY_markdown|[markdown]]]
+- [[_COMMUNITY_editor.defaultFormatter|editor.defaultFormatter]]
+- [[_COMMUNITY_typescript|[typescript]]]
+- [[_COMMUNITY_editor.defaultFormatter|editor.defaultFormatter]]
+- [[_COMMUNITY_typescript.format.enable|typescript.format.enable]]
+- [[_COMMUNITY_typescriptreact|[typescriptreact]]]
+- [[_COMMUNITY_editor.defaultFormatter|editor.defaultFormatter]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 95 edges
-2. `Button()` - 27 edges
-3. `Go Backend Replacement Spec` - 26 edges
-4. `Nuchi Codex Guide` - 25 edges
-5. `client` - 24 edges
-6. `createApiError()` - 21 edges
-7. `scripts` - 17 edges
-8. `compilerOptions` - 16 edges
-9. `Current API Parity Fixtures` - 16 edges
-10. `[json]` - 16 edges
+2. `createApiError()` - 41 edges
+3. `Button()` - 26 edges
+4. `client` - 24 edges
+5. `scripts` - 17 edges
+6. `Go Backend Replacement Spec` - 17 edges
+7. `compilerOptions` - 16 edges
+8. `useConfirm()` - 15 edges
+9. `ApiError` - 13 edges
+10. `useGetAccounts()` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Nuchi Go Backend` --semantically_similar_to--> `Separate Go API`  [INFERRED] [semantically similar]
-  backend/README.md → docs/specs/18-go-backend-replacement/spec.md
-- `Transactions API` --semantically_similar_to--> `Transaction Ownership Validation Gap (P0)`  [INFERRED] [semantically similar]
-  docs/specs/18-go-backend-replacement/api-parity-fixtures.md → PR_REVIEW_TECH_DEBT_CONSOLIDATED.md
-- `Milliunit Money Invariant` --semantically_similar_to--> `Transaction Milliunits`  [INFERRED] [semantically similar]
-  docs/specs/18-go-backend-replacement/spec.md → AGENTS.md
-- `Summary API` --semantically_similar_to--> `Summary Strict Date Validation Risk`  [INFERRED] [semantically similar]
-  docs/specs/18-go-backend-replacement/api-parity-fixtures.md → AGENTS.md
-- `CSV Import To Bulk Create` --semantically_similar_to--> `CSV Import Hardening Risk`  [INFERRED] [semantically similar]
-  docs/specs/18-go-backend-replacement/api-parity-fixtures.md → AGENTS.md
+- `Generated Go Output` --semantically_similar_to--> `generated.gen.go`  [INFERRED] [semantically similar]
+  openapi/oapi-codegen.yaml → backend/internal/openapi/README.md
+- `PopoverHeader()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/popover.tsx → lib/utils.ts
+- `PopoverTitle()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/popover.tsx → lib/utils.ts
+- `PopoverDescription()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/popover.tsx → lib/utils.ts
+- `SelectLabel()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/select.tsx → lib/utils.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (106 total, 32 thin omitted)
+## Communities (504 total, 441 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
-Cohesion: 0.16
-Nodes (19): ResponseType, useDeleteCategory(), useEditCategory(), useGetCategory(), Actions(), Props, CategoryForm(), EditCategorySheet() (+11 more)
+Cohesion: 0.04
+Nodes (47): Accounts, Auth Redirects And API Auth Errors, Categories, CSV Import To Bulk Create, Current API Parity Fixtures, `DELETE /api/accounts/:id`, `DELETE /api/categories/:id`, `DELETE /api/transactions/:id` (+39 more)
 
 ### Community 1 - "Dependencies Class Variance Authority"
 Cohesion: 0.05
-Nodes (44): dependencies, class-variance-authority, @clerk/backend, @clerk/nextjs, clsx, date-fns, drizzle-orm, drizzle-zod (+36 more)
+Nodes (42): dependencies, class-variance-authority, @clerk/backend, @clerk/nextjs, clsx, date-fns, drizzle-orm, drizzle-zod (+34 more)
 
 ### Community 2 - "Cn Button Tsx"
-Cohesion: 0.15
-Nodes (19): formSchema, FormValues, Props, formSchema, FormValues, Props, FormControl(), FormDescription() (+11 more)
+Cohesion: 0.07
+Nodes (26): 1. Unified Import Inbox, 2. Import Review, Normalization, and Deduplication, 3. Transfers, Balances, and Net Worth, 4. Budgets and Monthly Planning, 5. Recurring Transactions and Forecasting, Current roadmap principle, Nuchi Roadmap Features List, Open banking readiness (+18 more)
 
 ### Community 3 - "Page Tsx"
-Cohesion: 0.11
-Nodes (20): RequestType, ResponseType, RequestType, ResponseType, RequestType, ResponseType, RequestType, ResponseType (+12 more)
-
-### Community 4 - "Edit Transaction Sheet Tsx"
-Cohesion: 0.13
-Nodes (31): name, schema, uniqueConstraints, name, columns, compositePrimaryKeys, foreignKeys, indexes (+23 more)
+Cohesion: 0.05
+Nodes (56): AccountsPage(), CategoriesPage(), TransactionsPage(), InsertTransactionSchema, RequestType, ResponseType, useBulkDeleteAccounts(), RequestType (+48 more)
 
 ### Community 5 - "Actions Tsx"
-Cohesion: 0.22
-Nodes (11): Props, RadarVariant(), Props, SpendingPieEnum, options, Props, Select(), SelectContent() (+3 more)
+Cohesion: 0.07
+Nodes (26): Automated Testing Needs, Breaking Changes, Business Value, Conclusion, Dependencies & Prerequisites, Deployment Considerations, External Service Dependencies, High-Impact Risks (+18 more)
 
 ### Community 6 - "0005 Snapshot Json"
 Cohesion: 0.06
 Nodes (31): 1. Frontend - Data/State (Next.js, React hooks, mutation hooks), 2. Frontend - UI Components (Shadcn/Radix UI, table rendering), 3. State Management (Custom hooks, promise-based dialog flow), 4. Developer Experience & Configuration (Dependency and repo hygiene), API, Automated Testing Needs, Breaking Changes, Business Value (+23 more)
 
-### Community 7 - "Utils Ts"
-Cohesion: 0.14
-Nodes (29): columns, indexes, name, uniqueConstraints, isUnique, name, compositePrimaryKeys, foreignKeys (+21 more)
-
-### Community 8 - "0003 Snapshot Json"
-Cohesion: 0.14
-Nodes (29): compositePrimaryKeys, foreignKeys, indexes, schema, uniqueConstraints, isUnique, name, name (+21 more)
-
 ### Community 9 - "0004 Snapshot Json"
-Cohesion: 0.17
-Nodes (12): AreaVariant(), Props, BarVariant(), Props, ChartEnum, Props, CustomTooltip(), CustomTooltipProps (+4 more)
+Cohesion: 0.06
+Nodes (45): isImportableTransactionField(), options, Props, TableHeadSelect(), AreaVariant(), Props, BarVariant(), Props (+37 more)
 
 ### Community 10 - "Data Card Tsx"
-Cohesion: 0.08
-Nodes (26): Child Issue Plan, Generated OpenAPI Clients, GitHub Issue #21 Schema Migrations, GitHub Issue #22 Owned Auth, GitHub Issue #28 Spec Document, GitHub Issue #29 OpenAPI Contract, OpenAPI Contract Source Of Truth, TanStack Query (+18 more)
+Cohesion: 0.33
+Nodes (6): generated.gen.go, chi-server Generation, Generated Go Output, Model Generation, oapi-codegen Configuration, Go Server Type Generation
 
 ### Community 11 - "Hono Ts"
-Cohesion: 0.07
-Nodes (26): Automated Testing Needs, Breaking Changes, Business Value, Conclusion, Dependencies & Prerequisites, Deployment Considerations, External Service Dependencies, High-Impact Risks (+18 more)
-
-### Community 12 - "PR Overview CSV Transaction"
-Cohesion: 0.13
-Nodes (17): useBulkCreateTransactions(), useBulkDeleteTransactions(), useGetAccounts(), useGetTransactions(), AccountFilter(), useSelectAccount(), chunkItems(), chunks (+9 more)
+Cohesion: 0.08
+Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
 
 ### Community 13 - "PR Overview Descriptive Title"
-Cohesion: 0.13
-Nodes (26): useCreateAccount(), RequestType, ResponseType, useCreateCategory(), useDeleteTransaction(), useEditTransaction(), useGetCategories(), useGetTransaction() (+18 more)
+Cohesion: 0.08
+Nodes (36): Actions(), Actions(), AccountColumn(), Props, routes, Sheet(), SheetContent(), SheetDescription() (+28 more)
 
 ### Community 14 - "0002 Snapshot Json"
-Cohesion: 0.23
-Nodes (16): columns, AccountsPage(), useBulkDeleteAccounts(), useBulkDeleteCategories(), columns, CategoriesPage(), DataTable(), NewAccountState (+8 more)
-
-### Community 15 - "Sheet Provider Tsx"
-Cohesion: 0.16
-Nodes (23): compositePrimaryKeys, foreignKeys, indexes, schema, uniqueConstraints, columns, isUnique, plaid_id (+15 more)
+Cohesion: 0.14
+Nodes (14): app, app, app, AppType, DELETE, GET, OPTIONS, PATCH (+6 more)
 
 ### Community 16 - "Project Polish Pr Summary"
-Cohesion: 0.10
-Nodes (24): Follow-Up, Key Files, Main Changes, Operational Notes, ProjectPolish PR Summary, Purpose, Tests Added, Verification To Re-run (+16 more)
+Cohesion: 0.20
+Nodes (9): Follow-Up Memory, Implemented Scope, Last Verified, Local Database, Memory Index, ProjectPolish Context, Restart Point, Safety Rules (+1 more)
 
 ### Community 17 - "Transactions Ts"
-Cohesion: 0.13
-Nodes (18): db, pool, accounts, accountsRelations, categories, categoriesRelations, citext, InsertAccountSchema (+10 more)
+Cohesion: 0.15
+Nodes (13): app, accountsRelations, categories, categoriesRelations, citext, InsertCategorySchema, transactions, transactionsRelations (+5 more)
 
 ### Community 18 - "0001 Snapshot Json"
-Cohesion: 0.15
-Nodes (17): geistMono, geistSans, metadata, RootLayout(), Filters(), Header(), HeaderLogo(), Navigation() (+9 more)
+Cohesion: 0.19
+Nodes (8): Props, AccountFilter(), DateFilter(), Filters(), Header(), HeaderLogo(), Navigation(), WelcomeMsg()
 
 ### Community 19 - "Json Editor Code Actions"
-Cohesion: 0.12
-Nodes (16): checkTransactionMutationRateLimit(), cleanupMutationRateLimit(), DateRangeQueryOptions, DateRangeQueryResult, isContentLengthTooLarge(), mutationRequestsByKey, parseDateRangeQuery(), parseStrictDate() (+8 more)
+Cohesion: 0.16
+Nodes (12): app, enforceJsonBodyLimit(), OwnedReferencesResult, checkTransactionMutationRateLimit(), cleanupMutationRateLimit(), DateRangeQueryOptions, DateRangeQueryResult, isContentLengthTooLarge() (+4 more)
 
 ### Community 20 - "0000 Snapshot Json"
-Cohesion: 0.12
-Nodes (21): Auth Redirects And API Auth Errors, Go Persistence Stack, Implementation Order, JWT Access Tokens, Legacy Backend Cleanup, Owned Email/Password Auth, Refresh Token Cookies, Bun Package Manager (+13 more)
-
-### Community 21 - "Nuchi Codex Guide"
-Cohesion: 0.17
-Nodes (21): compositePrimaryKeys, foreignKeys, indexes, schema, uniqueConstraints, plaid_id, user_id, dialect (+13 more)
-
-### Community 22 - "Connection Ts"
-Cohesion: 0.12
-Nodes (21): [css], editor.codeActionsOnSave, source.fixAll.eslint, source.organizeImports, editor.formatOnSave, editor.wordWrap, eslint.validate, [html] (+13 more)
+Cohesion: 0.33
+Nodes (5): Configuration, Health Check, Local Run, Nuchi Go Backend, Verification
 
 ### Community 23 - "Nuchi Project Context"
-Cohesion: 0.14
-Nodes (13): DatePicker(), Props, Select(), ApiFormValues, formSchema, FormValues, Props, TransactionForm() (+5 more)
+Cohesion: 0.10
+Nodes (26): Props, Select(), FormControl(), FormDescription(), FormField(), FormFieldContext, FormFieldContextValue, FormItem() (+18 more)
 
 ### Community 24 - "Transactions API"
-Cohesion: 0.09
-Nodes (24): Accounts, Accounts, API Shape, Canonical Architecture, Categories, Categories, Client-to-Database Request Flow, Client-to-Database Flow (+16 more)
-
-### Community 25 - "Go Backend Replacement Spec"
-Cohesion: 0.16
-Nodes (20): compositePrimaryKeys, foreignKeys, indexes, schema, uniqueConstraints, user_id, dialect, enums (+12 more)
-
-### Community 26 - "Child Issue Plan"
-Cohesion: 0.15
-Nodes (20): Accounts API, Bulk Delete Missing IDs Behavior, Categories API, CSV Import To Bulk Create, Duplicate Category Update Mismatch, Error Status Inventory, Shared API Behavior, Summary API (+12 more)
-
-### Community 27 - "Compiler Options"
-Cohesion: 0.11
-Nodes (19): API Contract, Auth And Sessions, Currency And Money, Database And RLS, Separate Go API, Go Backend Replacement Spec, Go Outside Docker Development, Goals (+11 more)
+Cohesion: 0.08
+Nodes (23): Accounts, Accounts, API Shape, Canonical Architecture, Categories, Categories, Client-to-Database Flow, Core Stack (+15 more)
 
 ### Community 28 - "Components Json"
-Cohesion: 0.14
-Nodes (18): DateFilter(), Preset, PresetKey, PRESETS, Props, NavButton(), Props, formatDateRange() (+10 more)
+Cohesion: 0.05
+Nodes (60): columns, ResponseType, columns, ResponseType, columns, ResponseType, ImportCard(), Props (+52 more)
 
 ### Community 29 - "Schema Ts"
 Cohesion: 0.10
@@ -274,144 +619,88 @@ Cohesion: 0.11
 Nodes (18): aliases, components, hooks, lib, ui, utils, iconLibrary, registries (+10 more)
 
 ### Community 31 - "Scripts Build"
-Cohesion: 0.31
-Nodes (8): boxVariant, BoxVariants, DataCard(), DataCardProps, iconVariant, IconVariants, formatPercentage(), CardDescription()
-
-### Community 32 - "Current API Parity Fixtures"
-Cohesion: 0.05
-Nodes (71): name, isUnique, name, name, type, compositePrimaryKeys, name, columns (+63 more)
+Cohesion: 0.25
+Nodes (6): geistMono, geistSans, metadata, Toaster(), sonner, SheetProvider()
 
 ### Community 33 - "Dev Dependencies"
-Cohesion: 0.12
-Nodes (16): Dockerized PostgreSQL, Mailpit Docker Service, nuchi-postgres-data Volume, Postgres Docker Service, Canonical Docs, Common Commands, Development Notes, Environment Variables (+8 more)
+Cohesion: 0.20
+Nodes (9): Canonical Docs, Common Commands, Development Notes, Environment Variables, Local Setup, Nuchi, Product Surface, Project Structure (+1 more)
 
 ### Community 34 - "Nuchi Roadmap Features List"
-Cohesion: 0.12
-Nodes (18): cn(), CardAction(), CardFooter(), DropdownMenuCheckboxItem(), DropdownMenuContent(), DropdownMenuItem(), DropdownMenuLabel(), DropdownMenuRadioItem() (+10 more)
+Cohesion: 0.22
+Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
 
 ### Community 35 - "Seed Ts"
-Cohesion: 0.12
-Nodes (17): scripts, build, db:generate, db:migrate, db:seed, db:studio, dev, dev:neon (+9 more)
-
-### Community 36 - "Account Id"
-Cohesion: 0.12
-Nodes (15): API Parity Source Files, Categories, Current API Parity Fixtures, `DELETE /api/categories/:id`, `GET /api/categories`, `GET /api/categories/:id`, `GET /api/summary`, GitHub Issue #34 API Parity Fixtures (+7 more)
+Cohesion: 0.05
+Nodes (38): devDependencies, dotenv, drizzle-kit, eslint, eslint-config-next, eslint-config-prettier, postcss, prettier (+30 more)
 
 ### Community 37 - "Nuchi Application"
-Cohesion: 0.15
-Nodes (14): getDatabaseUrl(), convertAmountToMiliunits(), assertSeedAllowed(), databaseUrl, db, defaultFrom, defaultTo, generateRandomAmount() (+6 more)
+Cohesion: 0.19
+Nodes (13): assertSeedAllowed(), databaseUrl, db, defaultFrom, defaultTo, generateRandomAmount(), generateTransactions(), generateTransactionsForDay() (+5 more)
 
 ### Community 38 - "Use Confirm Tsx"
-Cohesion: 0.12
-Nodes (16): devDependencies, dotenv, drizzle-kit, eslint, eslint-config-next, eslint-config-prettier, postcss, prettier (+8 more)
+Cohesion: 0.22
+Nodes (8): Follow-Up, Key Files, Main Changes, Operational Notes, ProjectPolish PR Summary, Purpose, Tests Added, Verification To Re-run
 
 ### Community 39 - "Import Card Tsx"
-Cohesion: 0.16
-Nodes (14): Actions(), Props, ResponseType, ResponseType, OpenAccountState, useOpenAccount, AccountColumn(), Props (+6 more)
+Cohesion: 0.33
+Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
 
 ### Community 40 - "Roadmap Tech Debt Backlog"
-Cohesion: 0.25
-Nodes (12): DataTableProps, ImportTable(), Props, TableHeadSelect(), Table(), TableBody(), TableCaption(), TableCell() (+4 more)
+Cohesion: 0.60
+Nodes (4): getQueryClient(), makeQueryClient(), Props, QueryProvider()
 
 ### Community 41 - "New Router"
-Cohesion: 0.11
-Nodes (26): 1. Unified Import Inbox, 2. Import Review, Normalization, and Deduplication, 3. Transfers, Balances, and Net Worth, 4. Budgets and Monthly Planning, 5. Recurring Transactions and Forecasting, Current roadmap principle, Nuchi Roadmap Features List, Open banking readiness (+18 more)
-
-### Community 42 - "Api Error"
-Cohesion: 0.06
-Nodes (65): name, notNull, primaryKey, compositePrimaryKeys, indexes, schema, name, name (+57 more)
+Cohesion: 0.50
+Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
 
 ### Community 43 - "Edit Account Sheet Tsx"
-Cohesion: 0.15
-Nodes (13): Commands, components/ui Primitives, Current Risk Areas, db/schema.ts Source Of Truth, Env, Nuchi Codex Guide, Pull Requests Hard Rules, Reference (+5 more)
-
-### Community 44 - "Columns Tsx"
-Cohesion: 0.17
-Nodes (13): Repo Rules, Nuchi Domain Model, Nuchi Project Context (Canonical Docs), Clerk Authentication, CSV Transaction Import Feature, Dashboard Analytics, Drizzle ORM with Neon Postgres, Hono API Layer (+5 more)
+Cohesion: 0.18
+Nodes (10): Commands, Current Risk Areas, Env, graphify, Nuchi Codex Guide, Pull Requests Hard Rules, Reference, Repo Rules (+2 more)
 
 ### Community 45 - "Indexes Columns"
-Cohesion: 0.16
-Nodes (10): CategoryTooltip(), CategoryTooltipPayload, CategoryTooltipProps, COLORS, PieVariant(), Props, COLORS, Props (+2 more)
-
-### Community 46 - "Columns Id"
-Cohesion: 0.22
-Nodes (10): ImportedTransactionRow, ImportedTransactionRowError, parseImportedTransactionRows(), RawImportedTransactionRow, result, ImportCard(), Props, requiredOptions (+2 more)
+Cohesion: 0.50
+Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
 
 ### Community 47 - "Plaid Id"
 Cohesion: 0.15
 Nodes (12): Open Tickets, P0, P1, P2, Phase 1: Security and Data Integrity, Phase 2: User-Facing Correctness and Developer Safety, Phase 3: Regression Coverage, Phase 4: Operational Resilience and UX Improvements (+4 more)
 
 ### Community 48 - "Route Ts"
-Cohesion: 0.20
-Nodes (8): main(), Config, getEnv(), Load(), Handler, TestHealthEndpoint(), NewRouter(), T
+Cohesion: 0.18
+Nodes (8): main(), getEnv(), Load(), TestHealthEndpoint(), NewRouter(), Config, Handler, T
 
 ### Community 49 - "Clerk Auth"
-Cohesion: 0.14
-Nodes (16): buildPoolConfig(), createPool(), DatabasePoolCache, getOrCreateCachedPool(), isLocalDatabaseUrl(), LOCAL_HOSTS, shouldAllowInsecureTls(), shouldUseSsl() (+8 more)
+Cohesion: 0.21
+Nodes (11): buildPoolConfig(), createPool(), DatabasePoolCache, getDatabaseUrl(), getOrCreateCachedPool(), isLocalDatabaseUrl(), LOCAL_HOSTS, shouldAllowInsecureTls() (+3 more)
 
 ### Community 50 - "Columns Plaid Id"
-Cohesion: 0.31
-Nodes (7): Dialog(), DialogContent(), DialogDescription(), DialogFooter(), DialogHeader(), DialogOverlay(), DialogTitle()
+Cohesion: 0.50
+Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
 
 ### Community 51 - "Transactions Account Id Accounts"
-Cohesion: 0.17
-Nodes (4): RequestType, ResponseType, useCreateTransaction(), ApiError
-
-### Community 52 - "Indexes Columns"
-Cohesion: 0.24
-Nodes (9): Chart(), ChartLoading(), DataCardLoading(), DataCharts(), DataGrid(), SpendingPie(), SpendingPieLoading(), DashboardPage() (+1 more)
-
-### Community 53 - "Accounts Categories"
-Cohesion: 0.29
-Nodes (8): useDeleteAccount(), RequestType, ResponseType, useEditAccount(), useGetAccount(), AccountForm(), EditAccountSheet(), FormValues
-
-### Community 54 - "Transactions Account Id Accounts"
-Cohesion: 0.20
-Nodes (9): app, AppType, DELETE, GET, OPTIONS, PATCH, POST, PUT (+1 more)
+Cohesion: 0.50
+Nodes (3): <P0|P1|P2|P3> — <Short ticket title>, Priority Order, Technical Debt Tickets
 
 ### Community 55 - "Nuchi Go Backend"
-Cohesion: 0.39
-Nodes (6): AmountInput(), Props, Tooltip(), TooltipContent(), TooltipProvider(), TooltipTrigger()
+Cohesion: 0.06
+Nodes (50): Props, Props, Actions(), Props, CategoryColumn(), Props, ImportTable(), Props (+42 more)
 
 ### Community 60 - "Accounts Categories"
-Cohesion: 0.57
+Cohesion: 0.61
 Nodes (7): asObject(), fail(), HTTP_METHODS, JsonObject, main(), stringField(), validateOperation()
-
-### Community 61 - "Id Notes"
-Cohesion: 0.29
-Nodes (7): Accounts, `DELETE /api/accounts/:id`, `GET /api/accounts`, `GET /api/accounts/:id`, `PATCH /api/accounts/:id`, `POST /api/accounts`, `POST /api/accounts/bulk-delete`
 
 ### Community 63 - "Validate Openapi Ts"
 Cohesion: 0.48
 Nodes (6): baseEnv, isPostgresReady(), main(), run(), sleep(), waitForPostgres()
-
-### Community 64 - "Accounts DELETE Api Id"
-Cohesion: 0.25
-Nodes (8): `DELETE /api/transactions/:id`, `GET /api/transactions`, `GET /api/transactions/:id`, `PATCH /api/transactions/:id`, `POST /api/transactions`, `POST /api/transactions/bulk-create`, `POST /api/transactions/bulk-delete`, Transactions
-
-### Community 65 - "Postgres Docker Service"
-Cohesion: 0.33
-Nodes (5): ignoreScripts, name, private, trustedDependencies, version
 
 ### Community 66 - "Columns Tsx"
 Cohesion: 0.40
 Nodes (4): healthHandler(), healthResponse, Request, ResponseWriter
 
 ### Community 69 - "Transactions GET Api"
-Cohesion: 0.40
-Nodes (4): Generate, Layout, OpenAPI, Validate
-
-### Community 70 - "Package Json"
-Cohesion: 0.40
-Nodes (4): servers, shadcn, args, command
-
-### Community 71 - "Generated Type Script API"
-Cohesion: 0.50
-Nodes (3): <P0|P1|P2|P3> — <Short ticket title>, Priority Order, Technical Debt Tickets
-
-### Community 72 - "Health Handler"
-Cohesion: 0.50
-Nodes (3): dialect, entries, version
+Cohesion: 0.33
+Nodes (5): Generate, Layout, OpenAPI, Shared Contract, Validate
 
 ### Community 75 - "Date Primary Key"
 Cohesion: 0.67
@@ -438,24 +727,24 @@ Cohesion: 0.67
 Nodes (3): Document/File Metaphor, File Icon, UI Icon
 
 ## Knowledge Gaps
-- **558 isolated node(s):** `Props`, `Props`, `ResponseType`, `Props`, `Props` (+553 more)
+- **874 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+869 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **32 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **441 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Nuchi Roadmap Features List` to `Transaction Form Tsx`, `Cn Button Tsx`, `Actions Tsx`, `Import Card Tsx`, `Roadmap Tech Debt Backlog`, `0004 Snapshot Json`, `PR Overview Descriptive Title`, `0002 Snapshot Json`, `Transactions Ts`, `Columns Plaid Id`, `Nuchi Go Backend`, `Nuchi Project Context`, `Components Json`, `Scripts Build`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
-- **Why does `Nuchi Codex Guide` connect `Edit Account Sheet Tsx` to `Dev Dependencies`, `Data Card Tsx`, `Columns Tsx`, `0000 Snapshot Json`, `Child Issue Plan`, `Compiler Options`?**
-  _High betweenness centrality (0.008) - this node is a cross-community bridge._
-- **Why does `Button()` connect `Components Json` to `Transaction Form Tsx`, `Cn Button Tsx`, `Nuchi Roadmap Features List`, `Import Card Tsx`, `Roadmap Tech Debt Backlog`, `PR Overview CSV Transaction`, `PR Overview Descriptive Title`, `0002 Snapshot Json`, `Columns Id`, `Columns Plaid Id`, `Nuchi Project Context`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
-- **What connects `Props`, `Props`, `ResponseType` to the rest of the system?**
-  _574 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `dependencies` connect `Dependencies Class Variance Authority` to `Seed Ts`, `Scripts Build`, `Nuchi Project Context`?**
+  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+- **Why does `cn()` connect `Nuchi Go Backend` to `0004 Snapshot Json`, `PR Overview Descriptive Title`, `0001 Snapshot Json`, `Nuchi Project Context`, `Components Json`?**
+  _High betweenness centrality (0.036) - this node is a cross-community bridge._
+- **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `Components Json`?**
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
+  _899 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.04081632653061224 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**
-  _Cohesion score 0.045454545454545456 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
 - **Should `Cn Button Tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.14855072463768115 - nodes in this community are weakly interconnected._
-- **Should `Page Tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.11282051282051282 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._

@@ -22,7 +22,7 @@
     },
     {
       "name": "auth",
-      "description": "Owned auth endpoints"
+      "description": "Owned auth endpoints. Auth responses are not wrapped in the app resource `{ data: ... }` envelope."
     },
     {
       "name": "accounts",
@@ -69,10 +69,628 @@
           }
         }
       }
+    },
+    "/auth/register": {
+      "post": {
+        "operationId": "registerUser",
+        "tags": ["auth"],
+        "summary": "Register a user",
+        "description": "Creates an owned auth user and starts email verification. The response is an auth shape, not an app resource envelope.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered and verification email queued.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "409": {
+            "$ref": "#/components/responses/ConflictError"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "loginUser",
+        "tags": ["auth"],
+        "summary": "Log in with email and password",
+        "description": "Returns a short-lived Bearer access token and sets the refresh token in an HttpOnly cookie. The response is not wrapped in `{ data: ... }`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login succeeded.",
+            "headers": {
+              "Set-Cookie": {
+                "$ref": "#/components/headers/RefreshTokenSetCookie"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/EmailNotVerifiedError"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "operationId": "refreshSession",
+        "tags": ["auth"],
+        "summary": "Refresh an access token",
+        "description": "Uses the HttpOnly refresh-token cookie to issue a new Bearer access token. The refresh cookie may be rotated.",
+        "security": [
+          {
+            "refreshTokenCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A new access token was issued.",
+            "headers": {
+              "Set-Cookie": {
+                "$ref": "#/components/headers/RefreshTokenSetCookie"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/InvalidRefreshTokenError"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "logoutUser",
+        "tags": ["auth"],
+        "summary": "Log out the current session",
+        "description": "Revokes the refresh token identified by the refresh-token cookie and clears that cookie.",
+        "security": [
+          {
+            "refreshTokenCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session revoked.",
+            "headers": {
+              "Set-Cookie": {
+                "$ref": "#/components/headers/RefreshTokenClearCookie"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMessageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/InvalidRefreshTokenError"
+          }
+        }
+      }
+    },
+    "/auth/verify-email": {
+      "post": {
+        "operationId": "verifyEmail",
+        "tags": ["auth"],
+        "summary": "Verify a user's email address",
+        "description": "Consumes a one-time email verification token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email verified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/InvalidTokenError"
+          }
+        }
+      }
+    },
+    "/auth/password-reset/request": {
+      "post": {
+        "operationId": "requestPasswordReset",
+        "tags": ["auth"],
+        "summary": "Request a password reset",
+        "description": "Queues a reset email when the account is eligible. The response does not disclose whether the email exists.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordResetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reset flow accepted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/auth/password-reset/confirm": {
+      "post": {
+        "operationId": "confirmPasswordReset",
+        "tags": ["auth"],
+        "summary": "Confirm a password reset",
+        "description": "Consumes a valid reset token and replaces the password.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordResetConfirmRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset completed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/InvalidTokenError"
+          }
+        }
+      }
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Short-lived access token sent as `Authorization: Bearer <token>`. App resource endpoints require this scheme unless documented otherwise."
+      },
+      "refreshTokenCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "nuchi_refresh_token",
+        "description": "HttpOnly refresh-token cookie set by login/refresh and consumed by refresh/logout. JavaScript clients must not read this value directly."
+      }
+    },
+    "headers": {
+      "RefreshTokenSetCookie": {
+        "description": "Sets or rotates the HttpOnly refresh-token cookie. The cookie is scoped to auth refresh/logout paths where practical.",
+        "schema": {
+          "type": "string",
+          "example": "nuchi_refresh_token=opaque-token; HttpOnly; Path=/api/auth; SameSite=Lax"
+        }
+      },
+      "RefreshTokenClearCookie": {
+        "description": "Clears the HttpOnly refresh-token cookie after logout.",
+        "schema": {
+          "type": "string",
+          "example": "nuchi_refresh_token=; HttpOnly; Path=/api/auth; Max-Age=0; SameSite=Lax"
+        }
+      },
+      "RetryAfter": {
+        "description": "Seconds to wait before retrying a rate-limited request.",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 60
+        }
+      }
+    },
+    "responses": {
+      "ValidationError": {
+        "description": "The request body, route parameter, or query string is invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "validation": {
+                "value": {
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "Request validation failed.",
+                    "details": {
+                      "fields": [
+                        {
+                          "path": "email",
+                          "message": "Invalid email address."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "UnauthorizedError": {
+        "description": "Authentication failed or the Bearer access token is missing.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "missingAccessToken": {
+                "value": {
+                  "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": "Authentication required."
+                  }
+                }
+              },
+              "expiredAccessToken": {
+                "value": {
+                  "error": {
+                    "code": "ACCESS_TOKEN_EXPIRED",
+                    "message": "Access token expired."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "InvalidRefreshTokenError": {
+        "description": "The refresh-token cookie is missing, expired, revoked, or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "invalidRefreshToken": {
+                "value": {
+                  "error": {
+                    "code": "INVALID_REFRESH_TOKEN",
+                    "message": "Refresh token is invalid or expired."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "InvalidTokenError": {
+        "description": "The submitted one-time token is missing, expired, already used, or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "invalidToken": {
+                "value": {
+                  "error": {
+                    "code": "INVALID_TOKEN",
+                    "message": "Token is invalid or expired."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "EmailNotVerifiedError": {
+        "description": "The login credentials are valid, but the email address must be verified first.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "emailNotVerified": {
+                "value": {
+                  "error": {
+                    "code": "EMAIL_NOT_VERIFIED",
+                    "message": "Email address must be verified before login."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConflictError": {
+        "description": "The request conflicts with an existing resource or account state.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "duplicateEmail": {
+                "value": {
+                  "error": {
+                    "code": "EMAIL_ALREADY_REGISTERED",
+                    "message": "Email is already registered."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RateLimitError": {
+        "description": "The request exceeded a documented rate limit.",
+        "headers": {
+          "Retry-After": {
+            "$ref": "#/components/headers/RetryAfter"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "rateLimited": {
+                "value": {
+                  "error": {
+                    "code": "RATE_LIMITED",
+                    "message": "Too many requests. Please try again later."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "schemas": {
+      "ApiErrorResponse": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ApiError"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiError": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Stable machine-readable error code.",
+            "examples": ["UNAUTHORIZED", "VALIDATION_ERROR"]
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error summary safe to show in the app."
+          },
+          "details": {
+            "type": "object",
+            "description": "Optional structured context for validation fields, database constraints, limits, or other endpoint-specific details.",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AppResourceEnvelope": {
+        "type": "object",
+        "description": "App resource success responses preserve the existing `{ data: ... }` envelope where practical. Resource-specific schemas in #29 should replace `data` with the concrete payload type.",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "description": "Resource-specific success payload."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthMessageResponse": {
+        "type": "object",
+        "description": "Auth command success shape. Auth endpoints intentionally do not use the app resource `{ data: ... }` envelope.",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Verification email sent."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthSessionResponse": {
+        "type": "object",
+        "description": "Auth session success shape returned by login and refresh. The refresh token is delivered by HttpOnly cookie, not JSON.",
+        "required": ["accessToken", "expiresIn", "tokenType", "user"],
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "JWT access token for Bearer API requests."
+          },
+          "expiresIn": {
+            "type": "integer",
+            "description": "Access-token lifetime in seconds.",
+            "minimum": 1,
+            "example": 1800
+          },
+          "tokenType": {
+            "type": "string",
+            "const": "Bearer"
+          },
+          "user": {
+            "$ref": "#/components/schemas/AuthUser"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthUser": {
+        "type": "object",
+        "required": ["id", "email", "emailVerified"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "minLength": 8
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TokenRequest": {
+        "type": "object",
+        "required": ["token"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "PasswordResetRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PasswordResetConfirmRequest": {
+        "type": "object",
+        "required": ["token", "password"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "minLength": 8
+          }
+        },
+        "additionalProperties": false
+      },
       "HealthResponse": {
         "type": "object",
         "required": ["service", "status", "time"],

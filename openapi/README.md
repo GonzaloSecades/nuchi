@@ -19,6 +19,13 @@ bun run openapi:validate
 
 The validator is intentionally local and dependency-free so contract edits can be checked before generator tooling is pinned.
 
+## Shared Contract
+
+- API errors use the structured `{ "error": { "code": "...", "message": "..." } }` shape defined by `ApiErrorResponse`.
+- App resource success responses should preserve the existing `{ "data": ... }` envelope where practical.
+- Auth success responses are separate command/session shapes and are not wrapped in the app resource envelope.
+- App resource endpoints use Bearer access-token auth. Refresh and logout use the HttpOnly refresh-token cookie documented by `refreshTokenCookie`.
+
 ## Generate
 
 Generation commands are wired but deferred in #35 because the repo does not yet pin generator tools and #29 owns the full resource contract.
