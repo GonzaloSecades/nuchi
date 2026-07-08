@@ -3,7 +3,7 @@
   "info": {
     "title": "Nuchi API",
     "version": "0.1.0",
-    "description": "OpenAPI source for the Go backend replacement. Resource behavior is filled in by #29 and the resource parity tickets."
+    "description": "OpenAPI source for the Go backend replacement. This contract documents the current Hono resource behavior from docs/specs/18-go-backend-replacement/api-parity-fixtures.md, while intentionally changing auth to owned email/password sessions, Bearer access tokens, HttpOnly refresh-token cookies, structured API errors, and required transaction currency with ARS as the default."
   },
   "servers": [
     {
@@ -75,7 +75,7 @@
         "operationId": "registerUser",
         "tags": ["auth"],
         "summary": "Register a user",
-        "description": "Creates an owned auth user and starts email verification. The response is an auth shape, not an app resource envelope.",
+        "description": "Intentional migration behavior: creates an owned auth user and starts email verification. Current Hono uses Clerk and has no equivalent resource endpoint. The response is an auth shape, not an app resource envelope.",
         "requestBody": {
           "required": true,
           "content": {
@@ -111,7 +111,7 @@
         "operationId": "loginUser",
         "tags": ["auth"],
         "summary": "Log in with email and password",
-        "description": "Returns a short-lived Bearer access token and sets the refresh token in an HttpOnly cookie. The response is not wrapped in `{ data: ... }`.",
+        "description": "Intentional migration behavior: returns a short-lived Bearer access token and sets the refresh token in an HttpOnly cookie. Current Hono uses Clerk and resource handlers read Clerk auth. The response is not wrapped in `{ data: ... }`.",
         "requestBody": {
           "required": true,
           "content": {
@@ -155,7 +155,7 @@
         "operationId": "refreshSession",
         "tags": ["auth"],
         "summary": "Refresh an access token",
-        "description": "Uses the HttpOnly refresh-token cookie to issue a new Bearer access token. The refresh cookie may be rotated.",
+        "description": "Intentional migration behavior: uses the HttpOnly refresh-token cookie to issue a new Bearer access token. The refresh cookie may be rotated.",
         "security": [
           {
             "refreshTokenCookie": []
@@ -188,7 +188,7 @@
         "operationId": "logoutUser",
         "tags": ["auth"],
         "summary": "Log out the current session",
-        "description": "Revokes the refresh token identified by the refresh-token cookie and clears that cookie.",
+        "description": "Intentional migration behavior: revokes the refresh token identified by the refresh-token cookie and clears that cookie.",
         "security": [
           {
             "refreshTokenCookie": []
@@ -221,7 +221,7 @@
         "operationId": "verifyEmail",
         "tags": ["auth"],
         "summary": "Verify a user's email address",
-        "description": "Consumes a one-time email verification token.",
+        "description": "Intentional migration behavior: consumes a one-time email verification token.",
         "requestBody": {
           "required": true,
           "content": {
@@ -257,7 +257,7 @@
         "operationId": "requestPasswordReset",
         "tags": ["auth"],
         "summary": "Request a password reset",
-        "description": "Queues a reset email when the account is eligible. The response does not disclose whether the email exists.",
+        "description": "Intentional migration behavior: queues a reset email when the account is eligible. The response does not disclose whether the email exists.",
         "requestBody": {
           "required": true,
           "content": {
@@ -290,7 +290,7 @@
         "operationId": "confirmPasswordReset",
         "tags": ["auth"],
         "summary": "Confirm a password reset",
-        "description": "Consumes a valid reset token and replaces the password.",
+        "description": "Intentional migration behavior: consumes a valid reset token and replaces the password.",
         "requestBody": {
           "required": true,
           "content": {
@@ -320,6 +320,872 @@
           }
         }
       }
+    },
+    "/accounts": {
+      "get": {
+        "operationId": "listAccounts",
+        "tags": ["accounts"],
+        "summary": "List accounts",
+        "description": "Current Hono behavior: lists accounts owned by the authenticated user and returns `{ data: [{ id, name }] }`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned accounts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createAccount",
+        "tags": ["accounts"],
+        "summary": "Create an account",
+        "description": "Current Hono behavior: creates an owned account and returns the full account row in `{ data }`. Duplicate names are case-insensitive per user and return 409.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountInput"
+              },
+              "examples": {
+                "cash": {
+                  "value": {
+                    "name": "Cash"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "409": {
+            "$ref": "#/components/responses/DuplicateAccountNameError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/accounts/bulk-delete": {
+      "post": {
+        "operationId": "bulkDeleteAccounts",
+        "tags": ["accounts"],
+        "summary": "Bulk delete accounts",
+        "description": "Current Hono behavior: deletes owned accounts matching the requested IDs and ignores missing or unowned IDs. Account deletion cascades transactions through the database foreign key.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkDeleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deleted account IDs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedResourceListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/accounts/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ResourceId"
+        }
+      ],
+      "get": {
+        "operationId": "getAccount",
+        "tags": ["accounts"],
+        "summary": "Get an account",
+        "description": "Current Hono behavior: returns one owned account as `{ data: { id, name } }` or 404 when missing or unowned.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountSummaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/AccountNotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateAccount",
+        "tags": ["accounts"],
+        "summary": "Update an account",
+        "description": "Current Hono behavior: updates an owned account and returns the full account row in `{ data }`. Duplicate names are case-insensitive per user and return 409.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/AccountNotFoundError"
+          },
+          "409": {
+            "$ref": "#/components/responses/DuplicateAccountNameError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteAccount",
+        "tags": ["accounts"],
+        "summary": "Delete an account",
+        "description": "Current Hono behavior: deletes one owned account and returns `{ data: { id } }`. Account deletion cascades transactions through the database foreign key.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted account ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedResourceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/AccountNotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "operationId": "listCategories",
+        "tags": ["categories"],
+        "summary": "List categories",
+        "description": "Current Hono behavior: lists categories owned by the authenticated user and returns `{ data: [{ id, name }] }`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned categories.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCategory",
+        "tags": ["categories"],
+        "summary": "Create a category",
+        "description": "Current Hono behavior: creates an owned category and returns the full category row in `{ data }`. Duplicate names are case-insensitive per user and return 409.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "409": {
+            "$ref": "#/components/responses/DuplicateCategoryNameError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/categories/bulk-delete": {
+      "post": {
+        "operationId": "bulkDeleteCategories",
+        "tags": ["categories"],
+        "summary": "Bulk delete categories",
+        "description": "Current Hono behavior: deletes owned categories matching the requested IDs and ignores missing or unowned IDs. Category deletion clears matching transaction `categoryId` values through the database foreign key.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkDeleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deleted category IDs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedResourceListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ResourceId"
+        }
+      ],
+      "get": {
+        "operationId": "getCategory",
+        "tags": ["categories"],
+        "summary": "Get a category",
+        "description": "Current Hono behavior: returns one owned category as `{ data: { id, name } }` or 404 when missing or unowned.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned category.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategorySummaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/CategoryNotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateCategory",
+        "tags": ["categories"],
+        "summary": "Update a category",
+        "description": "Current Hono behavior: updates an owned category and returns the full category row in `{ data }`. Intentional contract decision: duplicate category updates return the same structured 409 as duplicate creates instead of the current Hono 500 mismatch.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/CategoryNotFoundError"
+          },
+          "409": {
+            "$ref": "#/components/responses/DuplicateCategoryNameError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteCategory",
+        "tags": ["categories"],
+        "summary": "Delete a category",
+        "description": "Current Hono behavior: deletes one owned category and returns `{ data: { id } }`. Category deletion clears matching transaction `categoryId` values through the database foreign key.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted category ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedResourceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/CategoryNotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "get": {
+        "operationId": "listTransactions",
+        "tags": ["transactions"],
+        "summary": "List transactions",
+        "description": "Current Hono behavior: lists transactions joined through owned accounts, supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts by date descending. Intentional migration behavior: each transaction includes required `currency`, defaulting to `ARS`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/FromDate"
+          },
+          {
+            "$ref": "#/components/parameters/ToDate"
+          },
+          {
+            "$ref": "#/components/parameters/AccountIdQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned transactions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidDateQueryError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createTransaction",
+        "tags": ["transactions"],
+        "summary": "Create a transaction",
+        "description": "Current Hono behavior: validates owned account and optional owned category before inserting and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required in the contract and defaults to `ARS`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/TransactionReferenceNotFoundError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TransactionMutationRateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/transactions/bulk-create": {
+      "post": {
+        "operationId": "bulkCreateTransactions",
+        "tags": ["transactions"],
+        "summary": "Bulk create transactions",
+        "description": "Current Hono behavior: accepts 1 to 500 transactions as a JSON array, rejects numeric `Content-Length` over 1,000,000 bytes, validates all rows and owned account/category references before inserting, and returns all inserted rows in `{ data }`. Intentional migration behavior: each row includes required `currency`, defaulting to `ARS`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionBulkCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transactions created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionBulkCreateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/TransactionReferenceNotFoundError"
+          },
+          "413": {
+            "$ref": "#/components/responses/RequestBodyTooLargeError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TransactionMutationRateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/transactions/bulk-delete": {
+      "post": {
+        "operationId": "bulkDeleteTransactions",
+        "tags": ["transactions"],
+        "summary": "Bulk delete transactions",
+        "description": "Current Hono behavior: accepts 1 to 500 IDs, rejects numeric `Content-Length` over 100,000 bytes, deletes owned transactions matching requested IDs, ignores missing or unowned IDs, and returns deleted IDs in `{ data }`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionBulkDeleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deleted transaction IDs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedResourceListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "413": {
+            "$ref": "#/components/responses/RequestBodyTooLargeError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TransactionMutationRateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/transactions/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ResourceId"
+        }
+      ],
+      "get": {
+        "operationId": "getTransaction",
+        "tags": ["transactions"],
+        "summary": "Get a transaction",
+        "description": "Current Hono behavior: returns one transaction joined through an owned account or 404 when missing or unowned. Intentional migration behavior: the returned transaction includes required `currency`, defaulting to `ARS`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned transaction.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/TransactionNotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateTransaction",
+        "tags": ["transactions"],
+        "summary": "Update a transaction",
+        "description": "Current Hono behavior: validates the target transaction, owned account, and optional owned category before updating and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required in the contract and defaults to `ARS`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/TransactionReferenceNotFoundError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TransactionMutationRateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteTransaction",
+        "tags": ["transactions"],
+        "summary": "Delete a transaction",
+        "description": "Current Hono behavior: deletes one owned transaction and returns `{ data: { id } }`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted transaction ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedResourceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/TransactionNotFoundError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TransactionMutationRateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
+    },
+    "/summary": {
+      "get": {
+        "operationId": "getSummary",
+        "tags": ["summary"],
+        "summary": "Get dashboard summary",
+        "description": "Current Hono behavior: returns dashboard totals, change percentages, expense category breakdown, and daily income/expense series for the selected inclusive date range. The endpoint supports the same `from`, `to`, and `accountId` filters as transaction list, defaults to the last 30 days, and rejects ranges over 366 days. Amounts remain integer milliunits and use the single-currency ARS default until multi-currency UX exists.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/FromDate"
+          },
+          {
+            "$ref": "#/components/parameters/ToDate"
+          },
+          {
+            "$ref": "#/components/parameters/AccountIdQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dashboard summary.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidDateQueryError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/DatabaseError"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -335,6 +1201,43 @@
         "in": "cookie",
         "name": "nuchi_refresh_token",
         "description": "HttpOnly refresh-token cookie set by login/refresh and consumed by refresh/logout. JavaScript clients must not read this value directly."
+      }
+    },
+    "parameters": {
+      "ResourceId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ResourceId"
+        }
+      },
+      "FromDate": {
+        "name": "from",
+        "in": "query",
+        "required": false,
+        "description": "Inclusive start date. Must use `yyyy-MM-dd`; parsed as start of day. Defaults to 30 days before current server time.",
+        "schema": {
+          "$ref": "#/components/schemas/DateString"
+        }
+      },
+      "ToDate": {
+        "name": "to",
+        "in": "query",
+        "required": false,
+        "description": "Inclusive end date. Must use `yyyy-MM-dd`; parsed as end of day. Defaults to current server time.",
+        "schema": {
+          "$ref": "#/components/schemas/DateString"
+        }
+      },
+      "AccountIdQuery": {
+        "name": "accountId",
+        "in": "query",
+        "required": false,
+        "description": "Optional account filter. Missing or unowned accounts produce an empty list/summary because resource queries still require an owned joined account.",
+        "schema": {
+          "$ref": "#/components/schemas/ResourceId"
+        }
       }
     },
     "headers": {
@@ -363,7 +1266,7 @@
     },
     "responses": {
       "ValidationError": {
-        "description": "The request body, route parameter, or query string is invalid.",
+        "description": "The request body, route parameter, or query string is invalid. Intentional migration behavior: Go handlers return this structured shape instead of Hono/Zod validator's package-default validation body.",
         "content": {
           "application/json": {
             "schema": {
@@ -390,8 +1293,44 @@
           }
         }
       },
+      "InvalidDateQueryError": {
+        "description": "The date range query is invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "invalidFormat": {
+                "value": {
+                  "error": {
+                    "code": "INVALID_QUERY",
+                    "message": "from and to must use yyyy-MM-dd dates."
+                  }
+                }
+              },
+              "invertedRange": {
+                "value": {
+                  "error": {
+                    "code": "INVALID_QUERY",
+                    "message": "from must be less than or equal to to."
+                  }
+                }
+              },
+              "tooLong": {
+                "value": {
+                  "error": {
+                    "code": "INVALID_QUERY",
+                    "message": "Date range cannot exceed 366 days."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "UnauthorizedError": {
-        "description": "Authentication failed or the Bearer access token is missing.",
+        "description": "Authentication failed or the Bearer access token is missing. Current Hono resource handlers return plain `{ \"error\": \"Unauthorized\" }`; the Go contract intentionally uses the structured shared error shape.",
         "content": {
           "application/json": {
             "schema": {
@@ -498,6 +1437,213 @@
           }
         }
       },
+      "DuplicateAccountNameError": {
+        "description": "The authenticated user already has an account with this name. Names are case-insensitive per user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "duplicateAccount": {
+                "value": {
+                  "error": {
+                    "code": "DUPLICATE_ACCOUNT_NAME",
+                    "message": "You already have an account with this name.",
+                    "details": {
+                      "constraint": "accounts_user_id_name_uniq"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DuplicateCategoryNameError": {
+        "description": "The authenticated user already has a category with this name. Names are case-insensitive per user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "duplicateCategory": {
+                "value": {
+                  "error": {
+                    "code": "DUPLICATE_CATEGORY_NAME",
+                    "message": "You already have a category with this name.",
+                    "details": {
+                      "constraint": "categories_user_id_name_uniq"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AccountNotFoundError": {
+        "description": "The account is missing or is not owned by the authenticated user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "notFound": {
+                "value": {
+                  "error": {
+                    "code": "ACCOUNT_NOT_FOUND",
+                    "message": "Account not found."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CategoryNotFoundError": {
+        "description": "The category is missing or is not owned by the authenticated user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "notFound": {
+                "value": {
+                  "error": {
+                    "code": "CATEGORY_NOT_FOUND",
+                    "message": "Category not found."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TransactionNotFoundError": {
+        "description": "The transaction is missing or is not reachable through an account owned by the authenticated user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "notFound": {
+                "value": {
+                  "error": {
+                    "code": "TRANSACTION_NOT_FOUND",
+                    "message": "Transaction not found."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TransactionReferenceNotFoundError": {
+        "description": "The target transaction, account reference, or category reference is missing or unowned.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "accountNotFound": {
+                "value": {
+                  "error": {
+                    "code": "ACCOUNT_NOT_FOUND",
+                    "message": "Account not found."
+                  }
+                }
+              },
+              "categoryNotFound": {
+                "value": {
+                  "error": {
+                    "code": "CATEGORY_NOT_FOUND",
+                    "message": "Category not found."
+                  }
+                }
+              },
+              "transactionNotFound": {
+                "value": {
+                  "error": {
+                    "code": "TRANSACTION_NOT_FOUND",
+                    "message": "Transaction not found."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RequestBodyTooLargeError": {
+        "description": "The request body exceeds a documented bulk operation size limit.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "tooLarge": {
+                "value": {
+                  "error": {
+                    "code": "REQUEST_BODY_TOO_LARGE",
+                    "message": "Request body is too large."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TransactionMutationRateLimitError": {
+        "description": "The transaction mutation exceeded the per-user/action rate limit: 60 requests per 60 seconds.",
+        "headers": {
+          "Retry-After": {
+            "$ref": "#/components/headers/RetryAfter"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "rateLimited": {
+                "value": {
+                  "error": {
+                    "code": "TRANSACTION_MUTATION_RATE_LIMITED",
+                    "message": "Too many transaction mutations. Please try again later."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DatabaseError": {
+        "description": "The API could not complete the request because of a database error.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "database": {
+                "value": {
+                  "error": {
+                    "code": "DB_ERROR",
+                    "message": "DatabaseError - Failed to complete request"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "RateLimitError": {
         "description": "The request exceeded a documented rate limit.",
         "headers": {
@@ -552,17 +1698,6 @@
             "type": "object",
             "description": "Optional structured context for validation fields, database constraints, limits, or other endpoint-specific details.",
             "additionalProperties": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AppResourceEnvelope": {
-        "type": "object",
-        "description": "App resource success responses preserve the existing `{ data: ... }` envelope where practical. Resource-specific schemas in #29 should replace `data` with the concrete payload type.",
-        "required": ["data"],
-        "properties": {
-          "data": {
-            "description": "Resource-specific success payload."
           }
         },
         "additionalProperties": false
@@ -706,6 +1841,554 @@
           "time": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResourceId": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Opaque resource ID. Legacy resources use cuid-style text IDs; auth users use UUIDs."
+      },
+      "DateString": {
+        "type": "string",
+        "format": "date",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "example": "2026-06-30"
+      },
+      "CurrencyCode": {
+        "type": "string",
+        "description": "Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.",
+        "default": "ARS",
+        "enum": ["ARS"]
+      },
+      "AccountInput": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "Cash"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountSummary": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "name": {
+            "type": "string",
+            "example": "Cash"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Account": {
+        "type": "object",
+        "required": ["id", "plaidId", "name", "userId"],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "plaidId": {
+            "type": ["string", "null"]
+          },
+          "name": {
+            "type": "string",
+            "example": "Cash"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Authenticated user owner ID. Current Hono rows use Clerk IDs; the Go replacement uses internal UUIDs."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountListResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountSummary"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountSummaryResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AccountSummary"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Account"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryInput": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "Groceries"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategorySummary": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "name": {
+            "type": "string",
+            "example": "Groceries"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Category": {
+        "type": "object",
+        "required": ["id", "plaidId", "name", "userId"],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "plaidId": {
+            "type": ["string", "null"]
+          },
+          "name": {
+            "type": "string",
+            "example": "Groceries"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Authenticated user owner ID. Current Hono rows use Clerk IDs; the Go replacement uses internal UUIDs."
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryListResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategorySummary"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategorySummaryResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CategorySummary"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Category"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionInput": {
+        "type": "object",
+        "required": ["amount", "payee", "date", "accountId", "currency"],
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "description": "Signed integer milliunits. Positive values are income; negative values are expenses.",
+            "example": -12500
+          },
+          "payee": {
+            "type": "string",
+            "minLength": 1,
+            "example": "Market"
+          },
+          "notes": {
+            "type": ["string", "null"],
+            "default": null
+          },
+          "date": {
+            "$ref": "#/components/schemas/DateString"
+          },
+          "accountId": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "categoryId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Transaction": {
+        "type": "object",
+        "required": [
+          "id",
+          "amount",
+          "payee",
+          "notes",
+          "date",
+          "accountId",
+          "categoryId",
+          "currency"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Signed integer milliunits.",
+            "example": -12500
+          },
+          "payee": {
+            "type": "string",
+            "example": "Market"
+          },
+          "notes": {
+            "type": ["string", "null"],
+            "example": "weekly shop"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-06-30T00:00:00.000Z"
+          },
+          "accountId": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "categoryId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionListItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "date",
+          "category",
+          "categoryId",
+          "payee",
+          "amount",
+          "notes",
+          "account",
+          "accountId",
+          "currency"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-06-30T00:00:00.000Z"
+          },
+          "category": {
+            "type": ["string", "null"],
+            "example": "Groceries"
+          },
+          "categoryId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "payee": {
+            "type": "string",
+            "example": "Market"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Signed integer milliunits.",
+            "example": -12500
+          },
+          "notes": {
+            "type": ["string", "null"],
+            "example": "weekly shop"
+          },
+          "account": {
+            "type": "string",
+            "example": "Cash"
+          },
+          "accountId": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Transaction"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionListResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionListItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionBulkCreateRequest": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 500,
+        "items": {
+          "$ref": "#/components/schemas/TransactionInput"
+        }
+      },
+      "TransactionBulkCreateResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transaction"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "BulkDeleteRequest": {
+        "type": "object",
+        "required": ["ids"],
+        "properties": {
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/ResourceId"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionBulkDeleteRequest": {
+        "type": "object",
+        "required": ["ids"],
+        "properties": {
+          "ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "$ref": "#/components/schemas/ResourceId"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeletedResource": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeletedResourceResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DeletedResource"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeletedResourceListResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeletedResource"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "SummaryCategory": {
+        "type": "object",
+        "required": ["name", "value"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Groceries"
+          },
+          "value": {
+            "type": "integer",
+            "description": "Absolute expense sum in milliunits.",
+            "example": 12500
+          }
+        },
+        "additionalProperties": false
+      },
+      "SummaryDay": {
+        "type": "object",
+        "required": ["date", "income", "expenses"],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-06-30T00:00:00.000Z"
+          },
+          "income": {
+            "type": "integer",
+            "description": "Income sum in milliunits for this day.",
+            "example": 500000
+          },
+          "expenses": {
+            "type": "integer",
+            "description": "Absolute expense sum in milliunits for this day.",
+            "example": 12500
+          }
+        },
+        "additionalProperties": false
+      },
+      "Summary": {
+        "type": "object",
+        "required": [
+          "remainingAmount",
+          "remainingChange",
+          "incomeAmount",
+          "incomeChange",
+          "expensesAmount",
+          "expensesChange",
+          "categories",
+          "days"
+        ],
+        "properties": {
+          "remainingAmount": {
+            "type": "integer",
+            "description": "Sum of signed transaction amounts in milliunits.",
+            "example": 487500
+          },
+          "remainingChange": {
+            "type": "number",
+            "description": "Percentage change versus the previous period.",
+            "example": 12.5
+          },
+          "incomeAmount": {
+            "type": "integer",
+            "description": "Sum of non-negative transaction amounts in milliunits.",
+            "example": 500000
+          },
+          "incomeChange": {
+            "type": "number",
+            "description": "Percentage change versus the previous period.",
+            "example": 100
+          },
+          "expensesAmount": {
+            "type": "integer",
+            "description": "Sum of absolute negative transaction amounts in milliunits.",
+            "example": 12500
+          },
+          "expensesChange": {
+            "type": "number",
+            "description": "Percentage change versus the previous period.",
+            "example": -20
+          },
+          "categories": {
+            "type": "array",
+            "description": "Top three negative categorized expense groups, plus an `Other` group when more categories remain.",
+            "items": {
+              "$ref": "#/components/schemas/SummaryCategory"
+            }
+          },
+          "days": {
+            "type": "array",
+            "description": "One entry for every calendar day in the selected range, filling missing income/expense with 0.",
+            "items": {
+              "$ref": "#/components/schemas/SummaryDay"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "SummaryResponse": {
+        "type": "object",
+        "required": ["data"],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Summary"
           }
         },
         "additionalProperties": false
