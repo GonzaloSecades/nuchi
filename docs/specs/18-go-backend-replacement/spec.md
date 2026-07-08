@@ -86,7 +86,7 @@ Generation plan:
 - Generated Go types belong under `backend/internal/openapi/`.
 - Generated TypeScript client/types belong under `lib/api/generated/`.
 - Child issue #29 owns filling the full resource contract.
-- Child issue #35 owns pinned generator tooling if generator versions or network-installed tools remain unresolved.
+- Child issue #54 owns pinning generator tooling and producing the generated Go server types and TypeScript client after #29 fills the contract.
 - Any contract change must update OpenAPI first, then regenerate Go and TypeScript outputs.
 
 Parity rules:
@@ -274,18 +274,21 @@ Workflow:
 ## Implementation Order
 
 1. Write and review this spec.
-2. Document current API parity fixtures.
-3. Add OpenAPI scaffold and generation command documentation.
-4. Define the shared API error/auth contract.
-5. Define the full OpenAPI contract.
-6. Wire the Go database foundation.
-7. Add auth tables, finance tables, RLS, and local dev scripts.
-8. Add `sqlc` queries.
-9. Implement owned auth/session/email flows.
-10. Bind authenticated requests to RLS-backed DB access.
-11. Implement accounts, categories, transactions, bulk transactions, and summary parity.
-12. Replace frontend rewrite/client/hook/auth-page internals.
-13. Remove legacy Hono/Drizzle/Neon/Clerk code after parity is verified.
+2. Add the CI workflow so every later ticket proves the same checks.
+3. Document current API parity fixtures.
+4. Add OpenAPI scaffold and generation command documentation.
+5. Define the shared API error/auth contract.
+6. Define the full OpenAPI contract.
+7. Pin generator tooling and generate Go server types and the TypeScript client.
+8. Wire the Go database foundation.
+9. Add auth tables, finance tables, RLS, and local dev scripts.
+10. Add `sqlc` queries.
+11. Implement password auth and JWT sessions.
+12. Bind authenticated requests to RLS-backed DB access.
+13. Implement email verification and password reset (parallelizable with resource parity).
+14. Implement accounts, categories, transactions, bulk transactions, and summary parity.
+15. Replace frontend rewrite/client/hook/auth-page internals.
+16. Remove legacy Hono/Drizzle/Neon/Clerk code after parity is verified.
 
 ## Verification
 
@@ -321,7 +324,7 @@ Replacement sprint verification targets:
 
 ## Child Issue Plan
 
-Work the tickets in this exact sequence. A ticket must be merged before the next ticket starts. Only the next unblocked ticket may be considered for `agent:ready`, and only if it is `risk:low`; high-risk tickets remain attended work.
+Work the tickets in this sequence. A ticket must be merged before the next ticket starts, with two exceptions: seq 00 (#53, CI) is unblocked and may run at any time, and seq 11 (#42, email flows) may run in parallel with seq 12-16 because both only depend on #41. Only the next unblocked ticket may be considered for `agent:ready`, and only if it is `risk:low`; high-risk tickets remain attended work.
 
 Completed prerequisites:
 
@@ -331,22 +334,24 @@ Completed prerequisites:
 | [#20](https://github.com/GonzaloSecades/nuchi/issues/20) | Add Docker Compose Postgres and local mail catcher | closed |
 | [#34](https://github.com/GonzaloSecades/nuchi/issues/34) | Document current API parity fixtures | closed |
 | [#35](https://github.com/GonzaloSecades/nuchi/issues/35) | Add OpenAPI scaffold and generation commands | closed |
+| [#28](https://github.com/GonzaloSecades/nuchi/issues/28) | Finalize Go backend replacement spec | closed |
+| [#36](https://github.com/GonzaloSecades/nuchi/issues/36) | Define shared API error and auth contract | closed |
 
 Active sequence:
 
 | Seq | Issue | Title | Risk | Dependency | Agent-ready |
 | --- | --- | --- | --- | --- | --- |
-| 01 | [#28](https://github.com/GonzaloSecades/nuchi/issues/28) | Finalize Go backend replacement spec | low | none | yes |
-| 02 | [#36](https://github.com/GonzaloSecades/nuchi/issues/36) | Define shared API error and auth contract | high | #28 | no |
+| 00 | [#53](https://github.com/GonzaloSecades/nuchi/issues/53) | Add CI workflow for Go tests, frontend lint/build, and OpenAPI validation | low | none | yes |
 | 03 | [#29](https://github.com/GonzaloSecades/nuchi/issues/29) | Define full OpenAPI contract | high | #36 | no |
-| 04 | [#37](https://github.com/GonzaloSecades/nuchi/issues/37) | Wire Go database foundation | high | #29 | no |
+| 03b | [#54](https://github.com/GonzaloSecades/nuchi/issues/54) | Pin OpenAPI generator tooling and generate Go server types and TypeScript client | low | #29 | no while blocked |
+| 04 | [#37](https://github.com/GonzaloSecades/nuchi/issues/37) | Wire Go database foundation | high | #54 | no |
 | 05 | [#38](https://github.com/GonzaloSecades/nuchi/issues/38) | Create base SQL migrations with users and auth tables | high | #37 | no |
 | 06 | [#39](https://github.com/GonzaloSecades/nuchi/issues/39) | Create finance schema migrations with RLS | high | #38 | no |
 | 07 | [#31](https://github.com/GonzaloSecades/nuchi/issues/31) | Add backend dev scripts and explicit DB reset workflow | low | #39 | no while blocked |
 | 08 | [#40](https://github.com/GonzaloSecades/nuchi/issues/40) | Add sqlc queries for auth and owned resources | high | #31 | no |
 | 09 | [#41](https://github.com/GonzaloSecades/nuchi/issues/41) | Implement password auth and JWT sessions | high | #40 | no |
-| 10 | [#42](https://github.com/GonzaloSecades/nuchi/issues/42) | Implement email verification and password reset | high | #41 | no |
-| 11 | [#43](https://github.com/GonzaloSecades/nuchi/issues/43) | Add Go auth middleware and DB RLS session binding | high | #42 | no |
+| 10 | [#43](https://github.com/GonzaloSecades/nuchi/issues/43) | Add Go auth middleware and DB RLS session binding | high | #41 | no |
+| 11 | [#42](https://github.com/GonzaloSecades/nuchi/issues/42) | Implement email verification and password reset | high | #41; may run parallel to 12-16 | no |
 | 12 | [#44](https://github.com/GonzaloSecades/nuchi/issues/44) | Implement accounts API parity | high | #43 | no |
 | 13 | [#45](https://github.com/GonzaloSecades/nuchi/issues/45) | Implement categories API parity | high | #44 | no |
 | 14 | [#46](https://github.com/GonzaloSecades/nuchi/issues/46) | Implement transactions CRUD and list parity | high | #45 | no |
