@@ -1,16 +1,16 @@
-# Graph Report - nuchi  (2026-07-06)
+# Graph Report - nuchi  (2026-07-08)
 
 ## Corpus Check
-- 193 files · ~54,498 words
+- 194 files · ~59,053 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1444 nodes · 1831 edges · 503 communities (74 shown, 429 thin omitted)
+- 1429 nodes · 1833 edges · 495 communities (82 shown, 413 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `dbc2efd4`
+- Built from commit: `9f6829da`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -312,7 +312,6 @@
 - [[_COMMUNITY_tables|tables]]
 - [[_COMMUNITY_accounts|accounts]]
 - [[_COMMUNITY_categories|categories]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_version|version]]
 - [[_COMMUNITY_notNull|notNull]]
 - [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
@@ -335,7 +334,6 @@
 - [[_COMMUNITY_payee|payee]]
 - [[_COMMUNITY_plaid_id|plaid_id]]
 - [[_COMMUNITY_user_id|user_id]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_dialect|dialect]]
 - [[_COMMUNITY_enums|enums]]
 - [[_COMMUNITY_transactions_account_id_accounts_id_fk|transactions_account_id_accounts_id_fk]]
@@ -381,7 +379,6 @@
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_name|name]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_account_id|account_id]]
 - [[_COMMUNITY_amount|amount]]
 - [[_COMMUNITY_category_id|category_id]]
@@ -397,7 +394,6 @@
 - [[_COMMUNITY_transactions_account_id_accounts_id_fk|transactions_account_id_accounts_id_fk]]
 - [[_COMMUNITY_transactions_category_id_categories_id_fk|transactions_category_id_categories_id_fk]]
 - [[_COMMUNITY_id|id]]
-- [[_COMMUNITY_primaryKey|primaryKey]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
 - [[_COMMUNITY_accounts_user_id_name_uniq|accounts_user_id_name_uniq]]
@@ -408,10 +404,8 @@
 - [[_COMMUNITY__meta|_meta]]
 - [[_COMMUNITY_schemas|schemas]]
 - [[_COMMUNITY_tables|tables]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_notNull|notNull]]
 - [[_COMMUNITY_name|name]]
-- [[_COMMUNITY_notNull|notNull]]
 - [[_COMMUNITY_primaryKey|primaryKey]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_name|name]]
@@ -428,7 +422,6 @@
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_onDelete|onDelete]]
 - [[_COMMUNITY_tableTo|tableTo]]
-- [[_COMMUNITY_columns|columns]]
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_columns|columns]]
 - [[_COMMUNITY_foreignKeys|foreignKeys]]
@@ -498,7 +491,6 @@
 - [[_COMMUNITY_json|[json]]]
 - [[_COMMUNITY_jsonc|[jsonc]]]
 - [[_COMMUNITY_markdown|[markdown]]]
-- [[_COMMUNITY_editor.defaultFormatter|editor.defaultFormatter]]
 - [[_COMMUNITY_typescript|[typescript]]]
 - [[_COMMUNITY_editor.defaultFormatter|editor.defaultFormatter]]
 - [[_COMMUNITY_typescript.format.enable|typescript.format.enable]]
@@ -531,11 +523,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (503 total, 429 thin omitted)
+## Communities (495 total, 413 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
-Cohesion: 0.04
-Nodes (47): Accounts, Auth Redirects And API Auth Errors, Categories, CSV Import To Bulk Create, Current API Parity Fixtures, `DELETE /api/accounts/:id`, `DELETE /api/categories/:id`, `DELETE /api/transactions/:id` (+39 more)
+Cohesion: 0.12
+Nodes (17): API Contract, Auth And Sessions, Child Issue Plan, Currency And Money, Database And RLS, Go Backend Replacement Spec, Goals, Implementation Order (+9 more)
 
 ### Community 1 - "Dependencies Class Variance Authority"
 Cohesion: 0.05
@@ -606,8 +598,8 @@ Cohesion: 0.08
 Nodes (23): Accounts, Accounts, API Shape, Canonical Architecture, Categories, Categories, Client-to-Database Flow, Core Stack (+15 more)
 
 ### Community 28 - "Components Json"
-Cohesion: 0.06
-Nodes (54): ImportCard(), Props, requiredOptions, SelectedColumnsState, INITIAL_IMPORT_RESULTS, VARIANTS, ImportableTransactionField, isImportableTransactionField() (+46 more)
+Cohesion: 0.15
+Nodes (19): isImportableTransactionField(), options, Props, TableHeadSelect(), Chart(), ChartEnum, ChartLoading(), Props (+11 more)
 
 ### Community 29 - "Schema Ts"
 Cohesion: 0.10
@@ -702,8 +694,8 @@ Cohesion: 0.40
 Nodes (4): healthHandler(), healthResponse, Request, ResponseWriter
 
 ### Community 69 - "Transactions GET Api"
-Cohesion: 0.33
-Nodes (5): Generate, Layout, OpenAPI, Shared Contract, Validate
+Cohesion: 0.22
+Nodes (6): Contract Coverage, Generate, Layout, OpenAPI, Shared Contract, Validate
 
 ### Community 75 - "Date Primary Key"
 Cohesion: 0.67
@@ -729,6 +721,10 @@ Nodes (3): Nuchi Brand Identity, Application Logo, SVG Logo Graphic
 Cohesion: 0.67
 Nodes (3): Document/File Metaphor, File Icon, UI Icon
 
+### Community 226 - "name"
+Cohesion: 0.24
+Nodes (13): boxVariant, BoxVariants, DataCard(), DataCardProps, iconVariant, IconVariants, DataTable(), Card() (+5 more)
+
 ### Community 229 - "name"
 Cohesion: 0.22
 Nodes (16): CategoriesPage(), useGetAccounts(), useBulkDeleteCategories(), useCreateCategory(), useGetCategories(), useCreateTransaction(), useDeleteTransaction(), useEditTransaction() (+8 more)
@@ -737,13 +733,33 @@ Nodes (16): CategoriesPage(), useGetAccounts(), useBulkDeleteCategories(), useCr
 Cohesion: 0.14
 Nodes (13): columns, ResponseType, columns, ResponseType, AccountColumn(), Props, columns, ResponseType (+5 more)
 
+### Community 260 - "name"
+Cohesion: 0.20
+Nodes (12): ImportCard(), Props, requiredOptions, SelectedColumnsState, ImportTable(), ImportableTransactionField, TransactionForm(), ImportedTransactionRow (+4 more)
+
 ### Community 293 - "name"
 Cohesion: 0.19
 Nodes (14): Preset, PresetKey, PRESETS, Props, Button(), buttonVariants, Calendar(), CalendarDayButton() (+6 more)
 
+### Community 301 - "name"
+Cohesion: 0.23
+Nodes (7): INITIAL_IMPORT_RESULTS, VARIANTS, CSVReaderRenderProps, CSVUploadResults, Props, UploadButton(), chunkItems()
+
+### Community 311 - "notNull"
+Cohesion: 0.25
+Nodes (8): Auth Redirects And API Auth Errors, CSV Import To Bulk Create, Current API Parity Fixtures, Error Status Inventory, `GET /api/summary`, Shared Behavior, Summary, Transaction Mutation Rate Limit
+
 ### Community 317 - "notNull"
-Cohesion: 0.27
-Nodes (11): ImportTable(), Props, DataTableProps, Table(), TableBody(), TableCaption(), TableCell(), TableFooter() (+3 more)
+Cohesion: 0.31
+Nodes (10): Props, DataTableProps, Table(), TableBody(), TableCaption(), TableCell(), TableFooter(), TableHead() (+2 more)
+
+### Community 320 - "name"
+Cohesion: 0.25
+Nodes (8): `DELETE /api/transactions/:id`, `GET /api/transactions`, `GET /api/transactions/:id`, `PATCH /api/transactions/:id`, `POST /api/transactions`, `POST /api/transactions/bulk-create`, `POST /api/transactions/bulk-delete`, Transactions
+
+### Community 338 - "primaryKey"
+Cohesion: 0.38
+Nodes (4): DataCardLoading(), DataCharts(), DataGrid(), formatDateRange()
 
 ### Community 348 - "type"
 Cohesion: 0.22
@@ -752,6 +768,14 @@ Nodes (9): AccountsPage(), useBulkDeleteAccounts(), RequestType, ResponseType, u
 ### Community 354 - "primaryKey"
 Cohesion: 0.24
 Nodes (10): Actions(), Actions(), useDeleteCategory(), RequestType, ResponseType, useEditCategory(), useGetCategory(), EditCategorySheet() (+2 more)
+
+### Community 355 - "type"
+Cohesion: 0.29
+Nodes (7): Accounts, `DELETE /api/accounts/:id`, `GET /api/accounts`, `GET /api/accounts/:id`, `PATCH /api/accounts/:id`, `POST /api/accounts`, `POST /api/accounts/bulk-delete`
+
+### Community 374 - "type"
+Cohesion: 0.29
+Nodes (7): Categories, `DELETE /api/categories/:id`, `GET /api/categories`, `GET /api/categories/:id`, `PATCH /api/categories/:id`, `POST /api/categories`, `POST /api/categories/bulk-delete`
 
 ### Community 396 - "type"
 Cohesion: 0.22
@@ -770,23 +794,23 @@ Cohesion: 0.18
 Nodes (3): RequestType, ResponseType, ApiError
 
 ## Knowledge Gaps
-- **875 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+870 more)
+- **860 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+855 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **429 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **413 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `dependencies` connect `Dependencies Class Variance Authority` to `Seed Ts`, `Scripts Build`, `Nuchi Project Context`?**
-  _High betweenness centrality (0.050) - this node is a cross-community bridge._
-- **Why does `cn()` connect `Api Error` to `name`, `name`, `0004 Snapshot Json`, `type`, `PR Overview Descriptive Title`, `0001 Snapshot Json`, `Nuchi Project Context`, `Nuchi Go Backend`, `notNull`, `Components Json`, `notNull`?**
-  _High betweenness centrality (0.036) - this node is a cross-community bridge._
-- **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `Components Json`, `name`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+  _High betweenness centrality (0.051) - this node is a cross-community bridge._
+- **Why does `cn()` connect `Api Error` to `name`, `name`, `name`, `0004 Snapshot Json`, `type`, `PR Overview Descriptive Title`, `0001 Snapshot Json`, `Nuchi Project Context`, `Nuchi Go Backend`, `notNull`, `Components Json`, `notNull`?**
+  _High betweenness centrality (0.037) - this node is a cross-community bridge._
+- **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `name`, `name`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
-  _900 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _885 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.04081632653061224 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**
   _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
 - **Should `Cn Button Tsx` be split into smaller, more focused modules?**

@@ -875,8 +875,8 @@
     "semantic_hash": "614d3f13c04f409e3c36559b38c8a5db"
   },
   "docs/specs/18-go-backend-replacement/spec.md": {
-    "mtime": 1783380728.1719532,
-    "ast_hash": "1a5f5785ecdf7ca9244e782d59dd618f",
+    "mtime": 1783542800.73711,
+    "ast_hash": "951d5e93ea2b25298b81a90343338f4e",
     "semantic_hash": ""
   },
   "refreshApp/CODEX_CONTEXT.md": {
@@ -920,8 +920,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "openapi/nuchi.openapi.json": {
-    "mtime": 1783381611.8023605,
-    "ast_hash": "2a2ee510ee0ae3a6566860d4ef8ced01",
+    "mtime": 1783393691.837716,
+    "ast_hash": "fb084c3c8a790fc939b0162030b193cf",
     "semantic_hash": ""
   },
   "scripts/validate-openapi.ts": {
@@ -945,8 +945,8 @@
     "semantic_hash": "58840bd101db026d04637a1cf07bb8cf"
   },
   "openapi/README.md": {
-    "mtime": 1783381636.108769,
-    "ast_hash": "3197a56ef8082bd25aef5c2df4a33cee",
+    "mtime": 1783393718.1879299,
+    "ast_hash": "f281b629b6788dbf9636380210b8dd79",
     "semantic_hash": ""
   },
   "openapi/oapi-codegen.yaml": {
@@ -1007,6 +1007,11 @@
   ".codex/skills/graphify/references/update.md": {
     "mtime": 1783398776.8003664,
     "ast_hash": "c698309979460d0f02ba616417844399",
+    "semantic_hash": ""
+  },
+  ".claude/settings.local.json": {
+    "mtime": 1783544439.3917391,
+    "ast_hash": "59f0c90705d235d81ba103a2a9544785",
     "semantic_hash": ""
   }
 }
