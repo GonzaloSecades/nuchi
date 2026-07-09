@@ -7,7 +7,7 @@ This directory is the hand-edited OpenAPI contract source for the Go backend rep
 - `nuchi.openapi.json`: source OpenAPI document.
 - `oapi-codegen.yaml`: Go server type generation config.
 - `backend/internal/openapi/generated.gen.go`: generated Go server types and chi bindings.
-- `lib/api/generated/typescript-fetch/`: generated TypeScript fetch client and types.
+- `lib/api/generated/schema.d.ts`: generated TypeScript types (`openapi-typescript`), consumed by an `openapi-fetch` client wired up in a later ticket.
 
 Generated files stay in generated-only paths. Business logic belongs outside those paths.
 
@@ -61,18 +61,22 @@ Current parity decisions preserved in the contract:
 
 ## Generate
 
-Generation commands are wired and documented, but generated outputs remain deferred for #29. The repo does not yet pin generator versions, and this ticket is OpenAPI-first contract work rather than generated-client/server-type churn.
+Generator tooling is pinned; no Java runtime is required for either side.
 
-Go server types:
+Go server types use [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) **v2.7.2**, pinned in `backend/go.mod` via the [build-tagged tools pattern](https://github.com/golang/go/wiki/Modules#how-can-i-track-tool-dependencies-for-a-module) (`backend/tools.go`, `//go:build tools`). The command below runs the module-pinned binary from `backend/` so `go.mod` supplies the version — it does not hit the network for a version resolution the way `go run pkg@latest` would:
 
 ```bash
 bun run openapi:gen:go
 ```
 
-TypeScript fetch client and types:
+This runs `cd backend && go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen -config ../openapi/oapi-codegen.yaml ../openapi/nuchi.openapi.json`, writing `backend/internal/openapi/generated.gen.go` (chi server bindings + `strict-server: true` typed request/response structs + models).
+
+TypeScript types use [`openapi-typescript`](https://openapi-ts.dev/) **7.13.0** (exact-pinned devDependency). It replaces `@openapitools/openapi-generator-cli`, which required a Java runtime and is unacceptable for CI/agent environments:
 
 ```bash
 bun run openapi:gen:ts
 ```
 
-Run generation after generator versions are pinned or network-installed tools are explicitly approved for the ticket doing generation.
+This writes `lib/api/generated/schema.d.ts` (the `paths`/`components` types). [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/) **0.17.0** (exact-pinned runtime dependency) consumes that `paths` type; actual client wiring (typed hooks, base URL, auth header injection) is separate follow-up work, not part of generation.
+
+**Known limitation — OpenAPI 3.1 nullable fields:** `nuchi.openapi.json` declares `"openapi": "3.1.0"`. oapi-codegen v2.7.2 has only partial 3.1 support and currently **fails** on this contract's OpenAPI-3.1-style nullable schemas — `"type": ["string", "null"]` (`Account.plaidId`, `Category.plaidId`, `TransactionInput.notes`, `Transaction.notes`, `TransactionListItem.category`, `TransactionListItem.notes`) and `anyOf: [{"$ref": ...}, {"type": "null"}]` (`categoryId` on `TransactionInput`, `Transaction`, `TransactionListItem`) — with `error resolving primitive type: unhandled Schema type: &[string null]`. Until the contract's nullable fields are expressed in a form oapi-codegen v2.7.2 accepts (e.g. OpenAPI-3.0-style `"type": "string", "nullable": true`), or the generator gains 3.1 support, `bun run openapi:gen:go` fails and `backend/internal/openapi/generated.gen.go` cannot be produced. Do not downgrade the document's declared version or hand-patch schemas to work around this — resolve it as a contract change. `bun run openapi:gen:ts` is unaffected (`openapi-typescript` is 3.1-native).
