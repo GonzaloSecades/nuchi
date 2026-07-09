@@ -28,8 +28,11 @@ jobs:
   frontend:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      # Build-safe dummies keep CI green when secrets are absent (fork PRs,
+      # fresh setup). Real secrets take precedence when configured; the Clerk
+      # dependency disappears with #51/#27.
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_Y2xlcmsuZXhhbXBsZS5jb20k' }}
+      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY || 'sk_test_ci_placeholder_not_a_real_key' }}
       DATABASE_URL: postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
       NEXT_PUBLIC_API_URL: http://localhost:3000
     steps:

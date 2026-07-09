@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "C:\\Users\\zecan\\.local\\bin\\graphify.EXE hook-check"
+            "command": "graphify hook-check"
           }
         ]
       }
