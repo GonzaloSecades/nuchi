@@ -1013,5 +1013,45 @@
     "mtime": 1783544439.3917391,
     "ast_hash": "59f0c90705d235d81ba103a2a9544785",
     "semantic_hash": ""
+  },
+  ".claude/settings.json": {
+    "mtime": 1783611323.6387067,
+    "ast_hash": "e2078912071ec3800daf5e38e480c97e",
+    "semantic_hash": ""
+  },
+  ".claude/agents/go-migrator.md": {
+    "mtime": 1783611323.636695,
+    "ast_hash": "e2a0d1530cfd5594e4575fb71794f92f",
+    "semantic_hash": ""
+  },
+  ".claude/agents/parity-reviewer.md": {
+    "mtime": 1783611323.6387067,
+    "ast_hash": "600cdce7e43ec1386cda547db80d4cdd",
+    "semantic_hash": ""
+  },
+  ".claude/agents/researcher.md": {
+    "mtime": 1783611323.6387067,
+    "ast_hash": "734052bd3b657c0db31df9e9827a7e8b",
+    "semantic_hash": ""
+  },
+  ".claude/skills/pr-review-cycle/SKILL.md": {
+    "mtime": 1783611323.6387067,
+    "ast_hash": "1a5460a3ea945aa8d875f8781840776b",
+    "semantic_hash": ""
+  },
+  ".github/copilot-instructions.md": {
+    "mtime": 1783611323.6387067,
+    "ast_hash": "9538cefd640d4ba4dc1298b8f39a7296",
+    "semantic_hash": ""
+  },
+  ".github/workflows/ci.yml": {
+    "mtime": 1783611323.644982,
+    "ast_hash": "9d7c21b3ab5b48c5fcbe27c0b0ab2cc4",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1783611323.644982,
+    "ast_hash": "8f6278da0c5135277e2ad27f98050d6f",
+    "semantic_hash": ""
   }
 }

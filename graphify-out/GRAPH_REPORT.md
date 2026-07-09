@@ -1,16 +1,16 @@
-# Graph Report - nuchi  (2026-07-08)
+# Graph Report - nuchi  (2026-07-09)
 
 ## Corpus Check
-- 194 files · ~59,053 words
+- 201 files · ~61,488 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1429 nodes · 1833 edges · 495 communities (82 shown, 413 thin omitted)
+- 1453 nodes · 1853 edges · 501 communities (90 shown, 411 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9f6829da`
+- Built from commit: `44cf98be`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -312,6 +312,7 @@
 - [[_COMMUNITY_tables|tables]]
 - [[_COMMUNITY_accounts|accounts]]
 - [[_COMMUNITY_categories|categories]]
+- [[_COMMUNITY_schema.ts|schema.ts]]
 - [[_COMMUNITY_version|version]]
 - [[_COMMUNITY_notNull|notNull]]
 - [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
@@ -334,6 +335,7 @@
 - [[_COMMUNITY_payee|payee]]
 - [[_COMMUNITY_plaid_id|plaid_id]]
 - [[_COMMUNITY_user_id|user_id]]
+- [[_COMMUNITY_Nuchi — Claude Code Guide|Nuchi — Claude Code Guide]]
 - [[_COMMUNITY_dialect|dialect]]
 - [[_COMMUNITY_enums|enums]]
 - [[_COMMUNITY_transactions_account_id_accounts_id_fk|transactions_account_id_accounts_id_fk]]
@@ -378,6 +380,7 @@
 - [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_name|name]]
+- [[_COMMUNITY_columns.tsx|columns.tsx]]
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_account_id|account_id]]
 - [[_COMMUNITY_amount|amount]]
@@ -394,6 +397,7 @@
 - [[_COMMUNITY_transactions_account_id_accounts_id_fk|transactions_account_id_accounts_id_fk]]
 - [[_COMMUNITY_transactions_category_id_categories_id_fk|transactions_category_id_categories_id_fk]]
 - [[_COMMUNITY_id|id]]
+- [[_COMMUNITY_PR Review Cycle|PR Review Cycle]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_accounts_user_id_idx|accounts_user_id_idx]]
 - [[_COMMUNITY_accounts_user_id_name_uniq|accounts_user_id_name_uniq]]
@@ -422,7 +426,6 @@
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_onDelete|onDelete]]
 - [[_COMMUNITY_tableTo|tableTo]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_columns|columns]]
 - [[_COMMUNITY_foreignKeys|foreignKeys]]
 - [[_COMMUNITY_indexes|indexes]]
@@ -511,19 +514,19 @@
 ## Surprising Connections (you probably didn't know these)
 - `Generated Go Output` --semantically_similar_to--> `generated.gen.go`  [INFERRED] [semantically similar]
   openapi/oapi-codegen.yaml → backend/internal/openapi/README.md
+- `CardAction()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/card.tsx → lib/utils.ts
+- `CardFooter()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/card.tsx → lib/utils.ts
 - `DialogOverlay()` --calls--> `cn()`  [EXTRACTED]
   components/ui/dialog.tsx → lib/utils.ts
 - `PopoverHeader()` --calls--> `cn()`  [EXTRACTED]
-  components/ui/popover.tsx → lib/utils.ts
-- `PopoverTitle()` --calls--> `cn()`  [EXTRACTED]
-  components/ui/popover.tsx → lib/utils.ts
-- `PopoverDescription()` --calls--> `cn()`  [EXTRACTED]
   components/ui/popover.tsx → lib/utils.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (495 total, 413 thin omitted)
+## Communities (501 total, 411 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -538,8 +541,8 @@ Cohesion: 0.07
 Nodes (26): 1. Unified Import Inbox, 2. Import Review, Normalization, and Deduplication, 3. Transfers, Balances, and Net Worth, 4. Budgets and Monthly Planning, 5. Recurring Transactions and Forecasting, Current roadmap principle, Nuchi Roadmap Features List, Open banking readiness (+18 more)
 
 ### Community 3 - "Page Tsx"
-Cohesion: 0.09
-Nodes (24): TransactionsPage(), RequestType, ResponseType, ResponseType, useSelectAccount(), RequestType, ResponseType, ResponseType (+16 more)
+Cohesion: 0.15
+Nodes (12): RequestType, ResponseType, RequestType, ResponseType, RequestType, ResponseType, RequestType, ResponseType (+4 more)
 
 ### Community 5 - "Actions Tsx"
 Cohesion: 0.07
@@ -562,8 +565,8 @@ Cohesion: 0.08
 Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
 
 ### Community 13 - "PR Overview Descriptive Title"
-Cohesion: 0.13
-Nodes (16): routes, Sheet(), SheetContent(), SheetDescription(), SheetFooter(), SheetHeader(), SheetOverlay(), SheetTitle() (+8 more)
+Cohesion: 0.15
+Nodes (21): Sheet(), SheetContent(), SheetDescription(), SheetHeader(), SheetTitle(), InsertAccountSchema, InsertTransactionSchema, RequestType (+13 more)
 
 ### Community 14 - "0002 Snapshot Json"
 Cohesion: 0.20
@@ -574,12 +577,12 @@ Cohesion: 0.20
 Nodes (9): Follow-Up Memory, Implemented Scope, Last Verified, Local Database, Memory Index, ProjectPolish Context, Restart Point, Safety Rules (+1 more)
 
 ### Community 17 - "Transactions Ts"
-Cohesion: 0.15
-Nodes (16): app, app, app, db, pool, accounts, accountsRelations, categories (+8 more)
+Cohesion: 0.24
+Nodes (8): app, app, db, pool, accounts, calculatePercentageChange(), fillMissingDays(), Period
 
 ### Community 18 - "0001 Snapshot Json"
-Cohesion: 0.19
-Nodes (8): Props, AccountFilter(), DateFilter(), Filters(), Header(), HeaderLogo(), Navigation(), WelcomeMsg()
+Cohesion: 0.18
+Nodes (8): Props, Header(), HeaderLogo(), Navigation(), routes, SheetTrigger(), VisuallyHidden(), WelcomeMsg()
 
 ### Community 19 - "Json Editor Code Actions"
 Cohesion: 0.16
@@ -590,8 +593,8 @@ Cohesion: 0.33
 Nodes (5): Configuration, Health Check, Local Run, Nuchi Go Backend, Verification
 
 ### Community 23 - "Nuchi Project Context"
-Cohesion: 0.10
-Nodes (29): DatePicker(), Props, Select(), FormControl(), FormDescription(), FormField(), FormFieldContext, FormFieldContextValue (+21 more)
+Cohesion: 0.08
+Nodes (35): AmountInput(), Props, Props, Select(), FormControl(), FormDescription(), FormField(), FormFieldContext (+27 more)
 
 ### Community 24 - "Transactions API"
 Cohesion: 0.08
@@ -599,7 +602,7 @@ Nodes (23): Accounts, Accounts, API Shape, Canonical Architecture, Categories, C
 
 ### Community 28 - "Components Json"
 Cohesion: 0.15
-Nodes (19): isImportableTransactionField(), options, Props, TableHeadSelect(), Chart(), ChartEnum, ChartLoading(), Props (+11 more)
+Nodes (16): isImportableTransactionField(), options, Props, TableHeadSelect(), AccountFilter(), DateFilter(), Filters(), Select() (+8 more)
 
 ### Community 29 - "Schema Ts"
 Cohesion: 0.10
@@ -646,8 +649,8 @@ Cohesion: 0.50
 Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
 
 ### Community 42 - "Api Error"
-Cohesion: 0.12
-Nodes (16): CardAction(), CardFooter(), DropdownMenuCheckboxItem(), DropdownMenuLabel(), DropdownMenuRadioItem(), DropdownMenuSeparator(), DropdownMenuShortcut(), DropdownMenuSubContent() (+8 more)
+Cohesion: 0.16
+Nodes (12): NavButton(), Props, DropdownMenuCheckboxItem(), DropdownMenuLabel(), DropdownMenuRadioItem(), DropdownMenuSeparator(), DropdownMenuShortcut(), DropdownMenuSubContent() (+4 more)
 
 ### Community 43 - "Edit Account Sheet Tsx"
 Cohesion: 0.18
@@ -678,8 +681,8 @@ Cohesion: 0.50
 Nodes (3): <P0|P1|P2|P3> — <Short ticket title>, Priority Order, Technical Debt Tickets
 
 ### Community 55 - "Nuchi Go Backend"
-Cohesion: 0.18
-Nodes (13): Props, Props, Props, CategoryColumn(), Props, DropdownMenu(), DropdownMenuContent(), DropdownMenuItem() (+5 more)
+Cohesion: 0.17
+Nodes (17): Actions(), Props, Actions(), Props, Actions(), Props, CategoryColumn(), Props (+9 more)
 
 ### Community 60 - "Accounts Categories"
 Cohesion: 0.61
@@ -722,28 +725,32 @@ Cohesion: 0.67
 Nodes (3): Document/File Metaphor, File Icon, UI Icon
 
 ### Community 226 - "name"
-Cohesion: 0.24
-Nodes (13): boxVariant, BoxVariants, DataCard(), DataCardProps, iconVariant, IconVariants, DataTable(), Card() (+5 more)
+Cohesion: 0.16
+Nodes (17): AccountsPage(), columns, CategoriesPage(), DataTable(), Card(), CardAction(), CardContent(), CardFooter() (+9 more)
 
 ### Community 229 - "name"
-Cohesion: 0.22
-Nodes (16): CategoriesPage(), useGetAccounts(), useBulkDeleteCategories(), useCreateCategory(), useGetCategories(), useCreateTransaction(), useDeleteTransaction(), useEditTransaction() (+8 more)
+Cohesion: 0.27
+Nodes (11): useGetAccounts(), useGetCategories(), ResponseType, useDeleteTransaction(), RequestType, ResponseType, useEditTransaction(), useGetTransaction() (+3 more)
 
 ### Community 259 - "name"
-Cohesion: 0.14
-Nodes (13): columns, ResponseType, columns, ResponseType, AccountColumn(), Props, columns, ResponseType (+5 more)
+Cohesion: 0.24
+Nodes (8): AccountColumn(), Props, columns, ResponseType, Badge(), badgeVariants, OpenAccountState, useOpenAccount
 
 ### Community 260 - "name"
-Cohesion: 0.20
-Nodes (12): ImportCard(), Props, requiredOptions, SelectedColumnsState, ImportTable(), ImportableTransactionField, TransactionForm(), ImportedTransactionRow (+4 more)
+Cohesion: 0.22
+Nodes (11): ImportCard(), Props, requiredOptions, SelectedColumnsState, ImportTable(), ImportableTransactionField, ImportedTransactionRow, ImportedTransactionRowError (+3 more)
 
 ### Community 293 - "name"
-Cohesion: 0.19
-Nodes (14): Preset, PresetKey, PRESETS, Props, Button(), buttonVariants, Calendar(), CalendarDayButton() (+6 more)
+Cohesion: 0.18
+Nodes (15): Preset, PresetKey, PRESETS, DatePicker(), Props, Button(), buttonVariants, Calendar() (+7 more)
 
 ### Community 301 - "name"
-Cohesion: 0.23
-Nodes (7): INITIAL_IMPORT_RESULTS, VARIANTS, CSVReaderRenderProps, CSVUploadResults, Props, UploadButton(), chunkItems()
+Cohesion: 0.12
+Nodes (17): INITIAL_IMPORT_RESULTS, TransactionsPage(), VARIANTS, CSVReaderRenderProps, CSVUploadResults, Props, UploadButton(), useSelectAccount() (+9 more)
+
+### Community 309 - "schema.ts"
+Cohesion: 0.24
+Nodes (8): app, accountsRelations, categories, categoriesRelations, citext, InsertCategorySchema, transactions, transactionsRelations
 
 ### Community 311 - "notNull"
 Cohesion: 0.25
@@ -757,58 +764,74 @@ Nodes (10): Props, DataTableProps, Table(), TableBody(), TableCaption(), TableCe
 Cohesion: 0.25
 Nodes (8): `DELETE /api/transactions/:id`, `GET /api/transactions`, `GET /api/transactions/:id`, `PATCH /api/transactions/:id`, `POST /api/transactions`, `POST /api/transactions/bulk-create`, `POST /api/transactions/bulk-delete`, Transactions
 
+### Community 332 - "Nuchi — Claude Code Guide"
+Cohesion: 0.20
+Nodes (9): Branch And PR Hard Rules, Commands, Graphify, Hard Invariants, Legacy Code, Model Orchestration, Nuchi — Claude Code Guide, Project (+1 more)
+
 ### Community 338 - "primaryKey"
-Cohesion: 0.38
-Nodes (4): DataCardLoading(), DataCharts(), DataGrid(), formatDateRange()
+Cohesion: 0.26
+Nodes (8): Chart(), ChartEnum, ChartLoading(), Props, DataCharts(), DataGrid(), useGetSummary(), formatDateRange()
 
 ### Community 348 - "type"
-Cohesion: 0.22
-Nodes (9): AccountsPage(), useBulkDeleteAccounts(), RequestType, ResponseType, useCreateAccount(), FormValues, NewAccountSheet(), NewAccountState (+1 more)
+Cohesion: 0.29
+Nodes (8): boxVariant, BoxVariants, DataCard(), DataCardLoading(), DataCardProps, iconVariant, IconVariants, CardDescription()
 
 ### Community 354 - "primaryKey"
-Cohesion: 0.24
-Nodes (10): Actions(), Actions(), useDeleteCategory(), RequestType, ResponseType, useEditCategory(), useGetCategory(), EditCategorySheet() (+2 more)
+Cohesion: 0.26
+Nodes (8): ResponseType, useDeleteCategory(), RequestType, ResponseType, useEditCategory(), useGetCategory(), EditCategorySheet(), FormValues
 
 ### Community 355 - "type"
 Cohesion: 0.29
 Nodes (7): Accounts, `DELETE /api/accounts/:id`, `GET /api/accounts`, `GET /api/accounts/:id`, `PATCH /api/accounts/:id`, `POST /api/accounts`, `POST /api/accounts/bulk-delete`
 
+### Community 367 - "name"
+Cohesion: 0.29
+Nodes (6): Props, RadarVariant(), Props, SpendingPie(), SpendingPieEnum, SpendingPieLoading()
+
 ### Community 374 - "type"
 Cohesion: 0.29
 Nodes (7): Categories, `DELETE /api/categories/:id`, `GET /api/categories`, `GET /api/categories/:id`, `PATCH /api/categories/:id`, `POST /api/categories`, `POST /api/categories/bulk-delete`
 
+### Community 378 - "columns.tsx"
+Cohesion: 0.38
+Nodes (4): columns, ResponseType, ResponseType, Checkbox()
+
+### Community 395 - "PR Review Cycle"
+Cohesion: 0.29
+Nodes (6): Cycle (one iteration), Inputs, Iteration tracking, Merge protocol, Never, PR Review Cycle
+
 ### Community 396 - "type"
-Cohesion: 0.22
-Nodes (9): AmountInput(), Props, NavButton(), Props, Tooltip(), TooltipContent(), TooltipProvider(), TooltipTrigger() (+1 more)
+Cohesion: 0.33
+Nodes (5): Code review: what NOT to comment on, Code review: what to focus on, Comment format, Copilot Instructions — nuchi, Repo conventions reviews should assume
 
 ### Community 408 - "notNull"
 Cohesion: 0.31
 Nodes (7): Dialog(), DialogContent(), DialogDescription(), DialogFooter(), DialogHeader(), DialogOverlay(), DialogTitle()
 
 ### Community 411 - "primaryKey"
-Cohesion: 0.27
-Nodes (8): Actions(), useDeleteAccount(), RequestType, ResponseType, useEditAccount(), useGetAccount(), EditAccountSheet(), FormValues
+Cohesion: 0.33
+Nodes (5): ResponseType, useDeleteAccount(), useEditAccount(), useGetAccount(), EditAccountSheet()
 
 ### Community 429 - "columns"
-Cohesion: 0.18
-Nodes (3): RequestType, ResponseType, ApiError
+Cohesion: 0.17
+Nodes (4): RequestType, ResponseType, useCreateTransaction(), ApiError
 
 ## Knowledge Gaps
-- **860 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+855 more)
+- **875 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+870 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **413 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **411 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `dependencies` connect `Dependencies Class Variance Authority` to `Seed Ts`, `Scripts Build`, `Nuchi Project Context`?**
-  _High betweenness centrality (0.051) - this node is a cross-community bridge._
-- **Why does `cn()` connect `Api Error` to `name`, `name`, `name`, `0004 Snapshot Json`, `type`, `PR Overview Descriptive Title`, `0001 Snapshot Json`, `Nuchi Project Context`, `Nuchi Go Backend`, `notNull`, `Components Json`, `notNull`?**
-  _High betweenness centrality (0.037) - this node is a cross-community bridge._
+  _High betweenness centrality (0.049) - this node is a cross-community bridge._
+- **Why does `cn()` connect `Api Error` to `name`, `name`, `name`, `0004 Snapshot Json`, `Components Json`, `PR Overview Descriptive Title`, `Transactions Ts`, `Nuchi Go Backend`, `Nuchi Project Context`, `notNull`, `columns.tsx`, `type`, `notNull`?**
+  _High betweenness centrality (0.036) - this node is a cross-community bridge._
 - **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `name`, `name`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
-  _885 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _900 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**
