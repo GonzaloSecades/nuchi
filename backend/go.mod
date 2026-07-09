@@ -2,7 +2,15 @@ module github.com/GonzaloSecades/nuchi/backend
 
 go 1.24.3
 
-require github.com/go-chi/chi/v5 v5.2.3
+require (
+	github.com/go-chi/chi/v5 v5.2.3
+	github.com/oapi-codegen/runtime v1.4.2
+)
+
+require (
+	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
+	github.com/google/uuid v1.6.0 // indirect
+)
 
 require (
 	github.com/dprotaso/go-yit v0.0.0-20220510233725-9ba8df137936 // indirect
