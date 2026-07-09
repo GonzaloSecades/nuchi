@@ -22,7 +22,8 @@ unattended; `risk:high` tickets are attended work with human merge review.
 ## Commands
 
 - Frontend: `bun run lint`, `bun run build`, `bun test`
-- Backend: `cd backend && go test ./...`, `go vet ./...`, `go run ./cmd/api`
+- Backend (run from `backend/`): `cd backend && go test ./...`,
+  `cd backend && go vet ./...`, `cd backend && go run ./cmd/api`
 - Contract: `bun run openapi:validate`, `bun run openapi:gen:go`, `bun run openapi:gen:ts`
 - Services: `docker compose up -d postgres` (Mailpit included in dev compose)
 - Graph: `graphify update .` after code changes (AST-only, no API cost)
