@@ -434,7 +434,6 @@ export interface components {
             /**
              * @description Stable machine-readable error code.
              * @example UNAUTHORIZED
-             * @example VALIDATION_ERROR
              */
             code: string;
             /** @description Human-readable error summary safe to show in the app. */
@@ -458,7 +457,10 @@ export interface components {
              * @example 1800
              */
             expiresIn: number;
-            /** @constant */
+            /**
+             * @example Bearer
+             * @enum {string}
+             */
             tokenType: "Bearer";
             user: components["schemas"]["AuthUser"];
         };
