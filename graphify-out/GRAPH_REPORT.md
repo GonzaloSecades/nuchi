@@ -1,16 +1,16 @@
-# Graph Report - agent-a6c703a4dc716d580  (2026-07-09)
+# Graph Report - nuchi  (2026-07-09)
 
 ## Corpus Check
 - 204 files · ~80,227 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1964 nodes · 2938 edges · 569 communities (117 shown, 452 thin omitted)
+- 1962 nodes · 2938 edges · 567 communities (117 shown, 450 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 16 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `40c7cc50`
+- Built from commit: `c197306d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -325,7 +325,6 @@
 - [[_COMMUNITY_foreignKeys|foreignKeys]]
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_isUnique|isUnique]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_account_id|account_id]]
 - [[_COMMUNITY_amount|amount]]
 - [[_COMMUNITY_category_id|category_id]]
@@ -377,7 +376,6 @@
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_columns.tsx|columns.tsx]]
 - [[_COMMUNITY_name|name]]
@@ -579,7 +577,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (569 total, 452 thin omitted)
+## Communities (567 total, 450 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -918,9 +916,9 @@ Cohesion: 0.50
 Nodes (3): AuthMessageResponse, LogoutUser200JSONResponse, LogoutUser200ResponseHeaders
 
 ## Knowledge Gaps
-- **918 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+913 more)
+- **916 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+911 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **452 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **450 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -932,7 +930,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `Components Json`, `name`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
-  _943 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _941 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**

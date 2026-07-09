@@ -2002,7 +2002,7 @@
       "source_location": "L812",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_bulkdeleteaccounts",
-      "community": 411,
+      "community": 338,
       "norm_label": ".bulkdeleteaccounts()"
     },
     {
@@ -2012,7 +2012,7 @@
       "source_location": "L832",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_deleteaccount",
-      "community": 515,
+      "community": 432,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -2042,7 +2042,7 @@
       "source_location": "L928",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_loginuser",
-      "community": 521,
+      "community": 411,
       "norm_label": ".loginuser()"
     },
     {
@@ -2062,7 +2062,7 @@
       "source_location": "L962",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_confirmpasswordreset",
-      "community": 338,
+      "community": 377,
       "norm_label": ".confirmpasswordreset()"
     },
     {
@@ -2122,7 +2122,7 @@
       "source_location": "L1058",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_createcategory",
-      "community": 513,
+      "community": 338,
       "norm_label": ".createcategory()"
     },
     {
@@ -2172,7 +2172,7 @@
       "source_location": "L1194",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_gethealth",
-      "community": 428,
+      "community": 338,
       "norm_label": ".gethealth()"
     },
     {
@@ -2192,7 +2192,7 @@
       "source_location": "L1273",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_listtransactions",
-      "community": 432,
+      "community": 428,
       "norm_label": ".listtransactions()"
     },
     {
@@ -2212,7 +2212,7 @@
       "source_location": "L1358",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_bulkcreatetransactions",
-      "community": 338,
+      "community": 323,
       "norm_label": ".bulkcreatetransactions()"
     },
     {
@@ -2222,7 +2222,7 @@
       "source_location": "L1378",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_bulkdeletetransactions",
-      "community": 512,
+      "community": 432,
       "norm_label": ".bulkdeletetransactions()"
     },
     {
@@ -2232,7 +2232,7 @@
       "source_location": "L1398",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_deletetransaction",
-      "community": 432,
+      "community": 512,
       "norm_label": ".deletetransaction()"
     },
     {
@@ -2242,7 +2242,7 @@
       "source_location": "L1430",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_gettransaction",
-      "community": 338,
+      "community": 513,
       "norm_label": ".gettransaction()"
     },
     {
@@ -2972,7 +2972,7 @@
       "source_location": "L1914",
       "_origin": "ast",
       "id": "openapi_bulkdeleteaccounts500jsonresponse_visitbulkdeleteaccountsresponse",
-      "community": 411,
+      "community": 338,
       "norm_label": ".visitbulkdeleteaccountsresponse()"
     },
     {
@@ -3092,7 +3092,7 @@
       "source_location": "L1994",
       "_origin": "ast",
       "id": "openapi_deleteaccount500jsonresponse_visitdeleteaccountresponse",
-      "community": 515,
+      "community": 432,
       "norm_label": ".visitdeleteaccountresponse()"
     },
     {
@@ -3482,7 +3482,7 @@
       "source_location": "L2247",
       "_origin": "ast",
       "id": "openapi_loginuser403jsonresponse_visitloginuserresponse",
-      "community": 521,
+      "community": 411,
       "norm_label": ".visitloginuserresponse()"
     },
     {
@@ -3642,7 +3642,7 @@
       "source_location": "L2344",
       "_origin": "ast",
       "id": "openapi_confirmpasswordreset401jsonresponse_visitconfirmpasswordresetresponse",
-      "community": 338,
+      "community": 377,
       "norm_label": ".visitconfirmpasswordresetresponse()"
     },
     {
@@ -4172,7 +4172,7 @@
       "source_location": "L2656",
       "_origin": "ast",
       "id": "openapi_createcategory500jsonresponse_visitcreatecategoryresponse",
-      "community": 513,
+      "community": 338,
       "norm_label": ".visitcreatecategoryresponse()"
     },
     {
@@ -4712,7 +4712,7 @@
       "source_location": "L2998",
       "_origin": "ast",
       "id": "openapi_gethealth200jsonresponse_visitgethealthresponse",
-      "community": 428,
+      "community": 338,
       "norm_label": ".visitgethealthresponse()"
     },
     {
@@ -4912,7 +4912,7 @@
       "source_location": "L3130",
       "_origin": "ast",
       "id": "openapi_listtransactions500jsonresponse_visitlisttransactionsresponse",
-      "community": 432,
+      "community": 428,
       "norm_label": ".visitlisttransactionsresponse()"
     },
     {
@@ -5232,7 +5232,7 @@
       "source_location": "L3344",
       "_origin": "ast",
       "id": "openapi_bulkcreatetransactions500jsonresponse_visitbulkcreatetransactionsresponse",
-      "community": 338,
+      "community": 323,
       "norm_label": ".visitbulkcreatetransactionsresponse()"
     },
     {
@@ -5382,7 +5382,7 @@
       "source_location": "L3443",
       "_origin": "ast",
       "id": "openapi_bulkdeletetransactions500jsonresponse_visitbulkdeletetransactionsresponse",
-      "community": 512,
+      "community": 432,
       "norm_label": ".visitbulkdeletetransactionsresponse()"
     },
     {
@@ -5522,7 +5522,7 @@
       "source_location": "L3542",
       "_origin": "ast",
       "id": "openapi_deletetransaction500jsonresponse_visitdeletetransactionresponse",
-      "community": 432,
+      "community": 512,
       "norm_label": ".visitdeletetransactionresponse()"
     },
     {
@@ -5642,7 +5642,7 @@
       "source_location": "L3622",
       "_origin": "ast",
       "id": "openapi_gettransaction500jsonresponse_visitgettransactionresponse",
-      "community": 338,
+      "community": 513,
       "norm_label": ".visitgettransactionresponse()"
     },
     {
@@ -5892,7 +5892,7 @@
       "source_location": "L3907",
       "_origin": "ast",
       "id": "openapi_stricthandler_bulkdeleteaccounts",
-      "community": 411,
+      "community": 338,
       "norm_label": ".bulkdeleteaccounts()"
     },
     {
@@ -5902,7 +5902,7 @@
       "source_location": "L3938",
       "_origin": "ast",
       "id": "openapi_stricthandler_deleteaccount",
-      "community": 515,
+      "community": 432,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -5932,7 +5932,7 @@
       "source_location": "L4023",
       "_origin": "ast",
       "id": "openapi_stricthandler_loginuser",
-      "community": 521,
+      "community": 411,
       "norm_label": ".loginuser()"
     },
     {
@@ -5952,7 +5952,7 @@
       "source_location": "L4078",
       "_origin": "ast",
       "id": "openapi_stricthandler_confirmpasswordreset",
-      "community": 338,
+      "community": 377,
       "norm_label": ".confirmpasswordreset()"
     },
     {
@@ -6012,7 +6012,7 @@
       "source_location": "L4250",
       "_origin": "ast",
       "id": "openapi_stricthandler_createcategory",
-      "community": 513,
+      "community": 338,
       "norm_label": ".createcategory()"
     },
     {
@@ -6062,7 +6062,7 @@
       "source_location": "L4397",
       "_origin": "ast",
       "id": "openapi_stricthandler_gethealth",
-      "community": 428,
+      "community": 338,
       "norm_label": ".gethealth()"
     },
     {
@@ -6082,7 +6082,7 @@
       "source_location": "L4447",
       "_origin": "ast",
       "id": "openapi_stricthandler_listtransactions",
-      "community": 432,
+      "community": 428,
       "norm_label": ".listtransactions()"
     },
     {
@@ -6102,7 +6102,7 @@
       "source_location": "L4504",
       "_origin": "ast",
       "id": "openapi_stricthandler_bulkcreatetransactions",
-      "community": 338,
+      "community": 323,
       "norm_label": ".bulkcreatetransactions()"
     },
     {
@@ -6112,7 +6112,7 @@
       "source_location": "L4535",
       "_origin": "ast",
       "id": "openapi_stricthandler_bulkdeletetransactions",
-      "community": 512,
+      "community": 432,
       "norm_label": ".bulkdeletetransactions()"
     },
     {
@@ -6122,7 +6122,7 @@
       "source_location": "L4566",
       "_origin": "ast",
       "id": "openapi_stricthandler_deletetransaction",
-      "community": 432,
+      "community": 512,
       "norm_label": ".deletetransaction()"
     },
     {
@@ -6132,7 +6132,7 @@
       "source_location": "L4592",
       "_origin": "ast",
       "id": "openapi_stricthandler_gettransaction",
-      "community": 338,
+      "community": 513,
       "norm_label": ".gettransaction()"
     },
     {
@@ -15819,15 +15819,6 @@
       "id": "drizzle_meta_0007_snapshot_indexes_categories_user_id_idx"
     },
     {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0007_snapshot.json",
-      "source_location": "L88",
-      "community": 377,
-      "norm_label": "name",
-      "id": "drizzle_meta_0007_snapshot_categories_user_id_idx_name"
-    },
-    {
       "label": "categories_user_id_name_uniq",
       "file_type": "code",
       "source_file": "drizzle/meta/0007_snapshot.json",
@@ -17824,15 +17815,6 @@
       "community": 326,
       "norm_label": "category_id",
       "id": "drizzle_meta_0006_snapshot_columns_category_id"
-    },
-    {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0006_snapshot.json",
-      "source_location": "L148",
-      "community": 323,
-      "norm_label": "name",
-      "id": "drizzle_meta_0006_snapshot_category_id_name"
     },
     {
       "label": "transactions_account_id_accounts_id_fk",
@@ -50669,5 +50651,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "40c7cc5077773c0adff7024759cbcf32dafdf22d"
+  "built_at_commit": "c197306d5644bcb788d4c3138b7105dd223aeb37"
 }
