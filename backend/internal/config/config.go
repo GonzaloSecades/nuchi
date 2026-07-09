@@ -3,24 +3,27 @@ package config
 import "os"
 
 const (
-	defaultHost = "0.0.0.0"
-	defaultPort = "8080"
+	defaultHost        = "0.0.0.0"
+	defaultPort        = "8080"
+	defaultDatabaseURL = "postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable"
 )
 
 // Config contains process-level settings that are safe to read from the
-// environment at startup. Database and auth settings are intentionally absent
-// until those scoped issues add them.
+// environment at startup. Auth settings are intentionally absent until that
+// scoped issue adds them.
 type Config struct {
-	Host string
-	Port string
+	Host        string
+	Port        string
+	DatabaseURL string
 }
 
-// Load reads API host and port from the environment, falling back to local
-// development defaults.
+// Load reads API host, port, and database URL from the environment, falling
+// back to local development defaults.
 func Load() Config {
 	return Config{
-		Host: getEnv("BACKEND_HOST", defaultHost),
-		Port: getEnv("BACKEND_PORT", defaultPort),
+		Host:        getEnv("BACKEND_HOST", defaultHost),
+		Port:        getEnv("BACKEND_PORT", defaultPort),
+		DatabaseURL: getEnv("DATABASE_URL", defaultDatabaseURL),
 	}
 }
 
