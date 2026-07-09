@@ -53,9 +53,14 @@ that Gonzalo re-triggers Copilot manually or reviews directly. Stop.
 
 Merge ONLY when all of these hold:
 
-1. Gonzalo has approved the PR (`reviewDecision: APPROVED`).
+1. Gonzalo has explicitly said to merge — in the session, or in a PR comment
+   ("approved", "merge it", "LGTM"). GitHub review approval is NOT usable as
+   the signal: Claude acts through Gonzalo's `gh` auth, so PRs are
+   self-authored and GitHub forbids approving your own PR. Never infer
+   approval from silence, resolved threads, or green CI.
 2. CI checks are green (`backend`, `frontend`, `openapi`).
-3. Unresolved review threads are addressed or explicitly rebutted.
+3. Review threads are resolved (ruleset-enforced), each one addressed or
+   explicitly rebutted first.
 
 Then:
 

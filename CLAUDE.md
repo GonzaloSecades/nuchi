@@ -50,7 +50,10 @@ dev scripts, CI config, codegen.
 - Branch names: `claude/<issue-number>-<short-slug>`.
 - PR titles: `[Issue - #<number>] <PR title>`.
 - Never delete a branch after merge.
-- Never merge without green CI and Gonzalo's explicit PR approval.
+- Never merge without green CI and Gonzalo's explicit merge instruction (in
+  session or as a PR comment). GitHub review approval cannot be the signal:
+  Claude works through Gonzalo's `gh` auth, so PRs are self-authored and
+  GitHub forbids self-approval.
 - Copilot is the default first reviewer. Its comments are processed by the
   `pr-review-cycle` skill: address medium/high findings that are on point,
   reply to the rest with reasoning, push, let Copilot re-review. Hard cap of
