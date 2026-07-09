@@ -920,8 +920,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "openapi/nuchi.openapi.json": {
-    "mtime": 1783614453.1376934,
-    "ast_hash": "fb084c3c8a790fc939b0162030b193cf",
+    "mtime": 1783618773.8977084,
+    "ast_hash": "aaaf6fff33095e2859910a5a51868241",
     "semantic_hash": ""
   },
   "scripts/validate-openapi.ts": {
@@ -945,8 +945,8 @@
     "semantic_hash": "58840bd101db026d04637a1cf07bb8cf"
   },
   "openapi/README.md": {
-    "mtime": 1783616662.1649349,
-    "ast_hash": "4512e1cc93530403d4cd066cf26a3212",
+    "mtime": 1783618821.9093697,
+    "ast_hash": "744ff7b621c032eba306b350d636ff93",
     "semantic_hash": ""
   },
   "openapi/oapi-codegen.yaml": {
@@ -960,8 +960,8 @@
     "semantic_hash": ""
   },
   "backend/go.mod": {
-    "mtime": 1783614705.911604,
-    "ast_hash": "e2f41ae2800118d809949c8f1a6b3cda",
+    "mtime": 1783618888.3840547,
+    "ast_hash": "f37fe1e18394241042c876430b7dc316",
     "semantic_hash": ""
   },
   ".codex/skills/graphify/SKILL.md": {
@@ -1060,8 +1060,13 @@
     "semantic_hash": ""
   },
   "lib/api/generated/schema.d.ts": {
-    "mtime": 1783616889.4093218,
-    "ast_hash": "d9f08cef817fb61f6fbbf2baf617edd5",
+    "mtime": 1783618996.9840267,
+    "ast_hash": "74d8afeedee4554b2ea3668aa5ce804e",
+    "semantic_hash": ""
+  },
+  "backend/internal/openapi/generated.gen.go": {
+    "mtime": 1783618939.779548,
+    "ast_hash": "08cd9ebcbd805f53ad4cf86929cf52e7",
     "semantic_hash": ""
   }
 }
