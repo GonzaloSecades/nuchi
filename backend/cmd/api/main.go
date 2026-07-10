@@ -68,7 +68,7 @@ func main() {
 // Credentials and other connection details are never logged.
 func databaseHost(databaseURL string) string {
 	parsed, err := url.Parse(databaseURL)
-	if err != nil {
+	if err != nil || parsed.Host == "" {
 		return "unknown"
 	}
 	return parsed.Host

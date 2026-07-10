@@ -23,8 +23,9 @@ func TestNewPool_InvalidURL(t *testing.T) {
 }
 
 func TestNewPool_UnreachableServer(t *testing.T) {
-	// Port 1 has nothing listening on it locally, so the ping should fail
-	// once the bounded timeout elapses rather than hang indefinitely.
+	// Port 1 has nothing listening on it locally, so the ping fails fast
+	// (connection refused) and, at worst, within the bounded timeout rather
+	// than hanging indefinitely.
 	ctx := context.Background()
 	start := time.Now()
 

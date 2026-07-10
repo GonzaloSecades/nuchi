@@ -17,8 +17,8 @@ const pingTimeout = 5 * time.Second
 
 // NewPool parses databaseURL, creates a pgxpool.Pool, and verifies
 // connectivity with a bounded ping. The returned pool is ready for use; the
-// caller owns closing it. NewPool never panics and never logs; callers decide
-// how to surface failures.
+// caller owns closing it. ctx must be non-nil. NewPool never logs; failures
+// are returned as wrapped errors for callers to surface.
 func NewPool(ctx context.Context, databaseURL string) (*pgxpool.Pool, error) {
 	poolConfig, err := pgxpool.ParseConfig(databaseURL)
 	if err != nil {
