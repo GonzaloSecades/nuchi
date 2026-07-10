@@ -79,10 +79,11 @@ func TestFinanceRLSConfiguration_LiveDatabase(t *testing.T) {
 	}
 }
 
-// TestFinanceRLS_LiveDatabase exercises RLS enforcement on accounts and
-// transactions: an owner sees only their own rows, cross-user reads return
-// nothing, cross-user inserts are rejected by WITH CHECK, cross-user
-// updates/deletes affect zero rows, and an unset app.user_id fails closed.
+// TestFinanceRLS_LiveDatabase exercises RLS enforcement on accounts,
+// categories, and transactions: an owner sees only their own rows, cross-user
+// reads return nothing, cross-user inserts are rejected by WITH CHECK,
+// cross-user updates/deletes affect zero rows, and an unset app.user_id fails
+// closed.
 // Everything runs inside a single BEGIN ... ROLLBACK so the database is left
 // clean regardless of outcome. It is skipped unless TEST_DATABASE_URL is
 // set.
@@ -122,22 +123,26 @@ func TestFinanceRLS_LiveDatabase(t *testing.T) {
 
 	txDate := time.Date(2026, 1, 15, 0, 0, 0, 0, time.UTC)
 
-	// Seed one account + transaction per user, each under its own
+	// Seed one account + category + transaction per user, each under its own
 	// app.user_id so WITH CHECK accepts the insert.
 	accountA := uuid.NewString()
+	categoryA := uuid.NewString()
 	transactionA := uuid.NewString()
 	if err := setAppUser(ctx, tx, userA); err != nil {
 		t.Fatalf("failed to set app.user_id for user A seed: %v", err)
 	}
 	insertTestAccount(ctx, t, tx, accountA, "RLS Account A", userA)
+	insertTestCategory(ctx, t, tx, categoryA, "RLS Category A", userA)
 	insertTestTransaction(ctx, t, tx, transactionA, accountA, txDate)
 
 	accountB := uuid.NewString()
+	categoryB := uuid.NewString()
 	transactionB := uuid.NewString()
 	if err := setAppUser(ctx, tx, userB); err != nil {
 		t.Fatalf("failed to set app.user_id for user B seed: %v", err)
 	}
 	insertTestAccount(ctx, t, tx, accountB, "RLS Account B", userB)
+	insertTestCategory(ctx, t, tx, categoryB, "RLS Category B", userB)
 	insertTestTransaction(ctx, t, tx, transactionB, accountB, txDate)
 
 	// --- As user A ---
@@ -146,6 +151,7 @@ func TestFinanceRLS_LiveDatabase(t *testing.T) {
 	}
 
 	assertRowCount(ctx, t, tx, "accounts", 1)
+	assertRowCount(ctx, t, tx, "categories", 1)
 	assertRowCount(ctx, t, tx, "transactions", 1)
 
 	var gotAccountID string
@@ -164,16 +170,39 @@ func TestFinanceRLS_LiveDatabase(t *testing.T) {
 		t.Errorf("user A: expected to see own transaction %q, got %q", transactionA, gotTransactionID)
 	}
 
-	// User A cannot see user B's account or transaction directly by id.
+	// User A cannot see user B's account, category, or transaction directly
+	// by id.
 	var probe string
 	err = tx.QueryRow(ctx, `SELECT id FROM accounts WHERE id = $1`, accountB).Scan(&probe)
 	if !errors.Is(err, pgx.ErrNoRows) {
 		t.Errorf("user A: expected no rows selecting user B's account, got err=%v", err)
 	}
+	err = tx.QueryRow(ctx, `SELECT id FROM categories WHERE id = $1`, categoryB).Scan(&probe)
+	if !errors.Is(err, pgx.ErrNoRows) {
+		t.Errorf("user A: expected no rows selecting user B's category, got err=%v", err)
+	}
 	err = tx.QueryRow(ctx, `SELECT id FROM transactions WHERE id = $1`, transactionB).Scan(&probe)
 	if !errors.Is(err, pgx.ErrNoRows) {
 		t.Errorf("user A: expected no rows selecting user B's transaction, got err=%v", err)
 	}
+
+	// User A cannot INSERT a category owned by user B: WITH CHECK rejects it.
+	func() {
+		nested, err := tx.Begin(ctx)
+		if err != nil {
+			t.Fatalf("failed to open nested transaction for cross-user category insert test: %v", err)
+		}
+		defer func() {
+			if err := nested.Rollback(ctx); err != nil && !errors.Is(err, pgx.ErrTxClosed) {
+				t.Errorf("failed to roll back nested transaction: %v", err)
+			}
+		}()
+
+		_, err = nested.Exec(ctx, `
+			INSERT INTO categories (id, name, user_id) VALUES ($1, $2, $3)
+		`, uuid.NewString(), "cross-user category attempt", userB)
+		assertRLSViolation(t, err, "user A inserting a category owned by user B")
+	}()
 
 	// User A cannot INSERT a transaction into user B's account: WITH CHECK
 	// rejects it. Run inside a pseudo-nested transaction (pgx issues a
@@ -214,6 +243,22 @@ func TestFinanceRLS_LiveDatabase(t *testing.T) {
 		t.Errorf("user A: expected 0 rows affected deleting user B's account, got %d", tag.RowsAffected())
 	}
 
+	tag, err = tx.Exec(ctx, `UPDATE categories SET name = $1 WHERE id = $2`, "hacked", categoryB)
+	if err != nil {
+		t.Fatalf("user A: UPDATE on user B's category returned an unexpected error: %v", err)
+	}
+	if tag.RowsAffected() != 0 {
+		t.Errorf("user A: expected 0 rows affected updating user B's category, got %d", tag.RowsAffected())
+	}
+
+	tag, err = tx.Exec(ctx, `DELETE FROM categories WHERE id = $1`, categoryB)
+	if err != nil {
+		t.Fatalf("user A: DELETE on user B's category returned an unexpected error: %v", err)
+	}
+	if tag.RowsAffected() != 0 {
+		t.Errorf("user A: expected 0 rows affected deleting user B's category, got %d", tag.RowsAffected())
+	}
+
 	tag, err = tx.Exec(ctx, `UPDATE transactions SET payee = $1 WHERE id = $2`, "hacked", transactionB)
 	if err != nil {
 		t.Fatalf("user A: UPDATE on user B's transaction returned an unexpected error: %v", err)
@@ -236,6 +281,7 @@ func TestFinanceRLS_LiveDatabase(t *testing.T) {
 		t.Fatalf("failed to set app.user_id for user B verification: %v", err)
 	}
 	assertRowCount(ctx, t, tx, "accounts", 1)
+	assertRowCount(ctx, t, tx, "categories", 1)
 	assertRowCount(ctx, t, tx, "transactions", 1)
 
 	// --- With app.user_id unset: fail closed ---
@@ -298,6 +344,16 @@ func insertTestAccount(ctx context.Context, t *testing.T, tx pgx.Tx, id, name, u
 		INSERT INTO accounts (id, name, user_id) VALUES ($1, $2, $3)
 	`, id, name, userID); err != nil {
 		t.Fatalf("failed to insert test account %q: %v", id, err)
+	}
+}
+
+func insertTestCategory(ctx context.Context, t *testing.T, tx pgx.Tx, id, name, userID string) {
+	t.Helper()
+
+	if _, err := tx.Exec(ctx, `
+		INSERT INTO categories (id, name, user_id) VALUES ($1, $2, $3)
+	`, id, name, userID); err != nil {
+		t.Fatalf("failed to insert test category %q: %v", id, err)
 	}
 }
 
