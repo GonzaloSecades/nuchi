@@ -1098,5 +1098,25 @@
     "mtime": 1783712765.761052,
     "ast_hash": "2864776619a3cd615f7e6cca5c49ca99",
     "semantic_hash": ""
+  },
+  "docs/investigation/Argentina_Openbanking/README.md": {
+    "mtime": 1783724648.2120707,
+    "ast_hash": "e77c5b72d96913778bf0182ffbd54ef2",
+    "semantic_hash": ""
+  },
+  "docs/investigation/Argentina_Openbanking/briefing.md": {
+    "mtime": 1783724664.7862656,
+    "ast_hash": "4beed5fee8ba44e01a97c39ca01f3cee",
+    "semantic_hash": ""
+  },
+  "docs/investigation/Argentina_Openbanking/findings.md": {
+    "mtime": 1783724702.6442907,
+    "ast_hash": "d726752ccb7a768a0edc9d241ce3895a",
+    "semantic_hash": ""
+  },
+  "docs/investigation/Argentina_Openbanking/summary.md": {
+    "mtime": 1783724720.1023767,
+    "ast_hash": "c589199ac4a3041110ca967bef2d686e",
+    "semantic_hash": ""
   }
 }
