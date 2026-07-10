@@ -65,6 +65,8 @@ Migrations live in `backend/migrations/` and are applied with
 | Migration | Purpose |
 | --- | --- |
 | `00001_auth_base.sql` | `citext` extension; `users`, `email_verification_tokens`, `password_reset_tokens`, `refresh_tokens` tables |
+| `00002_finance_base.sql` | `accounts`, `categories`, `transactions` tables and their indexes |
+| `00003_finance_rls.sql` | Row level security enable/force + ownership policies on `accounts`, `categories`, `transactions` |
 
 Install the pinned CLI version:
 
@@ -81,6 +83,34 @@ goose -dir migrations postgres "$DATABASE_URL" up
 
 Resetting the local database is destructive and must be explicit — never
 run `goose down`/`reset` as part of routine startup or automation.
+
+### RLS
+
+`accounts`, `categories`, and `transactions` have row level security
+**enabled and forced** (`ALTER TABLE ... FORCE ROW LEVEL SECURITY`). FORCE
+matters because the API connects as the `nuchi` role, which owns these
+tables — Postgres exempts table owners from RLS unless it is explicitly
+forced.
+
+Every policy reads the current app user from the `app.user_id` session
+setting:
+
+- Each request handler (wired in #43) runs its queries inside a single
+  transaction and issues `SET LOCAL app.user_id = '<users.id uuid>'` as the
+  first statement, scoping the setting to that transaction.
+- Policies read it as
+  `NULLIF(current_setting('app.user_id', true), '')::uuid` —
+  `current_setting(..., true)` returns `NULL` instead of raising when the
+  setting was never set, and `NULLIF` turns an empty string into `NULL` too.
+- A `NULL` app user can never equal a row's `user_id`, so an unset or empty
+  `app.user_id` **fails closed**: zero rows are visible or writable, rather
+  than erroring or exposing every user's data.
+- `accounts` and `categories` are matched directly on `user_id`.
+  `transactions` are matched through their required `account_id` (there is
+  no direct `user_id` column on transactions).
+
+`users` and the token tables have no RLS — they are auth-layer tables never
+touched by user-scoped queries.
 
 ### Typed queries (sqlc)
 
