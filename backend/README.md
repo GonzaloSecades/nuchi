@@ -104,6 +104,10 @@ sqlc generate
 
 ## Verification
 
+Tests run without a database. Running the API requires PostgreSQL to be up
+(see Database above): startup pings the database and exits with status 1 if
+it is unreachable.
+
 ```bash
 cd backend
 go test ./...
