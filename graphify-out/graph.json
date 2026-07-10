@@ -1109,7 +1109,7 @@
       "label": "TestNewPool_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L51",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "backend_internal_db_db_test_testnewpool_livedatabase",
       "community": 48,
@@ -1452,7 +1452,7 @@
       "source_location": "L158",
       "_origin": "ast",
       "id": "openapi_categorylistresponse",
-      "community": 17,
+      "community": 369,
       "norm_label": "categorylistresponse"
     },
     {
@@ -1472,7 +1472,7 @@
       "source_location": "L168",
       "_origin": "ast",
       "id": "openapi_categorysummary",
-      "community": 17,
+      "community": 369,
       "norm_label": "categorysummary"
     },
     {
@@ -1482,7 +1482,7 @@
       "source_location": "L175",
       "_origin": "ast",
       "id": "openapi_categorysummaryresponse",
-      "community": 17,
+      "community": 369,
       "norm_label": "categorysummaryresponse"
     },
     {
@@ -2152,7 +2152,7 @@
       "source_location": "L832",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_deleteaccount",
-      "community": 432,
+      "community": 411,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -2162,7 +2162,7 @@
       "source_location": "L864",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_getaccount",
-      "community": 517,
+      "community": 338,
       "norm_label": ".getaccount()"
     },
     {
@@ -2182,7 +2182,7 @@
       "source_location": "L928",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_loginuser",
-      "community": 338,
+      "community": 514,
       "norm_label": ".loginuser()"
     },
     {
@@ -2242,7 +2242,7 @@
       "source_location": "L1024",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_verifyemail",
-      "community": 338,
+      "community": 517,
       "norm_label": ".verifyemail()"
     },
     {
@@ -2302,7 +2302,7 @@
       "source_location": "L1162",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_updatecategory",
-      "community": 411,
+      "community": 338,
       "norm_label": ".updatecategory()"
     },
     {
@@ -2342,7 +2342,7 @@
       "source_location": "L1338",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_createtransaction",
-      "community": 338,
+      "community": 373,
       "norm_label": ".createtransaction()"
     },
     {
@@ -2712,7 +2712,7 @@
       "source_location": "L1710",
       "_origin": "ast",
       "id": "openapi_invalidrefreshtokenerrorjsonresponse",
-      "community": 514,
+      "community": 17,
       "norm_label": "invalidrefreshtokenerrorjsonresponse"
     },
     {
@@ -3232,7 +3232,7 @@
       "source_location": "L1994",
       "_origin": "ast",
       "id": "openapi_deleteaccount500jsonresponse_visitdeleteaccountresponse",
-      "community": 432,
+      "community": 411,
       "norm_label": ".visitdeleteaccountresponse()"
     },
     {
@@ -3352,7 +3352,7 @@
       "source_location": "L2074",
       "_origin": "ast",
       "id": "openapi_getaccount500jsonresponse_visitgetaccountresponse",
-      "community": 517,
+      "community": 338,
       "norm_label": ".visitgetaccountresponse()"
     },
     {
@@ -3622,7 +3622,7 @@
       "source_location": "L2247",
       "_origin": "ast",
       "id": "openapi_loginuser403jsonresponse_visitloginuserresponse",
-      "community": 338,
+      "community": 514,
       "norm_label": ".visitloginuserresponse()"
     },
     {
@@ -3682,7 +3682,7 @@
       "source_location": "L2290",
       "_origin": "ast",
       "id": "openapi_logoutuser401jsonresponse",
-      "community": 514,
+      "community": 17,
       "norm_label": "logoutuser401jsonresponse"
     },
     {
@@ -3912,7 +3912,7 @@
       "source_location": "L2423",
       "_origin": "ast",
       "id": "openapi_refreshsession401jsonresponse",
-      "community": 514,
+      "community": 17,
       "norm_label": "refreshsession401jsonresponse"
     },
     {
@@ -4102,7 +4102,7 @@
       "source_location": "L2527",
       "_origin": "ast",
       "id": "openapi_verifyemail401jsonresponse_visitverifyemailresponse",
-      "community": 338,
+      "community": 517,
       "norm_label": ".visitverifyemailresponse()"
     },
     {
@@ -4812,7 +4812,7 @@
       "source_location": "L2977",
       "_origin": "ast",
       "id": "openapi_updatecategory500jsonresponse_visitupdatecategoryresponse",
-      "community": 411,
+      "community": 338,
       "norm_label": ".visitupdatecategoryresponse()"
     },
     {
@@ -5202,7 +5202,7 @@
       "source_location": "L3229",
       "_origin": "ast",
       "id": "openapi_createtransaction500jsonresponse_visitcreatetransactionresponse",
-      "community": 338,
+      "community": 373,
       "norm_label": ".visitcreatetransactionresponse()"
     },
     {
@@ -6042,7 +6042,7 @@
       "source_location": "L3938",
       "_origin": "ast",
       "id": "openapi_stricthandler_deleteaccount",
-      "community": 432,
+      "community": 411,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -6052,7 +6052,7 @@
       "source_location": "L3964",
       "_origin": "ast",
       "id": "openapi_stricthandler_getaccount",
-      "community": 517,
+      "community": 338,
       "norm_label": ".getaccount()"
     },
     {
@@ -6072,7 +6072,7 @@
       "source_location": "L4023",
       "_origin": "ast",
       "id": "openapi_stricthandler_loginuser",
-      "community": 338,
+      "community": 514,
       "norm_label": ".loginuser()"
     },
     {
@@ -6132,7 +6132,7 @@
       "source_location": "L4195",
       "_origin": "ast",
       "id": "openapi_stricthandler_verifyemail",
-      "community": 338,
+      "community": 517,
       "norm_label": ".verifyemail()"
     },
     {
@@ -6192,7 +6192,7 @@
       "source_location": "L4364",
       "_origin": "ast",
       "id": "openapi_stricthandler_updatecategory",
-      "community": 411,
+      "community": 338,
       "norm_label": ".updatecategory()"
     },
     {
@@ -6232,7 +6232,7 @@
       "source_location": "L4473",
       "_origin": "ast",
       "id": "openapi_stricthandler_createtransaction",
-      "community": 338,
+      "community": 373,
       "norm_label": ".createtransaction()"
     },
     {
@@ -16025,15 +16025,6 @@
       "id": "drizzle_meta_0007_snapshot_columns_amount"
     },
     {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0007_snapshot.json",
-      "source_location": "L118",
-      "community": 373,
-      "norm_label": "name",
-      "id": "drizzle_meta_0007_snapshot_amount_name"
-    },
-    {
       "label": "payee",
       "file_type": "code",
       "source_file": "drizzle/meta/0007_snapshot.json",
@@ -17769,15 +17760,6 @@
       "community": 331,
       "norm_label": "user_id",
       "id": "drizzle_meta_0006_snapshot_columns_user_id"
-    },
-    {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0006_snapshot.json",
-      "source_location": "L30",
-      "community": 369,
-      "norm_label": "name",
-      "id": "drizzle_meta_0006_snapshot_user_id_name"
     },
     {
       "label": "indexes",
@@ -23745,7 +23727,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L58",
+      "source_location": "L59",
       "weight": 1.0,
       "source": "backend_internal_db_db_test_testnewpool_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -23756,7 +23738,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0,
       "source": "backend_internal_db_db_test_testnewpool_unreachableserver",
       "target": "backend_internal_db_db_newpool"
@@ -23775,7 +23757,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1.0,
       "source": "backend_internal_db_db_test",
       "target": "backend_internal_db_db_test_testnewpool_livedatabase",
@@ -23806,7 +23788,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_db_test_testnewpool_livedatabase",
@@ -51057,5 +51039,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "56f454e5b5cbc2d8d9caa272abfe512bf2b94903"
+  "built_at_commit": "1c82cf0610f9b826fc15e9128cf39660cbd75a3f"
 }

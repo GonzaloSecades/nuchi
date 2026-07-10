@@ -1,16 +1,16 @@
-# Graph Report - agent-a1729d08783f11fa9  (2026-07-09)
+# Graph Report - nuchi  (2026-07-10)
 
 ## Corpus Check
-- 207 files · ~81,159 words
+- 207 files · ~81,202 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1977 nodes · 2962 edges · 556 communities (114 shown, 442 thin omitted)
+- 1975 nodes · 2962 edges · 556 communities (116 shown, 440 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 22 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `56f454e5`
+- Built from commit: `1c82cf06`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -374,7 +374,6 @@
 - [[_COMMUNITY_version|version]]
 - [[_COMMUNITY_isUnique|isUnique]]
 - [[_COMMUNITY_name|name]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
 - [[_COMMUNITY_name|name]]
@@ -508,7 +507,6 @@
 - [[_COMMUNITY_LogoutUser200JSONResponse|LogoutUser200JSONResponse]]
 - [[_COMMUNITY_.BulkDeleteCategories|.BulkDeleteCategories]]
 - [[_COMMUNITY_.BulkDeleteTransactions|.BulkDeleteTransactions]]
-- [[_COMMUNITY_.CreateTransaction|.CreateTransaction]]
 - [[_COMMUNITY_.GetCategory|.GetCategory]]
 - [[_COMMUNITY_InvalidParamFormatError|InvalidParamFormatError]]
 - [[_COMMUNITY_RequiredHeaderError|RequiredHeaderError]]
@@ -575,7 +573,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (556 total, 442 thin omitted)
+## Communities (556 total, 440 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -849,6 +847,10 @@ Nodes (11): ResponseType, ResponseType, AccountColumn(), Props, columns, Respons
 Cohesion: 0.14
 Nodes (14): DateString, CurrencyCode, HealthResponse, Summary, SummaryCategory, SummaryDay, SummaryResponse, Transaction (+6 more)
 
+### Community 369 - "name"
+Cohesion: 0.67
+Nodes (3): CategoryListResponse, CategorySummary, CategorySummaryResponse
+
 ### Community 374 - "type"
 Cohesion: 0.29
 Nodes (7): Categories, `DELETE /api/categories/:id`, `GET /api/categories`, `GET /api/categories/:id`, `PATCH /api/categories/:id`, `POST /api/categories`, `POST /api/categories/bulk-delete`
@@ -933,14 +935,10 @@ Nodes (3): AuthMessageResponse, LogoutUser200JSONResponse, LogoutUser200Response
 Cohesion: 0.48
 Nodes (4): Props, Select(), mergeCreatedSelectOption(), SelectOption
 
-### Community 514 - ".CreateTransaction"
-Cohesion: 0.67
-Nodes (3): InvalidRefreshTokenErrorJSONResponse, LogoutUser401JSONResponse, RefreshSession401JSONResponse
-
 ## Knowledge Gaps
-- **916 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+911 more)
+- **914 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+909 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **442 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **440 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -952,7 +950,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `name`, `notNull`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
-  _941 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _939 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**
