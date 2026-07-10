@@ -60,8 +60,11 @@ resource endpoints exist.
 ### Migrations (goose)
 
 Migrations live in `backend/migrations/` and are applied with
-[goose](https://github.com/pressly/goose). No migration files exist yet
-(tracked in a later issue); this issue only wires the location and tooling.
+[goose](https://github.com/pressly/goose).
+
+| Migration | Purpose |
+| --- | --- |
+| `00001_auth_base.sql` | `citext` extension; `users`, `email_verification_tokens`, `password_reset_tokens`, `refresh_tokens` tables |
 
 Install the pinned CLI version:
 
