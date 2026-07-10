@@ -1089,7 +1089,7 @@
       "label": "assertCascadingUserFK()",
       "file_type": "code",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L149",
+      "source_location": "L152",
       "_origin": "ast",
       "id": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
       "community": 48,
@@ -2222,7 +2222,7 @@
       "source_location": "L832",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_deleteaccount",
-      "community": 338,
+      "community": 411,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -2322,7 +2322,7 @@
       "source_location": "L1038",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_listcategories",
-      "community": 338,
+      "community": 347,
       "norm_label": ".listcategories()"
     },
     {
@@ -2372,7 +2372,7 @@
       "source_location": "L1162",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_updatecategory",
-      "community": 353,
+      "community": 411,
       "norm_label": ".updatecategory()"
     },
     {
@@ -2462,7 +2462,7 @@
       "source_location": "L1462",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_updatetransaction",
-      "community": 338,
+      "community": 411,
       "norm_label": ".updatetransaction()"
     },
     {
@@ -3302,7 +3302,7 @@
       "source_location": "L1994",
       "_origin": "ast",
       "id": "openapi_deleteaccount500jsonresponse_visitdeleteaccountresponse",
-      "community": 338,
+      "community": 411,
       "norm_label": ".visitdeleteaccountresponse()"
     },
     {
@@ -4252,7 +4252,7 @@
       "source_location": "L2576",
       "_origin": "ast",
       "id": "openapi_listcategories500jsonresponse_visitlistcategoriesresponse",
-      "community": 338,
+      "community": 347,
       "norm_label": ".visitlistcategoriesresponse()"
     },
     {
@@ -4882,7 +4882,7 @@
       "source_location": "L2977",
       "_origin": "ast",
       "id": "openapi_updatecategory500jsonresponse_visitupdatecategoryresponse",
-      "community": 353,
+      "community": 411,
       "norm_label": ".visitupdatecategoryresponse()"
     },
     {
@@ -6002,7 +6002,7 @@
       "source_location": "L3722",
       "_origin": "ast",
       "id": "openapi_updatetransaction500jsonresponse_visitupdatetransactionresponse",
-      "community": 338,
+      "community": 411,
       "norm_label": ".visitupdatetransactionresponse()"
     },
     {
@@ -6042,7 +6042,7 @@
       "source_location": "L3825",
       "_origin": "ast",
       "id": "openapi_stricthttpserveroptions",
-      "community": 338,
+      "community": 411,
       "norm_label": "stricthttpserveroptions"
     },
     {
@@ -6072,7 +6072,7 @@
       "source_location": "L3845",
       "_origin": "ast",
       "id": "openapi_stricthandler",
-      "community": 338,
+      "community": 411,
       "norm_label": "stricthandler"
     },
     {
@@ -6112,7 +6112,7 @@
       "source_location": "L3938",
       "_origin": "ast",
       "id": "openapi_stricthandler_deleteaccount",
-      "community": 338,
+      "community": 411,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -6212,7 +6212,7 @@
       "source_location": "L4226",
       "_origin": "ast",
       "id": "openapi_stricthandler_listcategories",
-      "community": 338,
+      "community": 347,
       "norm_label": ".listcategories()"
     },
     {
@@ -6262,7 +6262,7 @@
       "source_location": "L4364",
       "_origin": "ast",
       "id": "openapi_stricthandler_updatecategory",
-      "community": 353,
+      "community": 411,
       "norm_label": ".updatecategory()"
     },
     {
@@ -6352,7 +6352,7 @@
       "source_location": "L4618",
       "_origin": "ast",
       "id": "openapi_stricthandler_updatetransaction",
-      "community": 338,
+      "community": 411,
       "norm_label": ".updatetransaction()"
     },
     {
@@ -16131,15 +16131,6 @@
       "id": "drizzle_meta_0007_snapshot_columns_date"
     },
     {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0007_snapshot.json",
-      "source_location": "L136",
-      "community": 388,
-      "norm_label": "name",
-      "id": "drizzle_meta_0007_snapshot_date_name"
-    },
-    {
       "label": "primaryKey",
       "file_type": "code",
       "source_file": "drizzle/meta/0007_snapshot.json",
@@ -17794,15 +17785,6 @@
       "community": 330,
       "norm_label": "plaid_id",
       "id": "drizzle_meta_0006_snapshot_columns_plaid_id"
-    },
-    {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0006_snapshot.json",
-      "source_location": "L24",
-      "community": 347,
-      "norm_label": "name",
-      "id": "drizzle_meta_0006_snapshot_name_name"
     },
     {
       "label": "user_id",
@@ -23734,7 +23716,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L149",
+      "source_location": "L152",
       "weight": 1.0,
       "source": "backend_internal_db_auth_schema_test",
       "target": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -23808,7 +23790,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L149",
+      "source_location": "L152",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -23852,7 +23834,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L149",
+      "source_location": "L152",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -23863,7 +23845,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L149",
+      "source_location": "L152",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -51231,5 +51213,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "dd9e057b028a8b8f4e93a01a53c65140411332bd"
+  "built_at_commit": "e05b35ccd6815cdbbe7f4cdbb667460edbabe716"
 }

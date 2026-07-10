@@ -1,16 +1,16 @@
-# Graph Report - agent-a16c5bd53da702da6  (2026-07-10)
+# Graph Report - nuchi  (2026-07-10)
 
 ## Corpus Check
-- 209 files · ~82,117 words
+- 209 files · ~82,134 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1980 nodes · 2975 edges · 553 communities (115 shown, 438 thin omitted)
+- 1978 nodes · 2975 edges · 551 communities (116 shown, 435 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 23 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `dd9e057b`
+- Built from commit: `e05b35cc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -348,7 +348,6 @@
 - [[_COMMUNITY__meta|_meta]]
 - [[_COMMUNITY_schemas|schemas]]
 - [[_COMMUNITY_tables|tables]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_notNull|notNull]]
 - [[_COMMUNITY_primaryKey|primaryKey]]
@@ -386,7 +385,6 @@
 - [[_COMMUNITY_payee|payee]]
 - [[_COMMUNITY_plaid_id|plaid_id]]
 - [[_COMMUNITY_user_id|user_id]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_primaryKey|primaryKey]]
 - [[_COMMUNITY_dialect|dialect]]
 - [[_COMMUNITY_enums|enums]]
@@ -571,7 +569,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (553 total, 438 thin omitted)
+## Communities (551 total, 435 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -827,7 +825,7 @@ Nodes (9): Branch And PR Hard Rules, Commands, Graphify, Hard Invariants, Legacy
 
 ### Community 338 - "primaryKey"
 Cohesion: 0.08
-Nodes (5): Handler, ResponseWriter, ServerInterfaceWrapper, strictHandler, StrictHTTPServerOptions
+Nodes (3): Handler, ResponseWriter, ServerInterfaceWrapper
 
 ### Community 348 - "type"
 Cohesion: 0.39
@@ -880,6 +878,10 @@ Nodes (12): Email, AuthSessionResponse, AuthSessionResponseTokenType, AuthUser, 
 ### Community 409 - "TransactionMutationRateLimitErrorJSONResponse"
 Cohesion: 0.14
 Nodes (9): ApiError, ApiErrorResponse, BulkCreateTransactions429JSONResponse, BulkDeleteTransactions429JSONResponse, CreateTransaction429JSONResponse, DeleteTransaction429JSONResponse, TransactionMutationRateLimitErrorJSONResponse, TransactionMutationRateLimitErrorResponseHeaders (+1 more)
+
+### Community 411 - "strictHandler"
+Cohesion: 0.11
+Nodes (3): RequestPasswordReset400JSONResponse, strictHandler, StrictHTTPServerOptions
 
 ### Community 428 - "Handler"
 Cohesion: 0.27
@@ -934,9 +936,9 @@ Cohesion: 0.17
 Nodes (12): DatePicker(), Props, Select(), Textarea(), ApiFormValues, formSchema, FormValues, Props (+4 more)
 
 ## Knowledge Gaps
-- **912 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+907 more)
+- **910 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+905 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **438 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **435 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -948,7 +950,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `name`, `name`?**
   _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
-  _937 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _935 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**
