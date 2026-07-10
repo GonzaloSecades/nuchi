@@ -126,21 +126,24 @@ func assertUniqueColumn(ctx context.Context, t *testing.T, pool *pgxpool.Pool, t
 
 	var count int
 	row := pool.QueryRow(ctx, `
-		SELECT count(*)
-		FROM information_schema.table_constraints tc
-		JOIN information_schema.key_column_usage kcu
-			ON tc.constraint_name = kcu.constraint_name
-			AND tc.table_schema = kcu.table_schema
-		WHERE tc.constraint_type = 'UNIQUE'
-			AND tc.table_schema = 'public'
-			AND tc.table_name = $1
-			AND kcu.column_name = $2
+		SELECT count(*) FROM (
+			SELECT kcu.constraint_name
+			FROM information_schema.table_constraints tc
+			JOIN information_schema.key_column_usage kcu
+				ON tc.constraint_name = kcu.constraint_name
+				AND tc.table_schema = kcu.table_schema
+			WHERE tc.constraint_type = 'UNIQUE'
+				AND tc.table_schema = 'public'
+				AND tc.table_name = $1
+			GROUP BY kcu.constraint_name
+			HAVING count(*) = 1 AND min(kcu.column_name::text) = $2
+		) single_column_unique
 	`, table, column)
 	if err := row.Scan(&count); err != nil {
 		t.Fatalf("%s.%s: failed to query unique constraint: %v", table, column, err)
 	}
 	if count == 0 {
-		t.Errorf("%s.%s: expected a UNIQUE constraint, found none", table, column)
+		t.Errorf("%s.%s: expected a UNIQUE constraint covering exactly this column, found none", table, column)
 	}
 }
 
