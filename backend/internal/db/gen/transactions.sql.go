@@ -17,10 +17,10 @@ SELECT
     ids.val,
     amounts.val,
     payees.val,
-    notes.val,
+    NULLIF(notes.val, ''),
     dates.val,
     account_ids.val,
-    category_ids.val,
+    NULLIF(category_ids.val, ''),
     currencies.val
 FROM unnest($1::text[]) WITH ORDINALITY AS ids(val, ord)
 JOIN unnest($2::integer[]) WITH ORDINALITY AS amounts(val, ord) USING (ord)
@@ -45,15 +45,21 @@ type BulkCreateTransactionsParams struct {
 }
 
 // Single INSERT ... SELECT round trip, matching the legacy bulk response of
-// every created row. All positional arrays must be the same length;
-// nullable columns (notes, category_id) carry NULL elements at the
-// corresponding index. sqlc's static analyzer (no live database configured)
-// cannot resolve Postgres's multi-argument unnest(a, b, c, ...) form used as
-// a single call (it reports "function unnest(unknown, ...) does not
-// exist"), so each array is unnested separately WITH ORDINALITY and the
-// results are re-joined on their shared ordinal position — equivalent to
-// the multi-arg form, but built entirely from the single-arg unnest(anyarray)
-// overload sqlc's catalog already knows.
+// every created row. All positional arrays must be the same length. sqlc's
+// static analyzer (no live database configured) cannot resolve Postgres's
+// multi-argument unnest(a, b, c, ...) form used as a single call (it reports
+// "function unnest(unknown, ...) does not exist"), so each array is unnested
+// separately WITH ORDINALITY and the results are re-joined on their shared
+// ordinal position — equivalent to the multi-arg form, but built entirely
+// from the single-arg unnest(anyarray) overload sqlc's catalog already knows.
+//
+// NULL sentinel: sqlc generates non-nullable []string for array params, so
+// the nullable columns (notes, category_id) use the empty string as a NULL
+// sentinel, collapsed via NULLIF. ” is never a valid category id (FK to
+// categories), so the mapping is lossless there; for notes it means an
+// explicit empty-string note in a bulk create is stored as NULL (the single
+// CreateTransaction preserves ”), which no fixture pins and the UI renders
+// identically.
 func (q *Queries) BulkCreateTransactions(ctx context.Context, arg BulkCreateTransactionsParams) ([]Transaction, error) {
 	rows, err := q.db.Query(ctx, bulkCreateTransactions,
 		arg.Ids,

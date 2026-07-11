@@ -17,7 +17,9 @@ import (
 // TestSqlcQueries_LiveDatabase exercises a representative path through the
 // sqlc-generated query code (backend/internal/db/gen), not every query:
 // create user -> account -> category -> transactions; ListTransactions
-// (joined names, inclusive date filtering, DESC order); BulkDeleteTransactions
+// (joined names, inclusive date filtering, DESC order); BulkCreateTransactions
+// (single round trip, '' NULL sentinel for notes/category_id landing as SQL
+// NULL); BulkDeleteTransactions
 // silently ignoring an id owned by another user; the atomic one-time consume
 // on password_reset_tokens; RevokeAllUserRefreshTokens; and GetPeriodTotals
 // milliunit sums. Exhaustive per-query/per-endpoint behavior arrives with
@@ -264,6 +266,56 @@ func TestSqlcQueries_LiveDatabase(t *testing.T) {
 	}
 	if totals.Remaining != 470000 {
 		t.Errorf("GetPeriodTotals: expected remaining 470000 milliunits, got %d", totals.Remaining)
+	}
+
+	// --- BulkCreateTransactions: one CSV-shaped row (no category, no notes —
+	// the empty-string NULL sentinel) and one fully populated row, in a
+	// single round trip. The sentinel must land as SQL NULL, not '': ''
+	// would violate the category FK and diverge from the fixtures' null
+	// notes. ---
+	bulkDate := time.Date(2026, 2, 5, 0, 0, 0, 0, time.UTC)
+	bulkCreated, err := q.BulkCreateTransactions(ctx, dbgen.BulkCreateTransactionsParams{
+		Ids:         []string{"txn_sqlc_bulk_1", "txn_sqlc_bulk_2"},
+		Amounts:     []int32{-7500, -2000},
+		Payees:      []string{"CSV Import Row", "Categorized Row"},
+		Notes:       []string{"", "with a note"},
+		Dates:       []pgtype.Timestamp{{Time: bulkDate, Valid: true}, {Time: bulkDate, Valid: true}},
+		AccountIds:  []string{accountA.ID, accountA.ID},
+		CategoryIds: []string{"", categoryA.ID},
+		Currencies:  []string{"ARS", "ARS"},
+	})
+	if err != nil {
+		t.Fatalf("BulkCreateTransactions: unexpected error: %v", err)
+	}
+	if len(bulkCreated) != 2 {
+		t.Fatalf("BulkCreateTransactions: expected 2 created rows, got %d", len(bulkCreated))
+	}
+	bulkByID := map[string]dbgen.Transaction{}
+	for _, row := range bulkCreated {
+		bulkByID[row.ID] = row
+	}
+	csvRow, ok := bulkByID["txn_sqlc_bulk_1"]
+	if !ok {
+		t.Fatalf("BulkCreateTransactions: created rows missing txn_sqlc_bulk_1: %v", bulkCreated)
+	}
+	if csvRow.Notes.Valid {
+		t.Errorf("BulkCreateTransactions: expected sentinel '' notes to store as NULL, got %q", csvRow.Notes.String)
+	}
+	if csvRow.CategoryID.Valid {
+		t.Errorf("BulkCreateTransactions: expected sentinel '' category_id to store as NULL, got %q", csvRow.CategoryID.String)
+	}
+	fullRow, ok := bulkByID["txn_sqlc_bulk_2"]
+	if !ok {
+		t.Fatalf("BulkCreateTransactions: created rows missing txn_sqlc_bulk_2: %v", bulkCreated)
+	}
+	if !fullRow.Notes.Valid || fullRow.Notes.String != "with a note" {
+		t.Errorf("BulkCreateTransactions: expected notes 'with a note', got %+v", fullRow.Notes)
+	}
+	if !fullRow.CategoryID.Valid || fullRow.CategoryID.String != categoryA.ID {
+		t.Errorf("BulkCreateTransactions: expected category_id %q, got %+v", categoryA.ID, fullRow.CategoryID)
+	}
+	if fullRow.Amount != -2000 {
+		t.Errorf("BulkCreateTransactions: expected amount -2000 milliunits, got %d", fullRow.Amount)
 	}
 
 	// --- auth_tokens.sql: password reset token atomic one-time consume.
