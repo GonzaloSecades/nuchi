@@ -96,8 +96,11 @@ Every policy reads the current app user from the `app.user_id` session
 setting:
 
 - Each request handler (wired in #43) runs its queries inside a single
-  transaction and issues `SET LOCAL app.user_id = '<users.id uuid>'` as the
-  first statement, scoping the setting to that transaction.
+  transaction and binds the setting as the first statement with
+  `SELECT set_config('app.user_id', $1, true)` — the parameterized
+  equivalent of `SET LOCAL app.user_id = '...'` (`SET LOCAL` does not accept
+  bind parameters; `set_config(..., true)` has the same transaction-local
+  scope). The RLS tests use the same call.
 - Policies read it as
   `NULLIF(current_setting('app.user_id', true), '')::uuid` —
   `current_setting(..., true)` returns `NULL` instead of raising when the
