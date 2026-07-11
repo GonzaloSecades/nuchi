@@ -850,8 +850,8 @@
     "semantic_hash": ""
   },
   "backend/README.md": {
-    "mtime": 1783712765.7590513,
-    "ast_hash": "955465aa0b4b0ca20e8775b2672d2df8",
+    "mtime": 1783736938.9169939,
+    "ast_hash": "f811cab42b087eaed9a6a9c3ddc5f74d",
     "semantic_hash": ""
   },
   "docker-compose.dev.yml": {
@@ -960,8 +960,8 @@
     "semantic_hash": ""
   },
   "backend/go.mod": {
-    "mtime": 1783701470.0326085,
-    "ast_hash": "7526f6d3f973a4d9490d5cb45f472fca",
+    "mtime": 1783736938.9169939,
+    "ast_hash": "40d02176a051a1de9e250f2d2aca62ce",
     "semantic_hash": ""
   },
   ".codex/skills/graphify/SKILL.md": {
@@ -1097,6 +1097,26 @@
   "backend/migrations/00001_auth_base.sql": {
     "mtime": 1783712765.761052,
     "ast_hash": "2864776619a3cd615f7e6cca5c49ca99",
+    "semantic_hash": ""
+  },
+  "backend/internal/db/finance_rls_test.go": {
+    "mtime": 1783736938.9169939,
+    "ast_hash": "3e8f7b45d6cf96a8a732d97a8d1e8019",
+    "semantic_hash": ""
+  },
+  "backend/internal/db/finance_schema_test.go": {
+    "mtime": 1783736938.9222617,
+    "ast_hash": "efd963744c1bf7a888c0ac31bfc5c04d",
+    "semantic_hash": ""
+  },
+  "backend/migrations/00002_finance_base.sql": {
+    "mtime": 1783736938.9242778,
+    "ast_hash": "4c11467f09bb1f26c06ba0d89685ce4d",
+    "semantic_hash": ""
+  },
+  "backend/migrations/00003_finance_rls.sql": {
+    "mtime": 1783736938.9242778,
+    "ast_hash": "35da157d2e9249449f9777bd62d8a12c",
     "semantic_hash": ""
   },
   "docs/investigation/Argentina_Openbanking/README.md": {
