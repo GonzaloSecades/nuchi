@@ -121,9 +121,12 @@ func TestFinanceBaseSchema_LiveDatabase(t *testing.T) {
 	}
 
 	// Composite index serving the hot list query (per-account date-range scan,
-	// newest-first).
-	assertIndexExists(ctx, t, pool, "transactions", "transactions_account_id_date_idx")
-	assertIndexExists(ctx, t, pool, "transactions", "transactions_category_id_idx")
+	// newest-first). Asserting the full definition pins the column order and
+	// DESC direction, not just the name.
+	assertIndexDefinition(ctx, t, pool, "transactions", "transactions_account_id_date_idx",
+		"CREATE INDEX transactions_account_id_date_idx ON public.transactions USING btree (account_id, date DESC)")
+	assertIndexDefinition(ctx, t, pool, "transactions", "transactions_category_id_idx",
+		"CREATE INDEX transactions_category_id_idx ON public.transactions USING btree (category_id)")
 }
 
 // assertUniqueIndexColumns fails the test unless table has a unique index
@@ -167,26 +170,23 @@ func assertUniqueIndexColumns(ctx context.Context, t *testing.T, pool *pgxpool.P
 	}
 }
 
-// assertIndexExists fails the test unless table has an index with the given
-// name.
-func assertIndexExists(ctx context.Context, t *testing.T, pool *pgxpool.Pool, table, indexName string) {
+// assertIndexDefinition fails the test unless table has an index with the
+// given name whose full definition (columns, order, sort direction) matches
+// wantDef exactly, as rendered by pg_indexes.indexdef.
+func assertIndexDefinition(ctx context.Context, t *testing.T, pool *pgxpool.Pool, table, indexName, wantDef string) {
 	t.Helper()
 
-	var exists bool
+	var gotDef string
 	row := pool.QueryRow(ctx, `
-		SELECT EXISTS (
-			SELECT 1
-			FROM pg_index ix
-			JOIN pg_class i ON i.oid = ix.indexrelid
-			JOIN pg_class tbl ON tbl.oid = ix.indrelid
-			WHERE tbl.relname = $1 AND i.relname = $2
-		)
+		SELECT indexdef
+		FROM pg_indexes
+		WHERE schemaname = 'public' AND tablename = $1 AND indexname = $2
 	`, table, indexName)
-	if err := row.Scan(&exists); err != nil {
-		t.Fatalf("%s.%s: failed to query index: %v", table, indexName, err)
+	if err := row.Scan(&gotDef); err != nil {
+		t.Fatalf("%s.%s: expected index to exist, got error: %v", table, indexName, err)
 	}
-	if !exists {
-		t.Errorf("%s.%s: expected index to exist, found none", table, indexName)
+	if gotDef != wantDef {
+		t.Errorf("%s.%s: index definition mismatch\nwant: %s\ngot:  %s", table, indexName, wantDef, gotDef)
 	}
 }
 
