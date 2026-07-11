@@ -60,3 +60,4 @@ flag candidates in their handoff notes.
 | 0003 | [Transaction rate limiting is in-memory](0003-in-memory-rate-limiting.md) | api/infra | medium |
 | 0004 | [Bulk-delete silently ignores missing/unowned IDs](0004-bulk-delete-silent-ignore.md) | api | low |
 | 0005 | [Category duplicate update returns 500, create returns 409](0005-category-duplicate-update-500.md) | api | high |
+| 0006 | [transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS](0006-amount-int32-milliunit-cap.md) | schema | high |
