@@ -50,7 +50,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions",
-      "community": 42,
+      "community": 259,
       "norm_label": "actions.tsx"
     },
     {
@@ -60,7 +60,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions_props",
-      "community": 42,
+      "community": 259,
       "norm_label": "props"
     },
     {
@@ -80,7 +80,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns",
-      "community": 347,
+      "community": 259,
       "norm_label": "columns.tsx"
     },
     {
@@ -90,7 +90,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns_responsetype",
-      "community": 347,
+      "community": 259,
       "norm_label": "responsetype"
     },
     {
@@ -110,7 +110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_accounts_page",
-      "community": 229,
+      "community": 347,
       "norm_label": "page.tsx"
     },
     {
@@ -120,7 +120,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "app_dashboard_accounts_page_accountspage",
-      "community": 13,
+      "community": 347,
       "norm_label": "accountspage()"
     },
     {
@@ -130,7 +130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_categories_actions",
-      "community": 42,
+      "community": 361,
       "norm_label": "actions.tsx"
     },
     {
@@ -140,7 +140,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "app_dashboard_categories_actions_props",
-      "community": 42,
+      "community": 361,
       "norm_label": "props"
     },
     {
@@ -150,7 +150,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "app_dashboard_categories_actions_actions",
-      "community": 347,
+      "community": 361,
       "norm_label": "actions()"
     },
     {
@@ -160,7 +160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns",
-      "community": 347,
+      "community": 361,
       "norm_label": "columns.tsx"
     },
     {
@@ -170,7 +170,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns_responsetype",
-      "community": 347,
+      "community": 361,
       "norm_label": "responsetype"
     },
     {
@@ -180,7 +180,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns_columns",
-      "community": 347,
+      "community": 361,
       "norm_label": "columns"
     },
     {
@@ -190,7 +190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_categories_page",
-      "community": 229,
+      "community": 260,
       "norm_label": "page.tsx"
     },
     {
@@ -200,7 +200,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_dashboard_categories_page_categoriespage",
-      "community": 13,
+      "community": 260,
       "norm_label": "categoriespage()"
     },
     {
@@ -350,7 +350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns",
-      "community": 361,
+      "community": 259,
       "norm_label": "columns.tsx"
     },
     {
@@ -360,7 +360,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns_responsetype",
-      "community": 361,
+      "community": 259,
       "norm_label": "responsetype"
     },
     {
@@ -370,7 +370,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns_columns",
-      "community": 361,
+      "community": 229,
       "norm_label": "columns"
     },
     {
@@ -380,7 +380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card",
-      "community": 260,
+      "community": 229,
       "norm_label": "import-card.tsx"
     },
     {
@@ -390,7 +390,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_requiredoptions",
-      "community": 260,
+      "community": 229,
       "norm_label": "requiredoptions"
     },
     {
@@ -400,7 +400,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_selectedcolumnsstate",
-      "community": 260,
+      "community": 229,
       "norm_label": "selectedcolumnsstate"
     },
     {
@@ -410,7 +410,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_props",
-      "community": 260,
+      "community": 229,
       "norm_label": "props"
     },
     {
@@ -420,7 +420,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_importcard",
-      "community": 260,
+      "community": 229,
       "norm_label": "importcard()"
     },
     {
@@ -450,7 +450,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_table_importtable",
-      "community": 260,
+      "community": 317,
       "norm_label": "importtable()"
     },
     {
@@ -460,7 +460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page",
-      "community": 301,
+      "community": 229,
       "norm_label": "page.tsx"
     },
     {
@@ -470,7 +470,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_variants",
-      "community": 301,
+      "community": 229,
       "norm_label": "variants"
     },
     {
@@ -480,7 +480,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_initial_import_results",
-      "community": 301,
+      "community": 229,
       "norm_label": "initial_import_results"
     },
     {
@@ -500,7 +500,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_transactionspagewrapper",
-      "community": 301,
+      "community": 229,
       "norm_label": "transactionspagewrapper()"
     },
     {
@@ -540,7 +540,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_importabletransactionfield",
-      "community": 28,
+      "community": 317,
       "norm_label": "importabletransactionfield"
     },
     {
@@ -570,7 +570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button",
-      "community": 301,
+      "community": 229,
       "norm_label": "upload-button.tsx"
     },
     {
@@ -580,7 +580,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_props",
-      "community": 301,
+      "community": 229,
       "norm_label": "props"
     },
     {
@@ -590,7 +590,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_csvreaderrenderprops",
-      "community": 301,
+      "community": 229,
       "norm_label": "csvreaderrenderprops"
     },
     {
@@ -600,7 +600,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_csvuploadresults",
-      "community": 301,
+      "community": 229,
       "norm_label": "csvuploadresults"
     },
     {
@@ -610,7 +610,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_uploadbutton",
-      "community": 301,
+      "community": 229,
       "norm_label": "uploadbutton()"
     },
     {
@@ -760,7 +760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_route_summary",
-      "community": 9,
+      "community": 323,
       "norm_label": "summary.ts"
     },
     {
@@ -770,7 +770,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_api_route_summary_app",
-      "community": 14,
+      "community": 323,
       "norm_label": "app"
     },
     {
@@ -840,7 +840,7 @@
       "source_location": "L182",
       "_origin": "ast",
       "id": "app_api_route_transactions_app",
-      "community": 19,
+      "community": 14,
       "norm_label": "app"
     },
     {
@@ -1219,7 +1219,7 @@
       "label": "TestFinanceRLS_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L89",
+      "source_location": "L90",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "community": 32,
@@ -1229,7 +1229,7 @@
       "label": "insertTestUser()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L271",
+      "source_location": "L317",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_inserttestuser",
       "community": 32,
@@ -1259,7 +1259,7 @@
       "label": "setAppUser()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L289",
+      "source_location": "L335",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_setappuser",
       "community": 32,
@@ -1269,17 +1269,27 @@
       "label": "insertTestAccount()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L294",
+      "source_location": "L340",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_inserttestaccount",
       "community": 32,
       "norm_label": "inserttestaccount()"
     },
     {
+      "label": "insertTestCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L350",
+      "_origin": "ast",
+      "id": "backend_internal_db_finance_rls_test_inserttestcategory",
+      "community": 32,
+      "norm_label": "inserttestcategory()"
+    },
+    {
       "label": "insertTestTransaction()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L304",
+      "source_location": "L360",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_inserttesttransaction",
       "community": 32,
@@ -1299,7 +1309,7 @@
       "label": "assertRowCount()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L315",
+      "source_location": "L371",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_assertrowcount",
       "community": 32,
@@ -1309,7 +1319,7 @@
       "label": "assertRLSViolation()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L330",
+      "source_location": "L386",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_assertrlsviolation",
       "community": 32,
@@ -1349,7 +1359,7 @@
       "label": "assertUniqueIndexColumns()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L131",
+      "source_location": "L134",
       "_origin": "ast",
       "id": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
       "community": 32,
@@ -1376,14 +1386,14 @@
       "norm_label": "pool"
     },
     {
-      "label": "assertIndexExists()",
+      "label": "assertIndexDefinition()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L172",
+      "source_location": "L176",
       "_origin": "ast",
-      "id": "backend_internal_db_finance_schema_test_assertindexexists",
+      "id": "backend_internal_db_finance_schema_test_assertindexdefinition",
       "community": 32,
-      "norm_label": "assertindexexists()"
+      "norm_label": "assertindexdefinition()"
     },
     {
       "label": "assertFK()",
@@ -2432,7 +2442,7 @@
       "source_location": "L832",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_deleteaccount",
-      "community": 411,
+      "community": 373,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -2462,7 +2472,7 @@
       "source_location": "L928",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_loginuser",
-      "community": 514,
+      "community": 338,
       "norm_label": ".loginuser()"
     },
     {
@@ -2582,7 +2592,7 @@
       "source_location": "L1162",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_updatecategory",
-      "community": 338,
+      "community": 411,
       "norm_label": ".updatecategory()"
     },
     {
@@ -2622,7 +2632,7 @@
       "source_location": "L1338",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_createtransaction",
-      "community": 369,
+      "community": 338,
       "norm_label": ".createtransaction()"
     },
     {
@@ -3512,7 +3522,7 @@
       "source_location": "L1994",
       "_origin": "ast",
       "id": "openapi_deleteaccount500jsonresponse_visitdeleteaccountresponse",
-      "community": 411,
+      "community": 373,
       "norm_label": ".visitdeleteaccountresponse()"
     },
     {
@@ -3902,7 +3912,7 @@
       "source_location": "L2247",
       "_origin": "ast",
       "id": "openapi_loginuser403jsonresponse_visitloginuserresponse",
-      "community": 514,
+      "community": 338,
       "norm_label": ".visitloginuserresponse()"
     },
     {
@@ -5092,7 +5102,7 @@
       "source_location": "L2977",
       "_origin": "ast",
       "id": "openapi_updatecategory500jsonresponse_visitupdatecategoryresponse",
-      "community": 338,
+      "community": 411,
       "norm_label": ".visitupdatecategoryresponse()"
     },
     {
@@ -5482,7 +5492,7 @@
       "source_location": "L3229",
       "_origin": "ast",
       "id": "openapi_createtransaction500jsonresponse_visitcreatetransactionresponse",
-      "community": 369,
+      "community": 338,
       "norm_label": ".visitcreatetransactionresponse()"
     },
     {
@@ -6322,7 +6332,7 @@
       "source_location": "L3938",
       "_origin": "ast",
       "id": "openapi_stricthandler_deleteaccount",
-      "community": 411,
+      "community": 373,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -6352,7 +6362,7 @@
       "source_location": "L4023",
       "_origin": "ast",
       "id": "openapi_stricthandler_loginuser",
-      "community": 514,
+      "community": 338,
       "norm_label": ".loginuser()"
     },
     {
@@ -6472,7 +6482,7 @@
       "source_location": "L4364",
       "_origin": "ast",
       "id": "openapi_stricthandler_updatecategory",
-      "community": 338,
+      "community": 411,
       "norm_label": ".updatecategory()"
     },
     {
@@ -6512,7 +6522,7 @@
       "source_location": "L4473",
       "_origin": "ast",
       "id": "openapi_stricthandler_createtransaction",
-      "community": 369,
+      "community": 338,
       "norm_label": ".createtransaction()"
     },
     {
@@ -6782,7 +6792,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_account_filter_accountfilter",
-      "community": 28,
+      "community": 293,
       "norm_label": "accountfilter()"
     },
     {
@@ -6792,7 +6802,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_amount_input",
-      "community": 37,
+      "community": 42,
       "norm_label": "amount-input.tsx"
     },
     {
@@ -6802,7 +6812,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_amount_input_props",
-      "community": 37,
+      "community": 42,
       "norm_label": "props"
     },
     {
@@ -6812,7 +6822,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "components_amount_input_amountinput",
-      "community": 37,
+      "community": 42,
       "norm_label": "amountinput()"
     },
     {
@@ -6922,7 +6932,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_chart",
-      "community": 229,
+      "community": 28,
       "norm_label": "chart.tsx"
     },
     {
@@ -6932,7 +6942,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_chart_props",
-      "community": 229,
+      "community": 28,
       "norm_label": "props"
     },
     {
@@ -6942,7 +6952,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "components_chart_chartenum",
-      "community": 229,
+      "community": 28,
       "norm_label": "chartenum"
     },
     {
@@ -6952,7 +6962,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "components_chart_chart",
-      "community": 229,
+      "community": 28,
       "norm_label": "chart()"
     },
     {
@@ -6962,7 +6972,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "components_chart_chartloading",
-      "community": 229,
+      "community": 28,
       "norm_label": "chartloading()"
     },
     {
@@ -7102,7 +7112,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_charts",
-      "community": 229,
+      "community": 28,
       "norm_label": "data-charts.tsx"
     },
     {
@@ -7162,7 +7172,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "components_data_table_datatable",
-      "community": 229,
+      "community": 23,
       "norm_label": "datatable()"
     },
     {
@@ -7212,7 +7222,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "components_date_filter_datefilter",
-      "community": 348,
+      "community": 293,
       "norm_label": "datefilter()"
     },
     {
@@ -7242,7 +7252,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_date_picker_datepicker",
-      "community": 293,
+      "community": 23,
       "norm_label": "datepicker()"
     },
     {
@@ -7252,7 +7262,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_filters",
-      "community": 28,
+      "community": 293,
       "norm_label": "filters.tsx"
     },
     {
@@ -7262,7 +7272,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "components_filters_filters",
-      "community": 28,
+      "community": 18,
       "norm_label": "filters()"
     },
     {
@@ -7342,7 +7352,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_nav_button",
-      "community": 293,
+      "community": 13,
       "norm_label": "nav-button.tsx"
     },
     {
@@ -7352,7 +7362,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "components_nav_button_props",
-      "community": 293,
+      "community": 13,
       "norm_label": "props"
     },
     {
@@ -7362,7 +7372,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "components_nav_button_navbutton",
-      "community": 293,
+      "community": 13,
       "norm_label": "navbutton()"
     },
     {
@@ -7452,7 +7462,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_radar_variant",
-      "community": 229,
+      "community": 28,
       "norm_label": "radar-variant.tsx"
     },
     {
@@ -7462,7 +7472,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_radar_variant_props",
-      "community": 229,
+      "community": 28,
       "norm_label": "props"
     },
     {
@@ -7472,7 +7482,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_radar_variant_radarvariant",
-      "community": 229,
+      "community": 28,
       "norm_label": "radarvariant()"
     },
     {
@@ -7522,7 +7532,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_select",
-      "community": 511,
+      "community": 23,
       "norm_label": "select.tsx"
     },
     {
@@ -7532,7 +7542,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "components_select_props",
-      "community": 511,
+      "community": 23,
       "norm_label": "props"
     },
     {
@@ -7542,7 +7552,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "components_select_select",
-      "community": 511,
+      "community": 23,
       "norm_label": "select()"
     },
     {
@@ -7552,7 +7562,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_spending_pie",
-      "community": 229,
+      "community": 28,
       "norm_label": "spending-pie.tsx"
     },
     {
@@ -7562,7 +7572,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "components_spending_pie_props",
-      "community": 229,
+      "community": 28,
       "norm_label": "props"
     },
     {
@@ -7572,7 +7582,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "components_spending_pie_spendingpieenum",
-      "community": 229,
+      "community": 28,
       "norm_label": "spendingpieenum"
     },
     {
@@ -7582,7 +7592,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "components_spending_pie_spendingpie",
-      "community": 229,
+      "community": 28,
       "norm_label": "spendingpie()"
     },
     {
@@ -7592,7 +7602,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "components_spending_pie_spendingpieloading",
-      "community": 229,
+      "community": 28,
       "norm_label": "spendingpieloading()"
     },
     {
@@ -7602,7 +7612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_badge",
-      "community": 361,
+      "community": 42,
       "norm_label": "badge.tsx"
     },
     {
@@ -7612,7 +7622,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_ui_badge_badgevariants",
-      "community": 361,
+      "community": 42,
       "norm_label": "badgevariants"
     },
     {
@@ -7622,7 +7632,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "components_ui_badge_badge",
-      "community": 361,
+      "community": 42,
       "norm_label": "badge()"
     },
     {
@@ -7772,7 +7782,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_checkbox",
-      "community": 347,
+      "community": 259,
       "norm_label": "checkbox.tsx"
     },
     {
@@ -7782,7 +7792,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_ui_checkbox_checkbox",
-      "community": 347,
+      "community": 259,
       "norm_label": "checkbox()"
     },
     {
@@ -7912,7 +7922,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenu",
-      "community": 42,
+      "community": 361,
       "norm_label": "dropdownmenu()"
     },
     {
@@ -7932,7 +7942,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenutrigger",
-      "community": 42,
+      "community": 361,
       "norm_label": "dropdownmenutrigger()"
     },
     {
@@ -8542,7 +8552,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_skeleton",
-      "community": 229,
+      "community": 28,
       "norm_label": "skeleton.tsx"
     },
     {
@@ -8552,7 +8562,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "components_ui_skeleton_skeleton",
-      "community": 229,
+      "community": 28,
       "norm_label": "skeleton()"
     },
     {
@@ -8562,7 +8572,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_sonner",
-      "community": 353,
+      "community": 31,
       "norm_label": "sonner.tsx"
     },
     {
@@ -8572,7 +8582,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_ui_sonner_toaster",
-      "community": 353,
+      "community": 31,
       "norm_label": "toaster()"
     },
     {
@@ -8692,7 +8702,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_tooltip",
-      "community": 37,
+      "community": 42,
       "norm_label": "tooltip.tsx"
     },
     {
@@ -8702,7 +8712,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltipprovider",
-      "community": 37,
+      "community": 42,
       "norm_label": "tooltipprovider()"
     },
     {
@@ -8712,7 +8722,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltip",
-      "community": 37,
+      "community": 42,
       "norm_label": "tooltip()"
     },
     {
@@ -8722,7 +8732,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltiptrigger",
-      "community": 37,
+      "community": 42,
       "norm_label": "tooltiptrigger()"
     },
     {
@@ -8732,7 +8742,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltipcontent",
-      "community": 37,
+      "community": 42,
       "norm_label": "tooltipcontent()"
     },
     {
@@ -8822,7 +8832,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "db_connection_getdatabaseurl",
-      "community": 49,
+      "community": 354,
       "norm_label": "getdatabaseurl()"
     },
     {
@@ -9002,7 +9012,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "db_schema_insertaccountschema",
-      "community": 323,
+      "community": 23,
       "norm_label": "insertaccountschema"
     },
     {
@@ -9012,7 +9022,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "db_schema_insertcategoryschema",
-      "community": 23,
+      "community": 323,
       "norm_label": "insertcategoryschema"
     },
     {
@@ -9022,7 +9032,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "db_schema_inserttransactionschema",
-      "community": 23,
+      "community": 323,
       "norm_label": "inserttransactionschema"
     },
     {
@@ -9062,7 +9072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts",
-      "community": 3,
+      "community": 347,
       "norm_label": "use-bulk-delete-accounts.ts"
     },
     {
@@ -9072,7 +9082,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_responsetype",
-      "community": 3,
+      "community": 347,
       "norm_label": "responsetype"
     },
     {
@@ -9082,7 +9092,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_requesttype",
-      "community": 3,
+      "community": 347,
       "norm_label": "requesttype"
     },
     {
@@ -9092,7 +9102,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_usebulkdeleteaccounts",
-      "community": 3,
+      "community": 347,
       "norm_label": "usebulkdeleteaccounts()"
     },
     {
@@ -9102,7 +9112,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account",
-      "community": 429,
+      "community": 3,
       "norm_label": "use-create-account.ts"
     },
     {
@@ -9112,7 +9122,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_responsetype",
-      "community": 429,
+      "community": 3,
       "norm_label": "responsetype"
     },
     {
@@ -9122,7 +9132,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_requesttype",
-      "community": 429,
+      "community": 3,
       "norm_label": "requesttype"
     },
     {
@@ -9132,7 +9142,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_usecreateaccount",
-      "community": 13,
+      "community": 429,
       "norm_label": "usecreateaccount()"
     },
     {
@@ -9172,7 +9182,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account",
-      "community": 259,
+      "community": 3,
       "norm_label": "use-edit-account.ts"
     },
     {
@@ -9182,7 +9192,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account_responsetype",
-      "community": 259,
+      "community": 3,
       "norm_label": "responsetype"
     },
     {
@@ -9192,7 +9202,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account_requesttype",
-      "community": 259,
+      "community": 3,
       "norm_label": "requesttype"
     },
     {
@@ -9212,7 +9222,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_account",
-      "community": 3,
+      "community": 259,
       "norm_label": "use-get-account.ts"
     },
     {
@@ -9232,7 +9242,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_accounts",
-      "community": 3,
+      "community": 429,
       "norm_label": "use-get-accounts.ts"
     },
     {
@@ -9242,7 +9252,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_accounts_usegetaccounts",
-      "community": 13,
+      "community": 429,
       "norm_label": "usegetaccounts()"
     },
     {
@@ -9292,7 +9302,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "features_accounts_components_account_form_accountform",
-      "community": 13,
+      "community": 23,
       "norm_label": "accountform()"
     },
     {
@@ -9432,7 +9442,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_select_account_useselectaccount",
-      "community": 13,
+      "community": 429,
       "norm_label": "useselectaccount()"
     },
     {
@@ -9442,7 +9452,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_bulk_delete_categories",
-      "community": 3,
+      "community": 260,
       "norm_label": "use-bulk-delete-categories.ts"
     },
     {
@@ -9452,7 +9462,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_bulk_delete_categories_responsetype",
-      "community": 3,
+      "community": 260,
       "norm_label": "responsetype"
     },
     {
@@ -9462,7 +9472,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_categories_api_use_bulk_delete_categories_requesttype",
-      "community": 3,
+      "community": 260,
       "norm_label": "requesttype"
     },
     {
@@ -9472,7 +9482,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_categories_api_use_bulk_delete_categories_usebulkdeletecategories",
-      "community": 3,
+      "community": 260,
       "norm_label": "usebulkdeletecategories()"
     },
     {
@@ -9512,7 +9522,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_usecreatecategory",
-      "community": 13,
+      "community": 429,
       "norm_label": "usecreatecategory()"
     },
     {
@@ -9522,7 +9532,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category",
-      "community": 3,
+      "community": 301,
       "norm_label": "use-delete-category.ts"
     },
     {
@@ -9532,7 +9542,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category_responsetype",
-      "community": 3,
+      "community": 301,
       "norm_label": "responsetype"
     },
     {
@@ -9542,7 +9552,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category_usedeletecategory",
-      "community": 361,
+      "community": 301,
       "norm_label": "usedeletecategory()"
     },
     {
@@ -9552,7 +9562,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_edit_category",
-      "community": 3,
+      "community": 301,
       "norm_label": "use-edit-category.ts"
     },
     {
@@ -9562,7 +9572,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_edit_category_responsetype",
-      "community": 3,
+      "community": 301,
       "norm_label": "responsetype"
     },
     {
@@ -9572,7 +9582,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_categories_api_use_edit_category_requesttype",
-      "community": 3,
+      "community": 301,
       "norm_label": "requesttype"
     },
     {
@@ -9582,7 +9592,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_categories_api_use_edit_category_useeditcategory",
-      "community": 361,
+      "community": 301,
       "norm_label": "useeditcategory()"
     },
     {
@@ -9592,7 +9602,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_get_categories",
-      "community": 3,
+      "community": 429,
       "norm_label": "use-get-categories.ts"
     },
     {
@@ -9602,7 +9612,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_categories_api_use_get_categories_usegetcategories",
-      "community": 13,
+      "community": 429,
       "norm_label": "usegetcategories()"
     },
     {
@@ -9612,7 +9622,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_get_category",
-      "community": 3,
+      "community": 301,
       "norm_label": "use-get-category.ts"
     },
     {
@@ -9622,7 +9632,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "features_categories_api_use_get_category_usegetcategory",
-      "community": 361,
+      "community": 301,
       "norm_label": "usegetcategory()"
     },
     {
@@ -9682,7 +9692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet",
-      "community": 361,
+      "community": 301,
       "norm_label": "edit-category-sheet.tsx"
     },
     {
@@ -9692,7 +9702,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet_formvalues",
-      "community": 361,
+      "community": 301,
       "norm_label": "formvalues"
     },
     {
@@ -9702,7 +9712,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet_editcategorysheet",
-      "community": 361,
+      "community": 301,
       "norm_label": "editcategorysheet()"
     },
     {
@@ -9732,7 +9742,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "features_categories_components_new_category_sheet_newcategorysheet",
-      "community": 13,
+      "community": 260,
       "norm_label": "newcategorysheet()"
     },
     {
@@ -9742,7 +9752,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category",
-      "community": 13,
+      "community": 260,
       "norm_label": "use-new-category.ts"
     },
     {
@@ -9752,7 +9762,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category_newcategorystate",
-      "community": 13,
+      "community": 260,
       "norm_label": "newcategorystate"
     },
     {
@@ -9762,7 +9772,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category_usenewcategory",
-      "community": 13,
+      "community": 260,
       "norm_label": "usenewcategory"
     },
     {
@@ -9802,7 +9812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_summary_use_get_summary",
-      "community": 3,
+      "community": 348,
       "norm_label": "use-get-summary.ts"
     },
     {
@@ -9812,7 +9822,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_summary_use_get_summary_usegetsummary",
-      "community": 3,
+      "community": 348,
       "norm_label": "usegetsummary()"
     },
     {
@@ -9932,7 +9942,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "features_transactions_api_use_create_transaction_usecreatetransaction",
-      "community": 13,
+      "community": 429,
       "norm_label": "usecreatetransaction()"
     },
     {
@@ -9942,7 +9952,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_api_use_delete_transaction",
-      "community": 3,
+      "community": 361,
       "norm_label": "use-delete-transaction.ts"
     },
     {
@@ -9952,7 +9962,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_api_use_delete_transaction_responsetype",
-      "community": 3,
+      "community": 361,
       "norm_label": "responsetype"
     },
     {
@@ -10002,7 +10012,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_transactions_api_use_edit_transaction_useedittransaction",
-      "community": 13,
+      "community": 429,
       "norm_label": "useedittransaction()"
     },
     {
@@ -10012,7 +10022,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_api_use_get_transaction",
-      "community": 3,
+      "community": 429,
       "norm_label": "use-get-transaction.ts"
     },
     {
@@ -10022,7 +10032,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "features_transactions_api_use_get_transaction_usegettransaction",
-      "community": 3,
+      "community": 429,
       "norm_label": "usegettransaction()"
     },
     {
@@ -10032,7 +10042,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_api_use_get_transactions",
-      "community": 3,
+      "community": 348,
       "norm_label": "use-get-transactions.ts"
     },
     {
@@ -10042,7 +10052,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_transactions_api_use_get_transactions_usegettransactions",
-      "community": 3,
+      "community": 348,
       "norm_label": "usegettransactions()"
     },
     {
@@ -10052,7 +10062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_components_edit_transaction_sheet",
-      "community": 13,
+      "community": 429,
       "norm_label": "edit-transaction-sheet.tsx"
     },
     {
@@ -10062,7 +10072,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "features_transactions_components_edit_transaction_sheet_formvalues",
-      "community": 13,
+      "community": 429,
       "norm_label": "formvalues"
     },
     {
@@ -10072,7 +10082,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "features_transactions_components_edit_transaction_sheet_edittransactionsheet",
-      "community": 13,
+      "community": 429,
       "norm_label": "edittransactionsheet()"
     },
     {
@@ -10082,7 +10092,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet",
-      "community": 13,
+      "community": 429,
       "norm_label": "new-transaction-sheet.tsx"
     },
     {
@@ -10092,7 +10102,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet_formvalues",
-      "community": 13,
+      "community": 429,
       "norm_label": "formvalues"
     },
     {
@@ -10102,7 +10112,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet_newtransactionsheet",
-      "community": 13,
+      "community": 429,
       "norm_label": "newtransactionsheet()"
     },
     {
@@ -10172,7 +10182,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction",
-      "community": 13,
+      "community": 429,
       "norm_label": "use-new-transaction.ts"
     },
     {
@@ -10182,7 +10192,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction_newtransactionstate",
-      "community": 13,
+      "community": 429,
       "norm_label": "newtransactionstate"
     },
     {
@@ -10192,7 +10202,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction_usenewtransaction",
-      "community": 13,
+      "community": 429,
       "norm_label": "usenewtransaction"
     },
     {
@@ -10242,7 +10252,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "hooks_use_confirm_useconfirm",
-      "community": 361,
+      "community": 259,
       "norm_label": "useconfirm()"
     },
     {
@@ -10252,7 +10262,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_api_base_url_test",
-      "community": 512,
+      "community": 3,
       "norm_label": "api-base-url.test.ts"
     },
     {
@@ -10262,7 +10272,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_api_base_url",
-      "community": 512,
+      "community": 3,
       "norm_label": "api-base-url.ts"
     },
     {
@@ -10272,7 +10282,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_api_base_url_resolveapibaseurloptions",
-      "community": 512,
+      "community": 3,
       "norm_label": "resolveapibaseurloptions"
     },
     {
@@ -10282,7 +10292,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_api_base_url_resolveapibaseurl",
-      "community": 512,
+      "community": 3,
       "norm_label": "resolveapibaseurl()"
     },
     {
@@ -10312,7 +10322,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "lib_api_error_apierror",
-      "community": 429,
+      "community": 3,
       "norm_label": "apierror"
     },
     {
@@ -10322,7 +10332,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "lib_api_error_apierror_constructor",
-      "community": 429,
+      "community": 3,
       "norm_label": ".constructor()"
     },
     {
@@ -10332,7 +10342,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isstatus",
-      "community": 429,
+      "community": 3,
       "norm_label": ".isstatus()"
     },
     {
@@ -10342,7 +10352,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isclienterror",
-      "community": 429,
+      "community": 3,
       "norm_label": ".isclienterror()"
     },
     {
@@ -10352,7 +10362,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isservererror",
-      "community": 429,
+      "community": 3,
       "norm_label": ".isservererror()"
     },
     {
@@ -10362,7 +10372,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isunauthorized",
-      "community": 429,
+      "community": 3,
       "norm_label": ".isunauthorized()"
     },
     {
@@ -10372,7 +10382,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isforbidden",
-      "community": 429,
+      "community": 3,
       "norm_label": ".isforbidden()"
     },
     {
@@ -10382,7 +10392,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isnotfound",
-      "community": 429,
+      "community": 3,
       "norm_label": ".isnotfound()"
     },
     {
@@ -10392,7 +10402,7 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "lib_api_error_createapierror",
-      "community": 3,
+      "community": 301,
       "norm_label": "createapierror()"
     },
     {
@@ -10482,7 +10492,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items_test",
-      "community": 301,
+      "community": 229,
       "norm_label": "chunk-items.test.ts"
     },
     {
@@ -10492,7 +10502,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items",
-      "community": 301,
+      "community": 229,
       "norm_label": "chunk-items.ts"
     },
     {
@@ -10502,7 +10512,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items_chunkitems",
-      "community": 301,
+      "community": 229,
       "norm_label": "chunkitems()"
     },
     {
@@ -10532,7 +10542,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_select_options_test",
-      "community": 511,
+      "community": 23,
       "norm_label": "select-options.test.ts"
     },
     {
@@ -10542,7 +10552,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_select_options",
-      "community": 511,
+      "community": 23,
       "norm_label": "select-options.ts"
     },
     {
@@ -10552,7 +10562,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_select_options_selectoption",
-      "community": 511,
+      "community": 23,
       "norm_label": "selectoption"
     },
     {
@@ -10562,7 +10572,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_select_options_mergecreatedselectoption",
-      "community": 511,
+      "community": 23,
       "norm_label": "mergecreatedselectoption()"
     },
     {
@@ -10572,7 +10582,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_transaction_import_test",
-      "community": 260,
+      "community": 229,
       "norm_label": "transaction-import.test.ts"
     },
     {
@@ -10582,7 +10592,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_transaction_import",
-      "community": 260,
+      "community": 229,
       "norm_label": "transaction-import.ts"
     },
     {
@@ -10592,7 +10602,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_transaction_import_importedtransactionrow",
-      "community": 260,
+      "community": 229,
       "norm_label": "importedtransactionrow"
     },
     {
@@ -10602,7 +10612,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_transaction_import_rawimportedtransactionrow",
-      "community": 260,
+      "community": 229,
       "norm_label": "rawimportedtransactionrow"
     },
     {
@@ -10612,7 +10622,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_transaction_import_importedtransactionrowerror",
-      "community": 260,
+      "community": 229,
       "norm_label": "importedtransactionrowerror"
     },
     {
@@ -10622,7 +10632,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_transaction_import_parseimportedtransactionrows",
-      "community": 260,
+      "community": 229,
       "norm_label": "parseimportedtransactionrows()"
     },
     {
@@ -10772,7 +10782,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_utils_convertamountfrommiliunits",
-      "community": 3,
+      "community": 348,
       "norm_label": "convertamountfrommiliunits()"
     },
     {
@@ -10802,7 +10812,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_utils_calculatepercentagechange",
-      "community": 9,
+      "community": 323,
       "norm_label": "calculatepercentagechange()"
     },
     {
@@ -10812,7 +10822,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_utils_fillmissingdays",
-      "community": 9,
+      "community": 323,
       "norm_label": "fillmissingdays()"
     },
     {
@@ -11482,7 +11492,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "package_dependencies_sonner",
-      "community": 353,
+      "community": 31,
       "norm_label": "sonner"
     },
     {
@@ -14449,7 +14459,7 @@
       "label": "Typed queries (sqlc)",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L115",
+      "source_location": "L118",
       "_origin": "ast",
       "id": "backend_readme_typed_queries_sqlc",
       "community": 20,
@@ -14459,7 +14469,7 @@
       "label": "Verification",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L138",
+      "source_location": "L141",
       "_origin": "ast",
       "id": "backend_readme_verification",
       "community": 20,
@@ -14994,6 +15004,226 @@
       "id": "docs_features_roadmap_roadmap_features_list_current_roadmap_principle",
       "community": 2,
       "norm_label": "current roadmap principle"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_readme",
+      "community": 37,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Investigation: Argentina Open Banking (Sistema de Finanzas Abiertas)",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_readme_investigation_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "community": 37,
+      "norm_label": "investigation: argentina open banking (sistema de finanzas abiertas)"
+    },
+    {
+      "label": "Files",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_readme_files",
+      "community": 37,
+      "norm_label": "files"
+    },
+    {
+      "label": "Update flow",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_readme_update_flow",
+      "community": 37,
+      "norm_label": "update flow"
+    },
+    {
+      "label": "briefing.md",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_briefing",
+      "community": 37,
+      "norm_label": "briefing.md"
+    },
+    {
+      "label": "Briefing \u2014 Argentina Open Banking Investigation",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_briefing_briefing_argentina_open_banking_investigation",
+      "community": 37,
+      "norm_label": "briefing \u2014 argentina open banking investigation"
+    },
+    {
+      "label": "Why Nuchi cares",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_briefing_why_nuchi_cares",
+      "community": 37,
+      "norm_label": "why nuchi cares"
+    },
+    {
+      "label": "Research questions",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_briefing_research_questions",
+      "community": 37,
+      "norm_label": "research questions"
+    },
+    {
+      "label": "What to check on each refresh",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_briefing_what_to_check_on_each_refresh",
+      "community": 37,
+      "norm_label": "what to check on each refresh"
+    },
+    {
+      "label": "Refresh protocol",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_briefing_refresh_protocol",
+      "community": 37,
+      "norm_label": "refresh protocol"
+    },
+    {
+      "label": "findings.md",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_findings",
+      "community": 37,
+      "norm_label": "findings.md"
+    },
+    {
+      "label": "Findings \u2014 Argentina Open Banking / Sistema de Finanzas Abiertas",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_findings_findings_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "community": 37,
+      "norm_label": "findings \u2014 argentina open banking / sistema de finanzas abiertas"
+    },
+    {
+      "label": "1. Background: no framework before 2025",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_findings_1_background_no_framework_before_2025",
+      "community": 37,
+      "norm_label": "1. background: no framework before 2025"
+    },
+    {
+      "label": "2. The promise delivered: Decree 353/2025 creates the SFA",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_findings_2_the_promise_delivered_decree_353_2025_creates_the_sfa",
+      "community": 37,
+      "norm_label": "2. the promise delivered: decree 353/2025 creates the sfa"
+    },
+    {
+      "label": "3. Late 2025: BCRA turns it into an active program",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_findings_3_late_2025_bcra_turns_it_into_an_active_program",
+      "community": 37,
+      "norm_label": "3. late 2025: bcra turns it into an active program"
+    },
+    {
+      "label": "4. 2026: infrastructure-definition phase",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_findings_4_2026_infrastructure_definition_phase",
+      "community": 37,
+      "norm_label": "4. 2026: infrastructure-definition phase"
+    },
+    {
+      "label": "5. Assessment",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L95",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_findings_5_assessment",
+      "community": 37,
+      "norm_label": "5. assessment"
+    },
+    {
+      "label": "summary.md",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_summary",
+      "community": 37,
+      "norm_label": "summary.md"
+    },
+    {
+      "label": "Summary \u2014 Argentina Open Banking, as of 2026-07-10",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_summary_summary_argentina_open_banking_as_of_2026_07_10",
+      "community": 37,
+      "norm_label": "summary \u2014 argentina open banking, as of 2026-07-10"
+    },
+    {
+      "label": "TL;DR",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_summary_tl_dr",
+      "community": 37,
+      "norm_label": "tl;dr"
+    },
+    {
+      "label": "What this means for Nuchi",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_summary_what_this_means_for_nuchi",
+      "community": 37,
+      "norm_label": "what this means for nuchi"
+    },
+    {
+      "label": "Watch list (triggers a refresh of this investigation)",
+      "file_type": "document",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "docs_investigation_argentina_openbanking_summary_watch_list_triggers_a_refresh_of_this_investigation",
+      "community": 37,
+      "norm_label": "watch list (triggers a refresh of this investigation)"
     },
     {
       "label": "api-parity-fixtures.md",
@@ -16223,15 +16453,6 @@
       "community": 397,
       "norm_label": "accounts_user_id_idx",
       "id": "drizzle_meta_0007_snapshot_indexes_accounts_user_id_idx"
-    },
-    {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0007_snapshot.json",
-      "source_location": "L38",
-      "community": 372,
-      "norm_label": "name",
-      "id": "drizzle_meta_0007_snapshot_accounts_user_id_idx_name"
     },
     {
       "label": "isUnique",
@@ -24125,7 +24346,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -24219,7 +24440,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L330",
+      "source_location": "L386",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_assertrlsviolation",
@@ -24229,7 +24450,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L315",
+      "source_location": "L371",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -24239,7 +24460,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L294",
+      "source_location": "L340",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -24249,7 +24470,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L304",
+      "source_location": "L350",
+      "weight": 1.0,
+      "source": "backend_internal_db_finance_rls_test",
+      "target": "backend_internal_db_finance_rls_test_inserttestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L360",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -24259,7 +24490,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L271",
+      "source_location": "L317",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -24269,7 +24500,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L289",
+      "source_location": "L335",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_setappuser",
@@ -24279,7 +24510,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L89",
+      "source_location": "L90",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
@@ -24310,7 +24541,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L330",
+      "source_location": "L386",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrlsviolation",
@@ -24321,7 +24552,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L315",
+      "source_location": "L371",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -24332,7 +24563,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L294",
+      "source_location": "L340",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -24343,7 +24574,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L304",
+      "source_location": "L350",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_finance_rls_test_inserttestcategory",
+      "target": "backend_internal_db_finance_rls_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L360",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -24354,7 +24596,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L271",
+      "source_location": "L317",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -24365,7 +24607,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L89",
+      "source_location": "L90",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
@@ -24377,7 +24619,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L196",
+      "source_location": "L204",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_assertrlsviolation",
@@ -24388,7 +24630,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L148",
+      "source_location": "L153",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -24399,7 +24641,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L132",
+      "source_location": "L134",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -24410,7 +24652,18 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L133",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
+      "target": "backend_internal_db_finance_rls_test_inserttestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L136",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -24421,7 +24674,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L120",
+      "source_location": "L121",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -24432,7 +24685,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L129",
+      "source_location": "L131",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_setappuser",
@@ -24442,7 +24695,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L271",
+      "source_location": "L317",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -24453,7 +24706,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L271",
+      "source_location": "L317",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -24464,7 +24717,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L315",
+      "source_location": "L371",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -24475,7 +24728,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L294",
+      "source_location": "L340",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -24486,7 +24739,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L304",
+      "source_location": "L350",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_finance_rls_test_inserttestcategory",
+      "target": "backend_internal_db_finance_rls_test_go_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L360",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -24497,7 +24761,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L289",
+      "source_location": "L335",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_setappuser",
@@ -24508,7 +24772,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L315",
+      "source_location": "L371",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -24519,7 +24783,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L294",
+      "source_location": "L340",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -24530,7 +24794,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L304",
+      "source_location": "L350",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_finance_rls_test_inserttestcategory",
+      "target": "tx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L360",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -24541,7 +24816,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L289",
+      "source_location": "L335",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_setappuser",
@@ -24552,7 +24827,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L304",
+      "source_location": "L360",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -24573,17 +24848,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L172",
+      "source_location": "L176",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test",
-      "target": "backend_internal_db_finance_schema_test_assertindexexists",
+      "target": "backend_internal_db_finance_schema_test_assertindexdefinition",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L131",
+      "source_location": "L134",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test",
       "target": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -24615,10 +24890,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L125",
+      "source_location": "L126",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
-      "target": "backend_internal_db_finance_schema_test_assertindexexists",
+      "target": "backend_internal_db_finance_schema_test_assertindexdefinition",
       "confidence_score": 1.0
     },
     {
@@ -24658,10 +24933,10 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L172",
+      "source_location": "L176",
       "weight": 1.0,
       "context": "parameter_type",
-      "source": "backend_internal_db_finance_schema_test_assertindexexists",
+      "source": "backend_internal_db_finance_schema_test_assertindexdefinition",
       "target": "backend_internal_db_finance_schema_test_go_t",
       "confidence_score": 1.0
     },
@@ -24669,7 +24944,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L131",
+      "source_location": "L134",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -24680,7 +24955,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L131",
+      "source_location": "L134",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -24691,7 +24966,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L131",
+      "source_location": "L134",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -24713,10 +24988,10 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L172",
+      "source_location": "L176",
       "weight": 1.0,
       "context": "parameter_type",
-      "source": "backend_internal_db_finance_schema_test_assertindexexists",
+      "source": "backend_internal_db_finance_schema_test_assertindexdefinition",
       "target": "backend_internal_db_finance_schema_test_go_context",
       "confidence_score": 1.0
     },
@@ -24735,10 +25010,10 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L172",
+      "source_location": "L176",
       "weight": 1.0,
       "context": "parameter_type",
-      "source": "backend_internal_db_finance_schema_test_assertindexexists",
+      "source": "backend_internal_db_finance_schema_test_assertindexdefinition",
       "target": "backend_internal_db_finance_schema_test_go_pool",
       "confidence_score": 1.0
     },
@@ -50487,7 +50762,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/README.md",
-      "source_location": "L138",
+      "source_location": "L141",
       "weight": 1.0,
       "source": "backend_readme_nuchi_go_backend",
       "target": "backend_readme_verification",
@@ -50517,7 +50792,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/README.md",
-      "source_location": "L115",
+      "source_location": "L118",
       "weight": 1.0,
       "source": "backend_readme_database",
       "target": "backend_readme_typed_queries_sqlc",
@@ -51021,6 +51296,236 @@
       "weight": 1.0,
       "source": "docs_features_roadmap_roadmap_features_list_strategic_notes",
       "target": "docs_features_roadmap_roadmap_features_list_parser_service_alignment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_readme",
+      "target": "docs_investigation_argentina_openbanking_briefing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_readme",
+      "target": "docs_investigation_argentina_openbanking_findings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_readme",
+      "target": "docs_investigation_argentina_openbanking_readme_investigation_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_readme",
+      "target": "docs_investigation_argentina_openbanking_summary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_readme_investigation_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "target": "docs_investigation_argentina_openbanking_readme_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/README.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_readme_investigation_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "target": "docs_investigation_argentina_openbanking_readme_update_flow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_briefing",
+      "target": "docs_investigation_argentina_openbanking_briefing_briefing_argentina_open_banking_investigation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_summary",
+      "target": "docs_investigation_argentina_openbanking_briefing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_briefing_briefing_argentina_open_banking_investigation",
+      "target": "docs_investigation_argentina_openbanking_briefing_refresh_protocol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_briefing_briefing_argentina_open_banking_investigation",
+      "target": "docs_investigation_argentina_openbanking_briefing_research_questions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_briefing_briefing_argentina_open_banking_investigation",
+      "target": "docs_investigation_argentina_openbanking_briefing_what_to_check_on_each_refresh",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/briefing.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_briefing_briefing_argentina_open_banking_investigation",
+      "target": "docs_investigation_argentina_openbanking_briefing_why_nuchi_cares",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_findings",
+      "target": "docs_investigation_argentina_openbanking_findings_findings_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_summary",
+      "target": "docs_investigation_argentina_openbanking_findings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_findings_findings_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "target": "docs_investigation_argentina_openbanking_findings_1_background_no_framework_before_2025",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_findings_findings_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "target": "docs_investigation_argentina_openbanking_findings_2_the_promise_delivered_decree_353_2025_creates_the_sfa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_findings_findings_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "target": "docs_investigation_argentina_openbanking_findings_3_late_2025_bcra_turns_it_into_an_active_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_findings_findings_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "target": "docs_investigation_argentina_openbanking_findings_4_2026_infrastructure_definition_phase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/findings.md",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_findings_findings_argentina_open_banking_sistema_de_finanzas_abiertas",
+      "target": "docs_investigation_argentina_openbanking_findings_5_assessment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_summary",
+      "target": "docs_investigation_argentina_openbanking_summary_summary_argentina_open_banking_as_of_2026_07_10",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_summary_summary_argentina_open_banking_as_of_2026_07_10",
+      "target": "docs_investigation_argentina_openbanking_summary_tl_dr",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_summary_summary_argentina_open_banking_as_of_2026_07_10",
+      "target": "docs_investigation_argentina_openbanking_summary_watch_list_triggers_a_refresh_of_this_investigation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/investigation/Argentina_Openbanking/summary.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "docs_investigation_argentina_openbanking_summary_summary_argentina_open_banking_as_of_2026_07_10",
+      "target": "docs_investigation_argentina_openbanking_summary_what_this_means_for_nuchi",
       "confidence_score": 1.0
     },
     {
@@ -51985,5 +52490,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "f6ccc9bf0425860c1079ac80efedb83e5642acc9"
+  "built_at_commit": "aa93f8dd8157b5a5f5f2b11b6b7432aad1436e86"
 }
