@@ -20,8 +20,8 @@ import (
 // sqlc-generated query code (backend/internal/db/gen), not every query:
 // create user -> account -> category -> transactions; ListTransactions
 // (joined names, inclusive date filtering, DESC order); BulkCreateTransactions
-// (single round trip, '' NULL sentinel for notes/category_id landing as SQL
-// NULL); BulkDeleteTransactions
+// (single jsonb payload round trip, JSON nulls landing as SQL NULLs, invalid
+// row failing the batch atomically); BulkDeleteTransactions
 // silently ignoring an id owned by another user; the atomic one-time consume
 // on password_reset_tokens; RevokeAllUserRefreshTokens; and GetPeriodTotals
 // milliunit sums. Exhaustive per-query/per-endpoint behavior arrives with

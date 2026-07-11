@@ -142,10 +142,17 @@ Query files, one per domain:
 | `transactions.sql` | `transactions` CRUD, list (joined account/category names), bulk create, bulk delete — every query is scoped through the owning account |
 | `summary.sql` | period totals, category spending, daily totals aggregates |
 
-Every owned-resource query (accounts/categories/transactions) carries an
-explicit ownership predicate (`user_id = $N`, or a join/EXISTS through the
-owning account for transactions) even though RLS also enforces it — RLS is
-the backstop, not the mechanism (see RLS above).
+Every owned-resource **read, update, and delete** carries an explicit
+ownership predicate (`user_id = $N`, or a join/EXISTS through the owning
+account for transactions) even though RLS also enforces it — RLS is the
+backstop, not the mechanism (see RLS above). The transaction **INSERTs**
+(`CreateTransaction`, `BulkCreateTransactions`) are the deliberate
+exception: handlers validate `account_id`/`category_id` ownership first
+(legacy behavior — friendly 400/404 before insert) and RLS `WITH CHECK`
+hard-rejects anything that slips through. An ownership join inside the bulk
+INSERT would *silently drop* unowned rows — a partial import — whereas the
+`WITH CHECK` failure is loud and atomic, which is the safer failure mode
+for financial data.
 
 `token_hash`-based one-time consume queries (`Consume*Token`) are a single
 `UPDATE ... WHERE used_at IS NULL AND expires_at > now() RETURNING ...`
