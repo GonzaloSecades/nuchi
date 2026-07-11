@@ -14,16 +14,16 @@ import (
 const getCategorySpending = `-- name: GetCategorySpending :many
 SELECT
     c.name AS name,
-    COALESCE(SUM(ABS(t.amount)), 0)::bigint AS value
+    COALESCE(SUM(ABS(t.amount::bigint)), 0)::bigint AS value
 FROM transactions t
 JOIN accounts a ON a.id = t.account_id AND a.user_id = $1
-JOIN categories c ON c.id = t.category_id
+JOIN categories c ON c.id = t.category_id AND c.user_id = $1
 WHERE t.amount < 0
   AND t.date >= $2
   AND t.date <= $3
   AND ($4::text IS NULL OR t.account_id = $4)
 GROUP BY c.name
-ORDER BY SUM(ABS(t.amount)) DESC
+ORDER BY SUM(ABS(t.amount::bigint)) DESC
 `
 
 type GetCategorySpendingParams struct {
@@ -68,16 +68,16 @@ func (q *Queries) GetCategorySpending(ctx context.Context, arg GetCategorySpendi
 
 const getDailyTotals = `-- name: GetDailyTotals :many
 SELECT
-    t.date AS date,
+    t.date::date AS day,
     COALESCE(SUM(CASE WHEN t.amount >= 0 THEN t.amount ELSE 0 END), 0)::bigint AS income,
-    COALESCE(SUM(CASE WHEN t.amount < 0 THEN ABS(t.amount) ELSE 0 END), 0)::bigint AS expenses
+    COALESCE(SUM(CASE WHEN t.amount < 0 THEN ABS(t.amount::bigint) ELSE 0 END), 0)::bigint AS expenses
 FROM transactions t
 JOIN accounts a ON a.id = t.account_id AND a.user_id = $1
 WHERE t.date >= $2
   AND t.date <= $3
   AND ($4::text IS NULL OR t.account_id = $4)
-GROUP BY t.date
-ORDER BY t.date
+GROUP BY t.date::date
+ORDER BY t.date::date
 `
 
 type GetDailyTotalsParams struct {
@@ -88,13 +88,18 @@ type GetDailyTotalsParams struct {
 }
 
 type GetDailyTotalsRow struct {
-	Date     pgtype.Timestamp
+	Day      pgtype.Date
 	Income   int64
 	Expenses int64
 }
 
-// Per-date income/expenses. Zero-filling missing days in the requested
+// Per-day income/expenses. Zero-filling missing days in the requested
 // range stays in Go, as in legacy JS (fillMissingDays).
+// Aggregation is by calendar day (t.date::date), not the raw timestamp:
+// current write paths only store UTC midnight so the two are equivalent
+// today, but grouping by timestamp would silently split a day into
+// multiple rows if any future path stored a time of day, and the Go
+// zero-fill keyed by yyyy-MM-dd would drop all but one of them.
 func (q *Queries) GetDailyTotals(ctx context.Context, arg GetDailyTotalsParams) ([]GetDailyTotalsRow, error) {
 	rows, err := q.db.Query(ctx, getDailyTotals,
 		arg.UserID,
@@ -109,7 +114,7 @@ func (q *Queries) GetDailyTotals(ctx context.Context, arg GetDailyTotalsParams) 
 	var items []GetDailyTotalsRow
 	for rows.Next() {
 		var i GetDailyTotalsRow
-		if err := rows.Scan(&i.Date, &i.Income, &i.Expenses); err != nil {
+		if err := rows.Scan(&i.Day, &i.Income, &i.Expenses); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -124,7 +129,7 @@ const getPeriodTotals = `-- name: GetPeriodTotals :one
 
 SELECT
     COALESCE(SUM(CASE WHEN t.amount >= 0 THEN t.amount ELSE 0 END), 0)::bigint AS income,
-    COALESCE(SUM(CASE WHEN t.amount < 0 THEN ABS(t.amount) ELSE 0 END), 0)::bigint AS expenses,
+    COALESCE(SUM(CASE WHEN t.amount < 0 THEN ABS(t.amount::bigint) ELSE 0 END), 0)::bigint AS expenses,
     COALESCE(SUM(t.amount), 0)::bigint AS remaining
 FROM transactions t
 JOIN accounts a ON a.id = t.account_id AND a.user_id = $1
@@ -153,6 +158,8 @@ type GetPeriodTotalsRow struct {
 // missing-day zero-filling in Go, matching legacy JS.
 // income/expenses/remaining are SUM(...)::bigint, coalesced to 0 so an empty
 // period returns zeros instead of NULL (legacy JS does `value || 0`).
+// ABS operates on bigint: ABS(integer) raises integer-out-of-range for the
+// valid boundary value -2147483648, so amounts are widened first.
 func (q *Queries) GetPeriodTotals(ctx context.Context, arg GetPeriodTotalsParams) (GetPeriodTotalsRow, error) {
 	row := q.db.QueryRow(ctx, getPeriodTotals,
 		arg.UserID,

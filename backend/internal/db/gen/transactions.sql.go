@@ -13,64 +13,27 @@ import (
 
 const bulkCreateTransactions = `-- name: BulkCreateTransactions :many
 INSERT INTO transactions (id, amount, payee, notes, date, account_id, category_id, currency)
-SELECT
-    ids.val,
-    amounts.val,
-    payees.val,
-    NULLIF(notes.val, ''),
-    dates.val,
-    account_ids.val,
-    NULLIF(category_ids.val, ''),
-    currencies.val
-FROM unnest($1::text[]) WITH ORDINALITY AS ids(val, ord)
-JOIN unnest($2::integer[]) WITH ORDINALITY AS amounts(val, ord) USING (ord)
-JOIN unnest($3::text[]) WITH ORDINALITY AS payees(val, ord) USING (ord)
-JOIN unnest($4::text[]) WITH ORDINALITY AS notes(val, ord) USING (ord)
-JOIN unnest($5::timestamp[]) WITH ORDINALITY AS dates(val, ord) USING (ord)
-JOIN unnest($6::text[]) WITH ORDINALITY AS account_ids(val, ord) USING (ord)
-JOIN unnest($7::text[]) WITH ORDINALITY AS category_ids(val, ord) USING (ord)
-JOIN unnest($8::text[]) WITH ORDINALITY AS currencies(val, ord) USING (ord)
+SELECT r.id, r.amount, r.payee, r.notes, r.date, r.account_id, r.category_id, r.currency
+FROM jsonb_to_recordset($1::jsonb) AS r(
+    id text,
+    amount integer,
+    payee text,
+    notes text,
+    date timestamp,
+    account_id text,
+    category_id text,
+    currency text
+)
 RETURNING id, amount, payee, notes, date, account_id, category_id, currency
 `
 
-type BulkCreateTransactionsParams struct {
-	Ids         []string
-	Amounts     []int32
-	Payees      []string
-	Notes       []string
-	Dates       []pgtype.Timestamp
-	AccountIds  []string
-	CategoryIds []string
-	Currencies  []string
-}
-
-// Single INSERT ... SELECT round trip, matching the legacy bulk response of
-// every created row. All positional arrays must be the same length. sqlc's
-// static analyzer (no live database configured) cannot resolve Postgres's
-// multi-argument unnest(a, b, c, ...) form used as a single call (it reports
-// "function unnest(unknown, ...) does not exist"), so each array is unnested
-// separately WITH ORDINALITY and the results are re-joined on their shared
-// ordinal position — equivalent to the multi-arg form, but built entirely
-// from the single-arg unnest(anyarray) overload sqlc's catalog already knows.
-//
-// NULL sentinel: sqlc generates non-nullable []string for array params, so
-// the nullable columns (notes, category_id) use the empty string as a NULL
-// sentinel, collapsed via NULLIF. ” is never a valid category id (FK to
-// categories), so the mapping is lossless there; for notes it means an
-// explicit empty-string note in a bulk create is stored as NULL (the single
-// CreateTransaction preserves ”), which no fixture pins and the UI renders
-// identically.
-func (q *Queries) BulkCreateTransactions(ctx context.Context, arg BulkCreateTransactionsParams) ([]Transaction, error) {
-	rows, err := q.db.Query(ctx, bulkCreateTransactions,
-		arg.Ids,
-		arg.Amounts,
-		arg.Payees,
-		arg.Notes,
-		arg.Dates,
-		arg.AccountIds,
-		arg.CategoryIds,
-		arg.Currencies,
-	)
+// Single INSERT ... SELECT round trip from one structured jsonb array
+// parameter. A single parameter makes per-row integrity structural: a row
+// either exists in the JSON with all its fields or it does not - there is no
+// multi-array cardinality to keep in sync. NULL notes/categoryId in the JSON
+// land as SQL NULLs natively.
+func (q *Queries) BulkCreateTransactions(ctx context.Context, payload []byte) ([]Transaction, error) {
+	rows, err := q.db.Query(ctx, bulkCreateTransactions, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +220,7 @@ SELECT
     t.account_id
 FROM transactions t
 JOIN accounts a ON a.id = t.account_id AND a.user_id = $1
-LEFT JOIN categories c ON c.id = t.category_id
+LEFT JOIN categories c ON c.id = t.category_id AND c.user_id = $1
 WHERE t.date >= $2
   AND t.date <= $3
   AND ($4::text IS NULL OR t.account_id = $4)

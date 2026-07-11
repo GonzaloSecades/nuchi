@@ -71,14 +71,27 @@ VALUES (sqlc.arg(id), sqlc.arg(user_id), sqlc.arg(token_hash), sqlc.arg(expires_
 RETURNING *;
 
 -- name: GetRefreshTokenByHash :one
--- Only returns a row when the token is currently valid (not revoked, not
--- expired); filtering happens in SQL rather than leaving expiry/revocation
--- checks to the caller.
+-- Read-only validity check (not revoked, not expired). NOT for rotation:
+-- a refresh handler that selects, then revokes, then creates lets two
+-- concurrent requests both pass the check and mint two successor sessions.
+-- Rotation must use ConsumeRefreshToken below.
 SELECT *
 FROM refresh_tokens
 WHERE token_hash = sqlc.arg(token_hash)
   AND revoked_at IS NULL
   AND expires_at > now();
+
+-- name: ConsumeRefreshToken :one
+-- Atomic single-statement consume for rotation: revokes the token and
+-- returns its identity only if it was still valid, so exactly one of any
+-- number of concurrent refresh attempts wins (the others get no rows).
+-- The winning request creates the successor token in the same transaction.
+UPDATE refresh_tokens
+SET revoked_at = now()
+WHERE token_hash = sqlc.arg(token_hash)
+  AND revoked_at IS NULL
+  AND expires_at > now()
+RETURNING id, user_id;
 
 -- name: RevokeRefreshToken :exec
 -- Revokes a single refresh token by hash (e.g. logout). Idempotent: revoking

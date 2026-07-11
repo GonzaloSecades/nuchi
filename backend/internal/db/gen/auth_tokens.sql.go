@@ -48,6 +48,31 @@ func (q *Queries) ConsumePasswordResetToken(ctx context.Context, tokenHash strin
 	return user_id, err
 }
 
+const consumeRefreshToken = `-- name: ConsumeRefreshToken :one
+UPDATE refresh_tokens
+SET revoked_at = now()
+WHERE token_hash = $1
+  AND revoked_at IS NULL
+  AND expires_at > now()
+RETURNING id, user_id
+`
+
+type ConsumeRefreshTokenRow struct {
+	ID     pgtype.UUID
+	UserID pgtype.UUID
+}
+
+// Atomic single-statement consume for rotation: revokes the token and
+// returns its identity only if it was still valid, so exactly one of any
+// number of concurrent refresh attempts wins (the others get no rows).
+// The winning request creates the successor token in the same transaction.
+func (q *Queries) ConsumeRefreshToken(ctx context.Context, tokenHash string) (ConsumeRefreshTokenRow, error) {
+	row := q.db.QueryRow(ctx, consumeRefreshToken, tokenHash)
+	var i ConsumeRefreshTokenRow
+	err := row.Scan(&i.ID, &i.UserID)
+	return i, err
+}
+
 const countRecentEmailVerificationTokens = `-- name: CountRecentEmailVerificationTokens :one
 SELECT count(*)
 FROM email_verification_tokens
@@ -197,9 +222,10 @@ WHERE token_hash = $1
   AND expires_at > now()
 `
 
-// Only returns a row when the token is currently valid (not revoked, not
-// expired); filtering happens in SQL rather than leaving expiry/revocation
-// checks to the caller.
+// Read-only validity check (not revoked, not expired). NOT for rotation:
+// a refresh handler that selects, then revokes, then creates lets two
+// concurrent requests both pass the check and mint two successor sessions.
+// Rotation must use ConsumeRefreshToken below.
 func (q *Queries) GetRefreshTokenByHash(ctx context.Context, tokenHash string) (RefreshToken, error) {
 	row := q.db.QueryRow(ctx, getRefreshTokenByHash, tokenHash)
 	var i RefreshToken

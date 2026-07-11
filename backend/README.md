@@ -153,13 +153,16 @@ statement so two concurrent submissions of the same token cannot both
 succeed; a failed consume (already used, expired, or unknown) surfaces as
 `pgx.ErrNoRows`.
 
-`BulkCreateTransactions` inserts every row in one round trip. Because sqlc's
-static analyzer (no live database is configured for generation) cannot
-resolve Postgres's multi-argument `unnest(a, b, c, ...)` form used directly
-in a `FROM` clause, the query instead unnests each parameter array
-separately with `WITH ORDINALITY` and re-joins them on their shared ordinal
-position — equivalent to the multi-arg form, built entirely from the
-single-arg `unnest(anyarray)` overload sqlc already knows.
+`BulkCreateTransactions` inserts every row in one round trip from a single
+structured `jsonb` parameter (`jsonb_to_recordset`): the caller marshals the
+rows as one JSON array (fields `id`, `amount`, `payee`, `notes`, `date`,
+`account_id`, `category_id`, `currency`; dates in UTC — the `timestamp`
+cast drops any zone suffix). One parameter makes per-row integrity
+structural — there are no parallel arrays whose lengths can drift, JSON
+nulls land as SQL NULLs, and a batch containing an invalid row fails
+atomically (single INSERT statement). Refresh-token rotation must use the
+atomic `ConsumeRefreshToken` (same one-winner semantics as `Consume*Token`);
+`GetRefreshTokenByHash` is a read-only validity check only.
 
 Install the pinned CLI version:
 

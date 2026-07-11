@@ -2,9 +2,11 @@ package db
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
+	"sync"
 	"testing"
 	"time"
 
@@ -269,21 +271,25 @@ func TestSqlcQueries_LiveDatabase(t *testing.T) {
 	}
 
 	// --- BulkCreateTransactions: one CSV-shaped row (no category, no notes —
-	// the empty-string NULL sentinel) and one fully populated row, in a
-	// single round trip. The sentinel must land as SQL NULL, not '': ''
-	// would violate the category FK and diverge from the fixtures' null
-	// notes. ---
+	// JSON nulls) and one fully populated row, in a single round trip via the
+	// structured jsonb payload. JSON nulls must land as SQL NULLs. ---
 	bulkDate := time.Date(2026, 2, 5, 0, 0, 0, 0, time.UTC)
-	bulkCreated, err := q.BulkCreateTransactions(ctx, dbgen.BulkCreateTransactionsParams{
-		Ids:         []string{"txn_sqlc_bulk_1", "txn_sqlc_bulk_2"},
-		Amounts:     []int32{-7500, -2000},
-		Payees:      []string{"CSV Import Row", "Categorized Row"},
-		Notes:       []string{"", "with a note"},
-		Dates:       []pgtype.Timestamp{{Time: bulkDate, Valid: true}, {Time: bulkDate, Valid: true}},
-		AccountIds:  []string{accountA.ID, accountA.ID},
-		CategoryIds: []string{"", categoryA.ID},
-		Currencies:  []string{"ARS", "ARS"},
+	bulkPayload, err := json.Marshal([]map[string]any{
+		{
+			"id": "txn_sqlc_bulk_1", "amount": -7500, "payee": "CSV Import Row",
+			"notes": nil, "date": bulkDate, "account_id": accountA.ID,
+			"category_id": nil, "currency": "ARS",
+		},
+		{
+			"id": "txn_sqlc_bulk_2", "amount": -2000, "payee": "Categorized Row",
+			"notes": "with a note", "date": bulkDate, "account_id": accountA.ID,
+			"category_id": categoryA.ID, "currency": "ARS",
+		},
 	})
+	if err != nil {
+		t.Fatalf("marshal bulk payload: %v", err)
+	}
+	bulkCreated, err := q.BulkCreateTransactions(ctx, bulkPayload)
 	if err != nil {
 		t.Fatalf("BulkCreateTransactions: unexpected error: %v", err)
 	}
@@ -299,10 +305,10 @@ func TestSqlcQueries_LiveDatabase(t *testing.T) {
 		t.Fatalf("BulkCreateTransactions: created rows missing txn_sqlc_bulk_1: %v", bulkCreated)
 	}
 	if csvRow.Notes.Valid {
-		t.Errorf("BulkCreateTransactions: expected sentinel '' notes to store as NULL, got %q", csvRow.Notes.String)
+		t.Errorf("BulkCreateTransactions: expected JSON null notes to store as NULL, got %q", csvRow.Notes.String)
 	}
 	if csvRow.CategoryID.Valid {
-		t.Errorf("BulkCreateTransactions: expected sentinel '' category_id to store as NULL, got %q", csvRow.CategoryID.String)
+		t.Errorf("BulkCreateTransactions: expected JSON null category_id to store as NULL, got %q", csvRow.CategoryID.String)
 	}
 	fullRow, ok := bulkByID["txn_sqlc_bulk_2"]
 	if !ok {
@@ -316,6 +322,85 @@ func TestSqlcQueries_LiveDatabase(t *testing.T) {
 	}
 	if fullRow.Amount != -2000 {
 		t.Errorf("BulkCreateTransactions: expected amount -2000 milliunits, got %d", fullRow.Amount)
+	}
+
+	// --- BulkCreateTransactions atomicity: a batch with one invalid row
+	// (missing id -> NOT NULL violation) fails as a whole; the valid row in
+	// the same batch must not be inserted. ---
+	badPayload, err := json.Marshal([]map[string]any{
+		{
+			"id": "txn_sqlc_bulk_ok", "amount": -100, "payee": "valid row",
+			"date": bulkDate, "account_id": accountA.ID, "currency": "ARS",
+		},
+		{
+			"amount": -200, "payee": "row without id",
+			"date": bulkDate, "account_id": accountA.ID, "currency": "ARS",
+		},
+	})
+	if err != nil {
+		t.Fatalf("marshal bad bulk payload: %v", err)
+	}
+	func() {
+		nested, err := tx.Begin(ctx)
+		if err != nil {
+			t.Fatalf("failed to open nested transaction for bulk atomicity test: %v", err)
+		}
+		defer func() {
+			if err := nested.Rollback(ctx); err != nil && !errors.Is(err, pgx.ErrTxClosed) {
+				t.Errorf("failed to roll back nested transaction: %v", err)
+			}
+		}()
+		if _, err := dbgen.New(nested).BulkCreateTransactions(ctx, badPayload); err == nil {
+			t.Fatal("BulkCreateTransactions: expected a batch containing an id-less row to fail, got nil error")
+		}
+	}()
+	if _, err := q.GetTransaction(ctx, dbgen.GetTransactionParams{UserID: userA.ID, ID: "txn_sqlc_bulk_ok"}); !errors.Is(err, pgx.ErrNoRows) {
+		t.Errorf("BulkCreateTransactions: expected the valid row of a failed batch to be absent, got err=%v", err)
+	}
+
+	// --- GetDailyTotals: two transactions on the same calendar day at
+	// different times must aggregate into one row, and the boundary amount
+	// -2147483648 (most negative int32) must not blow up ABS. ---
+	boundaryDay := time.Date(2026, 3, 10, 0, 0, 0, 0, time.UTC)
+	sameDayLater := time.Date(2026, 3, 10, 15, 30, 0, 0, time.UTC)
+	if _, err := q.CreateTransaction(ctx, dbgen.CreateTransactionParams{
+		ID: "txn_sqlc_boundary", Amount: -2147483648, Payee: "Boundary",
+		Date: pgtype.Timestamp{Time: boundaryDay, Valid: true}, AccountID: accountA.ID, Currency: "ARS",
+	}); err != nil {
+		t.Fatalf("CreateTransaction(boundary): unexpected error: %v", err)
+	}
+	if _, err := q.CreateTransaction(ctx, dbgen.CreateTransactionParams{
+		ID: "txn_sqlc_sameday", Amount: -1000, Payee: "Same Day Later",
+		Date: pgtype.Timestamp{Time: sameDayLater, Valid: true}, AccountID: accountA.ID, Currency: "ARS",
+	}); err != nil {
+		t.Fatalf("CreateTransaction(sameday): unexpected error: %v", err)
+	}
+	marchStart := time.Date(2026, 3, 1, 0, 0, 0, 0, time.UTC)
+	marchEnd := time.Date(2026, 3, 31, 23, 59, 59, 0, time.UTC)
+	days, err := q.GetDailyTotals(ctx, dbgen.GetDailyTotalsParams{
+		UserID:    userA.ID,
+		StartDate: pgtype.Timestamp{Time: marchStart, Valid: true},
+		EndDate:   pgtype.Timestamp{Time: marchEnd, Valid: true},
+	})
+	if err != nil {
+		t.Fatalf("GetDailyTotals: unexpected error: %v", err)
+	}
+	if len(days) != 1 {
+		t.Fatalf("GetDailyTotals: expected both same-day timestamps in one row, got %d rows", len(days))
+	}
+	if days[0].Expenses != 2147483648+1000 {
+		t.Errorf("GetDailyTotals: expected expenses %d, got %d", int64(2147483648+1000), days[0].Expenses)
+	}
+	marchTotals, err := q.GetPeriodTotals(ctx, dbgen.GetPeriodTotalsParams{
+		UserID:    userA.ID,
+		StartDate: pgtype.Timestamp{Time: marchStart, Valid: true},
+		EndDate:   pgtype.Timestamp{Time: marchEnd, Valid: true},
+	})
+	if err != nil {
+		t.Fatalf("GetPeriodTotals(boundary month): unexpected error: %v", err)
+	}
+	if marchTotals.Expenses != 2147483648+1000 {
+		t.Errorf("GetPeriodTotals(boundary month): expected expenses %d, got %d", int64(2147483648+1000), marchTotals.Expenses)
 	}
 
 	// --- auth_tokens.sql: password reset token atomic one-time consume.
@@ -394,4 +479,82 @@ func newPgUUID() pgtype.UUID {
 // index.
 func uniqueTestEmail(label string) string {
 	return fmt.Sprintf("%s-%s@example.test", label, uuid.NewString())
+}
+
+// TestConsumeRefreshToken_Concurrent proves the rotation primitive is safe
+// under a concurrent double-refresh: two requests race to consume the same
+// refresh token on separate pool connections, and exactly one wins (the
+// other sees pgx.ErrNoRows). This cannot run inside a single rolled-back
+// transaction — real concurrency needs committed, mutually visible rows —
+// so it commits a throwaway user and cleans up with a deferred DELETE
+// (token rows cascade). Auth tables carry no RLS, so no app.user_id is
+// needed. Skipped unless TEST_DATABASE_URL is set.
+func TestConsumeRefreshToken_Concurrent(t *testing.T) {
+	databaseURL := os.Getenv("TEST_DATABASE_URL")
+	if databaseURL == "" {
+		t.Skip("TEST_DATABASE_URL not set; skipping live concurrent refresh-consume test")
+	}
+
+	ctx := context.Background()
+	pool, err := NewPool(ctx, databaseURL)
+	if err != nil {
+		t.Fatalf("expected successful connection, got error: %v", err)
+	}
+	// Registered before the row-deletion cleanup below: t.Cleanup runs LIFO,
+	// so the DELETE still has a live pool.
+	t.Cleanup(pool.Close)
+
+	q := dbgen.New(pool)
+
+	user, err := q.CreateUser(ctx, dbgen.CreateUserParams{
+		ID:           newPgUUID(),
+		Email:        uniqueTestEmail("concurrent-refresh"),
+		PasswordHash: "test-hash",
+	})
+	if err != nil {
+		t.Fatalf("CreateUser: unexpected error: %v", err)
+	}
+	t.Cleanup(func() {
+		if _, err := pool.Exec(ctx, `DELETE FROM users WHERE id = $1`, user.ID); err != nil {
+			t.Errorf("cleanup: failed to delete concurrent-refresh test user: %v", err)
+		}
+	})
+
+	tokenHash := "refresh-hash-concurrent-" + uuid.NewString()
+	if _, err := q.CreateRefreshToken(ctx, dbgen.CreateRefreshTokenParams{
+		ID:        newPgUUID(),
+		UserID:    user.ID,
+		TokenHash: tokenHash,
+		ExpiresAt: pgtype.Timestamptz{Time: time.Now().Add(30 * 24 * time.Hour), Valid: true},
+	}); err != nil {
+		t.Fatalf("CreateRefreshToken: unexpected error: %v", err)
+	}
+
+	const attempts = 2
+	var wg sync.WaitGroup
+	results := make([]error, attempts)
+	wg.Add(attempts)
+	for i := 0; i < attempts; i++ {
+		go func(slot int) {
+			defer wg.Done()
+			_, err := q.ConsumeRefreshToken(ctx, tokenHash)
+			results[slot] = err
+		}(i)
+	}
+	wg.Wait()
+
+	var wins, noRows int
+	for _, res := range results {
+		switch {
+		case res == nil:
+			wins++
+		case errors.Is(res, pgx.ErrNoRows):
+			noRows++
+		default:
+			t.Fatalf("ConsumeRefreshToken: unexpected error kind: %v", res)
+		}
+	}
+	if wins != 1 || noRows != attempts-1 {
+		t.Errorf("ConsumeRefreshToken: expected exactly 1 winner and %d ErrNoRows, got %d winners / %d ErrNoRows", attempts-1, wins, noRows)
+	}
 }
