@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2020 nodes · 3056 edges · 543 communities (113 shown, 430 thin omitted)
+- 2019 nodes · 3056 edges · 542 communities (113 shown, 429 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `aa93f8dd`
+- Built from commit: `cf507442`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -417,7 +417,6 @@
 - [[_COMMUNITY_onUpdate|onUpdate]]
 - [[_COMMUNITY_tableFrom|tableFrom]]
 - [[_COMMUNITY_columns|columns]]
-- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_onDelete|onDelete]]
 - [[_COMMUNITY_tableTo|tableTo]]
 - [[_COMMUNITY_Handler|Handler]]
@@ -562,7 +561,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (543 total, 430 thin omitted)
+## Communities (542 total, 429 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -801,7 +800,7 @@ Cohesion: 0.10
 Nodes (21): BulkCreateTransactions500JSONResponse, BulkDeleteAccounts500JSONResponse, BulkDeleteCategories500JSONResponse, BulkDeleteTransactions500JSONResponse, CreateAccount500JSONResponse, CreateCategory500JSONResponse, CreateTransaction500JSONResponse, DatabaseErrorJSONResponse (+13 more)
 
 ### Community 316 - "name"
-Cohesion: 0.14
+Cohesion: 0.12
 Nodes (3): Request, Unimplemented, ResourceId
 
 ### Community 317 - "notNull"
@@ -921,9 +920,9 @@ Cohesion: 0.50
 Nodes (3): AuthMessageResponse, LogoutUser200JSONResponse, LogoutUser200ResponseHeaders
 
 ## Knowledge Gaps
-- **922 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+917 more)
+- **921 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+916 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **430 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **429 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -935,7 +934,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `react` connect `Nuchi Project Context` to `Dependencies Class Variance Authority`, `name`?**
   _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
-  _947 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _946 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**

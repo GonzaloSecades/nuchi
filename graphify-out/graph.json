@@ -2442,7 +2442,7 @@
       "source_location": "L832",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_deleteaccount",
-      "community": 373,
+      "community": 316,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -2452,7 +2452,7 @@
       "source_location": "L864",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_getaccount",
-      "community": 376,
+      "community": 338,
       "norm_label": ".getaccount()"
     },
     {
@@ -2532,7 +2532,7 @@
       "source_location": "L1024",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_verifyemail",
-      "community": 338,
+      "community": 369,
       "norm_label": ".verifyemail()"
     },
     {
@@ -2592,7 +2592,7 @@
       "source_location": "L1162",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_updatecategory",
-      "community": 411,
+      "community": 353,
       "norm_label": ".updatecategory()"
     },
     {
@@ -2662,7 +2662,7 @@
       "source_location": "L1398",
       "_origin": "ast",
       "id": "openapi_serverinterfacewrapper_deletetransaction",
-      "community": 373,
+      "community": 411,
       "norm_label": ".deletetransaction()"
     },
     {
@@ -3522,7 +3522,7 @@
       "source_location": "L1994",
       "_origin": "ast",
       "id": "openapi_deleteaccount500jsonresponse_visitdeleteaccountresponse",
-      "community": 373,
+      "community": 316,
       "norm_label": ".visitdeleteaccountresponse()"
     },
     {
@@ -3642,7 +3642,7 @@
       "source_location": "L2074",
       "_origin": "ast",
       "id": "openapi_getaccount500jsonresponse_visitgetaccountresponse",
-      "community": 376,
+      "community": 338,
       "norm_label": ".visitgetaccountresponse()"
     },
     {
@@ -4392,7 +4392,7 @@
       "source_location": "L2527",
       "_origin": "ast",
       "id": "openapi_verifyemail401jsonresponse_visitverifyemailresponse",
-      "community": 338,
+      "community": 369,
       "norm_label": ".visitverifyemailresponse()"
     },
     {
@@ -5102,7 +5102,7 @@
       "source_location": "L2977",
       "_origin": "ast",
       "id": "openapi_updatecategory500jsonresponse_visitupdatecategoryresponse",
-      "community": 411,
+      "community": 353,
       "norm_label": ".visitupdatecategoryresponse()"
     },
     {
@@ -5952,7 +5952,7 @@
       "source_location": "L3542",
       "_origin": "ast",
       "id": "openapi_deletetransaction500jsonresponse_visitdeletetransactionresponse",
-      "community": 373,
+      "community": 411,
       "norm_label": ".visitdeletetransactionresponse()"
     },
     {
@@ -6332,7 +6332,7 @@
       "source_location": "L3938",
       "_origin": "ast",
       "id": "openapi_stricthandler_deleteaccount",
-      "community": 373,
+      "community": 316,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -6342,7 +6342,7 @@
       "source_location": "L3964",
       "_origin": "ast",
       "id": "openapi_stricthandler_getaccount",
-      "community": 376,
+      "community": 338,
       "norm_label": ".getaccount()"
     },
     {
@@ -6422,7 +6422,7 @@
       "source_location": "L4195",
       "_origin": "ast",
       "id": "openapi_stricthandler_verifyemail",
-      "community": 338,
+      "community": 369,
       "norm_label": ".verifyemail()"
     },
     {
@@ -6482,7 +6482,7 @@
       "source_location": "L4364",
       "_origin": "ast",
       "id": "openapi_stricthandler_updatecategory",
-      "community": 411,
+      "community": 353,
       "norm_label": ".updatecategory()"
     },
     {
@@ -6552,7 +6552,7 @@
       "source_location": "L4566",
       "_origin": "ast",
       "id": "openapi_stricthandler_deletetransaction",
-      "community": 373,
+      "community": 411,
       "norm_label": ".deletetransaction()"
     },
     {
@@ -16696,15 +16696,6 @@
       "community": 393,
       "norm_label": "transactions_category_id_categories_id_fk",
       "id": "drizzle_meta_0007_snapshot_foreignkeys_transactions_category_id_categories_id_fk"
-    },
-    {
-      "label": "name",
-      "file_type": "code",
-      "source_file": "drizzle/meta/0007_snapshot.json",
-      "source_location": "L185",
-      "community": 424,
-      "norm_label": "name",
-      "id": "drizzle_meta_0007_snapshot_transactions_category_id_categories_id_fk_name"
     },
     {
       "label": "tableTo",
@@ -52490,5 +52481,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "aa93f8dd8157b5a5f5f2b11b6b7432aad1436e86"
+  "built_at_commit": "cf5074426918215506192d8a175851e163482c01"
 }

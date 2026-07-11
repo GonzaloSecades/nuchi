@@ -850,7 +850,7 @@
     "semantic_hash": ""
   },
   "backend/README.md": {
-    "mtime": 1783736938.9169939,
+    "mtime": 1783737060.975606,
     "ast_hash": "f811cab42b087eaed9a6a9c3ddc5f74d",
     "semantic_hash": ""
   },
@@ -960,7 +960,7 @@
     "semantic_hash": ""
   },
   "backend/go.mod": {
-    "mtime": 1783736938.9169939,
+    "mtime": 1783737060.975606,
     "ast_hash": "40d02176a051a1de9e250f2d2aca62ce",
     "semantic_hash": ""
   },
@@ -1100,42 +1100,42 @@
     "semantic_hash": ""
   },
   "backend/internal/db/finance_rls_test.go": {
-    "mtime": 1783736938.9169939,
+    "mtime": 1783737060.975606,
     "ast_hash": "3e8f7b45d6cf96a8a732d97a8d1e8019",
     "semantic_hash": ""
   },
   "backend/internal/db/finance_schema_test.go": {
-    "mtime": 1783736938.9222617,
+    "mtime": 1783737060.975606,
     "ast_hash": "efd963744c1bf7a888c0ac31bfc5c04d",
     "semantic_hash": ""
   },
   "backend/migrations/00002_finance_base.sql": {
-    "mtime": 1783736938.9242778,
+    "mtime": 1783737060.975606,
     "ast_hash": "4c11467f09bb1f26c06ba0d89685ce4d",
     "semantic_hash": ""
   },
   "backend/migrations/00003_finance_rls.sql": {
-    "mtime": 1783736938.9242778,
+    "mtime": 1783737060.975606,
     "ast_hash": "35da157d2e9249449f9777bd62d8a12c",
     "semantic_hash": ""
   },
   "docs/investigation/Argentina_Openbanking/README.md": {
-    "mtime": 1783724648.2120707,
+    "mtime": 1783737060.975606,
     "ast_hash": "e77c5b72d96913778bf0182ffbd54ef2",
     "semantic_hash": ""
   },
   "docs/investigation/Argentina_Openbanking/briefing.md": {
-    "mtime": 1783724664.7862656,
+    "mtime": 1783737060.975606,
     "ast_hash": "4beed5fee8ba44e01a97c39ca01f3cee",
     "semantic_hash": ""
   },
   "docs/investigation/Argentina_Openbanking/findings.md": {
-    "mtime": 1783724702.6442907,
+    "mtime": 1783737060.975606,
     "ast_hash": "d726752ccb7a768a0edc9d241ce3895a",
     "semantic_hash": ""
   },
   "docs/investigation/Argentina_Openbanking/summary.md": {
-    "mtime": 1783724720.1023767,
+    "mtime": 1783737060.975606,
     "ast_hash": "c589199ac4a3041110ca967bef2d686e",
     "semantic_hash": ""
   }
