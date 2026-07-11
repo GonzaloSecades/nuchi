@@ -1050,8 +1050,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783698026.6337266,
-    "ast_hash": "8f6278da0c5135277e2ad27f98050d6f",
+    "mtime": 1783743021.3886642,
+    "ast_hash": "db4e6501bdf1db2b64fc9cad9f25cd89",
     "semantic_hash": ""
   },
   "backend/tools.go": {
@@ -1137,6 +1137,36 @@
   "docs/investigation/Argentina_Openbanking/summary.md": {
     "mtime": 1783737060.975606,
     "ast_hash": "c589199ac4a3041110ca967bef2d686e",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/0001-transactions-date-timestamp.md": {
+    "mtime": 1783742949.6068866,
+    "ast_hash": "bdb237aff47235dbcfd6f545799bf218",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/0002-finance-ids-and-uuidv7-default.md": {
+    "mtime": 1783742958.4917693,
+    "ast_hash": "3821814262de62bc4748b757732d7487",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/0003-in-memory-rate-limiting.md": {
+    "mtime": 1783742966.9757066,
+    "ast_hash": "f8a432d1eac12d3c0305088e6209b047",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/0004-bulk-delete-silent-ignore.md": {
+    "mtime": 1783742975.4338036,
+    "ast_hash": "2b31a879438178d4fe50712087d2b062",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/0005-category-duplicate-update-500.md": {
+    "mtime": 1783742985.0225415,
+    "ast_hash": "7189807e1baa9d12447a80f759612924",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/README.md": {
+    "mtime": 1783742932.7060668,
+    "ast_hash": "1bdee8d79f1db6ce9273078bba118dd4",
     "semantic_hash": ""
   }
 }
