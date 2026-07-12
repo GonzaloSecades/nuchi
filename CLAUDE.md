@@ -91,11 +91,15 @@ new features; they are removed in #27 after Go parity.
 
 ## Post-Migration Improvements
 
-When migration work surfaces something that should be improved (performance,
-security, ergonomics, data modeling) but parity forbids changing it now:
-port it faithfully anyway, then record it as a numbered entry in
-`post-migration-improvements/` (template in its README) — ticket link, how
-it was migrated, why, the concern, the proposed improvement. The orchestrator
-writes entries; implementation agents flag candidates in handoff notes.
-Never act on an entry during the migration; they become tickets for the
-backend-optimization project after #27.
+The legacy Hono implementation has known flaws; migrate first. Parity
+freezes **observable behavior** (fixtures + OpenAPI contract), not
+implementation quality: internal security/performance hardening that keeps
+observable behavior identical (race fixes, overflow-safe SQL, ownership
+predicates, indexes) is done in migration PRs. Improvements that would
+change observable behavior are ported faithfully anyway and recorded as
+numbered entries in `post-migration-improvements/` (template in its README)
+— ticket link, how it was migrated, why, the concern, the proposed
+improvement. Review notes in that second lane go to the registry too. The
+orchestrator writes entries; implementation agents flag candidates in
+handoff notes. Never act on an entry during the migration; they become
+tickets for the backend-optimization project after #27.

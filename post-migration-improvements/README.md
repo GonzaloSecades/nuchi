@@ -12,15 +12,34 @@ re-deriving the history.
 
 ## The rule
 
-When work on a migration ticket surfaces something that should be improved —
-performance, security, API ergonomics, data modeling — but parity forbids
-changing it now:
+The legacy Hono implementation has known flaws, errors, and room for
+improvement. That is expected and is not the migration's problem to solve:
+the flow is **migrate first**. What parity freezes is **observable
+behavior** — response shapes, status codes, error bodies, filtering/ordering
+semantics, everything the fixtures and the OpenAPI contract pin down.
 
-1. **Port it faithfully anyway.** Fixtures and the OpenAPI contract win.
-2. **Record it here** as a numbered entry (`NNNN-short-slug.md`) using the
-   template below, in the same PR as the migration work when practical.
-3. **Never act on an entry during the migration.** Entries become tickets
-   only after #27 (legacy teardown) closes the migration.
+That gives improvements two lanes:
+
+- **Internal hardening — do it during the migration.** Security and
+  performance improvements that leave observable behavior identical are
+  allowed and expected in migration PRs: closing race conditions (atomic
+  token consume), overflow-safe SQL, explicit ownership predicates,
+  better indexes, single-round-trip queries. Review findings of this kind
+  get fixed in the PR, not deferred.
+- **Behavior-visible improvements — record them here, don't do them.**
+  Anything that would change what a client observes (status codes, response
+  fields, semantics like bulk-delete's silent ignore, schema types that leak
+  into serialization):
+
+  1. **Port it faithfully anyway.** Fixtures and the OpenAPI contract win.
+  2. **Record it here** as a numbered entry (`NNNN-short-slug.md`) using the
+     template below, in the same PR as the migration work when practical.
+  3. **Never act on an entry during the migration.** Entries become tickets
+     only after #27 (legacy teardown) closes the migration.
+
+Review notes and future-improvement ideas that surface in PR reviews belong
+in this directory too when they fall in the second lane — a review comment
+is not a license to change frozen behavior.
 
 The orchestrator (main session) owns writing entries; implementation agents
 flag candidates in their handoff notes.
