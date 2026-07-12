@@ -97,9 +97,12 @@ implementation quality: internal security/performance hardening that keeps
 observable behavior identical (race fixes, overflow-safe SQL, ownership
 predicates, indexes) is done in migration PRs. Improvements that would
 change observable behavior are ported faithfully anyway and recorded as
-numbered entries in `post-migration-improvements/` (template in its README)
-— ticket link, how it was migrated, why, the concern, the proposed
-improvement. Review notes in that second lane go to the registry too. The
-orchestrator writes entries; implementation agents flag candidates in
-handoff notes. Never act on an entry during the migration; they become
-tickets for the backend-optimization project after #27.
+numbered entries in `post-migration-improvements/claude-backend-improvements/`
+(rule + template in the root README; index there too) — ticket link, how it
+was migrated, why, the concern, the proposed improvement. Review notes in
+that second lane go to the registry too. The sibling
+`codex-backend-improvements/` holds Codex's cross-cutting optimization
+program; don't write there. The orchestrator writes entries; implementation
+agents flag candidates in handoff notes. Never act on an entry during the
+migration; they become tickets for the backend-optimization project
+after #27.

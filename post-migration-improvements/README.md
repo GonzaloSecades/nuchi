@@ -70,12 +70,30 @@ flag candidates in their handoff notes.
 <Concrete change, expected benefit, and any migration/compat cost.>
 ```
 
-## Index
+## Layout
+
+This README (the rule + entry template) stays at the root. The content lives
+in two agent-owned subdirectories:
+
+- [`claude-backend-improvements/`](claude-backend-improvements/) — Claude's
+  numbered registry entries (`NNNN-short-slug.md`, template above). All
+  future entries from Claude's migration reviews are written here.
+- [`codex-backend-improvements/`](codex-backend-improvements/README.md) —
+  Codex's cross-cutting backend-optimization program (security, performance,
+  robustness, documentation, observability-readiness per module).
+
+The numbered entries remain the registry for behavior-visible parity
+deviations; the project directory defines the architecture and delivery
+gates. Numbering stays global and sequential within
+`claude-backend-improvements/`.
+
+## Index (claude-backend-improvements/)
 
 | # | Entry | Area | Priority |
 | --- | --- | --- | --- |
-| 0001 | [transactions.date is timestamp without time zone](0001-transactions-date-timestamp.md) | schema | medium |
-| 0002 | [Finance tables use text cuid IDs; UUID default is v4](0002-finance-ids-and-uuidv7-default.md) | schema | low |
-| 0003 | [Transaction rate limiting is in-memory](0003-in-memory-rate-limiting.md) | api/infra | medium |
-| 0004 | [Bulk-delete silently ignores missing/unowned IDs](0004-bulk-delete-silent-ignore.md) | api | low |
-| 0005 | [Category duplicate update returns 500, create returns 409](0005-category-duplicate-update-500.md) | api | high |
+| 0001 | [transactions.date is timestamp without time zone](claude-backend-improvements/0001-transactions-date-timestamp.md) | schema | medium |
+| 0002 | [Finance tables use text cuid IDs; UUID default is v4](claude-backend-improvements/0002-finance-ids-and-uuidv7-default.md) | schema | low |
+| 0003 | [Transaction rate limiting is in-memory](claude-backend-improvements/0003-in-memory-rate-limiting.md) | api/infra | medium |
+| 0004 | [Bulk-delete silently ignores missing/unowned IDs](claude-backend-improvements/0004-bulk-delete-silent-ignore.md) | api | low |
+| 0005 | [Category duplicate update returns 500, create returns 409](claude-backend-improvements/0005-category-duplicate-update-500.md) | api | high |
+| 0006 | [transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS](claude-backend-improvements/0006-amount-int32-milliunit-cap.md) | schema | high |
