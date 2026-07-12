@@ -120,10 +120,56 @@ touched by user-scoped queries.
 Typed query code is generated with [sqlc](https://sqlc.dev) from
 `backend/sqlc.yaml`: hand-written SQL in `internal/db/queries/` plus the
 schema in `migrations/` generate Go code into `internal/db/gen/` (package
-`dbgen`). `emit_json_tags` is disabled because JSON response shapes come
-from the OpenAPI layer, not the DB layer. No queries exist yet and
-`sqlc generate` has not been run (tracked in a later issue); this issue only
-wires the config.
+`dbgen`). Generation targets `sql_package: "pgx/v5"` so generated code binds
+directly to `pgxpool.Pool` / `pgx.Tx` (the `DBTX` interface in
+`internal/db/gen/db.go`) instead of `database/sql`. `emit_json_tags` is
+disabled because JSON response shapes come from the OpenAPI layer, not the
+DB layer.
+
+`internal/db/gen/` is **generated code and is never hand-edited** — change
+the `.sql` files in `internal/db/queries/` and re-run `sqlc generate`
+instead. The generated package is committed to the repo (not gitignored) so
+`go build`/`go test` work without requiring sqlc to be installed.
+
+Query files, one per domain:
+
+| File | Covers |
+| --- | --- |
+| `users.sql` | `users` CRUD, email verification marking, password update |
+| `auth_tokens.sql` | `email_verification_tokens`, `password_reset_tokens` (atomic one-time consume, invalidate-prior, rate-limit counts), `refresh_tokens` (create, get-valid, revoke, revoke-all) |
+| `accounts.sql` | `accounts` CRUD + bulk delete |
+| `categories.sql` | `categories` CRUD + bulk delete (mirrors `accounts.sql`) |
+| `transactions.sql` | `transactions` CRUD, list (joined account/category names), bulk create, bulk delete — every query is scoped through the owning account |
+| `summary.sql` | period totals, category spending, daily totals aggregates |
+
+Every owned-resource **read, update, and delete** carries an explicit
+ownership predicate (`user_id = $N`, or a join/EXISTS through the owning
+account for transactions) even though RLS also enforces it — RLS is the
+backstop, not the mechanism (see RLS above). The transaction **INSERTs**
+(`CreateTransaction`, `BulkCreateTransactions`) are the deliberate
+exception: handlers validate `account_id`/`category_id` ownership first
+(legacy behavior — friendly 400/404 before insert) and RLS `WITH CHECK`
+hard-rejects anything that slips through. An ownership join inside the bulk
+INSERT would *silently drop* unowned rows — a partial import — whereas the
+`WITH CHECK` failure is loud and atomic, which is the safer failure mode
+for financial data.
+
+`token_hash`-based one-time consume queries (`Consume*Token`) are a single
+`UPDATE ... WHERE used_at IS NULL AND expires_at > now() RETURNING ...`
+statement so two concurrent submissions of the same token cannot both
+succeed; a failed consume (already used, expired, or unknown) surfaces as
+`pgx.ErrNoRows`.
+
+`BulkCreateTransactions` inserts every row in one round trip from a single
+structured `jsonb` parameter (`jsonb_to_recordset`): the caller marshals the
+rows as one JSON array (fields `id`, `amount`, `payee`, `notes`, `date`,
+`account_id`, `category_id`, `currency`; dates in UTC — the `timestamp`
+cast drops any zone suffix). One parameter makes per-row integrity
+structural — there are no parallel arrays whose lengths can drift, JSON
+nulls land as SQL NULLs, and a batch containing an invalid row fails
+atomically (single INSERT statement). Refresh-token rotation must use the
+atomic `ConsumeRefreshToken` (same one-winner semantics as `Consume*Token`);
+`GetRefreshTokenByHash` is a read-only validity check only.
 
 Install the pinned CLI version:
 
@@ -131,12 +177,16 @@ Install the pinned CLI version:
 go install github.com/sqlc-dev/sqlc/cmd/sqlc@v1.31.1
 ```
 
-Generate from `backend/` once queries exist:
+Regenerate from `backend/` after changing any file in
+`internal/db/queries/` or the migrations:
 
 ```bash
 cd backend
 sqlc generate
 ```
+
+Commit the resulting changes under `internal/db/gen/` alongside the query
+changes that produced them.
 
 ## Verification
 
