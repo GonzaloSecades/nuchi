@@ -850,8 +850,8 @@
     "semantic_hash": ""
   },
   "backend/README.md": {
-    "mtime": 1783744442.2492912,
-    "ast_hash": "5ad038996399c2916f3ed3ce88312dba",
+    "mtime": 1783790967.3554728,
+    "ast_hash": "f07ca751265887bf0811ed49581daaab",
     "semantic_hash": ""
   },
   "docker-compose.dev.yml": {
@@ -1050,8 +1050,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783743121.789283,
-    "ast_hash": "db4e6501bdf1db2b64fc9cad9f25cd89",
+    "mtime": 1783887289.6190915,
+    "ast_hash": "82d60683c2197ba2f70d348cdac8f69f",
     "semantic_hash": ""
   },
   "backend/tools.go": {
@@ -1139,73 +1139,48 @@
     "ast_hash": "c589199ac4a3041110ca967bef2d686e",
     "semantic_hash": ""
   },
-  "post-migration-improvements/0001-transactions-date-timestamp.md": {
-    "mtime": 1783743122.030033,
-    "ast_hash": "bdb237aff47235dbcfd6f545799bf218",
-    "semantic_hash": ""
-  },
-  "post-migration-improvements/0002-finance-ids-and-uuidv7-default.md": {
-    "mtime": 1783743122.0320327,
-    "ast_hash": "3821814262de62bc4748b757732d7487",
-    "semantic_hash": ""
-  },
-  "post-migration-improvements/0003-in-memory-rate-limiting.md": {
-    "mtime": 1783743122.0330362,
-    "ast_hash": "f8a432d1eac12d3c0305088e6209b047",
-    "semantic_hash": ""
-  },
-  "post-migration-improvements/0004-bulk-delete-silent-ignore.md": {
-    "mtime": 1783743122.0350325,
-    "ast_hash": "2b31a879438178d4fe50712087d2b062",
-    "semantic_hash": ""
-  },
-  "post-migration-improvements/0005-category-duplicate-update-500.md": {
-    "mtime": 1783743122.036036,
-    "ast_hash": "7189807e1baa9d12447a80f759612924",
-    "semantic_hash": ""
-  },
   "post-migration-improvements/README.md": {
-    "mtime": 1783743122.0370326,
-    "ast_hash": "1bdee8d79f1db6ce9273078bba118dd4",
+    "mtime": 1783887307.5059452,
+    "ast_hash": "cab79ea768a0ebbe213ecc59f340e01b",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
-    "mtime": 1783743962.4231467,
+    "mtime": 1783747098.005512,
     "ast_hash": "af1dc6dd7cb96a277729363d132b2b07",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/auth_tokens.sql.go": {
-    "mtime": 1783743962.4170883,
-    "ast_hash": "679cbb1b935d69ce4071d32eb3e3b955",
+    "mtime": 1783747097.9965606,
+    "ast_hash": "42e6f12daa50c1456b94131a8c1e2e7e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/categories.sql.go": {
-    "mtime": 1783743962.4153361,
+    "mtime": 1783747097.9965606,
     "ast_hash": "5d1b7fc9c52c60275f499b56be493f72",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/db.go": {
-    "mtime": 1783743962.4153361,
+    "mtime": 1783747098.0034964,
     "ast_hash": "2cbddc42f0f37817a76d68976a4de47e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/models.go": {
-    "mtime": 1783743962.4153361,
+    "mtime": 1783747098.0034964,
     "ast_hash": "d0cfef4d937f49dc3fdab9a12c584cd6",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/summary.sql.go": {
-    "mtime": 1783743962.4211233,
-    "ast_hash": "719d9c060a8fe55e4adfea48b8f40aee",
+    "mtime": 1783747097.9965606,
+    "ast_hash": "e85b9f8abe428d8d4fb9d174f9d6d26e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/transactions.sql.go": {
-    "mtime": 1783743962.4211233,
-    "ast_hash": "e950c8205e2e056e1c42295dea5d8871",
+    "mtime": 1783747097.9965606,
+    "ast_hash": "a59d638fbd799924efa2bc6c979a22bb",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/users.sql.go": {
-    "mtime": 1783743962.4191034,
+    "mtime": 1783747097.9965606,
     "ast_hash": "e5b308891dc252cee387cd25029eb2d9",
     "semantic_hash": ""
   },
@@ -1215,8 +1190,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/queries/auth_tokens.sql": {
-    "mtime": 1783743639.6289575,
-    "ast_hash": "eb51d314afbb932c39131a14b45a9e0e",
+    "mtime": 1783746986.7806325,
+    "ast_hash": "1de03d1bde5c37b2d819e8a220acdedd",
     "semantic_hash": ""
   },
   "backend/internal/db/queries/categories.sql": {
@@ -1225,13 +1200,13 @@
     "semantic_hash": ""
   },
   "backend/internal/db/queries/summary.sql": {
-    "mtime": 1783743682.717659,
-    "ast_hash": "21b019c7fe4f72b3e13221e1eb35ee00",
+    "mtime": 1783747011.5703676,
+    "ast_hash": "d5d0817b00911263f72cea337607a775",
     "semantic_hash": ""
   },
   "backend/internal/db/queries/transactions.sql": {
-    "mtime": 1783743949.1396556,
-    "ast_hash": "cefeec4a9be6dbf20002efe008d6fe1f",
+    "mtime": 1783747079.505577,
+    "ast_hash": "02a072d89078bb63502c772d6c82e8cc",
     "semantic_hash": ""
   },
   "backend/internal/db/queries/users.sql": {
@@ -1240,8 +1215,98 @@
     "semantic_hash": ""
   },
   "backend/internal/db/queries_live_test.go": {
-    "mtime": 1783744287.6858273,
-    "ast_hash": "ca793d40faefae774521db24c7e4110c",
+    "mtime": 1783790961.689056,
+    "ast_hash": "3e948b659f9dc56c2da16231b591fceb",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0001-transactions-date-timestamp.md": {
+    "mtime": 1783887289.6221063,
+    "ast_hash": "bdb237aff47235dbcfd6f545799bf218",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0002-finance-ids-and-uuidv7-default.md": {
+    "mtime": 1783887289.6221063,
+    "ast_hash": "3821814262de62bc4748b757732d7487",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0003-in-memory-rate-limiting.md": {
+    "mtime": 1783887289.6236162,
+    "ast_hash": "f8a432d1eac12d3c0305088e6209b047",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0004-bulk-delete-silent-ignore.md": {
+    "mtime": 1783887289.6251502,
+    "ast_hash": "2b31a879438178d4fe50712087d2b062",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0005-category-duplicate-update-500.md": {
+    "mtime": 1783887289.6251502,
+    "ast_hash": "7189807e1baa9d12447a80f759612924",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0006-amount-int32-milliunit-cap.md": {
+    "mtime": 1783744684.5673165,
+    "ast_hash": "751e99677def5208b91e516742bc981e",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/00-current-state.md": {
+    "mtime": 1783887289.6271477,
+    "ast_hash": "24215e20cd45ee75c52d5835d8f4a597",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/01-target-architecture.md": {
+    "mtime": 1783887289.6291492,
+    "ast_hash": "c1d09ee4f014e24aad97a18c65d7b795",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/02-security.md": {
+    "mtime": 1783887289.6301498,
+    "ast_hash": "4a1821f45c74c6bc0d1f76dd1d6aecc4",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/03-performance-and-queries.md": {
+    "mtime": 1783887289.631153,
+    "ast_hash": "d9c3e87abb1e1f9635599a02ea971a5d",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/04-robustness-and-transactions.md": {
+    "mtime": 1783887289.6321552,
+    "ast_hash": "18487368076de09133109d8497b7a14c",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/05-api-documentation.md": {
+    "mtime": 1783887289.6321552,
+    "ast_hash": "dd065cb03d1572ad43c0642a12102122",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/06-observability-readiness.md": {
+    "mtime": 1783887289.6342006,
+    "ast_hash": "8cea1acfcda440ba4857f0022d15e36e",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/07-module-improvement-map.md": {
+    "mtime": 1783887289.6359985,
+    "ast_hash": "9523b6bedd5d7f26c387f7647e06d6f2",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/08-delivery-roadmap.md": {
+    "mtime": 1783887289.6359985,
+    "ast_hash": "ef6276032dfba882145ac3c2e4fe7b32",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/README.md": {
+    "mtime": 1783887289.6380084,
+    "ast_hash": "dd880b25040ad1b40166d3dbb0275649",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/templates/endpoint-review.md": {
+    "mtime": 1783887289.6395245,
+    "ast_hash": "7191eb90724b140e153f0f308d010206",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/templates/improvement-proposal.md": {
+    "mtime": 1783887289.6405416,
+    "ast_hash": "00bd4fa4acf9f6ff0c5291c2520d8e9d",
     "semantic_hash": ""
   }
 }
