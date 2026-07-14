@@ -46,7 +46,9 @@ func TestGenerateToken_UniquePerCall(t *testing.T) {
 }
 
 func TestHashToken_Deterministic(t *testing.T) {
-	if HashToken("same-input") != HashToken("same-input") {
+	first := HashToken("same-input")
+	second := HashToken("same-input")
+	if first != second {
 		t.Fatal("HashToken: expected the same input to hash identically")
 	}
 	if HashToken("input-a") == HashToken("input-b") {

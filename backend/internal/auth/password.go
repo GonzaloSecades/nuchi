@@ -105,19 +105,53 @@ func decodeHash(encoded string) (argonParams, []byte, []byte, error) {
 	if _, err := fmt.Sscanf(parts[3], "m=%d,t=%d,p=%d", &params.memory, &params.time, &threads); err != nil {
 		return argonParams{}, nil, nil, ErrMalformedHash
 	}
+
+	// Bound every cost parameter before it reaches argon2.IDKey. x/crypto
+	// panics on time=0 or threads=0 (and p=256 would wrap to 0 through the
+	// uint8 cast below), and an attacker- or corruption-supplied huge m or t
+	// would turn verification into a memory/CPU exhaustion primitive. Out of
+	// range is treated exactly like malformed: a non-match, never a panic.
+	if params.time < 1 || params.time > maxArgonTime {
+		return argonParams{}, nil, nil, ErrMalformedHash
+	}
+	if threads < 1 || threads > 255 {
+		return argonParams{}, nil, nil, ErrMalformedHash
+	}
 	params.threads = uint8(threads)
+	if params.memory < 8*uint32(threads) || params.memory > maxArgonMemory {
+		return argonParams{}, nil, nil, ErrMalformedHash
+	}
 
 	salt, err := base64.RawStdEncoding.DecodeString(parts[4])
 	if err != nil {
+		return argonParams{}, nil, nil, ErrMalformedHash
+	}
+	if len(salt) < minSaltLen || len(salt) > maxSaltLen {
 		return argonParams{}, nil, nil, ErrMalformedHash
 	}
 	key, err := base64.RawStdEncoding.DecodeString(parts[5])
 	if err != nil {
 		return argonParams{}, nil, nil, ErrMalformedHash
 	}
+	if len(key) < minKeyLen || len(key) > maxKeyLen {
+		return argonParams{}, nil, nil, ErrMalformedHash
+	}
 
 	return params, salt, key, nil
 }
+
+// Acceptance bounds for parameters parsed out of stored PHC strings. Wide
+// enough that any legitimate future parameter bump (see HashPassword's
+// rehash note) still verifies, tight enough that corrupt or hostile stored
+// values cannot panic x/crypto or exhaust the host.
+const (
+	maxArgonTime   uint32 = 64
+	maxArgonMemory uint32 = 1 << 20 // KiB (1 GiB)
+	minSaltLen            = 8
+	maxSaltLen            = 64
+	minKeyLen             = 16
+	maxKeyLen             = 128
+)
 
 // dummyPasswordHash is a fixed, precomputed-at-init Argon2id hash used by
 // DummyVerify. It is never a real user's hash.

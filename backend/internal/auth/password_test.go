@@ -102,6 +102,19 @@ func TestVerifyPassword_MalformedHashRejectedWithoutError(t *testing.T) {
 		"$argon2id$v=1$m=65536,t=3,p=2$c2FsdHNhbHQ$aGFzaGhhc2g", // wrong version
 		"$argon2id$v=19$m=not-a-number$c2FsdHNhbHQ$aGFzaGhhc2g",
 		"$argon2id$v=19$m=65536,t=3,p=2$not-base64!!!$aGFzaGhhc2g",
+		// Syntactically valid PHC strings with hostile parameters: t=0 and
+		// p=0 panic inside x/crypto if they reach argon2.IDKey, p=256 wraps
+		// to 0 through the uint8 cast, and a huge m turns verification into
+		// a memory-exhaustion primitive. All must degrade to a quiet
+		// non-match.
+		"$argon2id$v=19$m=65536,t=0,p=2$c2FsdHNhbHRzYWx0c2E$aGFzaGhhc2hoYXNoaGFzaA",          // t=0
+		"$argon2id$v=19$m=65536,t=3,p=0$c2FsdHNhbHRzYWx0c2E$aGFzaGhhc2hoYXNoaGFzaA",          // p=0
+		"$argon2id$v=19$m=65536,t=3,p=256$c2FsdHNhbHRzYWx0c2E$aGFzaGhhc2hoYXNoaGFzaA",        // p wraps to 0
+		"$argon2id$v=19$m=4294967295,t=3,p=2$c2FsdHNhbHRzYWx0c2E$aGFzaGhhc2hoYXNoaGFzaA",     // m ~4 TiB
+		"$argon2id$v=19$m=65536,t=4294967295,p=2$c2FsdHNhbHRzYWx0c2E$aGFzaGhhc2hoYXNoaGFzaA", // absurd t
+		"$argon2id$v=19$m=4,t=3,p=2$c2FsdHNhbHRzYWx0c2E$aGFzaGhhc2hoYXNoaGFzaA",              // m below 8*p floor
+		"$argon2id$v=19$m=65536,t=3,p=2$$aGFzaGhhc2hoYXNoaGFzaA",                             // empty salt
+		"$argon2id$v=19$m=65536,t=3,p=2$c2FsdHNhbHRzYWx0c2E$",                                // empty key
 	}
 
 	for _, encoded := range cases {

@@ -125,6 +125,49 @@ func TestVerifyAccessToken_RejectsAlgNone(t *testing.T) {
 	}
 }
 
+func TestVerifyAccessToken_RejectsSiblingHMACAlg(t *testing.T) {
+	secret := []byte("test-secret-at-least-32-bytes-long!")
+	userID := uuid.New()
+
+	// Correctly signed with the same secret but HS512: the policy is exactly
+	// HS256, not "any HMAC", so this must be rejected even though the
+	// signature itself would verify.
+	claims := jwt.RegisteredClaims{
+		Subject:   userID.String(),
+		IssuedAt:  jwt.NewNumericDate(time.Now()),
+		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour)),
+	}
+	signed, err := jwt.NewWithClaims(jwt.SigningMethodHS512, claims).SignedString(secret)
+	if err != nil {
+		t.Fatalf("failed to sign HS512 fixture token: %v", err)
+	}
+
+	if _, err := VerifyAccessToken(secret, signed); err == nil {
+		t.Fatal("VerifyAccessToken: expected an HS512-signed token to be rejected")
+	}
+}
+
+func TestVerifyAccessToken_MissingExpRejected(t *testing.T) {
+	secret := []byte("test-secret-at-least-32-bytes-long!")
+	userID := uuid.New()
+
+	// Correctly signed HS256 token with no exp claim: jwt/v5 treats exp as
+	// optional by default, which would make this token valid forever.
+	// Access tokens are required to be short-lived, so it must be rejected.
+	claims := jwt.RegisteredClaims{
+		Subject:  userID.String(),
+		IssuedAt: jwt.NewNumericDate(time.Now()),
+	}
+	signed, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(secret)
+	if err != nil {
+		t.Fatalf("failed to sign no-exp fixture token: %v", err)
+	}
+
+	if _, err := VerifyAccessToken(secret, signed); err == nil {
+		t.Fatal("VerifyAccessToken: expected a token without exp to be rejected")
+	}
+}
+
 func TestVerifyAccessToken_NonUUIDSubjectRejected(t *testing.T) {
 	secret := []byte("test-secret-at-least-32-bytes-long!")
 

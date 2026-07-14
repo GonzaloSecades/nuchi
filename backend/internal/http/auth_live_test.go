@@ -206,6 +206,10 @@ func TestAuthLive_Register_ValidationErrors(t *testing.T) {
 	}{
 		{"invalid email", credentialsBody{Email: "not-an-email", Password: "correct-horse-battery"}},
 		{"short password", credentialsBody{Email: uniqueAuthTestEmail("short-pw"), Password: "short"}},
+		// 8 UTF-8 bytes but only 2 characters: the contract's minLength
+		// counts characters, so byte-length validation would wrongly accept
+		// this.
+		{"multibyte short password", credentialsBody{Email: uniqueAuthTestEmail("emoji-pw"), Password: "😀😀"}},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

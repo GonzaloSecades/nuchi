@@ -131,6 +131,32 @@ func TestLoad_InvalidRefreshTokenTTLFailsFast(t *testing.T) {
 	}
 }
 
+func TestLoad_NonPositiveTTLsFailFast(t *testing.T) {
+	cases := []struct {
+		name  string
+		key   string
+		value string
+	}{
+		{"zero access TTL", "AUTH_ACCESS_TOKEN_TTL", "0s"},
+		{"negative access TTL", "AUTH_ACCESS_TOKEN_TTL", "-5m"},
+		{"sub-second access TTL", "AUTH_ACCESS_TOKEN_TTL", "500ms"},
+		{"zero refresh TTL", "AUTH_REFRESH_TOKEN_TTL", "0s"},
+		{"negative refresh TTL", "AUTH_REFRESH_TOKEN_TTL", "-720h"},
+		{"sub-second refresh TTL", "AUTH_REFRESH_TOKEN_TTL", "10ms"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv(tc.key, tc.value)
+
+			if _, err := Load(); err == nil {
+				t.Fatalf("Load: expected an error for %s=%s - parseable but non-positive TTLs issue already-expired tokens", tc.key, tc.value)
+			}
+		})
+	}
+}
+
 func TestLoad_InvalidCookieSecureFailsFast(t *testing.T) {
 	clearAuthEnv(t)
 	t.Setenv("AUTH_JWT_SECRET", validJWTSecret)

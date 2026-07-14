@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/mail"
 	"time"
+	"unicode/utf8"
 
 	"github.com/GonzaloSecades/nuchi/backend/internal/auth"
 	"github.com/GonzaloSecades/nuchi/backend/internal/config"
@@ -101,7 +102,10 @@ func (s *AuthServer) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	if !emailOK {
 		fields = append(fields, apiFieldError{Path: "email", Message: "Invalid email address."})
 	}
-	if len(body.Password) < 8 {
+	// The contract's minLength counts characters; len(string) counts UTF-8
+	// bytes and would let e.g. a two-emoji password (8 bytes, 2 characters)
+	// through.
+	if utf8.RuneCountInString(body.Password) < 8 {
 		fields = append(fields, apiFieldError{Path: "password", Message: "Password must be at least 8 characters."})
 	}
 	if len(fields) > 0 {
@@ -287,10 +291,16 @@ func (s *AuthServer) RefreshSession(w http.ResponseWriter, r *http.Request) {
 	user, err := q.GetUserByID(ctx, consumed.UserID)
 	if err != nil {
 		// The user backing a still-valid refresh token should always
-		// exist (refresh_tokens.user_id cascades on user delete), but if
-		// it somehow doesn't, treat the session as invalid rather than
-		// leaking a 500.
-		s.respondRefreshInvalid(w)
+		// exist (refresh_tokens.user_id cascades on user delete); if the
+		// row is genuinely gone, the session is invalid. Any other error
+		// (transient DB failure, cancelled context) is a real 500 — mapping
+		// it to 401 would silently log users out and hide the fault from
+		// monitoring.
+		if errors.Is(err, pgx.ErrNoRows) {
+			s.respondRefreshInvalid(w)
+			return
+		}
+		writeInternalError(w)
 		return
 	}
 
@@ -369,17 +379,17 @@ func (s *AuthServer) LogoutUser(w http.ResponseWriter, r *http.Request) {
 
 	q := dbgen.New(s.pool)
 
-	if _, err := q.GetRefreshTokenByHash(ctx, tokenHash); err != nil {
+	// Single atomic check-and-revoke: a separate validity read followed by a
+	// revoke would let a concurrent refresh/logout revoke the token between
+	// the two statements, turning what the contract defines as a 401 into a
+	// false 200. ConsumeRefreshToken revokes only if still valid and reports
+	// ErrNoRows otherwise — same one-winner semantics as the refresh path.
+	if _, err := q.ConsumeRefreshToken(ctx, tokenHash); err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			resp := openapi.LogoutUser401JSONResponse{InvalidRefreshTokenErrorJSONResponse: invalidRefreshTokenError()}
 			_ = resp.VisitLogoutUserResponse(w)
 			return
 		}
-		writeInternalError(w)
-		return
-	}
-
-	if err := q.RevokeRefreshToken(ctx, tokenHash); err != nil {
 		writeInternalError(w)
 		return
 	}

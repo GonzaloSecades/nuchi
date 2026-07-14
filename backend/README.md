@@ -105,21 +105,21 @@ The refresh token travels as an HttpOnly cookie, never in a JSON body:
 | SameSite | `Lax` |
 | Max-Age | `AUTH_REFRESH_TOKEN_TTL` on login/refresh; `0` (cleared) on logout or an invalid/expired refresh attempt |
 
-Refresh rotates the token on every use: `POST /auth/refresh` atomically
+Refresh rotates the token on every use: `POST /api/auth/refresh` atomically
 consumes the presented cookie (`ConsumeRefreshToken` — a single `UPDATE`
 that only one concurrent caller can win) and, on success, creates a
 successor token and issues a new access token inside the same database
 transaction. Replaying an already-consumed (or otherwise invalid) cookie
 always returns `401 INVALID_REFRESH_TOKEN` and clears the cookie.
 
-`POST /auth/logout` revokes the session identified by the cookie and clears
+`POST /api/auth/logout` revokes the session identified by the cookie and clears
 it. Per the OpenAPI contract, a missing, unknown, expired, or
 already-revoked cookie is a `401 INVALID_REFRESH_TOKEN` on logout too — it
 is not a silent no-op.
 
 ### Registration and login
 
-`POST /auth/register` creates an unverified user (Argon2id hash only) and
+`POST /api/auth/register` creates an unverified user (Argon2id hash only) and
 returns `201 { "message": ... }`. It does **not** send a verification email
 or create a verification token yet — that lands in #42. Until then, mark a
 user verified directly:
@@ -128,7 +128,7 @@ user verified directly:
 UPDATE users SET email_verified_at = now() WHERE email = 'someone@example.com';
 ```
 
-`POST /auth/login` requires a verified email: unverified users get
+`POST /api/auth/login` requires a verified email: unverified users get
 `403 EMAIL_NOT_VERIFIED`. A wrong password and an unknown email both return
 the identical `401 UNAUTHORIZED` body (enumeration safety) — there is no
 way to distinguish the two from the response.
