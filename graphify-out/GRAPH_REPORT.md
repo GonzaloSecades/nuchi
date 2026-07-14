@@ -1,16 +1,16 @@
-# Graph Report - nuchi  (2026-07-12)
+# Graph Report - nuchi  (2026-07-14)
 
 ## Corpus Check
-- 241 files · ~95,723 words
+- 243 files · ~96,212 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2238 nodes · 3414 edges · 549 communities (123 shown, 426 thin omitted)
+- 2250 nodes · 3426 edges · 554 communities (128 shown, 426 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 31 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b1a23df5`
+- Built from commit: `e0d46d72`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -348,11 +348,13 @@
 - [[_COMMUNITY__meta|_meta]]
 - [[_COMMUNITY_schemas|schemas]]
 - [[_COMMUNITY_tables|tables]]
+- [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_notNull|notNull]]
 - [[_COMMUNITY_primaryKey|primaryKey]]
 - [[_COMMUNITY_name|name]]
 - [[_COMMUNITY_type|type]]
+- [[_COMMUNITY_0006 — transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS|0006 — transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS]]
 - [[_COMMUNITY_connection.ts|connection.ts]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_prevId|prevId]]
@@ -360,6 +362,7 @@
 - [[_COMMUNITY_categories|categories]]
 - [[_COMMUNITY_transactions|transactions]]
 - [[_COMMUNITY_columnsTo|columnsTo]]
+- [[_COMMUNITY_0008 — Access tokens cannot be revoked mid-life|0008 — Access tokens cannot be revoked mid-life]]
 - [[_COMMUNITY_onDelete|onDelete]]
 - [[_COMMUNITY_tableTo|tableTo]]
 - [[_COMMUNITY_columnsFrom|columnsFrom]]
@@ -367,8 +370,10 @@
 - [[_COMMUNITY_tableFrom|tableFrom]]
 - [[_COMMUNITY_Transaction|Transaction]]
 - [[_COMMUNITY_uniqueConstraints|uniqueConstraints]]
+- [[_COMMUNITY_0009 — No refresh-token reuse detection or session listing|0009 — No refresh-token reuse detection or session listing]]
 - [[_COMMUNITY_version|version]]
 - [[_COMMUNITY_isUnique|isUnique]]
+- [[_COMMUNITY_README|README.md]]
 - [[_COMMUNITY_ConfirmPasswordReset401JSONResponse|ConfirmPasswordReset401JSONResponse]]
 - [[_COMMUNITY_type|type]]
 - [[_COMMUNITY_compositePrimaryKeys|compositePrimaryKeys]]
@@ -558,19 +563,19 @@
 ## Surprising Connections (you probably didn't know these)
 - `Generated Go Output` --semantically_similar_to--> `generated.gen.go`  [INFERRED] [semantically similar]
   openapi/oapi-codegen.yaml → backend/internal/openapi/README.md
-- `CardAction()` --calls--> `cn()`  [EXTRACTED]
-  components/ui/card.tsx → lib/utils.ts
-- `CardFooter()` --calls--> `cn()`  [EXTRACTED]
-  components/ui/card.tsx → lib/utils.ts
 - `DialogOverlay()` --calls--> `cn()`  [EXTRACTED]
   components/ui/dialog.tsx → lib/utils.ts
-- `PopoverHeader()` --calls--> `cn()`  [EXTRACTED]
-  components/ui/popover.tsx → lib/utils.ts
+- `DropdownMenuCheckboxItem()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/dropdown-menu.tsx → lib/utils.ts
+- `DropdownMenuRadioItem()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/dropdown-menu.tsx → lib/utils.ts
+- `DropdownMenuLabel()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/dropdown-menu.tsx → lib/utils.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (549 total, 426 thin omitted)
+## Communities (554 total, 426 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -585,8 +590,8 @@ Cohesion: 0.07
 Nodes (26): 1. Unified Import Inbox, 2. Import Review, Normalization, and Deduplication, 3. Transfers, Balances, and Net Worth, 4. Budgets and Monthly Planning, 5. Recurring Transactions and Forecasting, Current roadmap principle, Nuchi Roadmap Features List, Open banking readiness (+18 more)
 
 ### Community 3 - "Page Tsx"
-Cohesion: 0.18
-Nodes (14): Actions(), Props, ResponseType, useDeleteTransaction(), RequestType, ResponseType, useEditTransaction(), useGetTransaction() (+6 more)
+Cohesion: 0.29
+Nodes (7): columns, AccountsPage(), RequestType, ResponseType, useBulkDeleteAccounts(), NewAccountState, useNewAccount
 
 ### Community 5 - "Actions Tsx"
 Cohesion: 0.07
@@ -598,23 +603,23 @@ Nodes (31): 1. Frontend - Data/State (Next.js, React hooks, mutation hooks), 2. 
 
 ### Community 9 - "0004 Snapshot Json"
 Cohesion: 0.10
-Nodes (22): AreaVariant(), Props, BarVariant(), Props, CategoryTooltip(), CategoryTooltipPayload, CategoryTooltipProps, CustomTooltip() (+14 more)
+Nodes (21): AreaVariant(), Props, BarVariant(), Props, CategoryTooltip(), CategoryTooltipPayload, CategoryTooltipProps, CustomTooltip() (+13 more)
 
 ### Community 10 - "Data Card Tsx"
 Cohesion: 0.33
 Nodes (6): generated.gen.go, chi-server Generation, Generated Go Output, Model Generation, oapi-codegen Configuration, Go Server Type Generation
 
 ### Community 11 - "Hono Ts"
-Cohesion: 0.05
-Nodes (35): 0001 — transactions.date is timestamp without time zone, How it was migrated, Proposed improvement, The concern, Why it was done this way, 0002 — Finance tables use text cuid IDs; UUID default is v4, How it was migrated, Proposed improvement (+27 more)
+Cohesion: 0.33
+Nodes (5): 0001 — transactions.date is timestamp without time zone, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
 ### Community 13 - "PR Overview Descriptive Title"
-Cohesion: 0.13
-Nodes (18): routes, Sheet(), SheetContent(), SheetDescription(), SheetHeader(), SheetTitle(), SheetTrigger(), VisuallyHidden() (+10 more)
+Cohesion: 0.08
+Nodes (42): routes, Sheet(), SheetContent(), SheetDescription(), SheetFooter(), SheetHeader(), SheetOverlay(), SheetTitle() (+34 more)
 
 ### Community 14 - "0002 Snapshot Json"
-Cohesion: 0.10
-Nodes (24): app, app, app, AppType, DELETE, GET, OPTIONS, PATCH (+16 more)
+Cohesion: 0.13
+Nodes (17): app, app, app, AppType, DELETE, GET, OPTIONS, PATCH (+9 more)
 
 ### Community 16 - "Project Polish Pr Summary"
 Cohesion: 0.20
@@ -625,28 +630,28 @@ Cohesion: 0.02
 Nodes (102): ConfirmPasswordResetJSONRequestBody, Account, AccountInput, AccountListResponse, AccountResponse, AccountSummary, AccountSummaryResponse, bearerAuthContextKey (+94 more)
 
 ### Community 18 - "0001 Snapshot Json"
-Cohesion: 0.27
-Nodes (5): Props, Header(), HeaderLogo(), Navigation(), WelcomeMsg()
+Cohesion: 0.21
+Nodes (7): Props, AccountFilter(), Filters(), Header(), HeaderLogo(), Navigation(), WelcomeMsg()
 
 ### Community 19 - "Json Editor Code Actions"
-Cohesion: 0.16
-Nodes (12): app, enforceJsonBodyLimit(), OwnedReferencesResult, checkTransactionMutationRateLimit(), cleanupMutationRateLimit(), DateRangeQueryOptions, DateRangeQueryResult, isContentLengthTooLarge() (+4 more)
+Cohesion: 0.15
+Nodes (13): app, enforceJsonBodyLimit(), OwnedReferencesResult, transactions, checkTransactionMutationRateLimit(), cleanupMutationRateLimit(), DateRangeQueryOptions, DateRangeQueryResult (+5 more)
 
 ### Community 20 - "0000 Snapshot Json"
 Cohesion: 0.20
 Nodes (9): Configuration, Database, Health Check, Local Run, Migrations (goose), Nuchi Go Backend, RLS, Typed queries (sqlc) (+1 more)
 
 ### Community 23 - "Nuchi Project Context"
-Cohesion: 0.12
-Nodes (25): FormControl(), FormDescription(), FormField(), FormFieldContext, FormFieldContextValue, FormItem(), FormItemContext, FormItemContextValue (+17 more)
+Cohesion: 0.13
+Nodes (22): AmountInput(), FormControl(), FormDescription(), FormField(), FormFieldContext, FormFieldContextValue, FormItem(), FormItemContext (+14 more)
 
 ### Community 24 - "Transactions API"
 Cohesion: 0.08
 Nodes (23): Accounts, Accounts, API Shape, Canonical Architecture, Categories, Categories, Client-to-Database Flow, Core Stack (+15 more)
 
 ### Community 28 - "Components Json"
-Cohesion: 0.22
-Nodes (14): AccountsPage(), CategoriesPage(), useBulkDeleteAccounts(), useCreateAccount(), useGetAccounts(), useBulkDeleteCategories(), useCreateCategory(), useGetCategories() (+6 more)
+Cohesion: 0.26
+Nodes (8): columns, CategoriesPage(), RequestType, ResponseType, useBulkDeleteCategories(), useGetCategories(), NewCategoryState, useNewCategory
 
 ### Community 29 - "Schema Ts"
 Cohesion: 0.10
@@ -669,8 +674,8 @@ Cohesion: 0.07
 Nodes (26): Architecture, Backend Commands, Build Fails With Clerk Placeholder Keys, Canonical Docs, Contributing And Workflow, Current App Shape, Database, Docker And Local Services (+18 more)
 
 ### Community 34 - "Nuchi Roadmap Features List"
-Cohesion: 0.07
-Nodes (21): RequestType, ResponseType, RequestType, ResponseType, RequestType, ResponseType, RequestType, ResponseType (+13 more)
+Cohesion: 0.09
+Nodes (19): DataGrid(), RequestType, ResponseType, RequestType, ResponseType, useGetSummary(), RequestType, ResponseType (+11 more)
 
 ### Community 35 - "Seed Ts"
 Cohesion: 0.05
@@ -685,28 +690,28 @@ Cohesion: 0.22
 Nodes (8): Follow-Up, Key Files, Main Changes, Operational Notes, ProjectPolish PR Summary, Purpose, Tests Added, Verification To Re-run
 
 ### Community 39 - "Import Card Tsx"
-Cohesion: 0.17
-Nodes (14): Actions(), Props, AccountColumn(), Props, DropdownMenu(), DropdownMenuTrigger(), ResponseType, useDeleteAccount() (+6 more)
+Cohesion: 0.33
+Nodes (5): 0002 — Finance tables use text cuid IDs; UUID default is v4, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
 ### Community 40 - "Roadmap Tech Debt Backlog"
 Cohesion: 0.13
-Nodes (16): columns, ResponseType, INITIAL_IMPORT_RESULTS, TransactionsPage(), VARIANTS, CSVReaderRenderProps, CSVUploadResults, Props (+8 more)
+Nodes (15): INITIAL_IMPORT_RESULTS, TransactionsPage(), VARIANTS, CSVReaderRenderProps, CSVUploadResults, Props, UploadButton(), DataTable() (+7 more)
 
 ### Community 41 - "New Router"
-Cohesion: 0.20
-Nodes (15): boxVariant, BoxVariants, DataCard(), DataCardProps, iconVariant, IconVariants, DataTable(), Card() (+7 more)
+Cohesion: 0.08
+Nodes (32): ImportCard(), Props, requiredOptions, SelectedColumnsState, Chart(), ChartEnum, ChartLoading(), Props (+24 more)
 
 ### Community 42 - "Api Error"
-Cohesion: 0.12
-Nodes (18): Badge(), badgeVariants, DropdownMenuCheckboxItem(), DropdownMenuContent(), DropdownMenuItem(), DropdownMenuLabel(), DropdownMenuRadioItem(), DropdownMenuSeparator() (+10 more)
+Cohesion: 0.07
+Nodes (36): Actions(), Props, ResponseType, Actions(), Props, ResponseType, AccountColumn(), Props (+28 more)
 
 ### Community 43 - "Edit Account Sheet Tsx"
 Cohesion: 0.18
 Nodes (10): Commands, Current Risk Areas, Env, graphify, Nuchi Codex Guide, Pull Requests Hard Rules, Reference, Repo Rules (+2 more)
 
 ### Community 45 - "Indexes Columns"
-Cohesion: 0.39
-Nodes (6): AmountInput(), Props, Tooltip(), TooltipContent(), TooltipProvider(), TooltipTrigger()
+Cohesion: 0.48
+Nodes (5): Props, Tooltip(), TooltipContent(), TooltipProvider(), TooltipTrigger()
 
 ### Community 47 - "Plaid Id"
 Cohesion: 0.15
@@ -717,12 +722,12 @@ Cohesion: 0.09
 Nodes (26): Context, Queries, Timestamptz, UUID, Text, Timestamp, Timestamptz, UUID (+18 more)
 
 ### Community 49 - "Clerk Auth"
-Cohesion: 0.18
-Nodes (14): convertAmountToMiliunits(), assertSeedAllowed(), databaseUrl, db, defaultFrom, defaultTo, generateRandomAmount(), generateTransactions() (+6 more)
+Cohesion: 0.17
+Nodes (14): getDatabaseUrl(), assertSeedAllowed(), databaseUrl, db, defaultFrom, defaultTo, generateRandomAmount(), generateTransactions() (+6 more)
 
 ### Community 50 - "Columns Plaid Id"
-Cohesion: 0.23
-Nodes (10): ImportCard(), Props, requiredOptions, SelectedColumnsState, ImportTable(), ImportableTransactionField, ImportedTransactionRow, ImportedTransactionRowError (+2 more)
+Cohesion: 0.33
+Nodes (5): 0003 — Transaction rate limiting is in-memory, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
 ### Community 51 - "Transactions Account Id Accounts"
 Cohesion: 0.50
@@ -793,20 +798,20 @@ Cohesion: 0.23
 Nodes (12): Context, Queries, Text, Timestamp, UUID, Date, GetCategorySpendingParams, GetCategorySpendingRow (+4 more)
 
 ### Community 259 - "name"
-Cohesion: 0.31
-Nodes (10): Props, DataTableProps, Table(), TableBody(), TableCaption(), TableCell(), TableFooter(), TableHead() (+2 more)
+Cohesion: 0.25
+Nodes (12): ImportTable(), Props, ImportableTransactionField, DataTableProps, Table(), TableBody(), TableCaption(), TableCell() (+4 more)
 
 ### Community 260 - "name"
-Cohesion: 0.17
-Nodes (14): Actions(), Props, CategoryColumn(), Props, ResponseType, useDeleteCategory(), RequestType, ResponseType (+6 more)
+Cohesion: 0.14
+Nodes (18): ResponseType, useDeleteAccount(), RequestType, ResponseType, useEditAccount(), useGetAccount(), EditAccountSheet(), FormValues (+10 more)
 
 ### Community 293 - "name"
-Cohesion: 0.11
-Nodes (22): columns, ResponseType, columns, ResponseType, Preset, PresetKey, PRESETS, DatePicker() (+14 more)
+Cohesion: 0.13
+Nodes (22): DateFilter(), Preset, PresetKey, PRESETS, DatePicker(), Props, Badge(), badgeVariants (+14 more)
 
 ### Community 301 - "name"
-Cohesion: 0.24
-Nodes (6): AccountFilter(), DataCardLoading(), DataGrid(), DateFilter(), Filters(), formatDateRange()
+Cohesion: 0.33
+Nodes (5): 0004 — Bulk-delete silently ignores missing/unowned IDs, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
 ### Community 309 - "schema.ts"
 Cohesion: 0.33
@@ -825,8 +830,8 @@ Cohesion: 0.12
 Nodes (3): Request, Unimplemented, ResourceId
 
 ### Community 317 - "notNull"
-Cohesion: 0.13
-Nodes (22): isImportableTransactionField(), options, Props, TableHeadSelect(), Chart(), ChartEnum, ChartLoading(), Props (+14 more)
+Cohesion: 0.22
+Nodes (12): isImportableTransactionField(), options, Props, TableHeadSelect(), Select(), SelectContent(), SelectItem(), SelectLabel() (+4 more)
 
 ### Community 320 - "name"
 Cohesion: 0.25
@@ -844,17 +849,37 @@ Nodes (10): Branch And PR Hard Rules, Commands, Graphify, Hard Invariants, Legac
 Cohesion: 0.08
 Nodes (5): Handler, ResponseWriter, ServerInterfaceWrapper, strictHandler, StrictHTTPServerOptions
 
+### Community 347 - "name"
+Cohesion: 0.33
+Nodes (5): 0005 — Category duplicate update returns 500, create returns 409, How it was migrated, Proposed improvement, The concern, Why it was done this way
+
+### Community 353 - "0006 — transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS"
+Cohesion: 0.33
+Nodes (5): 0006 — transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS, How it was migrated, Proposed improvement, The concern, Why it was done this way
+
 ### Community 354 - "connection.ts"
-Cohesion: 0.21
-Nodes (11): buildPoolConfig(), createPool(), DatabasePoolCache, getDatabaseUrl(), getOrCreateCachedPool(), isLocalDatabaseUrl(), LOCAL_HOSTS, shouldAllowInsecureTls() (+3 more)
+Cohesion: 0.20
+Nodes (11): buildPoolConfig(), createPool(), DatabasePoolCache, getOrCreateCachedPool(), isLocalDatabaseUrl(), LOCAL_HOSTS, shouldAllowInsecureTls(), shouldUseSsl() (+3 more)
 
 ### Community 355 - "type"
 Cohesion: 0.29
 Nodes (7): Accounts, `DELETE /api/accounts/:id`, `GET /api/accounts`, `GET /api/accounts/:id`, `PATCH /api/accounts/:id`, `POST /api/accounts`, `POST /api/accounts/bulk-delete`
 
+### Community 361 - "0008 — Access tokens cannot be revoked mid-life"
+Cohesion: 0.33
+Nodes (5): 0008 — Access tokens cannot be revoked mid-life, How it was migrated, Proposed improvement, The concern, Why it was done this way
+
 ### Community 367 - "Transaction"
 Cohesion: 0.14
 Nodes (14): Time, DateString, CurrencyCode, HealthResponse, Summary, SummaryCategory, SummaryDay, SummaryResponse (+6 more)
+
+### Community 369 - "0009 — No refresh-token reuse detection or session listing"
+Cohesion: 0.33
+Nodes (5): 0009 — No refresh-token reuse detection or session listing, How it was migrated, Proposed improvement, The concern, Why it was done this way
+
+### Community 372 - "README.md"
+Cohesion: 0.33
+Nodes (5): Entry template, Index (claude-backend-improvements/), Layout, Post-Migration Improvements, The rule
 
 ### Community 373 - "ConfirmPasswordReset401JSONResponse"
 Cohesion: 0.20
@@ -977,21 +1002,21 @@ Cohesion: 0.29
 Nodes (6): API Contract and Documentation Standard, Contract workflow, Documentation acceptance gate, Internal documentation, Operational documentation, Required operation documentation
 
 ## Knowledge Gaps
-- **989 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+984 more)
+- **997 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+992 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **426 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Api Error` to `name`, `name`, `name`, `New Router`, `0004 Snapshot Json`, `Indexes Columns`, `name`, `PR Overview Descriptive Title`, `Nuchi Project Context`, `columns.tsx`, `notNull`?**
+- **Why does `cn()` connect `name` to `Nuchi Roadmap Features List`, `name`, `New Router`, `Api Error`, `0004 Snapshot Json`, `Indexes Columns`, `PR Overview Descriptive Title`, `Nuchi Project Context`, `columns.tsx`, `notNull`?**
   _High betweenness centrality (0.018) - this node is a cross-community bridge._
 - **Why does `dependencies` connect `Dependencies Class Variance Authority` to `Seed Ts`, `Scripts Build`, `Nuchi Project Context`?**
   _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `react` connect `Nuchi Project Context` to `New Router`, `name`, `Dependencies Class Variance Authority`?**
+- **Why does `react` connect `Nuchi Project Context` to `Roadmap Tech Debt Backlog`, `Dependencies Class Variance Authority`, `name`?**
   _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
-  _1014 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1022 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**

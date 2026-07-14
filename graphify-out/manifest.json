@@ -1140,8 +1140,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/README.md": {
-    "mtime": 1783887223.6988919,
-    "ast_hash": "cab79ea768a0ebbe213ecc59f340e01b",
+    "mtime": 1783998244.8218882,
+    "ast_hash": "44762170fdd69c8fa52c73a980e146f5",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
@@ -1307,6 +1307,16 @@
   "post-migration-improvements/codex-backend-improvements/templates/improvement-proposal.md": {
     "mtime": 1783886441.753572,
     "ast_hash": "00bd4fa4acf9f6ff0c5291c2520d8e9d",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0008-no-midlife-access-token-revocation.md": {
+    "mtime": 1783998225.9647148,
+    "ast_hash": "52fd1695466063418820cb36d926f223",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0009-refresh-reuse-detection-session-listing.md": {
+    "mtime": 1783998235.2082634,
+    "ast_hash": "909c538cdeb7a782ec8c80070d852533",
     "semantic_hash": ""
   }
 }
