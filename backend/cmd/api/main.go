@@ -19,7 +19,11 @@ import (
 func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	cfg := config.Load()
+	cfg, err := config.Load()
+	if err != nil {
+		logger.Error("invalid configuration", "error", err)
+		os.Exit(1)
+	}
 
 	startupCtx, cancelStartup := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancelStartup()
@@ -32,9 +36,11 @@ func main() {
 	defer pool.Close()
 	logger.Info("connected to database", "host", databaseHost(cfg.DatabaseURL))
 
+	authServer := httpapi.NewAuthServer(pool, cfg)
+
 	server := &http.Server{
 		Addr:              cfg.Addr(),
-		Handler:           httpapi.NewRouter(),
+		Handler:           httpapi.NewRouter(authServer),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 
