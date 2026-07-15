@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -124,6 +125,39 @@ func TestVerifyPassword_MalformedHashRejectedWithoutError(t *testing.T) {
 		}
 		if ok {
 			t.Errorf("VerifyPassword(%q): expected malformed hash to fail verification", encoded)
+		}
+	}
+}
+
+func TestDecodeHash_OperationalBounds(t *testing.T) {
+	// The acceptance ceiling is an operational verification budget
+	// (4x the production profile), not just parse sanity: exactly the
+	// ceiling parses, the first value past each bound is rejected. Tested
+	// on decodeHash directly because VerifyPassword's public behavior is an
+	// indistinguishable non-match either way.
+	const saltSeg = "c2FsdHNhbHRzYWx0c2E"   // >= 8 bytes decoded
+	const keySeg = "aGFzaGhhc2hoYXNoaGFzaA" // 16 bytes decoded
+
+	phc := func(m, tm, p uint32) string {
+		return fmt.Sprintf("$argon2id$v=19$m=%d,t=%d,p=%d$%s$%s", m, tm, p, saltSeg, keySeg)
+	}
+
+	if _, _, _, err := decodeHash(phc(maxArgonMemory, maxArgonTime, maxArgonThreads)); err != nil {
+		t.Errorf("decodeHash: expected the ceiling profile (m=%d,t=%d,p=%d) to be accepted, got %v",
+			maxArgonMemory, maxArgonTime, maxArgonThreads, err)
+	}
+
+	rejected := []struct {
+		name string
+		phc  string
+	}{
+		{"memory one past ceiling", phc(maxArgonMemory+1, 3, 2)},
+		{"time one past ceiling", phc(64*1024, maxArgonTime+1, 2)},
+		{"threads one past ceiling", phc(64*1024, 3, maxArgonThreads+1)},
+	}
+	for _, tc := range rejected {
+		if _, _, _, err := decodeHash(tc.phc); err == nil {
+			t.Errorf("decodeHash(%s): expected rejection, got acceptance", tc.name)
 		}
 	}
 }

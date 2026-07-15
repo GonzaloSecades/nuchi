@@ -114,7 +114,7 @@ func decodeHash(encoded string) (argonParams, []byte, []byte, error) {
 	if params.time < 1 || params.time > maxArgonTime {
 		return argonParams{}, nil, nil, ErrMalformedHash
 	}
-	if threads < 1 || threads > 255 {
+	if threads < 1 || threads > maxArgonThreads {
 		return argonParams{}, nil, nil, ErrMalformedHash
 	}
 	params.threads = uint8(threads)
@@ -140,17 +140,23 @@ func decodeHash(encoded string) (argonParams, []byte, []byte, error) {
 	return params, salt, key, nil
 }
 
-// Acceptance bounds for parameters parsed out of stored PHC strings. Wide
-// enough that any legitimate future parameter bump (see HashPassword's
-// rehash note) still verifies, tight enough that corrupt or hostile stored
-// values cannot panic x/crypto or exhaust the host.
+// Acceptance bounds for parameters parsed out of stored PHC strings. These
+// are an operational verification budget, not just a parse sanity check: a
+// hostile-but-well-formed stored value must not be able to make
+// VerifyPassword allocate or burn meaningfully more than a legitimate hash
+// would (a few concurrent logins at the ceiling must not OOM the host).
+// The ceiling is 4x the current production profile (m=64MiB,t=3,p=2) —
+// honest headroom for a future parameter bump. A bump beyond the ceiling is
+// deliberate: raise the constant in the same commit that changes the
+// production parameters.
 const (
-	maxArgonTime   uint32 = 64
-	maxArgonMemory uint32 = 1 << 20 // KiB (1 GiB)
-	minSaltLen            = 8
-	maxSaltLen            = 64
-	minKeyLen             = 16
-	maxKeyLen             = 128
+	maxArgonTime    uint32 = 8
+	maxArgonMemory  uint32 = 256 * 1024 // KiB (256 MiB)
+	maxArgonThreads uint32 = 8
+	minSaltLen             = 8
+	maxSaltLen             = 64
+	minKeyLen              = 16
+	maxKeyLen              = 128
 )
 
 // dummyPasswordHash is a fixed, precomputed-at-init Argon2id hash used by
