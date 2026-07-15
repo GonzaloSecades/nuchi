@@ -78,7 +78,7 @@ func Load() (Config, error) {
 	// truncated to whole seconds downstream (expiresIn, cookie Max-Age), so
 	// anything below one second is equally broken. Fail fast instead.
 	if accessTokenTTL < time.Second {
-		return Config{}, fmt.Errorf("config: AUTH_ACCESS_TOKEN_TTL must be at least 1s, got %q", accessTokenTTL)
+		return Config{}, fmt.Errorf("config: AUTH_ACCESS_TOKEN_TTL must be at least 1s, got %v", accessTokenTTL)
 	}
 
 	refreshTokenTTL, err := getEnvDuration("AUTH_REFRESH_TOKEN_TTL", defaultRefreshTokenTTL)
@@ -86,7 +86,7 @@ func Load() (Config, error) {
 		return Config{}, err
 	}
 	if refreshTokenTTL < time.Second {
-		return Config{}, fmt.Errorf("config: AUTH_REFRESH_TOKEN_TTL must be at least 1s, got %q", refreshTokenTTL)
+		return Config{}, fmt.Errorf("config: AUTH_REFRESH_TOKEN_TTL must be at least 1s, got %v", refreshTokenTTL)
 	}
 
 	cookieSecure, err := getEnvBool("AUTH_COOKIE_SECURE", defaultCookieSecure)

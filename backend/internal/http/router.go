@@ -8,7 +8,7 @@ import (
 )
 
 // NewRouter wires the API routes owned by this service. authServer is
-// optional (nil skips mounting the /auth/* routes) so callers that only
+// optional (nil skips mounting the /api/auth/* routes) so callers that only
 // need health/scaffold behavior — e.g. tests unrelated to auth — are not
 // forced to construct a database pool. Resource routes (accounts,
 // categories, transactions, summary) and auth middleware/RLS binding are

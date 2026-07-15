@@ -85,7 +85,7 @@ type apiFieldError struct {
 	Message string `json:"message"`
 }
 
-// RegisterUser implements POST /auth/register. It creates an unverified
+// RegisterUser implements POST /api/auth/register. It creates an unverified
 // user with an Argon2id password hash. It intentionally does not create an
 // email verification token or send email — that is #42's scope. Tests and
 // operators mark a user verified via the existing MarkUserEmailVerified
@@ -149,7 +149,7 @@ func (s *AuthServer) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	_ = resp.VisitRegisterUserResponse(w)
 }
 
-// LoginUser implements POST /auth/login. On an unknown email it performs a
+// LoginUser implements POST /api/auth/login. On an unknown email it performs a
 // dummy Argon2id verification so response timing does not distinguish
 // "no such user" from "wrong password" (see auth.DummyVerify).
 func (s *AuthServer) LoginUser(w http.ResponseWriter, r *http.Request) {
@@ -248,7 +248,7 @@ func (s *AuthServer) LoginUser(w http.ResponseWriter, r *http.Request) {
 	_ = resp.VisitLoginUserResponse(w)
 }
 
-// RefreshSession implements POST /auth/refresh. It reads the refresh
+// RefreshSession implements POST /api/auth/refresh. It reads the refresh
 // cookie, atomically consumes it (ConsumeRefreshToken — a single UPDATE
 // that only one concurrent caller can win, see #40/#61), and on success
 // creates a successor token and issues a new access token, all inside one
@@ -361,7 +361,7 @@ func (s *AuthServer) respondRefreshInvalid(w http.ResponseWriter) {
 	_ = resp.VisitRefreshSessionResponse(w)
 }
 
-// LogoutUser implements POST /auth/logout. Per the contract, a missing,
+// LogoutUser implements POST /api/auth/logout. Per the contract, a missing,
 // unknown, expired, or already-revoked refresh cookie is a 401
 // InvalidRefreshTokenError (not a silent no-op 200) — logout is not
 // unconditionally idempotent at the HTTP layer, even though the underlying

@@ -29,9 +29,11 @@ const (
 	argonKeyLen  uint32 = 32
 )
 
-// ErrMalformedHash is returned by VerifyPassword when the stored hash is not
-// a well-formed Argon2id PHC string. Treated as a verification failure by
-// callers, never as a reason to leak information about hash internals.
+// ErrMalformedHash is returned by decodeHash when a stored hash is not a
+// well-formed Argon2id PHC string within the operational parameter bounds.
+// VerifyPassword deliberately swallows it and reports a plain non-match, so
+// corrupt stored data takes the same code path as a wrong password and
+// never leaks information about hash internals.
 var ErrMalformedHash = errors.New("auth: malformed password hash")
 
 // HashPassword derives an Argon2id hash for password and encodes it as a
