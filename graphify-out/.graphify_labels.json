@@ -510,8 +510,6 @@
   "508": "DeleteTransaction404JSONResponse",
   "509": "GetSummary400JSONResponse",
   "510": "LogoutUser200JSONResponse",
-  "511": "ListAccounts200JSONResponse",
-  "512": "RegisterUser201JSONResponse",
   "513": ".CreateCategory",
   "519": "README.md",
   "520": "InvalidParamFormatError",
