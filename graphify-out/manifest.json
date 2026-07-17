@@ -1350,13 +1350,13 @@
     "semantic_hash": ""
   },
   "backend/internal/http/auth.go": {
-    "mtime": 1784296925.92788,
-    "ast_hash": "0df8d1338ad62acf99cb84d6c123f6c0",
+    "mtime": 1784299308.874636,
+    "ast_hash": "0ca24480acf77f43ed8572ab8683cfd9",
     "semantic_hash": ""
   },
   "backend/internal/http/auth_live_test.go": {
-    "mtime": 1784296925.92788,
-    "ast_hash": "569a756a95205a240498931a61304a38",
+    "mtime": 1784299357.5050626,
+    "ast_hash": "8c383a5425f3e2df9bfdbc148435dacb",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260714_131130_got_ticket__41_done_by_claude__please_review_the_p.md": {

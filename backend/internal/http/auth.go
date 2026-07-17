@@ -3,6 +3,7 @@ package httpapi
 import (
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"net/mail"
 	"time"
@@ -39,12 +40,26 @@ const maxAuthBodyBytes = 4 * 1024
 
 // decodeAuthBody decodes an auth request body under maxAuthBodyBytes. The
 // boolean result reports whether decoding succeeded; on failure the caller
-// responds with its operation's 400 ValidationError (an oversized body is a
-// malformed request, same as invalid JSON — the response shape stays within
-// the contract).
+// responds with its operation's 400 ValidationError (an oversized body or an
+// unknown field is a malformed request, same as invalid JSON — the response
+// shape stays within the contract).
+//
+// Unknown fields are rejected because the contract declares
+// additionalProperties: false on RegisterRequest/LoginRequest — the contract
+// is the oracle, and silent tolerance would let it drift. Future fields
+// (profiles, households, roles) arrive as contract changes first, at which
+// point they are known fields and pass untouched (#63).
 func decodeAuthBody(w http.ResponseWriter, r *http.Request, dst *credentialsBody) bool {
 	r.Body = http.MaxBytesReader(w, r.Body, maxAuthBodyBytes)
-	return json.NewDecoder(r.Body).Decode(dst) == nil
+	dec := json.NewDecoder(r.Body)
+	dec.DisallowUnknownFields()
+	if dec.Decode(dst) != nil {
+		return false
+	}
+	// A valid body is exactly one JSON value: Decode stops after the first,
+	// so require EOF to reject trailing values ({...}{"x":1}) the contract's
+	// request-body schema would never accept.
+	return dec.Decode(&struct{}{}) == io.EOF
 }
 
 // AuthServer implements the four in-scope generated openapi.ServerInterface

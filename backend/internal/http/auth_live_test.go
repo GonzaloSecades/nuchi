@@ -230,6 +230,27 @@ func TestAuthLive_Register_ValidationErrors(t *testing.T) {
 	}
 }
 
+// TestAuthLive_Register_UnknownFieldRejected pins the contract's
+// additionalProperties: false on RegisterRequest: a body carrying an
+// undeclared field must 400, not be silently accepted with the field
+// ignored (#63).
+func TestAuthLive_Register_UnknownFieldRejected(t *testing.T) {
+	env := newAuthTestEnv(t)
+
+	rec := env.do(t, http.MethodPost, "/api/auth/register", map[string]any{
+		"email":    uniqueAuthTestEmail("unknown-field"),
+		"password": "correct-horse-battery",
+		"isAdmin":  true,
+	}, nil)
+	if rec.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400 for a body with an unknown field, got %d (body: %s)", rec.Code, rec.Body.String())
+	}
+	apiErr := decodeAPIError(t, rec)
+	if apiErr.Error.Code != "VALIDATION_ERROR" {
+		t.Errorf("expected code VALIDATION_ERROR, got %q", apiErr.Error.Code)
+	}
+}
+
 // --- login ---------------------------------------------------------------
 
 func TestAuthLive_Login_UnverifiedUserForbidden(t *testing.T) {
@@ -351,6 +372,49 @@ func TestAuthLive_Login_WrongPasswordAndUnknownEmailShareShape(t *testing.T) {
 	unknownErr := decodeAPIError(t, unknownEmail)
 	if wrongErr.Error.Code != unknownErr.Error.Code || wrongErr.Error.Message != unknownErr.Error.Message {
 		t.Errorf("expected identical error shape for enumeration safety, got %+v vs %+v", wrongErr, unknownErr)
+	}
+}
+
+// TestAuthLive_Register_TrailingJSONRejected pins single-value bodies: a
+// request carrying a second JSON value after the credentials object is
+// malformed per the contract's request-body schema and must 400, not have
+// its trailing value silently discarded (#63).
+func TestAuthLive_Register_TrailingJSONRejected(t *testing.T) {
+	env := newAuthTestEnv(t)
+
+	// Built by hand: env.do round-trips bodies through json.Marshal, which
+	// (correctly) refuses to produce this deliberately malformed payload.
+	req := httptest.NewRequest(http.MethodPost, "/api/auth/register", bytes.NewReader(
+		[]byte(`{"email":"trailing@example.test","password":"correct-horse-battery"}{"isAdmin":true}`),
+	))
+	req.Header.Set("Content-Type", "application/json")
+	rec := httptest.NewRecorder()
+	env.router.ServeHTTP(rec, req)
+	if rec.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400 for a body with trailing JSON, got %d (body: %s)", rec.Code, rec.Body.String())
+	}
+	apiErr := decodeAPIError(t, rec)
+	if apiErr.Error.Code != "VALIDATION_ERROR" {
+		t.Errorf("expected code VALIDATION_ERROR, got %q", apiErr.Error.Code)
+	}
+}
+
+// TestAuthLive_Login_UnknownFieldRejected mirrors the register case for
+// LoginRequest's additionalProperties: false (#63).
+func TestAuthLive_Login_UnknownFieldRejected(t *testing.T) {
+	env := newAuthTestEnv(t)
+
+	rec := env.do(t, http.MethodPost, "/api/auth/login", map[string]any{
+		"email":    "someone@example.test",
+		"password": "whatever-password",
+		"remember": true,
+	}, nil)
+	if rec.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400 for a body with an unknown field, got %d (body: %s)", rec.Code, rec.Body.String())
+	}
+	apiErr := decodeAPIError(t, rec)
+	if apiErr.Error.Code != "VALIDATION_ERROR" {
+		t.Errorf("expected code VALIDATION_ERROR, got %q", apiErr.Error.Code)
 	}
 }
 
