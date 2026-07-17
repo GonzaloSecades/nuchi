@@ -1140,8 +1140,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/README.md": {
-    "mtime": 1784296925.9444642,
-    "ast_hash": "9f18adc5857d881d91cf0bcad1ca046a",
+    "mtime": 1784315821.4807198,
+    "ast_hash": "9eae0432a8a8b0d295bbe09c3aec543b",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
@@ -1382,6 +1382,16 @@
   "graphify-out/memory/query_20260717_150834_review_pr__64_against_post_merge_pr__62_comment_an.md": {
     "mtime": 1784300914.0623503,
     "ast_hash": "b86c85d7b31c9bbc03aadb2678d9f8be",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0011-no-resend-endpoint-fire-and-forget-mail.md": {
+    "mtime": 1784315785.0611346,
+    "ast_hash": "496c201389dbe529abd4e3869d7ded9d",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0012-reset-request-timing-oracle.md": {
+    "mtime": 1784315795.5497026,
+    "ast_hash": "a90d642eee349d26e0a64a9afd7ca614",
     "semantic_hash": ""
   }
 }

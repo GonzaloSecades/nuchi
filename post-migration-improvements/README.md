@@ -101,3 +101,5 @@ gates. Numbering stays global and sequential within
 | 0008 | [Access tokens cannot be revoked mid-life](claude-backend-improvements/0008-no-midlife-access-token-revocation.md) | auth | low |
 | 0009 | [No refresh-token reuse detection or session listing](claude-backend-improvements/0009-refresh-reuse-detection-session-listing.md) | auth | low |
 | 0010 | [Auth operations do not declare 500 responses in the contract](claude-backend-improvements/0010-auth-contract-omits-500.md) | api | low |
+| 0011 | [No resend endpoint; email delivery is fire-and-forget](claude-backend-improvements/0011-no-resend-endpoint-fire-and-forget-mail.md) | auth/infra | medium |
+| 0012 | [Residual timing oracle on password-reset request](claude-backend-improvements/0012-reset-request-timing-oracle.md) | auth | low |
