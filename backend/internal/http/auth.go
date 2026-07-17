@@ -3,6 +3,7 @@ package httpapi
 import (
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"net/mail"
 	"time"
@@ -52,7 +53,13 @@ func decodeAuthBody(w http.ResponseWriter, r *http.Request, dst *credentialsBody
 	r.Body = http.MaxBytesReader(w, r.Body, maxAuthBodyBytes)
 	dec := json.NewDecoder(r.Body)
 	dec.DisallowUnknownFields()
-	return dec.Decode(dst) == nil
+	if dec.Decode(dst) != nil {
+		return false
+	}
+	// A valid body is exactly one JSON value: Decode stops after the first,
+	// so require EOF to reject trailing values ({...}{"x":1}) the contract's
+	// request-body schema would never accept.
+	return dec.Decode(&struct{}{}) == io.EOF
 }
 
 // AuthServer implements the four in-scope generated openapi.ServerInterface

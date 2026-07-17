@@ -375,6 +375,30 @@ func TestAuthLive_Login_WrongPasswordAndUnknownEmailShareShape(t *testing.T) {
 	}
 }
 
+// TestAuthLive_Register_TrailingJSONRejected pins single-value bodies: a
+// request carrying a second JSON value after the credentials object is
+// malformed per the contract's request-body schema and must 400, not have
+// its trailing value silently discarded (#63).
+func TestAuthLive_Register_TrailingJSONRejected(t *testing.T) {
+	env := newAuthTestEnv(t)
+
+	// Built by hand: env.do round-trips bodies through json.Marshal, which
+	// (correctly) refuses to produce this deliberately malformed payload.
+	req := httptest.NewRequest(http.MethodPost, "/api/auth/register", bytes.NewReader(
+		[]byte(`{"email":"trailing@example.test","password":"correct-horse-battery"}{"isAdmin":true}`),
+	))
+	req.Header.Set("Content-Type", "application/json")
+	rec := httptest.NewRecorder()
+	env.router.ServeHTTP(rec, req)
+	if rec.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400 for a body with trailing JSON, got %d (body: %s)", rec.Code, rec.Body.String())
+	}
+	apiErr := decodeAPIError(t, rec)
+	if apiErr.Error.Code != "VALIDATION_ERROR" {
+		t.Errorf("expected code VALIDATION_ERROR, got %q", apiErr.Error.Code)
+	}
+}
+
 // TestAuthLive_Login_UnknownFieldRejected mirrors the register case for
 // LoginRequest's additionalProperties: false (#63).
 func TestAuthLive_Login_UnknownFieldRejected(t *testing.T) {
