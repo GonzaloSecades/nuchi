@@ -19,7 +19,11 @@ import (
 func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	cfg := config.Load()
+	cfg, err := config.Load()
+	if err != nil {
+		logger.Error("invalid configuration", "error", err)
+		os.Exit(1)
+	}
 
 	startupCtx, cancelStartup := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancelStartup()
@@ -32,10 +36,20 @@ func main() {
 	defer pool.Close()
 	logger.Info("connected to database", "host", databaseHost(cfg.DatabaseURL))
 
+	authServer := httpapi.NewAuthServer(pool, cfg)
+
 	server := &http.Server{
-		Addr:              cfg.Addr(),
-		Handler:           httpapi.NewRouter(),
+		Addr:    cfg.Addr(),
+		Handler: httpapi.NewRouter(authServer),
+		// ReadTimeout bounds the whole request read (headers + body), not
+		// just headers: without it an anonymous client on the public auth
+		// endpoints can hold a connection open indefinitely by streaming a
+		// body one byte at a time. WriteTimeout and IdleTimeout bound the
+		// response and keep-alive halves the same way.
 		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       15 * time.Second,
+		WriteTimeout:      30 * time.Second,
+		IdleTimeout:       120 * time.Second,
 	}
 
 	errs := make(chan error, 1)

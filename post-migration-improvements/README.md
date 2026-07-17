@@ -100,3 +100,4 @@ gates. Numbering stays global and sequential within
 | 0007 | [JWT signing is HS256 with a single static secret](claude-backend-improvements/0007-jwt-hs256-single-secret.md) | auth | medium |
 | 0008 | [Access tokens cannot be revoked mid-life](claude-backend-improvements/0008-no-midlife-access-token-revocation.md) | auth | low |
 | 0009 | [No refresh-token reuse detection or session listing](claude-backend-improvements/0009-refresh-reuse-detection-session-listing.md) | auth | low |
+| 0010 | [Auth operations do not declare 500 responses in the contract](claude-backend-improvements/0010-auth-contract-omits-500.md) | api | low |
