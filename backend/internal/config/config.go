@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 	"strconv"
 	"time"
@@ -29,6 +30,23 @@ const (
 	// default: an HS256 signing secret must never ship with a checked-in
 	// fallback.
 	minJWTSecretBytes = 32
+
+	// defaultSMTPAddr is the dev default SMTP endpoint: the Mailpit
+	// container's SMTP port (docker-compose.yml) or the local Mailpit
+	// binary fallback, both bound to 1025.
+	defaultSMTPAddr = "localhost:1025"
+	// defaultMailFrom is the dev default From address for outgoing mail.
+	defaultMailFrom = "nuchi@localhost"
+	// defaultAppBaseURL is the dev default base URL used to build
+	// verification/reset links.
+	defaultAppBaseURL = "http://localhost:3000"
+
+	// defaultVerificationTokenTTL is the dev default lifetime of an email
+	// verification token (spec: 24-72h configurable; 48h is the midpoint).
+	defaultVerificationTokenTTL = 48 * time.Hour
+	// defaultResetTokenTTL is the dev default lifetime of a password reset
+	// token (spec: 15-60m configurable; 30m is the midpoint).
+	defaultResetTokenTTL = 30 * time.Minute
 )
 
 // Config contains process-level settings that are safe to read from the
@@ -52,6 +70,24 @@ type Config struct {
 	// cookie (AUTH_COOKIE_SECURE). Must be true in any deployed
 	// environment; false is only safe for local HTTP development.
 	CookieSecure bool
+
+	// SMTPAddr is the host:port of the outbound SMTP server (SMTP_ADDR).
+	// Dev/test target is Mailpit, unauthenticated.
+	SMTPAddr string
+	// MailFrom is the From address on outgoing mail (MAIL_FROM).
+	MailFrom string
+	// AppBaseURL is the parsed, validated base URL (scheme + host required)
+	// used to build verification/reset links (APP_BASE_URL). Parsed at load
+	// so a malformed value fails fast at startup instead of producing a
+	// broken link inside an email body.
+	AppBaseURL *url.URL
+
+	// VerificationTokenTTL is how long an email verification token remains
+	// valid (AUTH_VERIFICATION_TOKEN_TTL).
+	VerificationTokenTTL time.Duration
+	// ResetTokenTTL is how long a password reset token remains valid
+	// (AUTH_RESET_TOKEN_TTL).
+	ResetTokenTTL time.Duration
 }
 
 // Load reads process configuration from the environment, falling back to
@@ -94,6 +130,31 @@ func Load() (Config, error) {
 		return Config{}, err
 	}
 
+	appBaseURLRaw := getEnv("APP_BASE_URL", defaultAppBaseURL)
+	appBaseURL, err := url.Parse(appBaseURLRaw)
+	// A malformed APP_BASE_URL must never reach an email body as a broken
+	// link, so it is parsed and validated (scheme + host present) at
+	// startup, not lazily when the first email is sent.
+	if err != nil || appBaseURL.Scheme == "" || appBaseURL.Host == "" {
+		return Config{}, fmt.Errorf("config: APP_BASE_URL must be an absolute URL with a scheme and host, got %q", appBaseURLRaw)
+	}
+
+	verificationTokenTTL, err := getEnvDuration("AUTH_VERIFICATION_TOKEN_TTL", defaultVerificationTokenTTL)
+	if err != nil {
+		return Config{}, err
+	}
+	if verificationTokenTTL < time.Second {
+		return Config{}, fmt.Errorf("config: AUTH_VERIFICATION_TOKEN_TTL must be at least 1s, got %v", verificationTokenTTL)
+	}
+
+	resetTokenTTL, err := getEnvDuration("AUTH_RESET_TOKEN_TTL", defaultResetTokenTTL)
+	if err != nil {
+		return Config{}, err
+	}
+	if resetTokenTTL < time.Second {
+		return Config{}, fmt.Errorf("config: AUTH_RESET_TOKEN_TTL must be at least 1s, got %v", resetTokenTTL)
+	}
+
 	return Config{
 		Host:        getEnv("BACKEND_HOST", defaultHost),
 		Port:        getEnv("BACKEND_PORT", defaultPort),
@@ -103,6 +164,13 @@ func Load() (Config, error) {
 		AccessTokenTTL:  accessTokenTTL,
 		RefreshTokenTTL: refreshTokenTTL,
 		CookieSecure:    cookieSecure,
+
+		SMTPAddr:   getEnv("SMTP_ADDR", defaultSMTPAddr),
+		MailFrom:   getEnv("MAIL_FROM", defaultMailFrom),
+		AppBaseURL: appBaseURL,
+
+		VerificationTokenTTL: verificationTokenTTL,
+		ResetTokenTTL:        resetTokenTTL,
 	}, nil
 }
 

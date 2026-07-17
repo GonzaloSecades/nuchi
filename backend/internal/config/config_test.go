@@ -17,6 +17,11 @@ func clearAuthEnv(t *testing.T) {
 	t.Setenv("AUTH_ACCESS_TOKEN_TTL", "")
 	t.Setenv("AUTH_REFRESH_TOKEN_TTL", "")
 	t.Setenv("AUTH_COOKIE_SECURE", "")
+	t.Setenv("SMTP_ADDR", "")
+	t.Setenv("MAIL_FROM", "")
+	t.Setenv("APP_BASE_URL", "")
+	t.Setenv("AUTH_VERIFICATION_TOKEN_TTL", "")
+	t.Setenv("AUTH_RESET_TOKEN_TTL", "")
 }
 
 func TestLoad_Defaults(t *testing.T) {
@@ -52,6 +57,21 @@ func TestLoad_Defaults(t *testing.T) {
 	if string(cfg.JWTSecret) != validJWTSecret {
 		t.Errorf("expected JWTSecret %q, got %q", validJWTSecret, cfg.JWTSecret)
 	}
+	if cfg.SMTPAddr != defaultSMTPAddr {
+		t.Errorf("expected default SMTP addr %q, got %q", defaultSMTPAddr, cfg.SMTPAddr)
+	}
+	if cfg.MailFrom != defaultMailFrom {
+		t.Errorf("expected default mail from %q, got %q", defaultMailFrom, cfg.MailFrom)
+	}
+	if cfg.AppBaseURL == nil || cfg.AppBaseURL.String() != defaultAppBaseURL {
+		t.Errorf("expected default app base URL %q, got %v", defaultAppBaseURL, cfg.AppBaseURL)
+	}
+	if cfg.VerificationTokenTTL != defaultVerificationTokenTTL {
+		t.Errorf("expected default verification token TTL %v, got %v", defaultVerificationTokenTTL, cfg.VerificationTokenTTL)
+	}
+	if cfg.ResetTokenTTL != defaultResetTokenTTL {
+		t.Errorf("expected default reset token TTL %v, got %v", defaultResetTokenTTL, cfg.ResetTokenTTL)
+	}
 }
 
 func TestLoad_Overrides(t *testing.T) {
@@ -63,6 +83,11 @@ func TestLoad_Overrides(t *testing.T) {
 	t.Setenv("AUTH_ACCESS_TOKEN_TTL", "15m")
 	t.Setenv("AUTH_REFRESH_TOKEN_TTL", "168h")
 	t.Setenv("AUTH_COOKIE_SECURE", "true")
+	t.Setenv("SMTP_ADDR", "mail.example.invalid:2525")
+	t.Setenv("MAIL_FROM", "no-reply@example.invalid")
+	t.Setenv("APP_BASE_URL", "https://app.example.invalid")
+	t.Setenv("AUTH_VERIFICATION_TOKEN_TTL", "72h")
+	t.Setenv("AUTH_RESET_TOKEN_TTL", "15m")
 
 	cfg, err := Load()
 	if err != nil {
@@ -86,6 +111,21 @@ func TestLoad_Overrides(t *testing.T) {
 	}
 	if !cfg.CookieSecure {
 		t.Error("expected overridden cookie secure to be true")
+	}
+	if cfg.SMTPAddr != "mail.example.invalid:2525" {
+		t.Errorf("expected overridden SMTP addr, got %q", cfg.SMTPAddr)
+	}
+	if cfg.MailFrom != "no-reply@example.invalid" {
+		t.Errorf("expected overridden mail from, got %q", cfg.MailFrom)
+	}
+	if cfg.AppBaseURL == nil || cfg.AppBaseURL.String() != "https://app.example.invalid" {
+		t.Errorf("expected overridden app base URL, got %v", cfg.AppBaseURL)
+	}
+	if cfg.VerificationTokenTTL != 72*time.Hour {
+		t.Errorf("expected overridden verification token TTL 72h, got %v", cfg.VerificationTokenTTL)
+	}
+	if cfg.ResetTokenTTL != 15*time.Minute {
+		t.Errorf("expected overridden reset token TTL 15m, got %v", cfg.ResetTokenTTL)
 	}
 }
 
@@ -164,5 +204,74 @@ func TestLoad_InvalidCookieSecureFailsFast(t *testing.T) {
 
 	if _, err := Load(); err == nil {
 		t.Fatal("Load: expected an error for a malformed AUTH_COOKIE_SECURE")
+	}
+}
+
+func TestLoad_MalformedAppBaseURLFailsFast(t *testing.T) {
+	cases := []struct {
+		name string
+		url  string
+	}{
+		{"missing scheme", "localhost:3000"},
+		{"missing host", "http://"},
+		{"unparsable", "://bad"},
+		{"scheme only, no host or slashes", "not-a-url"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv("APP_BASE_URL", tc.url)
+
+			if _, err := Load(); err == nil {
+				t.Fatalf("Load: expected an error for APP_BASE_URL=%q", tc.url)
+			}
+		})
+	}
+}
+
+func TestLoad_InvalidVerificationTokenTTLFailsFast(t *testing.T) {
+	clearAuthEnv(t)
+	t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+	t.Setenv("AUTH_VERIFICATION_TOKEN_TTL", "not-a-duration")
+
+	if _, err := Load(); err == nil {
+		t.Fatal("Load: expected an error for a malformed AUTH_VERIFICATION_TOKEN_TTL")
+	}
+}
+
+func TestLoad_InvalidResetTokenTTLFailsFast(t *testing.T) {
+	clearAuthEnv(t)
+	t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+	t.Setenv("AUTH_RESET_TOKEN_TTL", "not-a-duration")
+
+	if _, err := Load(); err == nil {
+		t.Fatal("Load: expected an error for a malformed AUTH_RESET_TOKEN_TTL")
+	}
+}
+
+func TestLoad_NonPositiveMailTTLsFailFast(t *testing.T) {
+	cases := []struct {
+		name  string
+		key   string
+		value string
+	}{
+		{"zero verification TTL", "AUTH_VERIFICATION_TOKEN_TTL", "0s"},
+		{"negative verification TTL", "AUTH_VERIFICATION_TOKEN_TTL", "-48h"},
+		{"sub-second verification TTL", "AUTH_VERIFICATION_TOKEN_TTL", "500ms"},
+		{"zero reset TTL", "AUTH_RESET_TOKEN_TTL", "0s"},
+		{"negative reset TTL", "AUTH_RESET_TOKEN_TTL", "-30m"},
+		{"sub-second reset TTL", "AUTH_RESET_TOKEN_TTL", "10ms"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv(tc.key, tc.value)
+
+			if _, err := Load(); err == nil {
+				t.Fatalf("Load: expected an error for %s=%s - parseable but non-positive TTLs issue already-expired tokens", tc.key, tc.value)
+			}
+		})
 	}
 }

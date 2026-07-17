@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"os"
 	"strings"
 	"testing"
@@ -16,6 +17,7 @@ import (
 	"github.com/GonzaloSecades/nuchi/backend/internal/config"
 	"github.com/GonzaloSecades/nuchi/backend/internal/db"
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
+	"github.com/GonzaloSecades/nuchi/backend/internal/mail"
 	"github.com/GonzaloSecades/nuchi/backend/internal/openapi"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -30,6 +32,12 @@ type authTestEnv struct {
 	router    http.Handler
 	cfg       config.Config
 	accessTTL time.Duration
+	mailer    *mail.CapturingMailer
+	// authServer is the same instance router dispatches to. Most tests only
+	// need router; a few (the rollback-fault test) construct their own
+	// AuthServer directly with a fault-injecting pool instead of using this
+	// field.
+	authServer *AuthServer
 }
 
 func newAuthTestEnv(t *testing.T) authTestEnv {
@@ -47,17 +55,26 @@ func newAuthTestEnv(t *testing.T) authTestEnv {
 	}
 	t.Cleanup(pool.Close)
 
+	appBaseURL, err := url.Parse("http://localhost:3000")
+	if err != nil {
+		t.Fatalf("parse test app base URL: %v", err)
+	}
 	cfg := config.Config{
 		JWTSecret:       []byte("live-http-test-secret-at-least-32-bytes!!"),
 		AccessTokenTTL:  30 * time.Minute,
 		RefreshTokenTTL: 720 * time.Hour,
 		CookieSecure:    false,
+
+		AppBaseURL:           appBaseURL,
+		VerificationTokenTTL: 48 * time.Hour,
+		ResetTokenTTL:        30 * time.Minute,
 	}
 
-	authServer := NewAuthServer(pool, cfg)
+	mailer := mail.NewCapturingMailer()
+	authServer := NewAuthServer(pool, cfg, mailer)
 	router := NewRouter(authServer)
 
-	return authTestEnv{pool: pool, router: router, cfg: cfg, accessTTL: cfg.AccessTokenTTL}
+	return authTestEnv{pool: pool, router: router, cfg: cfg, accessTTL: cfg.AccessTokenTTL, mailer: mailer, authServer: authServer}
 }
 
 func (e authTestEnv) do(t *testing.T, method, path string, body any, cookie *http.Cookie) *httptest.ResponseRecorder {
