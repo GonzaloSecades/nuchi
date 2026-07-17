@@ -1350,13 +1350,13 @@
     "semantic_hash": ""
   },
   "backend/internal/http/auth.go": {
-    "mtime": 1784299308.874636,
-    "ast_hash": "0ca24480acf77f43ed8572ab8683cfd9",
+    "mtime": 1784304144.9661722,
+    "ast_hash": "b2487ee4cd3f8f1c7b348e8000a94a62",
     "semantic_hash": ""
   },
   "backend/internal/http/auth_live_test.go": {
-    "mtime": 1784299357.5050626,
-    "ast_hash": "8c383a5425f3e2df9bfdbc148435dacb",
+    "mtime": 1784304144.967172,
+    "ast_hash": "9ae25239f265a78dc78a27bd06364077",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260714_131130_got_ticket__41_done_by_claude__please_review_the_p.md": {
@@ -1377,6 +1377,11 @@
   "post-migration-improvements/claude-backend-improvements/0010-auth-contract-omits-500.md": {
     "mtime": 1784296925.9444642,
     "ast_hash": "0f5ccef73b4e6343bbf4303cff08ea95",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260717_150834_review_pr__64_against_post_merge_pr__62_comment_an.md": {
+    "mtime": 1784300914.0623503,
+    "ast_hash": "b86c85d7b31c9bbc03aadb2678d9f8be",
     "semantic_hash": ""
   }
 }
