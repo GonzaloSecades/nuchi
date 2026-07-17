@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strings"
 	"testing"
 	"time"
 
@@ -210,6 +211,10 @@ func TestAuthLive_Register_ValidationErrors(t *testing.T) {
 		// counts characters, so byte-length validation would wrongly accept
 		// this.
 		{"multibyte short password", credentialsBody{Email: uniqueAuthTestEmail("emoji-pw"), Password: "😀😀"}},
+		// Far past maxAuthBodyBytes: MaxBytesReader must stop an anonymous
+		// client from streaming an arbitrarily large body into the decoder
+		// (or a giant accepted password into Argon2).
+		{"oversized body", credentialsBody{Email: uniqueAuthTestEmail("oversized"), Password: strings.Repeat("a", 64*1024)}},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

@@ -29,6 +29,24 @@ const (
 	refreshCookiePath = "/api/auth"
 )
 
+// maxAuthBodyBytes caps the request body on the unauthenticated auth
+// endpoints. Register/login bodies are an email and a password — a few
+// hundred bytes at most — so 4 KiB is generous while denying an anonymous
+// client the ability to stream an arbitrarily large body into the JSON
+// decoder (and from there into Argon2). Enforced with http.MaxBytesReader,
+// which also covers chunked bodies that carry no Content-Length.
+const maxAuthBodyBytes = 4 * 1024
+
+// decodeAuthBody decodes an auth request body under maxAuthBodyBytes. The
+// boolean result reports whether decoding succeeded; on failure the caller
+// responds with its operation's 400 ValidationError (an oversized body is a
+// malformed request, same as invalid JSON — the response shape stays within
+// the contract).
+func decodeAuthBody(w http.ResponseWriter, r *http.Request, dst *credentialsBody) bool {
+	r.Body = http.MaxBytesReader(w, r.Body, maxAuthBodyBytes)
+	return json.NewDecoder(r.Body).Decode(dst) == nil
+}
+
 // AuthServer implements the four in-scope generated openapi.ServerInterface
 // auth methods (RegisterUser, LoginUser, RefreshSession, LogoutUser) with
 // the exact signatures oapi-codegen generated, so wiring the remaining
@@ -92,7 +110,7 @@ type apiFieldError struct {
 // query until #42 lands.
 func (s *AuthServer) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	var body credentialsBody
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+	if !decodeAuthBody(w, r, &body) {
 		writeRegisterValidationError(w)
 		return
 	}
@@ -154,7 +172,7 @@ func (s *AuthServer) RegisterUser(w http.ResponseWriter, r *http.Request) {
 // "no such user" from "wrong password" (see auth.DummyVerify).
 func (s *AuthServer) LoginUser(w http.ResponseWriter, r *http.Request) {
 	var body credentialsBody
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+	if !decodeAuthBody(w, r, &body) {
 		resp := openapi.LoginUser400JSONResponse{ValidationErrorJSONResponse: validationError()}
 		_ = resp.VisitLoginUserResponse(w)
 		return

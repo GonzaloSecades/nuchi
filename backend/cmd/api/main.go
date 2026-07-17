@@ -39,9 +39,17 @@ func main() {
 	authServer := httpapi.NewAuthServer(pool, cfg)
 
 	server := &http.Server{
-		Addr:              cfg.Addr(),
-		Handler:           httpapi.NewRouter(authServer),
+		Addr:    cfg.Addr(),
+		Handler: httpapi.NewRouter(authServer),
+		// ReadTimeout bounds the whole request read (headers + body), not
+		// just headers: without it an anonymous client on the public auth
+		// endpoints can hold a connection open indefinitely by streaming a
+		// body one byte at a time. WriteTimeout and IdleTimeout bound the
+		// response and keep-alive halves the same way.
 		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       15 * time.Second,
+		WriteTimeout:      30 * time.Second,
+		IdleTimeout:       120 * time.Second,
 	}
 
 	errs := make(chan error, 1)
