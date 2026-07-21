@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "backend/internal/config/config.go": {
-    "mtime": 1784659404.4147985,
-    "ast_hash": "78456b804cae3c9b048d50c5f970c8f4",
+    "mtime": 1784662101.8348181,
+    "ast_hash": "8203cf0cfcc9b075241d7119822d6dc8",
     "semantic_hash": ""
   },
   "backend/internal/http/health.go": {
@@ -850,8 +850,8 @@
     "semantic_hash": ""
   },
   "backend/README.md": {
-    "mtime": 1784659975.8413134,
-    "ast_hash": "f44886db117af8846b4c666d38b39c81",
+    "mtime": 1784662144.0840647,
+    "ast_hash": "6b793d8c12e9ff33991ce7a1a8125c22",
     "semantic_hash": ""
   },
   "docker-compose.dev.yml": {
@@ -1070,8 +1070,8 @@
     "semantic_hash": ""
   },
   "backend/internal/config/config_test.go": {
-    "mtime": 1784659413.4668255,
-    "ast_hash": "3e07b19894063f48a451d36a0ecabbc8",
+    "mtime": 1784662113.58134,
+    "ast_hash": "d4989f1882f4c30be77d4ba609358360",
     "semantic_hash": ""
   },
   "backend/internal/db/db.go": {

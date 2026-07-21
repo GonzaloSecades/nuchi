@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -190,9 +191,22 @@ func Load() (Config, error) {
 		return Config{}, fmt.Errorf("config: SMTP_ADDR must be host:port, got %q: %w", smtpAddr, err)
 	}
 
-	mailFrom := getEnv("MAIL_FROM", defaultMailFrom)
-	if _, err := mail.ParseAddress(mailFrom); err != nil {
+	mailFrom := strings.TrimSpace(getEnv("MAIL_FROM", defaultMailFrom))
+	parsedFrom, err := mail.ParseAddress(mailFrom)
+	if err != nil {
 		return Config{}, fmt.Errorf("config: MAIL_FROM must be a valid email address, got %q: %w", mailFrom, err)
+	}
+	// mail.ParseAddress is lenient: it accepts display-name syntax
+	// ("Nuchi <nuchi@localhost>") and bare angle brackets. This value is the
+	// SMTP *envelope* sender, and smtp.Client.Mail emits "MAIL FROM:<%s>"
+	// verbatim, so either form would put MAIL FROM:<Nuchi <nuchi@localhost>>
+	// on the wire and a real server would reject every send — asynchronously,
+	// which is precisely the silent failure this validation exists to
+	// prevent. Require a bare mailbox rather than quietly discarding the
+	// display name; a friendly From header belongs with the production SMTP
+	// wiring (auth, TLS, a real provider) that is out of scope here.
+	if parsedFrom.Address != mailFrom {
+		return Config{}, fmt.Errorf("config: MAIL_FROM must be a bare email address such as %q, not display-name syntax, got %q", parsedFrom.Address, mailFrom)
 	}
 
 	return Config{

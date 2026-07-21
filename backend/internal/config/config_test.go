@@ -311,7 +311,19 @@ func TestLoad_MalformedSMTPAddrFailsFast(t *testing.T) {
 }
 
 func TestLoad_MalformedMailFromFailsFast(t *testing.T) {
-	for _, from := range []string{"not an address", "@localhost", "a@b@c"} {
+	cases := []string{
+		"not an address",
+		"@localhost",
+		"a@b@c",
+		// mail.ParseAddress accepts these, but MAIL_FROM is the SMTP
+		// envelope sender and smtp.Client.Mail emits "MAIL FROM:<%s>"
+		// verbatim — either form would put a malformed envelope on the wire
+		// and a real server would reject every send.
+		"Nuchi <nuchi@localhost>",
+		"<nuchi@localhost>",
+		`"Nuchi Mailer" <nuchi@localhost>`,
+	}
+	for _, from := range cases {
 		t.Run(from, func(t *testing.T) {
 			clearAuthEnv(t)
 			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
@@ -319,6 +331,26 @@ func TestLoad_MalformedMailFromFailsFast(t *testing.T) {
 
 			if _, err := Load(); err == nil {
 				t.Fatalf("Load: expected an error for MAIL_FROM=%q", from)
+			}
+		})
+	}
+}
+
+// A bare mailbox is the supported shape, and surrounding whitespace (easy to
+// leave in a .env file) is tolerated rather than treated as a display name.
+func TestLoad_BareMailFromAccepted(t *testing.T) {
+	for _, from := range []string{"nuchi@localhost", "no-reply@nuchi.example", "  nuchi@localhost  "} {
+		t.Run(from, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv("MAIL_FROM", from)
+
+			cfg, err := Load()
+			if err != nil {
+				t.Fatalf("Load: unexpected error for MAIL_FROM=%q: %v", from, err)
+			}
+			if want := strings.TrimSpace(from); cfg.MailFrom != want {
+				t.Errorf("expected MailFrom %q, got %q", want, cfg.MailFrom)
 			}
 		})
 	}
