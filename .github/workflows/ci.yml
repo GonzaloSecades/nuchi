@@ -44,6 +44,18 @@ jobs:
       - name: Apply migrations
         run: goose -dir migrations postgres "$TEST_DATABASE_URL" up
         working-directory: backend
+      # The postgres image creates POSTGRES_USER as a SUPERUSER, and
+      # superusers bypass row level security outright — FORCE included. Left
+      # alone, every RLS ownership test would pass vacuously against a
+      # connection that no policy applies to, which is the opposite of what
+      # they exist to prove. Migrations need the superuser rights first
+      # (00001 runs CREATE EXTENSION citext), so the attribute is dropped
+      # immediately afterwards, leaving the app role as table owner with
+      # FORCE RLS applying to it exactly as in a real deployment.
+      - name: Drop superuser from the app role so RLS applies
+        run: |
+          psql "$TEST_DATABASE_URL" -c 'ALTER ROLE nuchi NOSUPERUSER'
+          psql "$TEST_DATABASE_URL" -tAc "SELECT rolsuper FROM pg_roles WHERE rolname = current_user" | grep -qx f
       - run: go vet ./...
         working-directory: backend
       - run: go test ./...
