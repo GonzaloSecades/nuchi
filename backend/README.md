@@ -338,6 +338,16 @@ matters because the API connects as the `nuchi` role, which owns these
 tables — Postgres exempts table owners from RLS unless it is explicitly
 forced.
 
+FORCE is not enough on its own: **`nuchi` must not be a superuser**, because
+superusers bypass RLS entirely and FORCE does not change that. Docker
+Compose and CI both bootstrap Postgres as a separate `postgres` superuser
+and create `nuchi` as an ordinary role that owns the schema (see
+`docker/postgres/init/01-app-role.sql` and the `backend` job in
+`.github/workflows/ci.yml`). This is not theoretical — CI's RLS tests failed
+the first time they ran against a real database precisely because the app
+role was the bootstrap superuser, and every policy assertion was passing
+vacuously.
+
 Every policy reads the current app user from the `app.user_id` session
 setting:
 

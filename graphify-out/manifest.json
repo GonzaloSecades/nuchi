@@ -845,13 +845,13 @@
     "semantic_hash": "63554a20789b246c658cfbd38898b199"
   },
   "README.md": {
-    "mtime": 1784658653.0332415,
-    "ast_hash": "5600e70ab37dace796c4fc10934ce277",
+    "mtime": 1784659960.56933,
+    "ast_hash": "600ed002df03e363026bdc5a4020f273",
     "semantic_hash": ""
   },
   "backend/README.md": {
-    "mtime": 1784659474.7029269,
-    "ast_hash": "d38176e49a351bab7cbece18b9a7ba19",
+    "mtime": 1784659975.8413134,
+    "ast_hash": "f44886db117af8846b4c666d38b39c81",
     "semantic_hash": ""
   },
   "docker-compose.dev.yml": {
@@ -860,9 +860,9 @@
     "semantic_hash": "641a0abbc4bcd1e6636d89aab283628b"
   },
   "docker-compose.yml": {
-    "mtime": 1784315916.9454951,
-    "ast_hash": "c06e76db00ea87616e8668952a17e505",
-    "semantic_hash": "c06e76db00ea87616e8668952a17e505"
+    "mtime": 1784659886.8076525,
+    "ast_hash": "6ea49b72ecc0efcd9f97d6a194fe3bcd",
+    "semantic_hash": ""
   },
   "docs/CODEX_CONTEXT.md": {
     "mtime": 1784315916.9468215,
@@ -1427,6 +1427,11 @@
   "backend/internal/http/livedb_test.go": {
     "mtime": 1784658525.4803505,
     "ast_hash": "ec6da0358ebdfb4ffa84cd26798a1107",
+    "semantic_hash": ""
+  },
+  "docker/postgres/init/01-app-role.sql": {
+    "mtime": 1784659878.0249734,
+    "ast_hash": "bf2ab260c5b03d5432d4f4d0670584a1",
     "semantic_hash": ""
   }
 }

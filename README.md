@@ -136,10 +136,35 @@ Local service defaults:
 - Mailpit UI: `http://localhost:8025`.
 - Mailpit SMTP: `localhost:1025`.
 
+### Postgres roles
+
+The container's bootstrap superuser is `postgres`. The application role
+`nuchi` is an ordinary (non-superuser) role created on first startup by
+`docker/postgres/init/01-app-role.sql`, which also hands it ownership of the
+`public` schema so the goose migrations create tables it owns. Applications
+still connect as `nuchi`, so `DATABASE_URL` is unchanged.
+
+The two must stay separate: **superusers bypass row level security
+entirely, `FORCE` included**, so an app connecting as the bootstrap
+superuser would have the ownership policies in
+`backend/migrations/00003_finance_rls.sql` silently not apply — and the RLS
+tests would pass while proving nothing. PostgreSQL also refuses to let the
+bootstrap superuser drop its own `SUPERUSER` attribute, so this cannot be
+corrected after the fact.
+
+Docker init scripts run only when the data volume is first created. **A
+volume created before this change still has `nuchi` as the bootstrap
+superuser**; reset it once (destructive — see below) to pick up the split:
+
+```bash
+docker compose down --volumes
+docker compose up -d postgres mailpit
+```
+
 Check Postgres readiness:
 
 ```bash
-docker compose exec postgres pg_isready -U nuchi -d nuchi
+docker compose exec postgres pg_isready -U postgres -d nuchi
 ```
 
 Destroy local service data only when you intentionally want a destructive reset:
