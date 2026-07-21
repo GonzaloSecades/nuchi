@@ -527,7 +527,6 @@
   "525": "Current State and Constraints",
   "526": "graphify reference: add a URL and watch a folder",
   "527": "graphify reference: commit hook and native CLAUDE.md integration",
-  "528": "UnmarshalingParamError",
   "529": "Security Standard",
   "530": "graphify reference: incremental update and cluster-only",
   "531": "Performance and Query Engineering",
@@ -538,8 +537,5 @@
   "536": "UnescapedCookieParamError",
   "537": "extraction-spec.md",
   "538": "BulkDeleteCategories200JSONResponse",
-  "539": "BulkDeleteTransactions200JSONResponse",
-  "540": "API Contract and Documentation Standard",
-  "541": "RegisterUser201JSONResponse",
-  "542": "UpdateCategory200JSONResponse"
+  "540": "API Contract and Documentation Standard"
 }

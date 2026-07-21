@@ -1,16 +1,16 @@
-# Graph Report - agent-ae404cbb78eca876e  (2026-07-17)
+# Graph Report - agent-ae404cbb78eca876e  (2026-07-21)
 
 ## Corpus Check
-- 273 files · ~126,068 words
+- 273 files · ~126,009 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2563 nodes · 4136 edges · 543 communities (143 shown, 400 thin omitted)
+- 2563 nodes · 4135 edges · 539 communities (144 shown, 395 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 153 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `865a89fa`
+- Built from commit: `c882cb35`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -524,7 +524,6 @@
 - [[_COMMUNITY_Current State and Constraints|Current State and Constraints]]
 - [[_COMMUNITY_graphify reference add a URL and watch a folder|graphify reference: add a URL and watch a folder]]
 - [[_COMMUNITY_graphify reference commit hook and native CLAUDE.md integration|graphify reference: commit hook and native CLAUDE.md integration]]
-- [[_COMMUNITY_UnmarshalingParamError|UnmarshalingParamError]]
 - [[_COMMUNITY_Security Standard|Security Standard]]
 - [[_COMMUNITY_graphify reference incremental update and cluster-only|graphify reference: incremental update and cluster-only]]
 - [[_COMMUNITY_Performance and Query Engineering|Performance and Query Engineering]]
@@ -535,10 +534,7 @@
 - [[_COMMUNITY_UnescapedCookieParamError|UnescapedCookieParamError]]
 - [[_COMMUNITY_extraction-spec|extraction-spec.md]]
 - [[_COMMUNITY_BulkDeleteCategories200JSONResponse|BulkDeleteCategories200JSONResponse]]
-- [[_COMMUNITY_BulkDeleteTransactions200JSONResponse|BulkDeleteTransactions200JSONResponse]]
 - [[_COMMUNITY_API Contract and Documentation Standard|API Contract and Documentation Standard]]
-- [[_COMMUNITY_RegisterUser201JSONResponse|RegisterUser201JSONResponse]]
-- [[_COMMUNITY_UpdateCategory200JSONResponse|UpdateCategory200JSONResponse]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 95 edges
@@ -567,7 +563,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (543 total, 400 thin omitted)
+## Communities (539 total, 395 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -619,7 +615,7 @@ Nodes (9): Follow-Up Memory, Implemented Scope, Last Verified, Local Database, M
 
 ### Community 17 - "Transactions Ts"
 Cohesion: 0.01
-Nodes (145): Time, BulkCreateTransactionsJSONRequestBody, BulkDeleteAccountsJSONRequestBody, BulkDeleteCategoriesJSONRequestBody, BulkDeleteTransactionsJSONRequestBody, ConfirmPasswordResetJSONRequestBody, CreateAccountJSONRequestBody, CreateCategoryJSONRequestBody (+137 more)
+Nodes (141): Time, BulkCreateTransactionsJSONRequestBody, BulkDeleteAccountsJSONRequestBody, BulkDeleteCategoriesJSONRequestBody, BulkDeleteTransactionsJSONRequestBody, ConfirmPasswordResetJSONRequestBody, CreateAccountJSONRequestBody, CreateCategoryJSONRequestBody (+133 more)
 
 ### Community 18 - "0001 Snapshot Json"
 Cohesion: 0.23
@@ -1013,12 +1009,16 @@ Nodes (5): For /graphify explain, For /graphify path, graphify reference: query,
 Cohesion: 0.22
 Nodes (5): Codex Backend Improvements, Decision hierarchy, Definition of done for an endpoint, How to use this set, Source set
 
+### Community 520 - "InvalidParamFormatError"
+Cohesion: 0.14
+Nodes (9): ApiError, ApiErrorResponse, BulkCreateTransactions429JSONResponse, BulkDeleteTransactions429JSONResponse, CreateTransaction429JSONResponse, DeleteTransaction429JSONResponse, TransactionMutationRateLimitErrorJSONResponse, TransactionMutationRateLimitErrorResponseHeaders (+1 more)
+
 ### Community 521 - "Target Backend Architecture"
-Cohesion: 0.22
+Cohesion: 0.20
 Nodes (9): Architecture acceptance tests, Configuration, Core rule, Endpoint policy registry, Error boundary, Package boundaries, Request flow, Target Backend Architecture (+1 more)
 
 ### Community 522 - "Observability Readiness"
-Cohesion: 0.22
+Cohesion: 0.25
 Nodes (8): Context and correlation, Health, readiness, and diagnostics, Instrumentation seam, Metrics vocabulary, Observability Readiness, Readiness gate before selecting a tool, Structured logging, Trace boundaries
 
 ### Community 523 - "Module Improvement Map"
@@ -1068,17 +1068,17 @@ Nodes (6): API Contract and Documentation Standard, Contract workflow, Documenta
 ## Knowledge Gaps
 - **1076 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+1071 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **400 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **395 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `decodeAPIError()` connect `Components Json` to `Transactions Ts`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
-- **Why does `ApiErrorResponse` connect `Transactions Ts` to `Components Json`?**
+- **Why does `decodeAPIError()` connect `Components Json` to `InvalidParamFormatError`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+- **Why does `ApiErrorResponse` connect `InvalidParamFormatError` to `Transactions Ts`, `Components Json`?**
   _High betweenness centrality (0.026) - this node is a cross-community bridge._
 - **Why does `New()` connect `Page Tsx` to `Current API Parity Fixtures`, `Components Json`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
 - **What connects `Props`, `ResponseType`, `Props` to the rest of the system?**
   _1101 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
