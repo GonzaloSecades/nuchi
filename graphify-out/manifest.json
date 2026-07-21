@@ -1355,8 +1355,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/auth_live_test.go": {
-    "mtime": 1784656048.5160217,
-    "ast_hash": "91926e579ef9720c01f4ed877be5f530",
+    "mtime": 1784656495.7436533,
+    "ast_hash": "b8ce0130afb922f7df62a2cdd64a2139",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260714_131130_got_ticket__41_done_by_claude__please_review_the_p.md": {
@@ -1395,8 +1395,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/email_flows_live_test.go": {
-    "mtime": 1784656034.4316597,
-    "ast_hash": "7e426231149c28a213751206563e41d8",
+    "mtime": 1784656508.6332798,
+    "ast_hash": "9a4c96297229fd496958d5278b325016",
     "semantic_hash": ""
   },
   "backend/internal/mail/fake.go": {

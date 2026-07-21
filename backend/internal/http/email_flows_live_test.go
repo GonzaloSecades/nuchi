@@ -611,6 +611,53 @@ func TestAuthLive_PasswordReset_ConcurrentIssuance_LockSerializesAndCapsAtThree(
 	}
 }
 
+// --- contract: strict body decoding ------------------------------------------
+
+// TestAuthLive_EmailFlows_UnknownFieldRejected extends the register/login
+// coverage of the contract's additionalProperties: false (#63) to the three
+// operations #42 adds. decodeAuthBody is now one generic function shared by
+// every auth body type, so this pins that generalization: TokenRequest,
+// PasswordResetRequest, and PasswordResetConfirmRequest must each 400 on an
+// undeclared field rather than silently ignoring it.
+func TestAuthLive_EmailFlows_UnknownFieldRejected(t *testing.T) {
+	env := newAuthTestEnv(t)
+
+	cases := []struct {
+		name string
+		path string
+		body map[string]any
+	}{
+		{
+			name: "verify-email",
+			path: "/api/auth/verify-email",
+			body: map[string]any{"token": "some-token", "redirectTo": "/dashboard"},
+		},
+		{
+			name: "password-reset/request",
+			path: "/api/auth/password-reset/request",
+			body: map[string]any{"email": "someone@example.test", "locale": "es-AR"},
+		},
+		{
+			name: "password-reset/confirm",
+			path: "/api/auth/password-reset/confirm",
+			body: map[string]any{"token": "some-token", "password": "a-long-enough-password", "logoutEverywhere": true},
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			rec := env.do(t, http.MethodPost, tc.path, tc.body, nil)
+			if rec.Code != http.StatusBadRequest {
+				t.Fatalf("expected 400 for a body with an unknown field, got %d (body: %s)", rec.Code, rec.Body.String())
+			}
+			apiErr := decodeAPIError(t, rec)
+			if apiErr.Error.Code != "VALIDATION_ERROR" {
+				t.Errorf("expected code VALIDATION_ERROR, got %q", apiErr.Error.Code)
+			}
+		})
+	}
+}
+
 // --- rollback fault -----------------------------------------------------------
 
 // TestAuthLive_ConfirmPasswordReset_RollbackFault_TokenRemainsUsable injects

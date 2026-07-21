@@ -515,8 +515,6 @@
   "513": ".CreateCategory",
   "514": "RegisterUser201JSONResponse",
   "515": "query-provider.tsx",
-  "516": "api-base-url.ts",
-  "517": "badge.tsx",
   "518": "graphify reference: query, path, explain",
   "519": "README.md",
   "520": "InvalidParamFormatError",
@@ -530,12 +528,10 @@
   "529": "Security Standard",
   "530": "graphify reference: incremental update and cluster-only",
   "531": "Performance and Query Engineering",
-  "532": "use-edit-category.ts",
   "533": "Robustness and Transaction Semantics",
   "534": "graphify reference: GitHub clone and cross-repo merge",
   "535": "graphify reference: transcribe video and audio",
   "536": "UnescapedCookieParamError",
   "537": "extraction-spec.md",
-  "538": "BulkDeleteCategories200JSONResponse",
   "540": "API Contract and Documentation Standard"
 }

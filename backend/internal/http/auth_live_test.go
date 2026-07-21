@@ -124,9 +124,11 @@ func uniqueAuthTestEmail(label string) string {
 }
 
 // registerAndVerify registers a user through the real HTTP handler, then
-// marks it verified directly via MarkUserEmailVerified (standing in for
-// #42's email verification flow, which is out of scope here), and
-// registers cleanup. Returns the email and password used.
+// marks it verified directly via MarkUserEmailVerified rather than going
+// through the verify-email endpoint: tests that only need an already-verified
+// user should not depend on the email flow's async send. The flow itself is
+// covered end-to-end in email_flows_live_test.go (#42). Registers cleanup and
+// returns the email and password used.
 func (e authTestEnv) registerAndVerify(t *testing.T, label, password string) (email string, cleanup func()) {
 	t.Helper()
 
