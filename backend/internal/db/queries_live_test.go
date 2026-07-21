@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
 	"sync"
 	"testing"
 	"time"
@@ -32,10 +31,7 @@ import (
 // Owned-resource queries run under FORCE RLS, so app.user_id is set via
 // setAppUser (defined in finance_rls_test.go) before each is exercised.
 func TestSqlcQueries_LiveDatabase(t *testing.T) {
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live database sqlc round-trip test")
-	}
+	databaseURL := liveDatabaseURL(t, "live database sqlc round-trip test")
 
 	ctx := context.Background()
 	pool, err := NewPool(ctx, databaseURL)
@@ -490,10 +486,7 @@ func uniqueTestEmail(label string) string {
 // (token rows cascade). Auth tables carry no RLS, so no app.user_id is
 // needed. Skipped unless TEST_DATABASE_URL is set.
 func TestConsumeRefreshToken_Concurrent(t *testing.T) {
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live concurrent refresh-consume test")
-	}
+	databaseURL := liveDatabaseURL(t, "live concurrent refresh-consume test")
 
 	ctx := context.Background()
 	pool, err := NewPool(ctx, databaseURL)

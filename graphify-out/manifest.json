@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "backend/internal/config/config.go": {
-    "mtime": 1784656887.795197,
-    "ast_hash": "dd1f2c8286253b3465fa0fb3e05e272c",
+    "mtime": 1784658386.39851,
+    "ast_hash": "49647524dad0f85644a68d60d8cd4022",
     "semantic_hash": ""
   },
   "backend/internal/http/health.go": {
@@ -845,13 +845,13 @@
     "semantic_hash": "63554a20789b246c658cfbd38898b199"
   },
   "README.md": {
-    "mtime": 1784315916.8219194,
-    "ast_hash": "dccf0f8380dc49329c373c97b6aba6ae",
+    "mtime": 1784658653.0332415,
+    "ast_hash": "5600e70ab37dace796c4fc10934ce277",
     "semantic_hash": ""
   },
   "backend/README.md": {
-    "mtime": 1784656960.1830077,
-    "ast_hash": "fa01467bf6325606fd7a3f3b77c8b234",
+    "mtime": 1784658641.344489,
+    "ast_hash": "fa2f643b4e1066c93e1dee1524ecdb2a",
     "semantic_hash": ""
   },
   "docker-compose.dev.yml": {
@@ -1045,8 +1045,8 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "mtime": 1784315916.8073351,
-    "ast_hash": "9d7c21b3ab5b48c5fcbe27c0b0ab2cc4",
+    "mtime": 1784658652.9337711,
+    "ast_hash": "1195d6c084251e4fcdab518cea8790f6",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
@@ -1070,8 +1070,8 @@
     "semantic_hash": ""
   },
   "backend/internal/config/config_test.go": {
-    "mtime": 1784656927.6684768,
-    "ast_hash": "c77fbe2fe4c3d3d3e633ed9fda2aa763",
+    "mtime": 1784658392.8888526,
+    "ast_hash": "f71e236759d18530f9b547f365bf960b",
     "semantic_hash": ""
   },
   "backend/internal/db/db.go": {
@@ -1080,8 +1080,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/db_test.go": {
-    "mtime": 1784315916.868006,
-    "ast_hash": "ec57a4c0711a893f28168f618e5e2b5f",
+    "mtime": 1784658625.3144886,
+    "ast_hash": "11881577635a7488b07bb7e93bb0747c",
     "semantic_hash": ""
   },
   "backend/sqlc.yaml": {
@@ -1090,8 +1090,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/auth_schema_test.go": {
-    "mtime": 1784315916.8659813,
-    "ast_hash": "da20b24ea8bef33e0521ce106cfaa2b1",
+    "mtime": 1784658625.3150325,
+    "ast_hash": "3840960a3a8fe1ad99c5813546c3c7d4",
     "semantic_hash": ""
   },
   "backend/migrations/00001_auth_base.sql": {
@@ -1100,13 +1100,13 @@
     "semantic_hash": ""
   },
   "backend/internal/db/finance_rls_test.go": {
-    "mtime": 1784315916.8685129,
-    "ast_hash": "3e8f7b45d6cf96a8a732d97a8d1e8019",
+    "mtime": 1784658510.1781695,
+    "ast_hash": "193db5b30c5be881cc4632c19b861739",
     "semantic_hash": ""
   },
   "backend/internal/db/finance_schema_test.go": {
-    "mtime": 1784315916.8705392,
-    "ast_hash": "efd963744c1bf7a888c0ac31bfc5c04d",
+    "mtime": 1784658625.3165045,
+    "ast_hash": "b1f212b072e882200ba0ca980d6c0321",
     "semantic_hash": ""
   },
   "backend/migrations/00002_finance_base.sql": {
@@ -1215,8 +1215,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/queries_live_test.go": {
-    "mtime": 1784315916.884687,
-    "ast_hash": "3e948b659f9dc56c2da16231b591fceb",
+    "mtime": 1784658510.1920562,
+    "ast_hash": "7731f5f10e10f56cb1b8274892715813",
     "semantic_hash": ""
   },
   "post-migration-improvements/claude-backend-improvements/0001-transactions-date-timestamp.md": {
@@ -1355,8 +1355,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/auth_live_test.go": {
-    "mtime": 1784656495.7436533,
-    "ast_hash": "b8ce0130afb922f7df62a2cdd64a2139",
+    "mtime": 1784658535.9183667,
+    "ast_hash": "d97547dfc3a163e51519bba64f106c43",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260714_131130_got_ticket__41_done_by_claude__please_review_the_p.md": {
@@ -1417,6 +1417,16 @@
   "backend/internal/mail/smtp.go": {
     "mtime": 1784316551.8297489,
     "ast_hash": "57fa574c964177409d06097d36b6d835",
+    "semantic_hash": ""
+  },
+  "backend/internal/db/livedb_test.go": {
+    "mtime": 1784658471.2251236,
+    "ast_hash": "1dd93e919c07f404f9dabe67787fe81e",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/livedb_test.go": {
+    "mtime": 1784658525.4803505,
+    "ast_hash": "ec6da0358ebdfb4ffa84cd26798a1107",
     "semantic_hash": ""
   }
 }

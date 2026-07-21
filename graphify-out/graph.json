@@ -50,7 +50,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions",
-      "community": 348,
+      "community": 42,
       "norm_label": "actions.tsx"
     },
     {
@@ -60,7 +60,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions_props",
-      "community": 348,
+      "community": 42,
       "norm_label": "props"
     },
     {
@@ -70,7 +70,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions_actions",
-      "community": 348,
+      "community": 42,
       "norm_label": "actions()"
     },
     {
@@ -80,7 +80,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns",
-      "community": 348,
+      "community": 42,
       "norm_label": "columns.tsx"
     },
     {
@@ -90,7 +90,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns_responsetype",
-      "community": 348,
+      "community": 42,
       "norm_label": "responsetype"
     },
     {
@@ -100,7 +100,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns_columns",
-      "community": 41,
+      "community": 42,
       "norm_label": "columns"
     },
     {
@@ -150,7 +150,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "app_dashboard_categories_actions_actions",
-      "community": 348,
+      "community": 42,
       "norm_label": "actions()"
     },
     {
@@ -240,7 +240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_page",
-      "community": 40,
+      "community": 14,
       "norm_label": "page.tsx"
     },
     {
@@ -250,7 +250,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_dashboard_page_dashboardpage",
-      "community": 40,
+      "community": 14,
       "norm_label": "dashboardpage()"
     },
     {
@@ -260,7 +260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_account_column",
-      "community": 348,
+      "community": 42,
       "norm_label": "account-column.tsx"
     },
     {
@@ -270,7 +270,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "app_dashboard_transactions_account_column_props",
-      "community": 348,
+      "community": 42,
       "norm_label": "props"
     },
     {
@@ -280,7 +280,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_dashboard_transactions_account_column_accountcolumn",
-      "community": 348,
+      "community": 42,
       "norm_label": "accountcolumn()"
     },
     {
@@ -290,7 +290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_actions",
-      "community": 42,
+      "community": 260,
       "norm_label": "actions.tsx"
     },
     {
@@ -300,7 +300,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_dashboard_transactions_actions_props",
-      "community": 42,
+      "community": 260,
       "norm_label": "props"
     },
     {
@@ -310,7 +310,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_transactions_actions_actions",
-      "community": 348,
+      "community": 260,
       "norm_label": "actions()"
     },
     {
@@ -370,7 +370,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns_columns",
-      "community": 317,
+      "community": 42,
       "norm_label": "columns"
     },
     {
@@ -380,7 +380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card",
-      "community": 317,
+      "community": 41,
       "norm_label": "import-card.tsx"
     },
     {
@@ -390,7 +390,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_requiredoptions",
-      "community": 317,
+      "community": 41,
       "norm_label": "requiredoptions"
     },
     {
@@ -400,7 +400,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_selectedcolumnsstate",
-      "community": 317,
+      "community": 41,
       "norm_label": "selectedcolumnsstate"
     },
     {
@@ -410,7 +410,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_props",
-      "community": 317,
+      "community": 41,
       "norm_label": "props"
     },
     {
@@ -420,7 +420,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_importcard",
-      "community": 317,
+      "community": 41,
       "norm_label": "importcard()"
     },
     {
@@ -430,7 +430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_table",
-      "community": 35,
+      "community": 293,
       "norm_label": "import-table.tsx"
     },
     {
@@ -440,7 +440,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_table_props",
-      "community": 35,
+      "community": 293,
       "norm_label": "props"
     },
     {
@@ -450,7 +450,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_table_importtable",
-      "community": 317,
+      "community": 41,
       "norm_label": "importtable()"
     },
     {
@@ -460,7 +460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page",
-      "community": 317,
+      "community": 41,
       "norm_label": "page.tsx"
     },
     {
@@ -470,7 +470,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_variants",
-      "community": 317,
+      "community": 41,
       "norm_label": "variants"
     },
     {
@@ -480,7 +480,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_initial_import_results",
-      "community": 317,
+      "community": 41,
       "norm_label": "initial_import_results"
     },
     {
@@ -500,7 +500,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_transactionspagewrapper",
-      "community": 317,
+      "community": 41,
       "norm_label": "transactionspagewrapper()"
     },
     {
@@ -540,7 +540,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_importabletransactionfield",
-      "community": 317,
+      "community": 41,
       "norm_label": "importabletransactionfield"
     },
     {
@@ -550,7 +550,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_isimportabletransactionfield",
-      "community": 41,
+      "community": 293,
       "norm_label": "isimportabletransactionfield()"
     },
     {
@@ -560,7 +560,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_tableheadselect",
-      "community": 41,
+      "community": 293,
       "norm_label": "tableheadselect()"
     },
     {
@@ -570,7 +570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button",
-      "community": 317,
+      "community": 41,
       "norm_label": "upload-button.tsx"
     },
     {
@@ -580,7 +580,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_props",
-      "community": 317,
+      "community": 41,
       "norm_label": "props"
     },
     {
@@ -590,7 +590,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_csvreaderrenderprops",
-      "community": 317,
+      "community": 41,
       "norm_label": "csvreaderrenderprops"
     },
     {
@@ -600,7 +600,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_csvuploadresults",
-      "community": 317,
+      "community": 41,
       "norm_label": "csvuploadresults"
     },
     {
@@ -610,7 +610,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_uploadbutton",
-      "community": 317,
+      "community": 41,
       "norm_label": "uploadbutton()"
     },
     {
@@ -660,7 +660,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_route_route",
-      "community": 510,
+      "community": 20,
       "norm_label": "route.ts"
     },
     {
@@ -670,7 +670,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_api_route_route_app",
-      "community": 510,
+      "community": 20,
       "norm_label": "app"
     },
     {
@@ -680,7 +680,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "app_api_route_route_routes",
-      "community": 510,
+      "community": 20,
       "norm_label": "routes"
     },
     {
@@ -690,7 +690,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "app_api_route_route_get",
-      "community": 510,
+      "community": 20,
       "norm_label": "get"
     },
     {
@@ -700,7 +700,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_api_route_route_post",
-      "community": 510,
+      "community": 20,
       "norm_label": "post"
     },
     {
@@ -710,7 +710,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "app_api_route_route_patch",
-      "community": 510,
+      "community": 20,
       "norm_label": "patch"
     },
     {
@@ -720,7 +720,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "app_api_route_route_delete",
-      "community": 510,
+      "community": 20,
       "norm_label": "delete"
     },
     {
@@ -730,7 +730,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "app_api_route_route_put",
-      "community": 510,
+      "community": 20,
       "norm_label": "put"
     },
     {
@@ -740,7 +740,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "app_api_route_route_options",
-      "community": 510,
+      "community": 20,
       "norm_label": "options"
     },
     {
@@ -750,7 +750,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "app_api_route_route_apptype",
-      "community": 510,
+      "community": 20,
       "norm_label": "apptype"
     },
     {
@@ -840,7 +840,7 @@
       "source_location": "L182",
       "_origin": "ast",
       "id": "app_api_route_transactions_app",
-      "community": 19,
+      "community": 20,
       "norm_label": "app"
     },
     {
@@ -1409,7 +1409,7 @@
       "label": ".Addr()",
       "file_type": "code",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L190",
+      "source_location": "L200",
       "_origin": "ast",
       "id": "config_config_addr",
       "community": 367,
@@ -1419,7 +1419,7 @@
       "label": "getEnv()",
       "file_type": "code",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L194",
+      "source_location": "L204",
       "_origin": "ast",
       "id": "backend_internal_config_config_getenv",
       "community": 367,
@@ -1429,7 +1429,7 @@
       "label": "getEnvDuration()",
       "file_type": "code",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L205",
+      "source_location": "L215",
       "_origin": "ast",
       "id": "backend_internal_config_config_getenvduration",
       "community": 367,
@@ -1439,7 +1439,7 @@
       "label": "getEnvBool()",
       "file_type": "code",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L221",
+      "source_location": "L231",
       "_origin": "ast",
       "id": "backend_internal_config_config_getenvbool",
       "community": 367,
@@ -1569,7 +1569,7 @@
       "label": "TestLoad_NonOriginAppBaseURLFailsFast()",
       "file_type": "code",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L238",
+      "source_location": "L245",
       "_origin": "ast",
       "id": "backend_internal_config_config_test_testload_nonoriginappbaseurlfailsfast",
       "community": 367,
@@ -1579,7 +1579,7 @@
       "label": "TestLoad_OriginAppBaseURLAccepted()",
       "file_type": "code",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L262",
+      "source_location": "L269",
       "_origin": "ast",
       "id": "backend_internal_config_config_test_testload_originappbaseurlaccepted",
       "community": 367,
@@ -1589,7 +1589,7 @@
       "label": "TestLoad_InvalidVerificationTokenTTLFailsFast()",
       "file_type": "code",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L280",
+      "source_location": "L287",
       "_origin": "ast",
       "id": "backend_internal_config_config_test_testload_invalidverificationtokenttlfailsfast",
       "community": 367,
@@ -1599,7 +1599,7 @@
       "label": "TestLoad_InvalidResetTokenTTLFailsFast()",
       "file_type": "code",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L290",
+      "source_location": "L297",
       "_origin": "ast",
       "id": "backend_internal_config_config_test_testload_invalidresettokenttlfailsfast",
       "community": 367,
@@ -1609,7 +1609,7 @@
       "label": "TestLoad_NonPositiveMailTTLsFailFast()",
       "file_type": "code",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L300",
+      "source_location": "L307",
       "_origin": "ast",
       "id": "backend_internal_config_config_test_testload_nonpositivemailttlsfailfast",
       "community": 367,
@@ -1629,7 +1629,7 @@
       "label": "TestAuthBaseSchema_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L20",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "backend_internal_db_auth_schema_test_testauthbaseschema_livedatabase",
       "community": 32,
@@ -1649,7 +1649,7 @@
       "label": "assertUniqueColumn()",
       "file_type": "code",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L124",
+      "source_location": "L120",
       "_origin": "ast",
       "id": "backend_internal_db_auth_schema_test_assertuniquecolumn",
       "community": 32,
@@ -1679,7 +1679,7 @@
       "label": "assertCascadingUserFK()",
       "file_type": "code",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L152",
+      "source_location": "L148",
       "_origin": "ast",
       "id": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
       "community": 32,
@@ -1739,7 +1739,7 @@
       "label": "TestNewPool_InvalidURL()",
       "file_type": "code",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L10",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "backend_internal_db_db_test_testnewpool_invalidurl",
       "community": 32,
@@ -1759,7 +1759,7 @@
       "label": "TestNewPool_UnreachableServer()",
       "file_type": "code",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "backend_internal_db_db_test_testnewpool_unreachableserver",
       "community": 32,
@@ -1769,7 +1769,7 @@
       "label": "TestNewPool_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L52",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "backend_internal_db_db_test_testnewpool_livedatabase",
       "community": 32,
@@ -1789,7 +1789,7 @@
       "label": "TestFinanceRLSConfiguration_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L21",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_testfinancerlsconfiguration_livedatabase",
       "community": 32,
@@ -1809,7 +1809,7 @@
       "label": "TestFinanceRLS_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L90",
+      "source_location": "L86",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "community": 32,
@@ -1819,7 +1819,7 @@
       "label": "insertTestUser()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L317",
+      "source_location": "L310",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_inserttestuser",
       "community": 32,
@@ -1849,7 +1849,7 @@
       "label": "setAppUser()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L335",
+      "source_location": "L328",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_setappuser",
       "community": 32,
@@ -1859,7 +1859,7 @@
       "label": "insertTestAccount()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L340",
+      "source_location": "L333",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_inserttestaccount",
       "community": 32,
@@ -1869,7 +1869,7 @@
       "label": "insertTestCategory()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L350",
+      "source_location": "L343",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_inserttestcategory",
       "community": 32,
@@ -1879,7 +1879,7 @@
       "label": "insertTestTransaction()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L360",
+      "source_location": "L353",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_inserttesttransaction",
       "community": 32,
@@ -1899,7 +1899,7 @@
       "label": "assertRowCount()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L371",
+      "source_location": "L364",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_assertrowcount",
       "community": 32,
@@ -1909,7 +1909,7 @@
       "label": "assertRLSViolation()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L386",
+      "source_location": "L379",
       "_origin": "ast",
       "id": "backend_internal_db_finance_rls_test_assertrlsviolation",
       "community": 32,
@@ -1929,7 +1929,7 @@
       "label": "TestFinanceBaseSchema_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L20",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
       "community": 32,
@@ -1949,7 +1949,7 @@
       "label": "assertUniqueIndexColumns()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L134",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
       "community": 32,
@@ -1979,7 +1979,7 @@
       "label": "assertIndexDefinition()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L176",
+      "source_location": "L172",
       "_origin": "ast",
       "id": "backend_internal_db_finance_schema_test_assertindexdefinition",
       "community": 32,
@@ -1989,7 +1989,7 @@
       "label": "assertFK()",
       "file_type": "code",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L195",
+      "source_location": "L191",
       "_origin": "ast",
       "id": "backend_internal_db_finance_schema_test_assertfk",
       "community": 32,
@@ -3256,6 +3256,36 @@
       "norm_label": ".updateuserpassword()"
     },
     {
+      "label": "livedb_test.go",
+      "file_type": "code",
+      "source_file": "backend/internal/db/livedb_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_internal_db_livedb_test",
+      "community": 32,
+      "norm_label": "livedb_test.go"
+    },
+    {
+      "label": "liveDatabaseURL()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/livedb_test.go",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "backend_internal_db_livedb_test_livedatabaseurl",
+      "community": 32,
+      "norm_label": "livedatabaseurl()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_db_livedb_test_go_t",
+      "community": 32,
+      "norm_label": "t"
+    },
+    {
       "label": "queries_live_test.go",
       "file_type": "code",
       "source_file": "backend/internal/db/queries_live_test.go",
@@ -3269,7 +3299,7 @@
       "label": "TestSqlcQueries_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L34",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
       "community": 32,
@@ -3289,7 +3319,7 @@
       "label": "newPgUUID()",
       "file_type": "code",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L473",
+      "source_location": "L469",
       "_origin": "ast",
       "id": "backend_internal_db_queries_live_test_newpguuid",
       "community": 32,
@@ -3309,7 +3339,7 @@
       "label": "uniqueTestEmail()",
       "file_type": "code",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L480",
+      "source_location": "L476",
       "_origin": "ast",
       "id": "backend_internal_db_queries_live_test_uniquetestemail",
       "community": 32,
@@ -3319,7 +3349,7 @@
       "label": "TestConsumeRefreshToken_Concurrent()",
       "file_type": "code",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L492",
+      "source_location": "L488",
       "_origin": "ast",
       "id": "backend_internal_db_queries_live_test_testconsumerefreshtoken_concurrent",
       "community": 32,
@@ -3739,7 +3769,7 @@
       "label": "authTestEnv",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L30",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_go_http_authtestenv",
       "community": 28,
@@ -3779,7 +3809,7 @@
       "label": "newAuthTestEnv()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L38",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_newauthtestenv",
       "community": 28,
@@ -3799,7 +3829,7 @@
       "label": ".do()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L75",
+      "source_location": "L71",
       "_origin": "ast",
       "id": "http_authtestenv_do",
       "community": 28,
@@ -3829,7 +3859,7 @@
       "label": "refreshCookieFromResponse()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L102",
+      "source_location": "L98",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
       "community": 28,
@@ -3839,7 +3869,7 @@
       "label": "decodeAPIError()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L113",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_decodeapierror",
       "community": 28,
@@ -3849,7 +3879,7 @@
       "label": "uniqueAuthTestEmail()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L122",
+      "source_location": "L118",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_uniqueauthtestemail",
       "community": 28,
@@ -3859,7 +3889,7 @@
       "label": ".registerAndVerify()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L132",
+      "source_location": "L128",
       "_origin": "ast",
       "id": "http_authtestenv_registerandverify",
       "community": 28,
@@ -3869,7 +3899,7 @@
       "label": "TestAuthLive_Register_CreatesUnverifiedUser()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L161",
+      "source_location": "L157",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_register_createsunverifieduser",
       "community": 28,
@@ -3879,7 +3909,7 @@
       "label": "TestAuthLive_Register_DuplicateEmailConflicts()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L193",
+      "source_location": "L189",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_register_duplicateemailconflicts",
       "community": 28,
@@ -3889,7 +3919,7 @@
       "label": "TestAuthLive_Register_ValidationErrors()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L215",
+      "source_location": "L211",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_register_validationerrors",
       "community": 28,
@@ -3899,7 +3929,7 @@
       "label": "TestAuthLive_Register_UnknownFieldRejected()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L251",
+      "source_location": "L247",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_register_unknownfieldrejected",
       "community": 28,
@@ -3909,7 +3939,7 @@
       "label": "TestAuthLive_Login_UnverifiedUserForbidden()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L270",
+      "source_location": "L266",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_login_unverifieduserforbidden",
       "community": 28,
@@ -3919,7 +3949,7 @@
       "label": "TestAuthLive_Login_VerifiedUserSucceeds()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L292",
+      "source_location": "L288",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
       "community": 28,
@@ -3929,7 +3959,7 @@
       "label": "TestAuthLive_Login_WrongPasswordUnauthorized()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L343",
+      "source_location": "L339",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordunauthorized",
       "community": 28,
@@ -3939,7 +3969,7 @@
       "label": "TestAuthLive_Login_UnknownEmailUnauthorized()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L358",
+      "source_location": "L354",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_login_unknownemailunauthorized",
       "community": 28,
@@ -3949,7 +3979,7 @@
       "label": "TestAuthLive_Login_WrongPasswordAndUnknownEmailShareShape()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L374",
+      "source_location": "L370",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
       "community": 28,
@@ -3959,7 +3989,7 @@
       "label": "TestAuthLive_Register_TrailingJSONRejected()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L396",
+      "source_location": "L392",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_register_trailingjsonrejected",
       "community": 28,
@@ -3969,7 +3999,7 @@
       "label": "TestAuthLive_Login_UnknownFieldRejected()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L418",
+      "source_location": "L414",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_login_unknownfieldrejected",
       "community": 28,
@@ -3979,7 +4009,7 @@
       "label": "TestAuthLive_Refresh_RotatesAndInvalidatesOldCookie()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L437",
+      "source_location": "L433",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
       "community": 28,
@@ -3989,7 +4019,7 @@
       "label": "TestAuthLive_Refresh_MissingCookieUnauthorized()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L489",
+      "source_location": "L485",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_refresh_missingcookieunauthorized",
       "community": 28,
@@ -3999,7 +4029,7 @@
       "label": "TestAuthLive_Refresh_GarbageCookieUnauthorized()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L502",
+      "source_location": "L498",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_refresh_garbagecookieunauthorized",
       "community": 28,
@@ -4009,7 +4039,7 @@
       "label": "TestAuthLive_Logout_ClearsCookieAndRevokesSession()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L513",
+      "source_location": "L509",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_logout_clearscookieandrevokessession",
       "community": 28,
@@ -4019,7 +4049,7 @@
       "label": "TestAuthLive_Logout_MissingCookieUnauthorized()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L548",
+      "source_location": "L544",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_logout_missingcookieunauthorized",
       "community": 28,
@@ -4029,7 +4059,7 @@
       "label": "TestAuthLive_Logout_AlreadyLoggedOutUnauthorized()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L561",
+      "source_location": "L557",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_logout_alreadyloggedoutunauthorized",
       "community": 28,
@@ -4039,7 +4069,7 @@
       "label": "TestAuthLive_Refresh_CookieIsPerUserAndDoesNotLeakIdentity()",
       "file_type": "code",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L583",
+      "source_location": "L579",
       "_origin": "ast",
       "id": "backend_internal_http_auth_live_test_testauthlive_refresh_cookieisperuseranddoesnotleakidentity",
       "community": 28,
@@ -4516,6 +4546,36 @@
       "norm_label": "t"
     },
     {
+      "label": "livedb_test.go",
+      "file_type": "code",
+      "source_file": "backend/internal/http/livedb_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_internal_http_livedb_test",
+      "community": 28,
+      "norm_label": "livedb_test.go"
+    },
+    {
+      "label": "liveDatabaseURL()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/livedb_test.go",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "backend_internal_http_livedb_test_livedatabaseurl",
+      "community": 28,
+      "norm_label": "livedatabaseurl()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_livedb_test_go_t",
+      "community": 28,
+      "norm_label": "t"
+    },
+    {
       "label": "router.go",
       "file_type": "code",
       "source_file": "backend/internal/http/router.go",
@@ -4662,7 +4722,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "mail_mailer",
-      "community": 315,
+      "community": 3,
       "norm_label": "mailer"
     },
     {
@@ -5062,7 +5122,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "openapi_apierror",
-      "community": 520,
+      "community": 17,
       "norm_label": "apierror"
     },
     {
@@ -5072,7 +5132,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "openapi_apierrorresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": "apierrorresponse"
     },
     {
@@ -6142,7 +6202,7 @@
       "source_location": "L1506",
       "_origin": "ast",
       "id": "openapi_unmarshalingparamerror",
-      "community": 17,
+      "community": 35,
       "norm_label": "unmarshalingparamerror"
     },
     {
@@ -6152,7 +6212,7 @@
       "source_location": "L1511",
       "_origin": "ast",
       "id": "openapi_unmarshalingparamerror_error",
-      "community": 17,
+      "community": 35,
       "norm_label": ".error()"
     },
     {
@@ -6162,7 +6222,7 @@
       "source_location": "L1515",
       "_origin": "ast",
       "id": "openapi_unmarshalingparamerror_unwrap",
-      "community": 17,
+      "community": 35,
       "norm_label": ".unwrap()"
     },
     {
@@ -6362,7 +6422,7 @@
       "source_location": "L1698",
       "_origin": "ast",
       "id": "openapi_conflicterrorjsonresponse",
-      "community": 3,
+      "community": 17,
       "norm_label": "conflicterrorjsonresponse"
     },
     {
@@ -6402,7 +6462,7 @@
       "source_location": "L1706",
       "_origin": "ast",
       "id": "openapi_emailnotverifiederrorjsonresponse",
-      "community": 3,
+      "community": 17,
       "norm_label": "emailnotverifiederrorjsonresponse"
     },
     {
@@ -6452,7 +6512,7 @@
       "source_location": "L1716",
       "_origin": "ast",
       "id": "openapi_transactionmutationratelimiterrorresponseheaders",
-      "community": 520,
+      "community": 17,
       "norm_label": "transactionmutationratelimiterrorresponseheaders"
     },
     {
@@ -6462,7 +6522,7 @@
       "source_location": "L1719",
       "_origin": "ast",
       "id": "openapi_transactionmutationratelimiterrorjsonresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": "transactionmutationratelimiterrorjsonresponse"
     },
     {
@@ -7322,7 +7382,7 @@
       "source_location": "L2243",
       "_origin": "ast",
       "id": "openapi_loginuser403jsonresponse",
-      "community": 3,
+      "community": 17,
       "norm_label": "loginuser403jsonresponse"
     },
     {
@@ -7332,7 +7392,7 @@
       "source_location": "L2247",
       "_origin": "ast",
       "id": "openapi_loginuser403jsonresponse_visitloginuserresponse",
-      "community": 338,
+      "community": 17,
       "norm_label": ".visitloginuserresponse()"
     },
     {
@@ -7672,7 +7732,7 @@
       "source_location": "L2447",
       "_origin": "ast",
       "id": "openapi_registeruser201jsonresponse",
-      "community": 17,
+      "community": 517,
       "norm_label": "registeruser201jsonresponse"
     },
     {
@@ -7682,7 +7742,7 @@
       "source_location": "L2449",
       "_origin": "ast",
       "id": "openapi_registeruser201jsonresponse_visitregisteruserresponse",
-      "community": 17,
+      "community": 517,
       "norm_label": ".visitregisteruserresponse()"
     },
     {
@@ -7712,7 +7772,7 @@
       "source_location": "L2475",
       "_origin": "ast",
       "id": "openapi_registeruser409jsonresponse",
-      "community": 3,
+      "community": 17,
       "norm_label": "registeruser409jsonresponse"
     },
     {
@@ -7722,7 +7782,7 @@
       "source_location": "L2477",
       "_origin": "ast",
       "id": "openapi_registeruser409jsonresponse_visitregisteruserresponse",
-      "community": 338,
+      "community": 17,
       "norm_label": ".visitregisteruserresponse()"
     },
     {
@@ -7842,7 +7902,7 @@
       "source_location": "L2546",
       "_origin": "ast",
       "id": "openapi_listcategories200jsonresponse",
-      "community": 17,
+      "community": 376,
       "norm_label": "listcategories200jsonresponse"
     },
     {
@@ -7852,7 +7912,7 @@
       "source_location": "L2548",
       "_origin": "ast",
       "id": "openapi_listcategories200jsonresponse_visitlistcategoriesresponse",
-      "community": 17,
+      "community": 376,
       "norm_label": ".visitlistcategoriesresponse()"
     },
     {
@@ -8062,7 +8122,7 @@
       "source_location": "L2676",
       "_origin": "ast",
       "id": "openapi_bulkdeletecategories200jsonresponse",
-      "community": 17,
+      "community": 40,
       "norm_label": "bulkdeletecategories200jsonresponse"
     },
     {
@@ -8072,7 +8132,7 @@
       "source_location": "L2678",
       "_origin": "ast",
       "id": "openapi_bulkdeletecategories200jsonresponse_visitbulkdeletecategoriesresponse",
-      "community": 17,
+      "community": 40,
       "norm_label": ".visitbulkdeletecategoriesresponse()"
     },
     {
@@ -8552,7 +8612,7 @@
       "source_location": "L2996",
       "_origin": "ast",
       "id": "openapi_gethealth200jsonresponse",
-      "community": 17,
+      "community": 338,
       "norm_label": "gethealth200jsonresponse"
     },
     {
@@ -8592,7 +8652,7 @@
       "source_location": "L3018",
       "_origin": "ast",
       "id": "openapi_getsummary200jsonresponse",
-      "community": 17,
+      "community": 348,
       "norm_label": "getsummary200jsonresponse"
     },
     {
@@ -8602,7 +8662,7 @@
       "source_location": "L3020",
       "_origin": "ast",
       "id": "openapi_getsummary200jsonresponse_visitgetsummaryresponse",
-      "community": 17,
+      "community": 348,
       "norm_label": ".visitgetsummaryresponse()"
     },
     {
@@ -8882,7 +8942,7 @@
       "source_location": "L3208",
       "_origin": "ast",
       "id": "openapi_createtransaction429jsonresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": "createtransaction429jsonresponse"
     },
     {
@@ -8892,7 +8952,7 @@
       "source_location": "L3212",
       "_origin": "ast",
       "id": "openapi_createtransaction429jsonresponse_visitcreatetransactionresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": ".visitcreatetransactionresponse()"
     },
     {
@@ -9052,7 +9112,7 @@
       "source_location": "L3323",
       "_origin": "ast",
       "id": "openapi_bulkcreatetransactions429jsonresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": "bulkcreatetransactions429jsonresponse"
     },
     {
@@ -9062,7 +9122,7 @@
       "source_location": "L3327",
       "_origin": "ast",
       "id": "openapi_bulkcreatetransactions429jsonresponse_visitbulkcreatetransactionsresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": ".visitbulkcreatetransactionsresponse()"
     },
     {
@@ -9122,7 +9182,7 @@
       "source_location": "L3364",
       "_origin": "ast",
       "id": "openapi_bulkdeletetransactions200jsonresponse",
-      "community": 17,
+      "community": 317,
       "norm_label": "bulkdeletetransactions200jsonresponse"
     },
     {
@@ -9132,7 +9192,7 @@
       "source_location": "L3366",
       "_origin": "ast",
       "id": "openapi_bulkdeletetransactions200jsonresponse_visitbulkdeletetransactionsresponse",
-      "community": 17,
+      "community": 317,
       "norm_label": ".visitbulkdeletetransactionsresponse()"
     },
     {
@@ -9202,7 +9262,7 @@
       "source_location": "L3422",
       "_origin": "ast",
       "id": "openapi_bulkdeletetransactions429jsonresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": "bulkdeletetransactions429jsonresponse"
     },
     {
@@ -9212,7 +9272,7 @@
       "source_location": "L3426",
       "_origin": "ast",
       "id": "openapi_bulkdeletetransactions429jsonresponse_visitbulkdeletetransactionsresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": ".visitbulkdeletetransactionsresponse()"
     },
     {
@@ -9342,7 +9402,7 @@
       "source_location": "L3521",
       "_origin": "ast",
       "id": "openapi_deletetransaction429jsonresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": "deletetransaction429jsonresponse"
     },
     {
@@ -9352,7 +9412,7 @@
       "source_location": "L3525",
       "_origin": "ast",
       "id": "openapi_deletetransaction429jsonresponse_visitdeletetransactionresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": ".visitdeletetransactionresponse()"
     },
     {
@@ -9612,7 +9672,7 @@
       "source_location": "L3701",
       "_origin": "ast",
       "id": "openapi_updatetransaction429jsonresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": "updatetransaction429jsonresponse"
     },
     {
@@ -9622,7 +9682,7 @@
       "source_location": "L3705",
       "_origin": "ast",
       "id": "openapi_updatetransaction429jsonresponse_visitupdatetransactionresponse",
-      "community": 520,
+      "community": 17,
       "norm_label": ".visitupdatetransactionresponse()"
     },
     {
@@ -10402,7 +10462,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_count_up",
-      "community": 40,
+      "community": 41,
       "norm_label": "count-up.tsx"
     },
     {
@@ -10452,7 +10512,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_card",
-      "community": 40,
+      "community": 41,
       "norm_label": "data-card.tsx"
     },
     {
@@ -10462,7 +10522,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "components_data_card_boxvariant",
-      "community": 40,
+      "community": 41,
       "norm_label": "boxvariant"
     },
     {
@@ -10472,7 +10532,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "components_data_card_iconvariant",
-      "community": 40,
+      "community": 41,
       "norm_label": "iconvariant"
     },
     {
@@ -10482,7 +10542,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "components_data_card_boxvariants",
-      "community": 40,
+      "community": 41,
       "norm_label": "boxvariants"
     },
     {
@@ -10492,7 +10552,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "components_data_card_iconvariants",
-      "community": 40,
+      "community": 41,
       "norm_label": "iconvariants"
     },
     {
@@ -10502,7 +10562,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "components_data_card_datacardprops",
-      "community": 40,
+      "community": 41,
       "norm_label": "datacardprops"
     },
     {
@@ -10512,7 +10572,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "components_data_card_datacard",
-      "community": 40,
+      "community": 41,
       "norm_label": "datacard()"
     },
     {
@@ -10522,7 +10582,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "components_data_card_datacardloading",
-      "community": 40,
+      "community": 14,
       "norm_label": "datacardloading()"
     },
     {
@@ -10542,7 +10602,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_data_charts_datacharts",
-      "community": 41,
+      "community": 14,
       "norm_label": "datacharts()"
     },
     {
@@ -10552,7 +10612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_grid",
-      "community": 40,
+      "community": 14,
       "norm_label": "data-grid.tsx"
     },
     {
@@ -10562,7 +10622,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_data_grid_datagrid",
-      "community": 40,
+      "community": 14,
       "norm_label": "datagrid()"
     },
     {
@@ -10572,7 +10632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_table",
-      "community": 35,
+      "community": 293,
       "norm_label": "data-table.tsx"
     },
     {
@@ -10582,7 +10642,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "components_data_table_datatableprops",
-      "community": 35,
+      "community": 293,
       "norm_label": "datatableprops"
     },
     {
@@ -10802,7 +10862,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_navigation",
-      "community": 260,
+      "community": 14,
       "norm_label": "navigation.tsx"
     },
     {
@@ -10812,7 +10872,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_navigation_routes",
-      "community": 260,
+      "community": 14,
       "norm_label": "routes"
     },
     {
@@ -11162,7 +11222,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "components_ui_card_carddescription",
-      "community": 40,
+      "community": 41,
       "norm_label": "carddescription()"
     },
     {
@@ -11222,7 +11282,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_dialog",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialog.tsx"
     },
     {
@@ -11232,7 +11292,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_ui_dialog_dialog",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialog()"
     },
     {
@@ -11242,7 +11302,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogtrigger",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogtrigger()"
     },
     {
@@ -11252,7 +11312,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogportal",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogportal()"
     },
     {
@@ -11262,7 +11322,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogclose",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogclose()"
     },
     {
@@ -11272,7 +11332,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogoverlay",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogoverlay()"
     },
     {
@@ -11282,7 +11342,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogcontent",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogcontent()"
     },
     {
@@ -11292,7 +11352,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogheader",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogheader()"
     },
     {
@@ -11302,7 +11362,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogfooter",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogfooter()"
     },
     {
@@ -11312,7 +11372,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogtitle",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogtitle()"
     },
     {
@@ -11322,7 +11382,7 @@
       "source_location": "L134",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogdescription",
-      "community": 14,
+      "community": 13,
       "norm_label": "dialogdescription()"
     },
     {
@@ -11632,7 +11692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_label",
-      "community": 293,
+      "community": 23,
       "norm_label": "label.tsx"
     },
     {
@@ -11642,7 +11702,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_ui_label_label",
-      "community": 293,
+      "community": 23,
       "norm_label": "label()"
     },
     {
@@ -11882,7 +11942,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_ui_sheet_sheettrigger",
-      "community": 260,
+      "community": 14,
       "norm_label": "sheettrigger()"
     },
     {
@@ -12012,7 +12072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_table",
-      "community": 35,
+      "community": 293,
       "norm_label": "table.tsx"
     },
     {
@@ -12022,7 +12082,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_ui_table_table",
-      "community": 35,
+      "community": 293,
       "norm_label": "table()"
     },
     {
@@ -12032,7 +12092,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_ui_table_tableheader",
-      "community": 35,
+      "community": 293,
       "norm_label": "tableheader()"
     },
     {
@@ -12042,7 +12102,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "components_ui_table_tablebody",
-      "community": 35,
+      "community": 293,
       "norm_label": "tablebody()"
     },
     {
@@ -12052,7 +12112,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "components_ui_table_tablefooter",
-      "community": 35,
+      "community": 293,
       "norm_label": "tablefooter()"
     },
     {
@@ -12062,7 +12122,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "components_ui_table_tablerow",
-      "community": 35,
+      "community": 293,
       "norm_label": "tablerow()"
     },
     {
@@ -12072,7 +12132,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "components_ui_table_tablehead",
-      "community": 35,
+      "community": 293,
       "norm_label": "tablehead()"
     },
     {
@@ -12082,7 +12142,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "components_ui_table_tablecell",
-      "community": 35,
+      "community": 293,
       "norm_label": "tablecell()"
     },
     {
@@ -12092,7 +12152,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "components_ui_table_tablecaption",
-      "community": 35,
+      "community": 293,
       "norm_label": "tablecaption()"
     },
     {
@@ -12102,7 +12162,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_textarea",
-      "community": 293,
+      "community": 23,
       "norm_label": "textarea.tsx"
     },
     {
@@ -12112,7 +12172,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "components_ui_textarea_textarea",
-      "community": 293,
+      "community": 23,
       "norm_label": "textarea()"
     },
     {
@@ -12172,7 +12232,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_visually_hidden",
-      "community": 260,
+      "community": 14,
       "norm_label": "visually-hidden.tsx"
     },
     {
@@ -12182,7 +12242,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "components_ui_visually_hidden_visuallyhidden",
-      "community": 260,
+      "community": 14,
       "norm_label": "visuallyhidden()"
     },
     {
@@ -12352,7 +12412,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "db_schema",
-      "community": 23,
+      "community": 510,
       "norm_label": "schema.ts"
     },
     {
@@ -12362,7 +12422,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "db_schema_citext",
-      "community": 23,
+      "community": 510,
       "norm_label": "citext"
     },
     {
@@ -12382,7 +12442,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "db_schema_accountsrelations",
-      "community": 23,
+      "community": 510,
       "norm_label": "accountsrelations"
     },
     {
@@ -12402,7 +12462,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "db_schema_categoriesrelations",
-      "community": 23,
+      "community": 510,
       "norm_label": "categoriesrelations"
     },
     {
@@ -12412,7 +12472,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "db_schema_transactions",
-      "community": 19,
+      "community": 510,
       "norm_label": "transactions"
     },
     {
@@ -12422,7 +12482,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "db_schema_transactionsrelations",
-      "community": 23,
+      "community": 510,
       "norm_label": "transactionsrelations"
     },
     {
@@ -12432,7 +12492,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "db_schema_insertaccountschema",
-      "community": 23,
+      "community": 260,
       "norm_label": "insertaccountschema"
     },
     {
@@ -12442,7 +12502,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "db_schema_insertcategoryschema",
-      "community": 23,
+      "community": 42,
       "norm_label": "insertcategoryschema"
     },
     {
@@ -12452,7 +12512,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "db_schema_inserttransactionschema",
-      "community": 13,
+      "community": 23,
       "norm_label": "inserttransactionschema"
     },
     {
@@ -12522,7 +12582,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_usebulkdeleteaccounts",
-      "community": 260,
+      "community": 432,
       "norm_label": "usebulkdeleteaccounts()"
     },
     {
@@ -12532,7 +12592,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account",
-      "community": 13,
+      "community": 432,
       "norm_label": "use-create-account.ts"
     },
     {
@@ -12542,7 +12602,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_responsetype",
-      "community": 13,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -12552,7 +12612,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_requesttype",
-      "community": 13,
+      "community": 432,
       "norm_label": "requesttype"
     },
     {
@@ -12562,7 +12622,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_usecreateaccount",
-      "community": 13,
+      "community": 260,
       "norm_label": "usecreateaccount()"
     },
     {
@@ -12572,7 +12632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_delete_account",
-      "community": 348,
+      "community": 432,
       "norm_label": "use-delete-account.ts"
     },
     {
@@ -12582,7 +12642,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_delete_account_responsetype",
-      "community": 348,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -12592,7 +12652,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "features_accounts_api_use_delete_account_usedeleteaccount",
-      "community": 348,
+      "community": 42,
       "norm_label": "usedeleteaccount()"
     },
     {
@@ -12632,7 +12692,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account_useeditaccount",
-      "community": 348,
+      "community": 432,
       "norm_label": "useeditaccount()"
     },
     {
@@ -12642,7 +12702,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_account",
-      "community": 348,
+      "community": 432,
       "norm_label": "use-get-account.ts"
     },
     {
@@ -12652,7 +12712,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_account_usegetaccount",
-      "community": 348,
+      "community": 432,
       "norm_label": "usegetaccount()"
     },
     {
@@ -12662,7 +12722,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_accounts",
-      "community": 13,
+      "community": 432,
       "norm_label": "use-get-accounts.ts"
     },
     {
@@ -12672,7 +12732,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_accounts_usegetaccounts",
-      "community": 13,
+      "community": 260,
       "norm_label": "usegetaccounts()"
     },
     {
@@ -12722,7 +12782,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "features_accounts_components_account_form_accountform",
-      "community": 23,
+      "community": 260,
       "norm_label": "accountform()"
     },
     {
@@ -12732,7 +12792,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_components_edit_account_sheet",
-      "community": 348,
+      "community": 260,
       "norm_label": "edit-account-sheet.tsx"
     },
     {
@@ -12742,7 +12802,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "features_accounts_components_edit_account_sheet_formvalues",
-      "community": 348,
+      "community": 260,
       "norm_label": "formvalues"
     },
     {
@@ -12752,7 +12812,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "features_accounts_components_edit_account_sheet_editaccountsheet",
-      "community": 348,
+      "community": 42,
       "norm_label": "editaccountsheet()"
     },
     {
@@ -12782,7 +12842,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "features_accounts_components_new_account_sheet_newaccountsheet",
-      "community": 13,
+      "community": 260,
       "norm_label": "newaccountsheet()"
     },
     {
@@ -12822,7 +12882,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_open_account",
-      "community": 348,
+      "community": 42,
       "norm_label": "use-open-account.ts"
     },
     {
@@ -12832,7 +12892,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_open_account_openaccountstate",
-      "community": 348,
+      "community": 42,
       "norm_label": "openaccountstate"
     },
     {
@@ -12842,7 +12902,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_open_account_useopenaccount",
-      "community": 348,
+      "community": 42,
       "norm_label": "useopenaccount"
     },
     {
@@ -12852,7 +12912,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_select_account",
-      "community": 14,
+      "community": 13,
       "norm_label": "use-select-account.tsx"
     },
     {
@@ -12862,7 +12922,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_select_account_useselectaccount",
-      "community": 13,
+      "community": 260,
       "norm_label": "useselectaccount()"
     },
     {
@@ -12902,7 +12962,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_categories_api_use_bulk_delete_categories_usebulkdeletecategories",
-      "community": 260,
+      "community": 432,
       "norm_label": "usebulkdeletecategories()"
     },
     {
@@ -12912,7 +12972,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category",
-      "community": 376,
+      "community": 432,
       "norm_label": "use-create-category.ts"
     },
     {
@@ -12922,7 +12982,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_responsetype",
-      "community": 376,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -12932,7 +12992,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_requesttype",
-      "community": 376,
+      "community": 432,
       "norm_label": "requesttype"
     },
     {
@@ -12942,7 +13002,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_usecreatecategory",
-      "community": 13,
+      "community": 260,
       "norm_label": "usecreatecategory()"
     },
     {
@@ -12952,7 +13012,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category",
-      "community": 432,
+      "community": 42,
       "norm_label": "use-delete-category.ts"
     },
     {
@@ -12962,7 +13022,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category_responsetype",
-      "community": 432,
+      "community": 42,
       "norm_label": "responsetype"
     },
     {
@@ -12972,7 +13032,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category_usedeletecategory",
-      "community": 432,
+      "community": 42,
       "norm_label": "usedeletecategory()"
     },
     {
@@ -13012,7 +13072,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_categories_api_use_edit_category_useeditcategory",
-      "community": 432,
+      "community": 42,
       "norm_label": "useeditcategory()"
     },
     {
@@ -13022,7 +13082,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_get_categories",
-      "community": 13,
+      "community": 432,
       "norm_label": "use-get-categories.ts"
     },
     {
@@ -13032,7 +13092,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_categories_api_use_get_categories_usegetcategories",
-      "community": 13,
+      "community": 260,
       "norm_label": "usegetcategories()"
     },
     {
@@ -13052,7 +13112,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "features_categories_api_use_get_category_usegetcategory",
-      "community": 432,
+      "community": 42,
       "norm_label": "usegetcategory()"
     },
     {
@@ -13102,7 +13162,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "features_categories_components_category_form_categoryform",
-      "community": 23,
+      "community": 42,
       "norm_label": "categoryform()"
     },
     {
@@ -13112,7 +13172,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet",
-      "community": 432,
+      "community": 42,
       "norm_label": "edit-category-sheet.tsx"
     },
     {
@@ -13122,7 +13182,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet_formvalues",
-      "community": 432,
+      "community": 42,
       "norm_label": "formvalues"
     },
     {
@@ -13132,7 +13192,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet_editcategorysheet",
-      "community": 432,
+      "community": 42,
       "norm_label": "editcategorysheet()"
     },
     {
@@ -13162,7 +13222,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "features_categories_components_new_category_sheet_newcategorysheet",
-      "community": 13,
+      "community": 260,
       "norm_label": "newcategorysheet()"
     },
     {
@@ -13362,7 +13422,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "features_transactions_api_use_create_transaction_usecreatetransaction",
-      "community": 13,
+      "community": 432,
       "norm_label": "usecreatetransaction()"
     },
     {
@@ -13392,7 +13452,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "features_transactions_api_use_delete_transaction_usedeletetransaction",
-      "community": 13,
+      "community": 260,
       "norm_label": "usedeletetransaction()"
     },
     {
@@ -13402,7 +13462,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_api_use_edit_transaction",
-      "community": 376,
+      "community": 260,
       "norm_label": "use-edit-transaction.ts"
     },
     {
@@ -13412,7 +13472,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_api_use_edit_transaction_responsetype",
-      "community": 376,
+      "community": 260,
       "norm_label": "responsetype"
     },
     {
@@ -13422,7 +13482,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_transactions_api_use_edit_transaction_requesttype",
-      "community": 376,
+      "community": 260,
       "norm_label": "requesttype"
     },
     {
@@ -13432,7 +13492,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_transactions_api_use_edit_transaction_useedittransaction",
-      "community": 13,
+      "community": 260,
       "norm_label": "useedittransaction()"
     },
     {
@@ -13482,7 +13542,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_components_edit_transaction_sheet",
-      "community": 13,
+      "community": 260,
       "norm_label": "edit-transaction-sheet.tsx"
     },
     {
@@ -13492,7 +13552,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "features_transactions_components_edit_transaction_sheet_formvalues",
-      "community": 13,
+      "community": 260,
       "norm_label": "formvalues"
     },
     {
@@ -13502,7 +13562,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "features_transactions_components_edit_transaction_sheet_edittransactionsheet",
-      "community": 13,
+      "community": 260,
       "norm_label": "edittransactionsheet()"
     },
     {
@@ -13512,7 +13572,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet",
-      "community": 13,
+      "community": 260,
       "norm_label": "new-transaction-sheet.tsx"
     },
     {
@@ -13522,7 +13582,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet_formvalues",
-      "community": 13,
+      "community": 260,
       "norm_label": "formvalues"
     },
     {
@@ -13532,7 +13592,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet_newtransactionsheet",
-      "community": 13,
+      "community": 260,
       "norm_label": "newtransactionsheet()"
     },
     {
@@ -13592,7 +13652,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "features_transactions_components_transaction_form_transactionform",
-      "community": 13,
+      "community": 23,
       "norm_label": "transactionform()"
     },
     {
@@ -13602,7 +13662,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction",
-      "community": 13,
+      "community": 260,
       "norm_label": "use-new-transaction.ts"
     },
     {
@@ -13612,7 +13672,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction_newtransactionstate",
-      "community": 13,
+      "community": 260,
       "norm_label": "newtransactionstate"
     },
     {
@@ -13622,7 +13682,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction_usenewtransaction",
-      "community": 13,
+      "community": 260,
       "norm_label": "usenewtransaction"
     },
     {
@@ -13632,7 +13692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_open_transaction",
-      "community": 42,
+      "community": 260,
       "norm_label": "use-open-transaction.ts"
     },
     {
@@ -13642,7 +13702,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_open_transaction_opentransactionstate",
-      "community": 42,
+      "community": 260,
       "norm_label": "opentransactionstate"
     },
     {
@@ -13652,7 +13712,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_open_transaction_useopentransaction",
-      "community": 42,
+      "community": 260,
       "norm_label": "useopentransaction"
     },
     {
@@ -13662,7 +13722,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_use_confirm",
-      "community": 14,
+      "community": 13,
       "norm_label": "use-confirm.tsx"
     },
     {
@@ -13672,7 +13732,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "hooks_use_confirm_useconfirm",
-      "community": 348,
+      "community": 42,
       "norm_label": "useconfirm()"
     },
     {
@@ -13742,7 +13802,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "lib_api_error_apierror",
-      "community": 376,
+      "community": 432,
       "norm_label": "apierror"
     },
     {
@@ -13752,7 +13812,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "lib_api_error_apierror_constructor",
-      "community": 376,
+      "community": 432,
       "norm_label": ".constructor()"
     },
     {
@@ -13762,7 +13822,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isstatus",
-      "community": 376,
+      "community": 432,
       "norm_label": ".isstatus()"
     },
     {
@@ -13772,7 +13832,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isclienterror",
-      "community": 376,
+      "community": 432,
       "norm_label": ".isclienterror()"
     },
     {
@@ -13782,7 +13842,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isservererror",
-      "community": 376,
+      "community": 432,
       "norm_label": ".isservererror()"
     },
     {
@@ -13792,7 +13852,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isunauthorized",
-      "community": 376,
+      "community": 432,
       "norm_label": ".isunauthorized()"
     },
     {
@@ -13802,7 +13862,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isforbidden",
-      "community": 376,
+      "community": 432,
       "norm_label": ".isforbidden()"
     },
     {
@@ -13812,7 +13872,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "lib_api_error_apierror_isnotfound",
-      "community": 376,
+      "community": 432,
       "norm_label": ".isnotfound()"
     },
     {
@@ -13912,7 +13972,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items_test",
-      "community": 317,
+      "community": 41,
       "norm_label": "chunk-items.test.ts"
     },
     {
@@ -13922,7 +13982,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items",
-      "community": 317,
+      "community": 41,
       "norm_label": "chunk-items.ts"
     },
     {
@@ -13932,7 +13992,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items_chunkitems",
-      "community": 317,
+      "community": 41,
       "norm_label": "chunkitems()"
     },
     {
@@ -14002,7 +14062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_transaction_import_test",
-      "community": 317,
+      "community": 41,
       "norm_label": "transaction-import.test.ts"
     },
     {
@@ -14012,7 +14072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_transaction_import",
-      "community": 317,
+      "community": 41,
       "norm_label": "transaction-import.ts"
     },
     {
@@ -14022,7 +14082,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_transaction_import_importedtransactionrow",
-      "community": 317,
+      "community": 41,
       "norm_label": "importedtransactionrow"
     },
     {
@@ -14032,7 +14092,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_transaction_import_rawimportedtransactionrow",
-      "community": 317,
+      "community": 41,
       "norm_label": "rawimportedtransactionrow"
     },
     {
@@ -14042,7 +14102,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_transaction_import_importedtransactionrowerror",
-      "community": 317,
+      "community": 41,
       "norm_label": "importedtransactionrowerror"
     },
     {
@@ -14052,7 +14112,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_transaction_import_parseimportedtransactionrows",
-      "community": 317,
+      "community": 41,
       "norm_label": "parseimportedtransactionrows()"
     },
     {
@@ -14182,7 +14242,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_utils",
-      "community": 9,
+      "community": 14,
       "norm_label": "utils.ts"
     },
     {
@@ -14212,7 +14272,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_utils_convertamounttomiliunits",
-      "community": 317,
+      "community": 49,
       "norm_label": "convertamounttomiliunits()"
     },
     {
@@ -14252,7 +14312,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "lib_utils_period",
-      "community": 9,
+      "community": 14,
       "norm_label": "period"
     },
     {
@@ -14262,7 +14322,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "lib_utils_formatdaterange",
-      "community": 40,
+      "community": 14,
       "norm_label": "formatdaterange()"
     },
     {
@@ -15222,7 +15282,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "providers_sheet_provider",
-      "community": 13,
+      "community": 260,
       "norm_label": "sheet-provider.tsx"
     },
     {
@@ -17669,7 +17729,7 @@
       "label": "Docker And Local Services",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L109",
+      "source_location": "L119",
       "_origin": "ast",
       "id": "readme_docker_and_local_services",
       "community": 33,
@@ -17679,7 +17739,7 @@
       "label": "Frontend Commands",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L141",
+      "source_location": "L151",
       "_origin": "ast",
       "id": "readme_frontend_commands",
       "community": 33,
@@ -17689,7 +17749,7 @@
       "label": "Backend Commands",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L152",
+      "source_location": "L162",
       "_origin": "ast",
       "id": "readme_backend_commands",
       "community": 33,
@@ -17699,7 +17759,7 @@
       "label": "OpenAPI",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L180",
+      "source_location": "L190",
       "_origin": "ast",
       "id": "readme_openapi",
       "community": 33,
@@ -17709,7 +17769,7 @@
       "label": "Database",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L215",
+      "source_location": "L225",
       "_origin": "ast",
       "id": "readme_database",
       "community": 33,
@@ -17719,7 +17779,7 @@
       "label": "Graphify",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L228",
+      "source_location": "L238",
       "_origin": "ast",
       "id": "readme_graphify",
       "community": 33,
@@ -17729,7 +17789,7 @@
       "label": "Migration Roadmap",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L244",
+      "source_location": "L254",
       "_origin": "ast",
       "id": "readme_migration_roadmap",
       "community": 33,
@@ -17739,7 +17799,7 @@
       "label": "Troubleshooting",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L259",
+      "source_location": "L269",
       "_origin": "ast",
       "id": "readme_troubleshooting",
       "community": 33,
@@ -17749,7 +17809,7 @@
       "label": "Docker Engine Not Reachable",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L261",
+      "source_location": "L271",
       "_origin": "ast",
       "id": "readme_docker_engine_not_reachable",
       "community": 33,
@@ -17759,7 +17819,7 @@
       "label": "Build Fails With Clerk Placeholder Keys",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L265",
+      "source_location": "L275",
       "_origin": "ast",
       "id": "readme_build_fails_with_clerk_placeholder_keys",
       "community": 33,
@@ -17769,7 +17829,7 @@
       "label": "GitHub Project Board Requires Scope",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L269",
+      "source_location": "L279",
       "_origin": "ast",
       "id": "readme_github_project_board_requires_scope",
       "community": 33,
@@ -17779,7 +17839,7 @@
       "label": "Graphify Warnings",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L273",
+      "source_location": "L283",
       "_origin": "ast",
       "id": "readme_graphify_warnings",
       "community": 33,
@@ -17789,7 +17849,7 @@
       "label": "Contributing And Workflow",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L277",
+      "source_location": "L287",
       "_origin": "ast",
       "id": "readme_contributing_and_workflow",
       "community": 33,
@@ -17799,7 +17859,7 @@
       "label": "Canonical Docs",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L291",
+      "source_location": "L301",
       "_origin": "ast",
       "id": "readme_canonical_docs",
       "community": 33,
@@ -17812,7 +17872,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_readme",
-      "community": 20,
+      "community": 33,
       "norm_label": "readme.md"
     },
     {
@@ -17822,7 +17882,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_readme_nuchi_go_backend",
-      "community": 20,
+      "community": 33,
       "norm_label": "nuchi go backend"
     },
     {
@@ -17832,7 +17892,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_readme_local_run",
-      "community": 20,
+      "community": 33,
       "norm_label": "local run"
     },
     {
@@ -17842,7 +17902,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "backend_readme_configuration",
-      "community": 20,
+      "community": 33,
       "norm_label": "configuration"
     },
     {
@@ -17852,7 +17912,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "backend_readme_health_check",
-      "community": 20,
+      "community": 33,
       "norm_label": "health check"
     },
     {
@@ -17862,7 +17922,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "backend_readme_auth",
-      "community": 20,
+      "community": 33,
       "norm_label": "auth"
     },
     {
@@ -17872,7 +17932,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "backend_readme_password_hashing",
-      "community": 20,
+      "community": 33,
       "norm_label": "password hashing"
     },
     {
@@ -17882,7 +17942,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "backend_readme_jwt_access_tokens",
-      "community": 20,
+      "community": 33,
       "norm_label": "jwt access tokens"
     },
     {
@@ -17892,7 +17952,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "backend_readme_refresh_tokens_and_the_session_cookie",
-      "community": 20,
+      "community": 33,
       "norm_label": "refresh tokens and the session cookie"
     },
     {
@@ -17902,7 +17962,7 @@
       "source_location": "L128",
       "_origin": "ast",
       "id": "backend_readme_registration_and_login",
-      "community": 20,
+      "community": 33,
       "norm_label": "registration and login"
     },
     {
@@ -17912,7 +17972,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "backend_readme_email_verification_and_password_reset",
-      "community": 20,
+      "community": 33,
       "norm_label": "email verification and password reset"
     },
     {
@@ -17922,7 +17982,7 @@
       "source_location": "L210",
       "_origin": "ast",
       "id": "backend_readme_mailpit_local_email_testing",
-      "community": 20,
+      "community": 33,
       "norm_label": "mailpit (local email testing)"
     },
     {
@@ -17932,7 +17992,7 @@
       "source_location": "L267",
       "_origin": "ast",
       "id": "backend_readme_curl_examples",
-      "community": 20,
+      "community": 33,
       "norm_label": "curl examples"
     },
     {
@@ -17942,7 +18002,7 @@
       "source_location": "L293",
       "_origin": "ast",
       "id": "backend_readme_database",
-      "community": 20,
+      "community": 33,
       "norm_label": "database"
     },
     {
@@ -17952,7 +18012,7 @@
       "source_location": "L306",
       "_origin": "ast",
       "id": "backend_readme_migrations_goose",
-      "community": 20,
+      "community": 33,
       "norm_label": "migrations (goose)"
     },
     {
@@ -17962,7 +18022,7 @@
       "source_location": "L333",
       "_origin": "ast",
       "id": "backend_readme_rls",
-      "community": 20,
+      "community": 33,
       "norm_label": "rls"
     },
     {
@@ -17972,7 +18032,7 @@
       "source_location": "L364",
       "_origin": "ast",
       "id": "backend_readme_typed_queries_sqlc",
-      "community": 20,
+      "community": 33,
       "norm_label": "typed queries (sqlc)"
     },
     {
@@ -17982,7 +18042,7 @@
       "source_location": "L437",
       "_origin": "ast",
       "id": "backend_readme_verification",
-      "community": 20,
+      "community": 33,
       "norm_label": "verification"
     },
     {
@@ -29727,7 +29787,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L323",
+      "source_location": "L319",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
       "target": "backend_internal_auth_jwt_verifyaccesstoken"
@@ -30687,7 +30747,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L194",
+      "source_location": "L204",
       "weight": 1.0,
       "source": "backend_internal_config_config",
       "target": "backend_internal_config_config_getenv",
@@ -30697,7 +30757,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L221",
+      "source_location": "L231",
       "weight": 1.0,
       "source": "backend_internal_config_config",
       "target": "backend_internal_config_config_getenvbool",
@@ -30707,7 +30767,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L205",
+      "source_location": "L215",
       "weight": 1.0,
       "source": "backend_internal_config_config",
       "target": "backend_internal_config_config_getenvduration",
@@ -30748,7 +30808,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L33",
+      "source_location": "L32",
       "weight": 1.0,
       "context": "field",
       "source": "backend_internal_http_auth_live_test_go_http_authtestenv",
@@ -30792,7 +30852,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L190",
+      "source_location": "L200",
       "weight": 1.0,
       "source": "config_config",
       "target": "config_config_addr",
@@ -30802,7 +30862,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config.go",
-      "source_location": "L205",
+      "source_location": "L215",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_config_config_getenvduration",
@@ -30892,7 +30952,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L295",
+      "source_location": "L302",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_invalidresettokenttlfailsfast",
       "target": "backend_internal_config_config_load"
@@ -30903,7 +30963,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L285",
+      "source_location": "L292",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_invalidverificationtokenttlfailsfast",
       "target": "backend_internal_config_config_load"
@@ -30914,7 +30974,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L226",
+      "source_location": "L233",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_malformedappbaseurlfailsfast",
       "target": "backend_internal_config_config_load"
@@ -30936,7 +30996,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L254",
+      "source_location": "L261",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_nonoriginappbaseurlfailsfast",
       "target": "backend_internal_config_config_load"
@@ -30947,7 +31007,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L319",
+      "source_location": "L326",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_nonpositivemailttlsfailfast",
       "target": "backend_internal_config_config_load"
@@ -30969,7 +31029,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L269",
+      "source_location": "L276",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_originappbaseurlaccepted",
       "target": "backend_internal_config_config_load"
@@ -31050,7 +31110,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L290",
+      "source_location": "L297",
       "weight": 1.0,
       "source": "backend_internal_config_config_test",
       "target": "backend_internal_config_config_test_testload_invalidresettokenttlfailsfast",
@@ -31060,7 +31120,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L280",
+      "source_location": "L287",
       "weight": 1.0,
       "source": "backend_internal_config_config_test",
       "target": "backend_internal_config_config_test_testload_invalidverificationtokenttlfailsfast",
@@ -31090,7 +31150,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L238",
+      "source_location": "L245",
       "weight": 1.0,
       "source": "backend_internal_config_config_test",
       "target": "backend_internal_config_config_test_testload_nonoriginappbaseurlfailsfast",
@@ -31100,7 +31160,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L300",
+      "source_location": "L307",
       "weight": 1.0,
       "source": "backend_internal_config_config_test",
       "target": "backend_internal_config_config_test_testload_nonpositivemailttlsfailfast",
@@ -31120,7 +31180,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L262",
+      "source_location": "L269",
       "weight": 1.0,
       "source": "backend_internal_config_config_test",
       "target": "backend_internal_config_config_test_testload_originappbaseurlaccepted",
@@ -31206,7 +31266,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L291",
+      "source_location": "L298",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_invalidresettokenttlfailsfast",
       "target": "backend_internal_config_config_test_clearauthenv",
@@ -31217,7 +31277,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L281",
+      "source_location": "L288",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_invalidverificationtokenttlfailsfast",
       "target": "backend_internal_config_config_test_clearauthenv",
@@ -31228,7 +31288,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L222",
+      "source_location": "L229",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_malformedappbaseurlfailsfast",
       "target": "backend_internal_config_config_test_clearauthenv",
@@ -31250,7 +31310,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L250",
+      "source_location": "L257",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_nonoriginappbaseurlfailsfast",
       "target": "backend_internal_config_config_test_clearauthenv",
@@ -31261,7 +31321,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L315",
+      "source_location": "L322",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_nonpositivemailttlsfailfast",
       "target": "backend_internal_config_config_test_clearauthenv",
@@ -31283,7 +31343,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L265",
+      "source_location": "L272",
       "weight": 1.0,
       "source": "backend_internal_config_config_test_testload_originappbaseurlaccepted",
       "target": "backend_internal_config_config_test_clearauthenv",
@@ -31359,7 +31419,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L290",
+      "source_location": "L297",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_config_config_test_testload_invalidresettokenttlfailsfast",
@@ -31370,7 +31430,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L280",
+      "source_location": "L287",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_config_config_test_testload_invalidverificationtokenttlfailsfast",
@@ -31403,7 +31463,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L238",
+      "source_location": "L245",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_config_config_test_testload_nonoriginappbaseurlfailsfast",
@@ -31414,7 +31474,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L300",
+      "source_location": "L307",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_config_config_test_testload_nonpositivemailttlsfailfast",
@@ -31436,7 +31496,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/config/config_test.go",
-      "source_location": "L262",
+      "source_location": "L269",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_config_config_test_testload_originappbaseurlaccepted",
@@ -31469,7 +31529,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L152",
+      "source_location": "L148",
       "weight": 1.0,
       "source": "backend_internal_db_auth_schema_test",
       "target": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -31479,7 +31539,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L124",
+      "source_location": "L120",
       "weight": 1.0,
       "source": "backend_internal_db_auth_schema_test",
       "target": "backend_internal_db_auth_schema_test_assertuniquecolumn",
@@ -31489,7 +31549,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L20",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "backend_internal_db_auth_schema_test",
       "target": "backend_internal_db_auth_schema_test_testauthbaseschema_livedatabase",
@@ -31500,7 +31560,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L118",
+      "source_location": "L114",
       "weight": 1.0,
       "source": "backend_internal_db_auth_schema_test_testauthbaseschema_livedatabase",
       "target": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -31511,7 +31571,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L112",
+      "source_location": "L108",
       "weight": 1.0,
       "source": "backend_internal_db_auth_schema_test_testauthbaseschema_livedatabase",
       "target": "backend_internal_db_auth_schema_test_assertuniquecolumn",
@@ -31521,7 +31581,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L20",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_testauthbaseschema_livedatabase",
@@ -31534,16 +31594,27 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L27",
+      "source_location": "L23",
       "weight": 1.0,
       "source": "backend_internal_db_auth_schema_test_testauthbaseschema_livedatabase",
       "target": "backend_internal_db_db_newpool"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/auth_schema_test.go",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "backend_internal_db_auth_schema_test_testauthbaseschema_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L152",
+      "source_location": "L148",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -31554,7 +31625,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L124",
+      "source_location": "L120",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertuniquecolumn",
@@ -31565,7 +31636,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L124",
+      "source_location": "L120",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertuniquecolumn",
@@ -31576,7 +31647,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L124",
+      "source_location": "L120",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertuniquecolumn",
@@ -31587,7 +31658,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L152",
+      "source_location": "L148",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -31598,7 +31669,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/auth_schema_test.go",
-      "source_location": "L152",
+      "source_location": "L148",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_auth_schema_test_assertcascadinguserfk",
@@ -31643,7 +31714,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L13",
+      "source_location": "L12",
       "weight": 1.0,
       "source": "backend_internal_db_db_test_testnewpool_invalidurl",
       "target": "backend_internal_db_db_newpool"
@@ -31654,7 +31725,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L59",
+      "source_location": "L55",
       "weight": 1.0,
       "source": "backend_internal_db_db_test_testnewpool_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -31665,7 +31736,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L32",
+      "source_location": "L31",
       "weight": 1.0,
       "source": "backend_internal_db_db_test_testnewpool_unreachableserver",
       "target": "backend_internal_db_db_newpool"
@@ -31676,7 +31747,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L97",
+      "source_location": "L90",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -31687,7 +31758,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L28",
+      "source_location": "L24",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerlsconfiguration_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -31698,7 +31769,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L27",
+      "source_location": "L23",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -31709,7 +31780,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L499",
+      "source_location": "L492",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_testconsumerefreshtoken_concurrent",
       "target": "backend_internal_db_db_newpool"
@@ -31720,7 +31791,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L41",
+      "source_location": "L37",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -31731,7 +31802,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L47",
+      "source_location": "L43",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_newauthtestenv",
       "target": "backend_internal_db_db_newpool"
@@ -31740,7 +31811,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L10",
+      "source_location": "L9",
       "weight": 1.0,
       "source": "backend_internal_db_db_test",
       "target": "backend_internal_db_db_test_testnewpool_invalidurl",
@@ -31750,7 +31821,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L52",
+      "source_location": "L51",
       "weight": 1.0,
       "source": "backend_internal_db_db_test",
       "target": "backend_internal_db_db_test_testnewpool_livedatabase",
@@ -31760,7 +31831,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L25",
+      "source_location": "L24",
       "weight": 1.0,
       "source": "backend_internal_db_db_test",
       "target": "backend_internal_db_db_test_testnewpool_unreachableserver",
@@ -31770,7 +31841,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L10",
+      "source_location": "L9",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_db_test_testnewpool_invalidurl",
@@ -31781,7 +31852,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L52",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_db_test_testnewpool_livedatabase",
@@ -31792,7 +31863,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/db_test.go",
-      "source_location": "L25",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_db_test_testnewpool_unreachableserver",
@@ -31800,10 +31871,21 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/db_test.go",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "backend_internal_db_db_test_testnewpool_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L386",
+      "source_location": "L379",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_assertrlsviolation",
@@ -31813,7 +31895,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L371",
+      "source_location": "L364",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -31823,7 +31905,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L340",
+      "source_location": "L333",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -31833,7 +31915,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L350",
+      "source_location": "L343",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_inserttestcategory",
@@ -31843,7 +31925,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L360",
+      "source_location": "L353",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -31853,7 +31935,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L317",
+      "source_location": "L310",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -31863,7 +31945,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L335",
+      "source_location": "L328",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_setappuser",
@@ -31873,7 +31955,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L90",
+      "source_location": "L86",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
@@ -31883,7 +31965,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L21",
+      "source_location": "L20",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test",
       "target": "backend_internal_db_finance_rls_test_testfinancerlsconfiguration_livedatabase",
@@ -31893,7 +31975,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L21",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_testfinancerlsconfiguration_livedatabase",
@@ -31901,10 +31983,21 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "backend_internal_db_finance_rls_test_testfinancerlsconfiguration_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L386",
+      "source_location": "L379",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrlsviolation",
@@ -31915,7 +32008,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L371",
+      "source_location": "L364",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -31926,7 +32019,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L340",
+      "source_location": "L333",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -31937,7 +32030,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L350",
+      "source_location": "L343",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestcategory",
@@ -31948,7 +32041,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L360",
+      "source_location": "L353",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -31959,7 +32052,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L317",
+      "source_location": "L310",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -31970,7 +32063,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L90",
+      "source_location": "L86",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
@@ -31982,7 +32075,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L204",
+      "source_location": "L197",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_assertrlsviolation",
@@ -31993,7 +32086,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L153",
+      "source_location": "L146",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -32004,7 +32097,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L134",
+      "source_location": "L127",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -32015,7 +32108,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L135",
+      "source_location": "L128",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_inserttestcategory",
@@ -32026,7 +32119,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L136",
+      "source_location": "L129",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -32037,7 +32130,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L121",
+      "source_location": "L114",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -32048,17 +32141,28 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L131",
+      "source_location": "L124",
       "weight": 1.0,
       "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
       "target": "backend_internal_db_finance_rls_test_setappuser",
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/finance_rls_test.go",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "backend_internal_db_finance_rls_test_testfinancerls_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L317",
+      "source_location": "L310",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -32069,7 +32173,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L317",
+      "source_location": "L310",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestuser",
@@ -32080,7 +32184,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L371",
+      "source_location": "L364",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -32091,7 +32195,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L340",
+      "source_location": "L333",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -32102,7 +32206,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L350",
+      "source_location": "L343",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestcategory",
@@ -32113,7 +32217,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L360",
+      "source_location": "L353",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -32124,7 +32228,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L335",
+      "source_location": "L328",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_setappuser",
@@ -32135,7 +32239,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L371",
+      "source_location": "L364",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_assertrowcount",
@@ -32146,7 +32250,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L340",
+      "source_location": "L333",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestaccount",
@@ -32157,7 +32261,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L350",
+      "source_location": "L343",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttestcategory",
@@ -32168,7 +32272,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L360",
+      "source_location": "L353",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -32179,7 +32283,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L335",
+      "source_location": "L328",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_setappuser",
@@ -32192,7 +32296,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L87",
+      "source_location": "L83",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
       "target": "backend_internal_db_finance_rls_test_setappuser"
@@ -32201,7 +32305,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
-      "source_location": "L360",
+      "source_location": "L353",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
@@ -32212,7 +32316,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L195",
+      "source_location": "L191",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test",
       "target": "backend_internal_db_finance_schema_test_assertfk",
@@ -32222,7 +32326,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L176",
+      "source_location": "L172",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test",
       "target": "backend_internal_db_finance_schema_test_assertindexdefinition",
@@ -32232,7 +32336,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L134",
+      "source_location": "L130",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test",
       "target": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -32242,7 +32346,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L20",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test",
       "target": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
@@ -32253,7 +32357,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L104",
+      "source_location": "L100",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
       "target": "backend_internal_db_finance_schema_test_assertfk",
@@ -32264,7 +32368,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L126",
+      "source_location": "L122",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
       "target": "backend_internal_db_finance_schema_test_assertindexdefinition",
@@ -32275,7 +32379,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L100",
+      "source_location": "L96",
       "weight": 1.0,
       "source": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
       "target": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -32285,7 +32389,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L20",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
@@ -32293,10 +32397,21 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/finance_schema_test.go",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "backend_internal_db_finance_schema_test_testfinancebaseschema_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L195",
+      "source_location": "L191",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertfk",
@@ -32307,7 +32422,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L176",
+      "source_location": "L172",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertindexdefinition",
@@ -32318,7 +32433,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L134",
+      "source_location": "L130",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -32329,7 +32444,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L134",
+      "source_location": "L130",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -32340,7 +32455,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L134",
+      "source_location": "L130",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertuniqueindexcolumns",
@@ -32351,7 +32466,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L195",
+      "source_location": "L191",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertfk",
@@ -32362,7 +32477,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L176",
+      "source_location": "L172",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertindexdefinition",
@@ -32373,7 +32488,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L195",
+      "source_location": "L191",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertfk",
@@ -32384,7 +32499,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_schema_test.go",
-      "source_location": "L176",
+      "source_location": "L172",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_finance_schema_test_assertindexdefinition",
@@ -33793,7 +33908,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L474",
+      "source_location": "L470",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_newpguuid",
       "target": "backend_internal_db_gen_db_new"
@@ -33804,7 +33919,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L181",
+      "source_location": "L177",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_createsunverifieduser",
       "target": "backend_internal_db_gen_db_new"
@@ -33936,7 +34051,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L142",
+      "source_location": "L138",
       "weight": 1.0,
       "source": "http_authtestenv_registerandverify",
       "target": "backend_internal_db_gen_db_new"
@@ -35248,8 +35363,51 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/livedb_test.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "backend_internal_db_livedb_test",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/livedb_test.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_livedb_test_livedatabaseurl",
+      "target": "backend_internal_db_livedb_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L473",
+      "source_location": "L489",
+      "weight": 1.0,
+      "source": "backend_internal_db_queries_live_test_testconsumerefreshtoken_concurrent",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/queries_live_test.go",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/queries_live_test.go",
+      "source_location": "L469",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test",
       "target": "backend_internal_db_queries_live_test_newpguuid",
@@ -35259,7 +35417,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L492",
+      "source_location": "L488",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test",
       "target": "backend_internal_db_queries_live_test_testconsumerefreshtoken_concurrent",
@@ -35269,7 +35427,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L34",
+      "source_location": "L33",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test",
       "target": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
@@ -35279,7 +35437,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L480",
+      "source_location": "L476",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test",
       "target": "backend_internal_db_queries_live_test_uniquetestemail",
@@ -35289,7 +35447,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L34",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
@@ -35301,7 +35459,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L68",
+      "source_location": "L64",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
       "target": "backend_internal_db_queries_live_test_newpguuid",
@@ -35312,7 +35470,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L69",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_testsqlcqueries_livedatabase",
       "target": "backend_internal_db_queries_live_test_uniquetestemail",
@@ -35322,7 +35480,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L492",
+      "source_location": "L488",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_queries_live_test_testconsumerefreshtoken_concurrent",
@@ -35333,7 +35491,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L473",
+      "source_location": "L469",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_db_queries_live_test_newpguuid",
@@ -35345,7 +35503,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L510",
+      "source_location": "L503",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_testconsumerefreshtoken_concurrent",
       "target": "backend_internal_db_queries_live_test_newpguuid",
@@ -35356,7 +35514,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/queries_live_test.go",
-      "source_location": "L511",
+      "source_location": "L504",
       "weight": 1.0,
       "source": "backend_internal_db_queries_live_test_testconsumerefreshtoken_concurrent",
       "target": "backend_internal_db_queries_live_test_uniquetestemail",
@@ -36029,7 +36187,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L69",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_newauthtestenv",
       "target": "backend_internal_http_auth_newauthserver"
@@ -36687,7 +36845,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L113",
+      "source_location": "L109",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -36697,7 +36855,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L30",
+      "source_location": "L29",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_go_http_authtestenv",
@@ -36707,7 +36865,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L38",
+      "source_location": "L37",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -36717,7 +36875,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L102",
+      "source_location": "L98",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -36727,7 +36885,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L358",
+      "source_location": "L354",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_login_unknownemailunauthorized",
@@ -36737,7 +36895,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L418",
+      "source_location": "L414",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_login_unknownfieldrejected",
@@ -36747,7 +36905,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L270",
+      "source_location": "L266",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_login_unverifieduserforbidden",
@@ -36757,7 +36915,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L292",
+      "source_location": "L288",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
@@ -36767,7 +36925,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L374",
+      "source_location": "L370",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
@@ -36777,7 +36935,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L343",
+      "source_location": "L339",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordunauthorized",
@@ -36787,7 +36945,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L561",
+      "source_location": "L557",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_logout_alreadyloggedoutunauthorized",
@@ -36797,7 +36955,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L513",
+      "source_location": "L509",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_logout_clearscookieandrevokessession",
@@ -36807,7 +36965,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L548",
+      "source_location": "L544",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_logout_missingcookieunauthorized",
@@ -36817,7 +36975,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L583",
+      "source_location": "L579",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_refresh_cookieisperuseranddoesnotleakidentity",
@@ -36827,7 +36985,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L502",
+      "source_location": "L498",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_refresh_garbagecookieunauthorized",
@@ -36837,7 +36995,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L489",
+      "source_location": "L485",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_refresh_missingcookieunauthorized",
@@ -36847,7 +37005,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L437",
+      "source_location": "L433",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
@@ -36857,7 +37015,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L161",
+      "source_location": "L157",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_register_createsunverifieduser",
@@ -36867,7 +37025,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L193",
+      "source_location": "L189",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_register_duplicateemailconflicts",
@@ -36877,7 +37035,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L396",
+      "source_location": "L392",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_register_trailingjsonrejected",
@@ -36887,7 +37045,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L251",
+      "source_location": "L247",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_register_unknownfieldrejected",
@@ -36897,7 +37055,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L215",
+      "source_location": "L211",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_testauthlive_register_validationerrors",
@@ -36907,7 +37065,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L122",
+      "source_location": "L118",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -36917,7 +37075,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L34",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "field",
       "source": "backend_internal_http_auth_live_test_go_http_authtestenv",
@@ -36928,7 +37086,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L32",
+      "source_location": "L31",
       "weight": 1.0,
       "context": "field",
       "source": "backend_internal_http_auth_live_test_go_http_authtestenv",
@@ -36939,7 +37097,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0,
       "context": "field",
       "source": "backend_internal_http_auth_live_test_go_http_authtestenv",
@@ -36950,7 +37108,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L75",
+      "source_location": "L71",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_go_http_authtestenv",
       "target": "http_authtestenv_do",
@@ -36960,7 +37118,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L132",
+      "source_location": "L128",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_go_http_authtestenv",
       "target": "http_authtestenv_registerandverify",
@@ -36970,7 +37128,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L35",
+      "source_location": "L34",
       "weight": 1.0,
       "context": "field",
       "source": "backend_internal_http_auth_live_test_go_http_authtestenv",
@@ -36981,7 +37139,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L38",
+      "source_location": "L37",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -36992,7 +37150,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L38",
+      "source_location": "L37",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37005,7 +37163,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L70",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "backend_internal_http_auth_live_test_newauthtestenv",
+      "target": "backend_internal_http_livedb_test_livedatabaseurl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/auth_live_test.go",
+      "source_location": "L66",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_newauthtestenv",
       "target": "backend_internal_http_router_newrouter"
@@ -37016,7 +37185,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L68",
+      "source_location": "L64",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_newauthtestenv",
       "target": "backend_internal_mail_fake_newcapturingmailer"
@@ -37026,7 +37195,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L359",
+      "source_location": "L355",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownemailunauthorized",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37037,7 +37206,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L419",
+      "source_location": "L415",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownfieldrejected",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37048,7 +37217,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L271",
+      "source_location": "L267",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unverifieduserforbidden",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37059,7 +37228,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L293",
+      "source_location": "L289",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37070,7 +37239,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L375",
+      "source_location": "L371",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37081,7 +37250,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L344",
+      "source_location": "L340",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordunauthorized",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37092,7 +37261,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L562",
+      "source_location": "L558",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_alreadyloggedoutunauthorized",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37103,7 +37272,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L514",
+      "source_location": "L510",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_clearscookieandrevokessession",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37114,7 +37283,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L549",
+      "source_location": "L545",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_missingcookieunauthorized",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37125,7 +37294,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L584",
+      "source_location": "L580",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_cookieisperuseranddoesnotleakidentity",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37136,7 +37305,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L503",
+      "source_location": "L499",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_garbagecookieunauthorized",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37147,7 +37316,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L490",
+      "source_location": "L486",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_missingcookieunauthorized",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37158,7 +37327,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L438",
+      "source_location": "L434",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37169,7 +37338,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L162",
+      "source_location": "L158",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_createsunverifieduser",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37180,7 +37349,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L194",
+      "source_location": "L190",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_duplicateemailconflicts",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37191,7 +37360,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L397",
+      "source_location": "L393",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_trailingjsonrejected",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37202,7 +37371,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L252",
+      "source_location": "L248",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_unknownfieldrejected",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37213,7 +37382,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L216",
+      "source_location": "L212",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_validationerrors",
       "target": "backend_internal_http_auth_live_test_newauthtestenv",
@@ -37388,7 +37557,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L113",
+      "source_location": "L109",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_decodeapierror",
@@ -37399,7 +37568,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L102",
+      "source_location": "L98",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37410,7 +37579,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L358",
+      "source_location": "L354",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownemailunauthorized",
@@ -37421,7 +37590,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L418",
+      "source_location": "L414",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownfieldrejected",
@@ -37432,7 +37601,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L270",
+      "source_location": "L266",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unverifieduserforbidden",
@@ -37443,7 +37612,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L292",
+      "source_location": "L288",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
@@ -37454,7 +37623,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L374",
+      "source_location": "L370",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
@@ -37465,7 +37634,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L343",
+      "source_location": "L339",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordunauthorized",
@@ -37476,7 +37645,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L561",
+      "source_location": "L557",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_alreadyloggedoutunauthorized",
@@ -37487,7 +37656,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L513",
+      "source_location": "L509",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_clearscookieandrevokessession",
@@ -37498,7 +37667,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L548",
+      "source_location": "L544",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_missingcookieunauthorized",
@@ -37509,7 +37678,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L583",
+      "source_location": "L579",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_cookieisperuseranddoesnotleakidentity",
@@ -37520,7 +37689,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L502",
+      "source_location": "L498",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_garbagecookieunauthorized",
@@ -37531,7 +37700,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L489",
+      "source_location": "L485",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_missingcookieunauthorized",
@@ -37542,7 +37711,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L437",
+      "source_location": "L433",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
@@ -37553,7 +37722,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L161",
+      "source_location": "L157",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_register_createsunverifieduser",
@@ -37564,7 +37733,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L193",
+      "source_location": "L189",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_register_duplicateemailconflicts",
@@ -37575,7 +37744,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L396",
+      "source_location": "L392",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_register_trailingjsonrejected",
@@ -37586,7 +37755,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L251",
+      "source_location": "L247",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_register_unknownfieldrejected",
@@ -37597,7 +37766,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L215",
+      "source_location": "L211",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_testauthlive_register_validationerrors",
@@ -37608,7 +37777,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L75",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_authtestenv_do",
@@ -37619,7 +37788,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L132",
+      "source_location": "L128",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_authtestenv_registerandverify",
@@ -37631,7 +37800,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L361",
+      "source_location": "L357",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownemailunauthorized",
       "target": "http_authtestenv_do",
@@ -37642,7 +37811,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L421",
+      "source_location": "L417",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownfieldrejected",
       "target": "http_authtestenv_do",
@@ -37653,7 +37822,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L277",
+      "source_location": "L273",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unverifieduserforbidden",
       "target": "http_authtestenv_do",
@@ -37664,7 +37833,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L298",
+      "source_location": "L294",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
       "target": "http_authtestenv_do",
@@ -37675,7 +37844,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L379",
+      "source_location": "L375",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
       "target": "http_authtestenv_do",
@@ -37686,7 +37855,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L348",
+      "source_location": "L344",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordunauthorized",
       "target": "http_authtestenv_do",
@@ -37697,7 +37866,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L567",
+      "source_location": "L563",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_alreadyloggedoutunauthorized",
       "target": "http_authtestenv_do",
@@ -37708,7 +37877,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L519",
+      "source_location": "L515",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_clearscookieandrevokessession",
       "target": "http_authtestenv_do",
@@ -37719,7 +37888,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L551",
+      "source_location": "L547",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_missingcookieunauthorized",
       "target": "http_authtestenv_do",
@@ -37730,7 +37899,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L591",
+      "source_location": "L587",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_cookieisperuseranddoesnotleakidentity",
       "target": "http_authtestenv_do",
@@ -37741,7 +37910,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L505",
+      "source_location": "L501",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_garbagecookieunauthorized",
       "target": "http_authtestenv_do",
@@ -37752,7 +37921,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L492",
+      "source_location": "L488",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_missingcookieunauthorized",
       "target": "http_authtestenv_do",
@@ -37763,7 +37932,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L443",
+      "source_location": "L439",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
       "target": "http_authtestenv_do",
@@ -37774,7 +37943,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L168",
+      "source_location": "L164",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_createsunverifieduser",
       "target": "http_authtestenv_do",
@@ -37785,7 +37954,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L200",
+      "source_location": "L196",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_duplicateemailconflicts",
       "target": "http_authtestenv_do",
@@ -37796,7 +37965,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L254",
+      "source_location": "L250",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_unknownfieldrejected",
       "target": "http_authtestenv_do",
@@ -37807,7 +37976,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L235",
+      "source_location": "L231",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_validationerrors",
       "target": "http_authtestenv_do",
@@ -37817,7 +37986,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L75",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_authtestenv_do",
@@ -37828,7 +37997,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L75",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "return_type",
       "source": "http_authtestenv_do",
@@ -37840,7 +38009,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L136",
+      "source_location": "L132",
       "weight": 1.0,
       "source": "http_authtestenv_registerandverify",
       "target": "http_authtestenv_do",
@@ -37850,7 +38019,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L102",
+      "source_location": "L98",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37861,7 +38030,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L113",
+      "source_location": "L109",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_decodeapierror",
@@ -37872,7 +38041,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L102",
+      "source_location": "L98",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37884,7 +38053,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L331",
+      "source_location": "L327",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
       "target": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37895,7 +38064,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L568",
+      "source_location": "L564",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_alreadyloggedoutunauthorized",
       "target": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37906,7 +38075,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L523",
+      "source_location": "L519",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_clearscookieandrevokessession",
       "target": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37917,7 +38086,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L605",
+      "source_location": "L601",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_cookieisperuseranddoesnotleakidentity",
       "target": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37928,7 +38097,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L447",
+      "source_location": "L443",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
       "target": "backend_internal_http_auth_live_test_refreshcookiefromresponse",
@@ -37949,7 +38118,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L113",
+      "source_location": "L109",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_auth_live_test_decodeapierror",
@@ -37961,7 +38130,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L368",
+      "source_location": "L364",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownemailunauthorized",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -37972,7 +38141,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L429",
+      "source_location": "L425",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownfieldrejected",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -37983,7 +38152,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L286",
+      "source_location": "L282",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unverifieduserforbidden",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -37994,7 +38163,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L385",
+      "source_location": "L381",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38005,7 +38174,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L352",
+      "source_location": "L348",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordunauthorized",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38016,7 +38185,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L555",
+      "source_location": "L551",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_missingcookieunauthorized",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38027,7 +38196,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L496",
+      "source_location": "L492",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_missingcookieunauthorized",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38038,7 +38207,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L473",
+      "source_location": "L469",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38049,7 +38218,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L209",
+      "source_location": "L205",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_duplicateemailconflicts",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38060,7 +38229,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L410",
+      "source_location": "L406",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_trailingjsonrejected",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38071,7 +38240,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L262",
+      "source_location": "L258",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_unknownfieldrejected",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38082,7 +38251,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L239",
+      "source_location": "L235",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_validationerrors",
       "target": "backend_internal_http_auth_live_test_decodeapierror",
@@ -38170,7 +38339,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L362",
+      "source_location": "L358",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unknownemailunauthorized",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38181,7 +38350,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L272",
+      "source_location": "L268",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_unverifieduserforbidden",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38192,7 +38361,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L380",
+      "source_location": "L376",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38203,7 +38372,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L163",
+      "source_location": "L159",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_createsunverifieduser",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38214,7 +38383,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L195",
+      "source_location": "L191",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_duplicateemailconflicts",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38225,7 +38394,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L255",
+      "source_location": "L251",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_unknownfieldrejected",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38236,7 +38405,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L223",
+      "source_location": "L219",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_register_validationerrors",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38313,7 +38482,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L135",
+      "source_location": "L131",
       "weight": 1.0,
       "source": "http_authtestenv_registerandverify",
       "target": "backend_internal_http_auth_live_test_uniqueauthtestemail",
@@ -38324,7 +38493,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L295",
+      "source_location": "L291",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_verifiedusersucceeds",
       "target": "http_authtestenv_registerandverify",
@@ -38335,7 +38504,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L376",
+      "source_location": "L372",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordandunknownemailshareshape",
       "target": "http_authtestenv_registerandverify",
@@ -38346,7 +38515,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L345",
+      "source_location": "L341",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_login_wrongpasswordunauthorized",
       "target": "http_authtestenv_registerandverify",
@@ -38357,7 +38526,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L564",
+      "source_location": "L560",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_alreadyloggedoutunauthorized",
       "target": "http_authtestenv_registerandverify",
@@ -38368,7 +38537,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L516",
+      "source_location": "L512",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_logout_clearscookieandrevokessession",
       "target": "http_authtestenv_registerandverify",
@@ -38379,7 +38548,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L586",
+      "source_location": "L582",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_cookieisperuseranddoesnotleakidentity",
       "target": "http_authtestenv_registerandverify",
@@ -38390,7 +38559,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/auth_live_test.go",
-      "source_location": "L440",
+      "source_location": "L436",
       "weight": 1.0,
       "source": "backend_internal_http_auth_live_test_testauthlive_refresh_rotatesandinvalidatesoldcookie",
       "target": "http_authtestenv_registerandverify",
@@ -39331,6 +39500,27 @@
       "weight": 1.0,
       "source": "backend_internal_http_health_test_testhealthendpoint",
       "target": "backend_internal_http_router_newrouter"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/livedb_test.go",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "backend_internal_http_livedb_test",
+      "target": "backend_internal_http_livedb_test_livedatabaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/livedb_test.go",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_livedb_test_livedatabaseurl",
+      "target": "backend_internal_http_livedb_test_go_t",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -65497,6 +65687,16 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L115",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "backend_readme",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
@@ -65520,7 +65720,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L152",
+      "source_location": "L162",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_backend_commands",
@@ -65530,7 +65730,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L291",
+      "source_location": "L301",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_canonical_docs",
@@ -65540,7 +65740,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L277",
+      "source_location": "L287",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_contributing_and_workflow",
@@ -65550,7 +65750,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L215",
+      "source_location": "L225",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_database",
@@ -65560,7 +65760,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L109",
+      "source_location": "L119",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_docker_and_local_services",
@@ -65570,7 +65770,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L141",
+      "source_location": "L151",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_frontend_commands",
@@ -65580,7 +65780,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L228",
+      "source_location": "L238",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_graphify",
@@ -65600,7 +65800,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L244",
+      "source_location": "L254",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_migration_roadmap",
@@ -65620,7 +65820,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L180",
+      "source_location": "L190",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_openapi",
@@ -65650,7 +65850,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L259",
+      "source_location": "L269",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_troubleshooting",
@@ -65720,7 +65920,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L265",
+      "source_location": "L275",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_build_fails_with_clerk_placeholder_keys",
@@ -65730,7 +65930,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L261",
+      "source_location": "L271",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_docker_engine_not_reachable",
@@ -65740,7 +65940,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L269",
+      "source_location": "L279",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_github_project_board_requires_scope",
@@ -65750,7 +65950,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L273",
+      "source_location": "L283",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_graphify_warnings",
@@ -69518,5 +69718,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d019f48ef09002c0af3a3a23f67386efed21259f"
+  "built_at_commit": "44ff7f20a624033fedaef59e8871688b48330ac6"
 }

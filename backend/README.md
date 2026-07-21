@@ -469,3 +469,13 @@ TEST_DATABASE_URL="postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable" 
 `internal/mail`'s tests (`SMTPMailer` against a local fake SMTP listener,
 `CapturingMailer` concurrency safety, link building) need no database and
 run in the default `go test ./...` above.
+
+CI runs these live tests too: the `backend` job in
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) provisions a
+Postgres 17 service, applies the migrations with goose, and exports
+`TEST_DATABASE_URL`. The gate helper (`liveDatabaseURL`, defined per package
+in `livedb_test.go`) therefore **fails** rather than skips when
+`TEST_DATABASE_URL` is unset while `CI` is set — nearly all of the backend's
+behavioral coverage sits behind that gate, and a silent skip would take it
+out of CI without turning anything red. Outside CI an unset value still
+skips, so `go test ./...` stays useful with no database running.

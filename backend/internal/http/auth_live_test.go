@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"os"
 	"strings"
 	"testing"
 	"time"
@@ -38,10 +37,7 @@ type authTestEnv struct {
 func newAuthTestEnv(t *testing.T) authTestEnv {
 	t.Helper()
 
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live auth HTTP test")
-	}
+	databaseURL := liveDatabaseURL(t, "live auth HTTP test")
 
 	ctx := context.Background()
 	pool, err := db.NewPool(ctx, databaseURL)

@@ -135,8 +135,18 @@ func Load() (Config, error) {
 	// A malformed APP_BASE_URL must never reach an email body as a broken
 	// link, so it is parsed and validated at startup, not lazily when the
 	// first email is sent.
-	if err != nil || appBaseURL.Scheme == "" || appBaseURL.Host == "" {
-		return Config{}, fmt.Errorf("config: APP_BASE_URL must be an absolute URL with a scheme and host, got %q", appBaseURLRaw)
+	//
+	// The scheme is allowlisted rather than merely required to be present:
+	// this value becomes a link a user clicks from their mail client, so it
+	// has to be a web origin. "ftp://example.com" and
+	// "javascript://example.com" both carry a scheme and a host, and both
+	// would produce a link the frontend cannot handle. Userinfo is rejected
+	// for the same reason — credentials embedded in an emailed URL are a
+	// phishing shape, not a deployment shape.
+	if err != nil || appBaseURL.Hostname() == "" ||
+		(appBaseURL.Scheme != "http" && appBaseURL.Scheme != "https") ||
+		appBaseURL.User != nil {
+		return Config{}, fmt.Errorf("config: APP_BASE_URL must be an absolute http or https URL with a host and no userinfo, got %q", appBaseURLRaw)
 	}
 	// Origin-only, because internal/mail builds links by *replacing* the
 	// path and query (the frontend routes are absolute: /verify-email,

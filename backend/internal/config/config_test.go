@@ -216,6 +216,13 @@ func TestLoad_MalformedAppBaseURLFailsFast(t *testing.T) {
 		{"missing host", "http://"},
 		{"unparsable", "://bad"},
 		{"scheme only, no host or slashes", "not-a-url"},
+		// The value becomes a link in an email, so it must be a web origin:
+		// a non-web scheme carries a host and would otherwise pass, then
+		// produce a link the frontend cannot handle.
+		{"ftp scheme", "ftp://example.invalid"},
+		{"javascript scheme", "javascript://example.invalid"},
+		{"file scheme", "file://example.invalid"},
+		{"userinfo", "https://user:pass@example.invalid"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
