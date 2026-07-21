@@ -333,7 +333,7 @@ func TestAuthLive_VerifyEmail_ConcurrentSameToken_ExactlyOneSucceeds(t *testing.
 	const n = 2
 	var wg sync.WaitGroup
 	codes := make([]int, n)
-	for i := 0; i < n; i++ {
+	for i := range n {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
@@ -490,7 +490,7 @@ func TestAuthLive_PasswordReset_FourthRequestWithinHour_StillOKButOnlyThreeSent(
 	email, cleanup := env.registerAndVerify(t, "reset-cap-sequential", password)
 	t.Cleanup(cleanup)
 
-	for i := 0; i < 4; i++ {
+	for i := range 4 {
 		rec := env.do(t, http.MethodPost, "/api/auth/password-reset/request", resetRequestBody{Email: email}, nil)
 		if rec.Code != http.StatusOK {
 			t.Fatalf("request %d: expected 200, got %d (body: %s)", i+1, rec.Code, rec.Body.String())
@@ -562,7 +562,7 @@ func TestAuthLive_PasswordReset_ConcurrentIssuance_LockSerializesAndCapsAtThree(
 	const n = 5
 	var wg sync.WaitGroup
 	codes := make([]int, n)
-	for i := 0; i < n; i++ {
+	for i := range n {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()

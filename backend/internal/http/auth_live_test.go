@@ -33,11 +33,6 @@ type authTestEnv struct {
 	cfg       config.Config
 	accessTTL time.Duration
 	mailer    *mail.CapturingMailer
-	// authServer is the same instance router dispatches to. Most tests only
-	// need router; a few (the rollback-fault test) construct their own
-	// AuthServer directly with a fault-injecting pool instead of using this
-	// field.
-	authServer *AuthServer
 }
 
 func newAuthTestEnv(t *testing.T) authTestEnv {
@@ -74,7 +69,7 @@ func newAuthTestEnv(t *testing.T) authTestEnv {
 	authServer := NewAuthServer(pool, cfg, mailer)
 	router := NewRouter(authServer)
 
-	return authTestEnv{pool: pool, router: router, cfg: cfg, accessTTL: cfg.AccessTokenTTL, mailer: mailer, authServer: authServer}
+	return authTestEnv{pool: pool, router: router, cfg: cfg, accessTTL: cfg.AccessTokenTTL, mailer: mailer}
 }
 
 func (e authTestEnv) do(t *testing.T, method, path string, body any, cookie *http.Cookie) *httptest.ResponseRecorder {

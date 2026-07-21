@@ -918,9 +918,9 @@ func toAuthUser(u dbgen.User) openapi.AuthUser {
 // corresponding component in openapi/nuchi.openapi.json.
 
 func validationError(fields ...apiFieldError) openapi.ValidationErrorJSONResponse {
-	var details *map[string]interface{}
+	var details *map[string]any
 	if len(fields) > 0 {
-		d := map[string]interface{}{"fields": fields}
+		d := map[string]any{"fields": fields}
 		details = &d
 	}
 	return openapi.ValidationErrorJSONResponse{

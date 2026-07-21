@@ -191,17 +191,17 @@ func TestCapturingMailer_RecordsSendsAndIsConcurrencySafe(t *testing.T) {
 
 	const n = 20
 	done := make(chan struct{}, n*2)
-	for i := 0; i < n; i++ {
-		go func(i int) {
+	for range n {
+		go func() {
 			_ = m.SendVerificationEmail(context.Background(), "v@example.test", "tok")
 			done <- struct{}{}
-		}(i)
-		go func(i int) {
+		}()
+		go func() {
 			_ = m.SendPasswordResetEmail(context.Background(), "r@example.test", "tok")
 			done <- struct{}{}
-		}(i)
+		}()
 	}
-	for i := 0; i < n*2; i++ {
+	for range n * 2 {
 		<-done
 	}
 
