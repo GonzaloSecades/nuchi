@@ -20,18 +20,28 @@ jobs:
     services:
       postgres:
         image: postgres:17-alpine
+        # The bootstrap superuser is postgres, NOT the application role.
+        # Superusers bypass row level security entirely — FORCE included —
+        # so if the app role were also the bootstrap superuser (as it is
+        # with POSTGRES_USER=nuchi), every RLS ownership test would pass
+        # vacuously against a connection no policy applies to. PG17 will not
+        # let the bootstrap superuser drop its own SUPERUSER attribute
+        # either, so the separation has to exist from the start. This
+        # mirrors the local dev database, where postgres is the superuser
+        # and nuchi is an ordinary role that owns the tables.
         env:
           POSTGRES_DB: nuchi
-          POSTGRES_USER: nuchi
-          POSTGRES_PASSWORD: nuchi
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U nuchi -d nuchi"
+          --health-cmd "pg_isready -U postgres -d nuchi"
           --health-interval 2s
           --health-timeout 5s
           --health-retries 20
     env:
+      ADMIN_DATABASE_URL: postgres://postgres:postgres@localhost:5432/nuchi?sslmode=disable
       TEST_DATABASE_URL: postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
     steps:
       - uses: actions/checkout@v4
@@ -41,21 +51,25 @@ jobs:
       # Pinned to the same version backend/README.md documents for local use.
       - name: Install goose
         run: go install github.com/pressly/goose/v3/cmd/goose@v3.27.2
+      # Creates the ordinary application role and hands it the public schema
+      # so the migrations, run as that role below, own every table they
+      # create — which is what makes FORCE RLS apply to it. citext is
+      # installed here as superuser rather than relying on it being a
+      # trusted extension.
+      - name: Create the application role
+        run: |
+          psql "$ADMIN_DATABASE_URL" -v ON_ERROR_STOP=1 <<'SQL'
+          CREATE ROLE nuchi LOGIN PASSWORD 'nuchi';
+          ALTER SCHEMA public OWNER TO nuchi;
+          CREATE EXTENSION IF NOT EXISTS citext;
+          SQL
       - name: Apply migrations
         run: goose -dir migrations postgres "$TEST_DATABASE_URL" up
         working-directory: backend
-      # The postgres image creates POSTGRES_USER as a SUPERUSER, and
-      # superusers bypass row level security outright — FORCE included. Left
-      # alone, every RLS ownership test would pass vacuously against a
-      # connection that no policy applies to, which is the opposite of what
-      # they exist to prove. Migrations need the superuser rights first
-      # (00001 runs CREATE EXTENSION citext), so the attribute is dropped
-      # immediately afterwards, leaving the app role as table owner with
-      # FORCE RLS applying to it exactly as in a real deployment.
-      - name: Drop superuser from the app role so RLS applies
-        run: |
-          psql "$TEST_DATABASE_URL" -c 'ALTER ROLE nuchi NOSUPERUSER'
-          psql "$TEST_DATABASE_URL" -tAc "SELECT rolsuper FROM pg_roles WHERE rolname = current_user" | grep -qx f
+      # Guard: if the test role were ever superuser, the RLS suite would go
+      # green while proving nothing.
+      - name: Verify the test role is subject to RLS
+        run: psql "$TEST_DATABASE_URL" -tAc "SELECT rolsuper FROM pg_roles WHERE rolname = current_user" | grep -qx f
       - run: go vet ./...
         working-directory: backend
       - run: go test ./...
