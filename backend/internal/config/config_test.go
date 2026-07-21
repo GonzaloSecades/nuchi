@@ -230,6 +230,53 @@ func TestLoad_MalformedAppBaseURLFailsFast(t *testing.T) {
 	}
 }
 
+// TestLoad_NonOriginAppBaseURLFailsFast pins the origin-only rule.
+// internal/mail builds links by replacing the base URL's path and query, so
+// anything carried in APP_BASE_URL beyond the origin would be silently
+// dropped from the link inside an email — the failure this validation
+// exists to prevent. It must be a startup error, not a surprise later.
+func TestLoad_NonOriginAppBaseURLFailsFast(t *testing.T) {
+	cases := []struct {
+		name string
+		url  string
+	}{
+		{"subpath", "https://example.invalid/app"},
+		{"deep subpath", "https://example.invalid/a/b"},
+		{"query", "https://example.invalid?tenant=nuchi"},
+		{"fragment", "https://example.invalid#top"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv("APP_BASE_URL", tc.url)
+
+			if _, err := Load(); err == nil {
+				t.Fatalf("Load: expected an error for non-origin APP_BASE_URL=%q", tc.url)
+			}
+		})
+	}
+}
+
+// A bare origin, with or without a trailing slash, is the supported shape.
+func TestLoad_OriginAppBaseURLAccepted(t *testing.T) {
+	for _, raw := range []string{"https://example.invalid", "https://example.invalid/", "http://localhost:3000"} {
+		t.Run(raw, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv("APP_BASE_URL", raw)
+
+			cfg, err := Load()
+			if err != nil {
+				t.Fatalf("Load: unexpected error for APP_BASE_URL=%q: %v", raw, err)
+			}
+			if cfg.AppBaseURL.Host == "" {
+				t.Errorf("expected a parsed host for APP_BASE_URL=%q", raw)
+			}
+		})
+	}
+}
+
 func TestLoad_InvalidVerificationTokenTTLFailsFast(t *testing.T) {
 	clearAuthEnv(t)
 	t.Setenv("AUTH_JWT_SECRET", validJWTSecret)

@@ -133,10 +133,22 @@ func Load() (Config, error) {
 	appBaseURLRaw := getEnv("APP_BASE_URL", defaultAppBaseURL)
 	appBaseURL, err := url.Parse(appBaseURLRaw)
 	// A malformed APP_BASE_URL must never reach an email body as a broken
-	// link, so it is parsed and validated (scheme + host present) at
-	// startup, not lazily when the first email is sent.
+	// link, so it is parsed and validated at startup, not lazily when the
+	// first email is sent.
 	if err != nil || appBaseURL.Scheme == "" || appBaseURL.Host == "" {
 		return Config{}, fmt.Errorf("config: APP_BASE_URL must be an absolute URL with a scheme and host, got %q", appBaseURLRaw)
+	}
+	// Origin-only, because internal/mail builds links by *replacing* the
+	// path and query (the frontend routes are absolute: /verify-email,
+	// /reset-password). A base URL carrying its own path, query, or
+	// fragment would have them silently dropped from the link, which is
+	// exactly the broken-link-in-an-email failure this validation exists to
+	// prevent — so reject it loudly at startup instead. Serving the app
+	// under a subpath is a real deployment shape, but it needs
+	// internal/mail to join paths rather than overwrite them; that is a
+	// deliberate change, not something to infer from a config value.
+	if (appBaseURL.Path != "" && appBaseURL.Path != "/") || appBaseURL.RawQuery != "" || appBaseURL.Fragment != "" {
+		return Config{}, fmt.Errorf("config: APP_BASE_URL must be origin-only (scheme and host, optional trailing %q) with no path, query, or fragment, got %q", "/", appBaseURLRaw)
 	}
 
 	verificationTokenTTL, err := getEnvDuration("AUTH_VERIFICATION_TOKEN_TTL", defaultVerificationTokenTTL)

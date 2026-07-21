@@ -515,6 +515,7 @@
   "513": ".CreateCategory",
   "514": "RegisterUser201JSONResponse",
   "515": "query-provider.tsx",
+  "516": "api-base-url.ts",
   "518": "graphify reference: query, path, explain",
   "519": "README.md",
   "520": "InvalidParamFormatError",

@@ -727,6 +727,7 @@ func (s *AuthServer) issuePasswordResetToken(ctx context.Context, userID pgtype.
 		// commit (rather than rollback) just to release the row lock
 		// cleanly; the caller's response is unaffected either way.
 		if err := tx.Commit(ctx); err != nil {
+			slog.Default().ErrorContext(ctx, "password reset issuance: commit failed after cap check", "user_id", uuid.UUID(userID.Bytes), "error", err)
 			return "", false
 		}
 		committed = true

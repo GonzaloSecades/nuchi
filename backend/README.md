@@ -40,7 +40,7 @@ The API listens on `0.0.0.0:8080` by default.
 | `AUTH_COOKIE_SECURE` | `false` | Sets the refresh cookie's `Secure` attribute. Must be `true` in any deployed environment — `false` only works over plain HTTP, which is fine for local dev but never for a real deployment. |
 | `SMTP_ADDR` | `localhost:1025` | Outbound SMTP server `host:port`. Points at Mailpit in dev; unauthenticated. |
 | `MAIL_FROM` | `nuchi@localhost` | From address on outgoing verification/reset mail. |
-| `APP_BASE_URL` | `http://localhost:3000` | Base URL used to build verification/reset links. Parsed and validated (scheme + host required) at startup — a malformed value fails fast rather than producing a broken link inside an email. |
+| `APP_BASE_URL` | `http://localhost:3000` | Origin used to build verification/reset links. Must be origin-only — scheme and host, optional trailing `/`, no path, query, or fragment. Parsed and validated at startup, so a malformed or non-origin value fails fast rather than producing a broken link inside an email. Serving the app under a subpath would need `internal/mail` to join paths instead of replacing them. |
 | `AUTH_VERIFICATION_TOKEN_TTL` | `48h` | Email verification token lifetime, as a Go duration. |
 | `AUTH_RESET_TOKEN_TTL` | `30m` | Password reset token lifetime, as a Go duration. |
 

@@ -382,7 +382,12 @@ func TestAuthLive_PasswordResetRequest_UnknownEmail_SameShapeAsKnown(t *testing.
 			knownRec.Body.String(), unknownRec.Body.String())
 	}
 
-	// Only the known account should ever get a reset email.
+	// Only the known account should ever get a reset email. Wait for the
+	// known account's send to actually land first — that is the ordering
+	// signal, not a bare sleep — so a machine slow enough to delay both
+	// sends cannot pass this vacuously. The short grace period after it
+	// then catches a late (and incorrect) send to the unknown address.
+	waitForCapturedTokens(t, env.mailer.ResetSends, knownEmail, 1, 3*time.Second)
 	time.Sleep(200 * time.Millisecond)
 	if got := countCapturedTo(env.mailer.ResetSends(), unknownEmail); got != 0 {
 		t.Errorf("expected no reset email for an unknown address, got %d", got)
