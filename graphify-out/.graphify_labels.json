@@ -519,6 +519,7 @@
   "517": "RegisterUser201JSONResponse",
   "518": "graphify reference: query, path, explain",
   "519": "README.md",
+  "520": "amount-input.tsx",
   "521": "Target Backend Architecture",
   "522": "Observability Readiness",
   "523": "Module Improvement Map",
@@ -526,13 +527,14 @@
   "525": "Current State and Constraints",
   "526": "graphify reference: add a URL and watch a folder",
   "527": "graphify reference: commit hook and native CLAUDE.md integration",
+  "528": "RequiredHeaderError",
   "529": "Security Standard",
   "530": "graphify reference: incremental update and cluster-only",
   "531": "Performance and Query Engineering",
+  "532": "GetTransaction200JSONResponse",
   "533": "Robustness and Transaction Semantics",
   "534": "graphify reference: GitHub clone and cross-repo merge",
   "535": "graphify reference: transcribe video and audio",
-  "536": "UnescapedCookieParamError",
   "537": "extraction-spec.md",
   "540": "API Contract and Documentation Standard"
 }

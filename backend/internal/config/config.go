@@ -2,6 +2,8 @@ package config
 
 import (
 	"fmt"
+	"net"
+	"net/mail"
 	"net/url"
 	"os"
 	"strconv"
@@ -177,6 +179,22 @@ func Load() (Config, error) {
 		return Config{}, fmt.Errorf("config: AUTH_RESET_TOKEN_TTL must be at least 1s, got %v", resetTokenTTL)
 	}
 
+	// SMTP_ADDR and MAIL_FROM are validated at startup for the same reason
+	// APP_BASE_URL is: mail sends are asynchronous and best-effort, so a
+	// malformed value produces no error a user or operator would ever see —
+	// registration and reset requests still return their normal success
+	// response, and the only symptom is mail that silently never arrives.
+	// Failing at startup turns that into an immediate, obvious error.
+	smtpAddr := getEnv("SMTP_ADDR", defaultSMTPAddr)
+	if err := validateHostPort(smtpAddr); err != nil {
+		return Config{}, fmt.Errorf("config: SMTP_ADDR must be host:port, got %q: %w", smtpAddr, err)
+	}
+
+	mailFrom := getEnv("MAIL_FROM", defaultMailFrom)
+	if _, err := mail.ParseAddress(mailFrom); err != nil {
+		return Config{}, fmt.Errorf("config: MAIL_FROM must be a valid email address, got %q: %w", mailFrom, err)
+	}
+
 	return Config{
 		Host:        getEnv("BACKEND_HOST", defaultHost),
 		Port:        getEnv("BACKEND_PORT", defaultPort),
@@ -187,13 +205,36 @@ func Load() (Config, error) {
 		RefreshTokenTTL: refreshTokenTTL,
 		CookieSecure:    cookieSecure,
 
-		SMTPAddr:   getEnv("SMTP_ADDR", defaultSMTPAddr),
-		MailFrom:   getEnv("MAIL_FROM", defaultMailFrom),
+		SMTPAddr:   smtpAddr,
+		MailFrom:   mailFrom,
 		AppBaseURL: appBaseURL,
 
 		VerificationTokenTTL: verificationTokenTTL,
 		ResetTokenTTL:        resetTokenTTL,
 	}, nil
+}
+
+// validateHostPort reports whether addr is a "host:port" pair usable as an
+// SMTP endpoint: both parts present, with a port that is a number in range.
+// net.SplitHostPort alone is not enough — it accepts an empty host and a
+// non-numeric port, both of which only fail much later, at dial time, in a
+// background send goroutine nobody is watching.
+func validateHostPort(addr string) error {
+	host, port, err := net.SplitHostPort(addr)
+	if err != nil {
+		return err
+	}
+	if host == "" {
+		return fmt.Errorf("host is empty")
+	}
+	portNum, err := strconv.Atoi(port)
+	if err != nil {
+		return fmt.Errorf("port %q is not a number", port)
+	}
+	if portNum < 1 || portNum > 65535 {
+		return fmt.Errorf("port %d is out of range", portNum)
+	}
+	return nil
 }
 
 // Addr returns the listen address accepted by net/http.

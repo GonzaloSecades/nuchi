@@ -284,6 +284,46 @@ func TestLoad_OriginAppBaseURLAccepted(t *testing.T) {
 	}
 }
 
+// Mail misconfiguration has no visible symptom at request time — sends are
+// async and best-effort, so the response is a normal success either way and
+// the mail just never arrives. These must fail at startup instead.
+func TestLoad_MalformedSMTPAddrFailsFast(t *testing.T) {
+	cases := []struct {
+		name string
+		addr string
+	}{
+		{"no port", "localhost"},
+		{"empty host", ":1025"},
+		{"non-numeric port", "localhost:smtp"},
+		{"port out of range", "localhost:99999"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv("SMTP_ADDR", tc.addr)
+
+			if _, err := Load(); err == nil {
+				t.Fatalf("Load: expected an error for SMTP_ADDR=%q", tc.addr)
+			}
+		})
+	}
+}
+
+func TestLoad_MalformedMailFromFailsFast(t *testing.T) {
+	for _, from := range []string{"not an address", "@localhost", "a@b@c"} {
+		t.Run(from, func(t *testing.T) {
+			clearAuthEnv(t)
+			t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
+			t.Setenv("MAIL_FROM", from)
+
+			if _, err := Load(); err == nil {
+				t.Fatalf("Load: expected an error for MAIL_FROM=%q", from)
+			}
+		})
+	}
+}
+
 func TestLoad_InvalidVerificationTokenTTLFailsFast(t *testing.T) {
 	clearAuthEnv(t)
 	t.Setenv("AUTH_JWT_SECRET", validJWTSecret)
