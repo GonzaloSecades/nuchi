@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
 	"testing"
 	"time"
 
@@ -19,10 +18,7 @@ import (
 // that exactly the expected policy exists on each. It is skipped unless
 // TEST_DATABASE_URL is set.
 func TestFinanceRLSConfiguration_LiveDatabase(t *testing.T) {
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live database RLS test")
-	}
+	databaseURL := liveDatabaseURL(t, "live database RLS test")
 
 	ctx := context.Background()
 	pool, err := NewPool(ctx, databaseURL)
@@ -88,10 +84,7 @@ func TestFinanceRLSConfiguration_LiveDatabase(t *testing.T) {
 // clean regardless of outcome. It is skipped unless TEST_DATABASE_URL is
 // set.
 func TestFinanceRLS_LiveDatabase(t *testing.T) {
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live database RLS test")
-	}
+	databaseURL := liveDatabaseURL(t, "live database RLS test")
 
 	ctx := context.Background()
 	pool, err := NewPool(ctx, databaseURL)

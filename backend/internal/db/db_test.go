@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"os"
 	"testing"
 	"time"
 )
@@ -47,13 +46,10 @@ func TestNewPool_UnreachableServer(t *testing.T) {
 }
 
 // TestNewPool_LiveDatabase optionally exercises NewPool against a real
-// PostgreSQL instance. It is skipped unless TEST_DATABASE_URL is set, so CI
-// (which has no postgres service yet) stays green without a live database.
+// PostgreSQL instance -- the postgres service CI provisions, or a local one.
+// Skipped only when TEST_DATABASE_URL is unset outside CI.
 func TestNewPool_LiveDatabase(t *testing.T) {
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live database test")
-	}
+	databaseURL := liveDatabaseURL(t, "live database test")
 
 	ctx := context.Background()
 	pool, err := NewPool(ctx, databaseURL)

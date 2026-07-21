@@ -5,18 +5,21 @@ Hono/Drizzle/Neon backend.
 
 The scaffold currently exposes a health endpoint, password auth with JWT
 sessions (`/api/auth/register`, `/api/auth/login`, `/api/auth/refresh`,
-`/api/auth/logout`), and the database connection pool. Email verification,
-password reset, resource endpoint handlers, and RLS session binding are
-intentionally left to their own issues (#42, #43+).
+`/api/auth/logout`), email verification and password reset
+(`/api/auth/verify-email`, `/api/auth/password-reset/request`,
+`/api/auth/password-reset/confirm`), and the database connection pool.
+Resource endpoint handlers and RLS session binding (auth middleware) are
+intentionally left to their own issue (#43+).
 
 ## Local Run
 
 The API connects to PostgreSQL at startup and exits if it cannot, and it
 requires `AUTH_JWT_SECRET` to be set (also fail-fast — see Auth below), so
-start the database and export a secret first:
+start the database (and Mailpit, for the email flows) and export a secret
+first:
 
 ```bash
-docker compose up -d postgres
+docker compose up -d postgres mailpit
 cd backend
 export AUTH_JWT_SECRET="$(openssl rand -base64 48)"
 go run ./cmd/api
@@ -35,6 +38,11 @@ The API listens on `0.0.0.0:8080` by default.
 | `AUTH_ACCESS_TOKEN_TTL` | `30m` | Access-token lifetime, as a Go duration (e.g. `30m`, `1h`) |
 | `AUTH_REFRESH_TOKEN_TTL` | `720h` (30 days) | Refresh-token lifetime, as a Go duration |
 | `AUTH_COOKIE_SECURE` | `false` | Sets the refresh cookie's `Secure` attribute. Must be `true` in any deployed environment — `false` only works over plain HTTP, which is fine for local dev but never for a real deployment. |
+| `SMTP_ADDR` | `localhost:1025` | Outbound SMTP server `host:port`. Points at Mailpit in dev; unauthenticated. Validated at startup (both parts present, port numeric and in range). |
+| `MAIL_FROM` | `nuchi@localhost` | From address on outgoing verification/reset mail. Must be a **bare** mailbox (`nuchi@localhost`), not display-name syntax (`Nuchi <nuchi@localhost>`) — it is used as the SMTP envelope sender, which is emitted as `MAIL FROM:<value>` verbatim. Validated at startup. |
+| `APP_BASE_URL` | `http://localhost:3000` | Origin used to build verification/reset links. Must be origin-only — scheme and host, optional trailing `/`, no path, query, or fragment. Parsed and validated at startup, so a malformed or non-origin value fails fast rather than producing a broken link inside an email. Serving the app under a subpath would need `internal/mail` to join paths instead of replacing them. |
+| `AUTH_VERIFICATION_TOKEN_TTL` | `48h` | Email verification token lifetime, as a Go duration. |
+| `AUTH_RESET_TOKEN_TTL` | `30m` | Password reset token lifetime, as a Go duration. |
 
 ## Health Check
 
@@ -57,9 +65,9 @@ Expected response:
 Owned password auth replaces Clerk. Implemented in `internal/auth`
 (Argon2id password hashing, opaque token generation, JWT issue/verify) and
 wired into HTTP handlers in `internal/http/auth.go`. Email verification and
-password reset (`/api/auth/verify-email`, `/api/auth/password-reset/*`) and
-resource-route auth middleware/RLS session binding are separate,
-not-yet-implemented issues (#42, #43).
+password reset send mail through `internal/mail` (see Email verification
+and password reset below). Resource-route auth middleware/RLS session
+binding is a separate, not-yet-implemented issue (#43).
 
 ### Password hashing
 
@@ -119,19 +127,142 @@ is not a silent no-op.
 
 ### Registration and login
 
-`POST /api/auth/register` creates an unverified user (Argon2id hash only) and
-returns `201 { "message": ... }`. It does **not** send a verification email
-or create a verification token yet — that lands in #42. Until then, mark a
-user verified directly:
-
-```sql
-UPDATE users SET email_verified_at = now() WHERE email = 'someone@example.com';
-```
+`POST /api/auth/register` creates an unverified user (Argon2id hash only),
+returns `201 { "message": ... }`, and — inside the same database
+transaction that creates the user — creates an email verification token
+(id `uuid.NewV7`, expiry `AUTH_VERIFICATION_TOKEN_TTL`). Only after that
+transaction commits does the verification email send, asynchronously (see
+Email verification and password reset below). Registration always 201s
+regardless of whether the send succeeds.
 
 `POST /api/auth/login` requires a verified email: unverified users get
 `403 EMAIL_NOT_VERIFIED`. A wrong password and an unknown email both return
 the identical `401 UNAUTHORIZED` body (enumeration safety) — there is no
 way to distinguish the two from the response.
+
+### Email verification and password reset
+
+New package `internal/mail` defines the `Mailer` interface
+(`SendVerificationEmail`, `SendPasswordResetEmail`) plus two
+implementations: `SMTPMailer` (production/dev, talks to Mailpit) and
+`CapturingMailer` (tests — records sends instead of talking to SMTP).
+`AuthServer` takes a `Mailer` dependency; `cmd/api` wires `SMTPMailer` from
+`SMTP_ADDR` / `MAIL_FROM` / `APP_BASE_URL`.
+
+`SMTPMailer` sends plain-text mail, unauthenticated, over `net/smtp`.
+`net/smtp` is a frozen standard-library package and `smtp.SendMail` applies
+no timeout of its own, so `SMTPMailer` dials with a `net.Dialer`, sets an
+explicit `conn.SetDeadline`, and drives `smtp.NewClient` over that
+connection directly rather than calling `smtp.SendMail`. Each email body
+contains a link built from the parsed, validated `APP_BASE_URL` with the
+token in an escaped query parameter (`/verify-email?token=...` or
+`/reset-password?token=...` — the paths the not-yet-built #51 frontend
+pages will read), plus the raw token again on its own line for curl-based
+testing. HTML templates are out of scope; bodies are plain text.
+
+Both tokens are 256-bit (`crypto/rand`), stored only as their SHA-256 hash
+(`auth.GenerateToken`/`auth.HashToken` — the same primitive refresh tokens
+use), and are one-time: `Consume*Token` is a single atomic `UPDATE ...
+WHERE used_at IS NULL AND expires_at > now()`, so a replayed, expired, or
+unknown token always yields `401 INVALID_TOKEN`.
+
+Sends are **asynchronous, best-effort, and strictly after commit**: once
+the transaction that created the token row commits, the send runs in a
+goroutine with its own 10-second-bounded context. A send failure is logged
+(a message and the user id — **never the token or email body**) and can
+never fail or delay the HTTP response. This decouples response timing from
+SMTP delivery time, which is the OWASP-recommended mitigation for the
+password-reset timing oracle described next.
+
+`POST /api/auth/verify-email` takes `{ "token": "..." }`. Consuming the
+token and marking the user verified share one database transaction
+(`ConsumeEmailVerificationToken` → `MarkUserEmailVerified` → commit) so a
+valid token is never burned by a later failure. If the user was already
+verified, the response is still `200` — the token was validly consumed
+either way (idempotent outcome).
+
+`POST /api/auth/password-reset/request` takes `{ "email": "..." }` and
+**always returns the same `200` message**, whether or not the account
+exists — the contract declares no `401`/`404` here, deliberately, so the
+response can never be used to enumerate registered emails. (The response
+timing difference between a known and unknown account — a known account
+does a small extra database transaction — is accepted residual risk,
+recorded in `post-migration-improvements/`; async send removes the SMTP
+component of the original timing oracle but not this smaller one.) For a
+known account, issuance is serialized per user: `BEGIN` → `LockUser` (a row
+lock, `FOR UPDATE`) → check the per-hour cap (max 3 tokens/hour,
+`CountRecentPasswordResetTokens`) → invalidate the user's prior unused
+reset tokens → create the new token → `COMMIT`. The row lock is what makes
+several concurrent reset requests for the same user resolve one at a time
+instead of racing past the cap check or each other's invalidate step. Over
+the cap, issuance is silently skipped (still `200`, logged server-side).
+
+`POST /api/auth/password-reset/confirm` takes `{ "token": "...", "password":
+"..." }`. The new password is validated (rune-count ≥ 8, same rule as
+register) **before any database work**, so a rejected weak password never
+touches — and never burns — the token. On a valid password, one transaction
+runs `ConsumePasswordResetToken` → `UpdateUserPassword` (new Argon2id hash)
+→ `InvalidateUserPasswordResetTokens` (kill any other outstanding reset
+token) → `RevokeAllUserRefreshTokens` (log out every session) → commit. A
+password reset always ends every existing session, not just the one making
+the request.
+
+### Mailpit (local email testing)
+
+Verification and password-reset emails are dev-only and go to
+[Mailpit](https://github.com/axllent/mailpit), a local SMTP catcher with a
+web UI. The canonical way to run it is the repo's `docker-compose.yml`:
+
+```bash
+docker compose up -d postgres mailpit
+```
+
+Mailpit's UI is then at <http://localhost:8025> — every email the API sends
+appears there instead of leaving the machine.
+
+If Docker isn't available, run the Mailpit binary directly instead
+(equivalent SMTP/UI ports, same defaults the API config expects):
+
+```bash
+go install github.com/axllent/mailpit@latest
+mailpit --listen 127.0.0.1:8025 --smtp 127.0.0.1:1025
+```
+
+With Mailpit running (either way) and the API up
+(`SMTP_ADDR=localhost:1025` is already the default), walk the full flow:
+
+```bash
+# Register — triggers an async verification email
+curl -i -X POST http://localhost:8080/api/auth/register \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"you@example.com","password":"correct-horse-battery"}'
+
+# Open http://localhost:8025, find the "Verify your email" message, copy the
+# token (also printed on its own line in the body).
+curl -i -X POST http://localhost:8080/api/auth/verify-email \
+  -H 'Content-Type: application/json' \
+  -d '{"token":"<paste token>"}'
+
+# Login now succeeds.
+curl -i -X POST http://localhost:8080/api/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"you@example.com","password":"correct-horse-battery"}'
+
+# Request a reset — triggers an async "Reset your password" email.
+curl -i -X POST http://localhost:8080/api/auth/password-reset/request \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"you@example.com"}'
+
+# Copy the token from Mailpit again, then confirm with a new password. This
+# also revokes every existing session.
+curl -i -X POST http://localhost:8080/api/auth/password-reset/confirm \
+  -H 'Content-Type: application/json' \
+  -d '{"token":"<paste token>","password":"a-different-password"}'
+```
+
+Mailpit also exposes a JSON API (`GET /api/v1/messages`, `GET
+/api/v1/message/{ID}`) if scripting the token extraction is more
+convenient than the UI.
 
 ### curl examples
 
@@ -143,8 +274,9 @@ curl -i -X POST http://localhost:8080/api/auth/register \
   -H 'Content-Type: application/json' \
   -d '{"email":"you@example.com","password":"correct-horse-battery"}'
 
-# Mark verified (stand-in for #42's email flow)
-# psql "$DATABASE_URL" -c "UPDATE users SET email_verified_at = now() WHERE email = 'you@example.com';"
+# Verify (see Mailpit section above for getting a real token in dev)
+# curl -i -X POST http://localhost:8080/api/auth/verify-email \
+#   -H 'Content-Type: application/json' -d '{"token":"<token>"}'
 
 # Login — save the refresh cookie to a jar
 curl -i -c cookies.txt -X POST http://localhost:8080/api/auth/login \
@@ -206,6 +338,16 @@ matters because the API connects as the `nuchi` role, which owns these
 tables — Postgres exempts table owners from RLS unless it is explicitly
 forced.
 
+FORCE is not enough on its own: **`nuchi` must not be a superuser**, because
+superusers bypass RLS entirely and FORCE does not change that. Docker
+Compose and CI both bootstrap Postgres as a separate `postgres` superuser
+and create `nuchi` as an ordinary role that owns the schema (see
+`docker/postgres/init/01-app-role.sql` and the `backend` job in
+`.github/workflows/ci.yml`). This is not theoretical — CI's RLS tests failed
+the first time they ran against a real database precisely because the app
+role was the bootstrap superuser, and every policy assertion was passing
+vacuously.
+
 Every policy reads the current app user from the `app.user_id` session
 setting:
 
@@ -249,7 +391,7 @@ Query files, one per domain:
 
 | File | Covers |
 | --- | --- |
-| `users.sql` | `users` CRUD, email verification marking, password update |
+| `users.sql` | `users` CRUD, email verification marking, password update, `LockUser` (row lock used to serialize password-reset token issuance) |
 | `auth_tokens.sql` | `email_verification_tokens`, `password_reset_tokens` (atomic one-time consume, invalidate-prior, rate-limit counts), `refresh_tokens` (create, get-valid, revoke, revoke-all) |
 | `accounts.sql` | `accounts` CRUD + bulk delete |
 | `categories.sql` | `categories` CRUD + bulk delete (mirrors `accounts.sql`) |
@@ -321,10 +463,29 @@ go run ./cmd/api
 Some tests are live-database-gated (skipped unless `TEST_DATABASE_URL` is
 set), including the full auth HTTP lifecycle in
 `internal/http/auth_live_test.go` (register, login, refresh rotation,
-logout, cross-user isolation) and the sqlc round-trip / RLS tests in
-`internal/db`:
+logout, cross-user isolation), the email verification / password reset
+lifecycle in `internal/http/email_flows_live_test.go` (full
+register→verify and request→confirm flows, token replay/expiry, the
+enumeration-safe response shape, the per-hour issuance cap, concurrent
+issuance and concurrent verify races, and a fault-injection test proving a
+mid-transaction failure after a token consume rolls back and leaves the
+token usable), and the sqlc round-trip / RLS tests in `internal/db`:
 
 ```bash
 cd backend
 TEST_DATABASE_URL="postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable" go test ./...
 ```
+
+`internal/mail`'s tests (`SMTPMailer` against a local fake SMTP listener,
+`CapturingMailer` concurrency safety, link building) need no database and
+run in the default `go test ./...` above.
+
+CI runs these live tests too: the `backend` job in
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) provisions a
+Postgres 17 service, applies the migrations with goose, and exports
+`TEST_DATABASE_URL`. The gate helper (`liveDatabaseURL`, defined per package
+in `livedb_test.go`) therefore **fails** rather than skips when
+`TEST_DATABASE_URL` is unset while `CI` is set — nearly all of the backend's
+behavioral coverage sits behind that gate, and a silent skip would take it
+out of CI without turning anything red. Outside CI an unset value still
+skips, so `go test ./...` stays useful with no database running.

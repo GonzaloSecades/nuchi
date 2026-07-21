@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"os"
+	"net/url"
 	"strings"
 	"testing"
 	"time"
@@ -16,6 +16,7 @@ import (
 	"github.com/GonzaloSecades/nuchi/backend/internal/config"
 	"github.com/GonzaloSecades/nuchi/backend/internal/db"
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
+	"github.com/GonzaloSecades/nuchi/backend/internal/mail"
 	"github.com/GonzaloSecades/nuchi/backend/internal/openapi"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -30,15 +31,13 @@ type authTestEnv struct {
 	router    http.Handler
 	cfg       config.Config
 	accessTTL time.Duration
+	mailer    *mail.CapturingMailer
 }
 
 func newAuthTestEnv(t *testing.T) authTestEnv {
 	t.Helper()
 
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live auth HTTP test")
-	}
+	databaseURL := liveDatabaseURL(t, "live auth HTTP test")
 
 	ctx := context.Background()
 	pool, err := db.NewPool(ctx, databaseURL)
@@ -47,17 +46,26 @@ func newAuthTestEnv(t *testing.T) authTestEnv {
 	}
 	t.Cleanup(pool.Close)
 
+	appBaseURL, err := url.Parse("http://localhost:3000")
+	if err != nil {
+		t.Fatalf("parse test app base URL: %v", err)
+	}
 	cfg := config.Config{
 		JWTSecret:       []byte("live-http-test-secret-at-least-32-bytes!!"),
 		AccessTokenTTL:  30 * time.Minute,
 		RefreshTokenTTL: 720 * time.Hour,
 		CookieSecure:    false,
+
+		AppBaseURL:           appBaseURL,
+		VerificationTokenTTL: 48 * time.Hour,
+		ResetTokenTTL:        30 * time.Minute,
 	}
 
-	authServer := NewAuthServer(pool, cfg)
+	mailer := mail.NewCapturingMailer()
+	authServer := NewAuthServer(pool, cfg, mailer)
 	router := NewRouter(authServer)
 
-	return authTestEnv{pool: pool, router: router, cfg: cfg, accessTTL: cfg.AccessTokenTTL}
+	return authTestEnv{pool: pool, router: router, cfg: cfg, accessTTL: cfg.AccessTokenTTL, mailer: mailer}
 }
 
 func (e authTestEnv) do(t *testing.T, method, path string, body any, cookie *http.Cookie) *httptest.ResponseRecorder {
@@ -112,9 +120,11 @@ func uniqueAuthTestEmail(label string) string {
 }
 
 // registerAndVerify registers a user through the real HTTP handler, then
-// marks it verified directly via MarkUserEmailVerified (standing in for
-// #42's email verification flow, which is out of scope here), and
-// registers cleanup. Returns the email and password used.
+// marks it verified directly via MarkUserEmailVerified rather than going
+// through the verify-email endpoint: tests that only need an already-verified
+// user should not depend on the email flow's async send. The flow itself is
+// covered end-to-end in email_flows_live_test.go (#42). Registers cleanup and
+// returns the email and password used.
 func (e authTestEnv) registerAndVerify(t *testing.T, label, password string) (email string, cleanup func()) {
 	t.Helper()
 

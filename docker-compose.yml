@@ -1,16 +1,27 @@
 services:
   postgres:
     image: postgres:17-alpine
+    # The bootstrap superuser is postgres; the application role nuchi is an
+    # ordinary role created by ./docker/postgres/init. They must be separate:
+    # superusers bypass row level security outright, so an app connecting as
+    # the bootstrap superuser would have the RLS ownership policies silently
+    # not apply. Applications still connect as nuchi, so DATABASE_URL is
+    # unchanged.
     environment:
       POSTGRES_DB: nuchi
-      POSTGRES_USER: nuchi
-      POSTGRES_PASSWORD: nuchi
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:
       - nuchi-postgres-data:/var/lib/postgresql/data
+      # Init scripts run only on first initialization of an empty data
+      # volume. An existing volume created before this change still has
+      # nuchi as the bootstrap superuser and needs
+      # `docker compose down --volumes` to pick this up.
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U nuchi -d nuchi"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nuchi"]
       interval: 2s
       timeout: 5s
       retries: 20

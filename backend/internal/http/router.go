@@ -26,6 +26,9 @@ func NewRouter(authServer *AuthServer) http.Handler {
 		router.Post("/api/auth/login", authServer.LoginUser)
 		router.Post("/api/auth/refresh", authServer.RefreshSession)
 		router.Post("/api/auth/logout", authServer.LogoutUser)
+		router.Post("/api/auth/verify-email", authServer.VerifyEmail)
+		router.Post("/api/auth/password-reset/request", authServer.RequestPasswordReset)
+		router.Post("/api/auth/password-reset/confirm", authServer.ConfirmPasswordReset)
 	}
 
 	return router

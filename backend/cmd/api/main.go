@@ -14,6 +14,7 @@ import (
 	"github.com/GonzaloSecades/nuchi/backend/internal/config"
 	"github.com/GonzaloSecades/nuchi/backend/internal/db"
 	httpapi "github.com/GonzaloSecades/nuchi/backend/internal/http"
+	"github.com/GonzaloSecades/nuchi/backend/internal/mail"
 )
 
 func main() {
@@ -36,7 +37,8 @@ func main() {
 	defer pool.Close()
 	logger.Info("connected to database", "host", databaseHost(cfg.DatabaseURL))
 
-	authServer := httpapi.NewAuthServer(pool, cfg)
+	mailer := mail.NewSMTPMailer(cfg.SMTPAddr, cfg.MailFrom, cfg.AppBaseURL)
+	authServer := httpapi.NewAuthServer(pool, cfg, mailer)
 
 	server := &http.Server{
 		Addr:    cfg.Addr(),

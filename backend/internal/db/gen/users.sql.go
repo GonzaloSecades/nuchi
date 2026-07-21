@@ -81,6 +81,24 @@ func (q *Queries) GetUserByID(ctx context.Context, id pgtype.UUID) (User, error)
 	return i, err
 }
 
+const lockUser = `-- name: LockUser :one
+SELECT id
+FROM users
+WHERE id = $1
+FOR UPDATE
+`
+
+// Row-level lock used to serialize password-reset token issuance per user:
+// concurrent reset requests for the same user take this lock in turn inside
+// BEGIN...COMMIT, so the issuance cap check and invalidate-then-create step
+// that follow cannot interleave across requests (#42).
+func (q *Queries) LockUser(ctx context.Context, id pgtype.UUID) (pgtype.UUID, error) {
+	row := q.db.QueryRow(ctx, lockUser, id)
+	var id_2 pgtype.UUID
+	err := row.Scan(&id_2)
+	return id_2, err
+}
+
 const markUserEmailVerified = `-- name: MarkUserEmailVerified :one
 UPDATE users
 SET email_verified_at = now()

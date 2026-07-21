@@ -99,10 +99,20 @@ DATABASE_URL=postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
 NEXT_PUBLIC_API_URL=http://localhost:3000
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_key_here
 CLERK_SECRET_KEY=sk_test_your_key_here
-SMTP_HOST=localhost
-SMTP_PORT=1025
+SMTP_ADDR=localhost:1025
 MAILPIT_WEB_URL=http://localhost:8025
+MAIL_FROM=nuchi@localhost
+APP_BASE_URL=http://localhost:3000
+AUTH_VERIFICATION_TOKEN_TTL=48h
+AUTH_RESET_TOKEN_TTL=30m
 ```
+
+The Go backend reads `SMTP_ADDR` as a single `host:port`; there is no
+`SMTP_HOST`/`SMTP_PORT` split. `APP_BASE_URL` must be origin-only (`http`
+or `https`, host, optional trailing `/`, no path, query, fragment, or
+userinfo) — it is validated at startup, because it becomes a clickable link
+inside verification and reset emails. Full backend table:
+[`backend/README.md`](backend/README.md).
 
 Do not commit `.env.local`. Real Clerk keys are required for `bun run build`; the placeholder keys in `.env.example` document shape only and are not valid credentials.
 
@@ -126,10 +136,35 @@ Local service defaults:
 - Mailpit UI: `http://localhost:8025`.
 - Mailpit SMTP: `localhost:1025`.
 
+### Postgres roles
+
+The container's bootstrap superuser is `postgres`. The application role
+`nuchi` is an ordinary (non-superuser) role created on first startup by
+`docker/postgres/init/01-app-role.sql`, which also hands it ownership of the
+`public` schema so the goose migrations create tables it owns. Applications
+still connect as `nuchi`, so `DATABASE_URL` is unchanged.
+
+The two must stay separate: **superusers bypass row level security
+entirely, `FORCE` included**, so an app connecting as the bootstrap
+superuser would have the ownership policies in
+`backend/migrations/00003_finance_rls.sql` silently not apply — and the RLS
+tests would pass while proving nothing. PostgreSQL also refuses to let the
+bootstrap superuser drop its own `SUPERUSER` attribute, so this cannot be
+corrected after the fact.
+
+Docker init scripts run only when the data volume is first created. **A
+volume created before this change still has `nuchi` as the bootstrap
+superuser**; reset it once (destructive — see below) to pick up the split:
+
+```bash
+docker compose down --volumes
+docker compose up -d postgres mailpit
+```
+
 Check Postgres readiness:
 
 ```bash
-docker compose exec postgres pg_isready -U nuchi -d nuchi
+docker compose exec postgres pg_isready -U postgres -d nuchi
 ```
 
 Destroy local service data only when you intentionally want a destructive reset:

@@ -2,8 +2,12 @@ package config
 
 import (
 	"fmt"
+	"net"
+	"net/mail"
+	"net/url"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -29,6 +33,23 @@ const (
 	// default: an HS256 signing secret must never ship with a checked-in
 	// fallback.
 	minJWTSecretBytes = 32
+
+	// defaultSMTPAddr is the dev default SMTP endpoint: the Mailpit
+	// container's SMTP port (docker-compose.yml) or the local Mailpit
+	// binary fallback, both bound to 1025.
+	defaultSMTPAddr = "localhost:1025"
+	// defaultMailFrom is the dev default From address for outgoing mail.
+	defaultMailFrom = "nuchi@localhost"
+	// defaultAppBaseURL is the dev default base URL used to build
+	// verification/reset links.
+	defaultAppBaseURL = "http://localhost:3000"
+
+	// defaultVerificationTokenTTL is the dev default lifetime of an email
+	// verification token (spec: 24-72h configurable; 48h is the midpoint).
+	defaultVerificationTokenTTL = 48 * time.Hour
+	// defaultResetTokenTTL is the dev default lifetime of a password reset
+	// token (spec: 15-60m configurable; 30m is the midpoint).
+	defaultResetTokenTTL = 30 * time.Minute
 )
 
 // Config contains process-level settings that are safe to read from the
@@ -52,6 +73,24 @@ type Config struct {
 	// cookie (AUTH_COOKIE_SECURE). Must be true in any deployed
 	// environment; false is only safe for local HTTP development.
 	CookieSecure bool
+
+	// SMTPAddr is the host:port of the outbound SMTP server (SMTP_ADDR).
+	// Dev/test target is Mailpit, unauthenticated.
+	SMTPAddr string
+	// MailFrom is the From address on outgoing mail (MAIL_FROM).
+	MailFrom string
+	// AppBaseURL is the parsed, validated base URL (scheme + host required)
+	// used to build verification/reset links (APP_BASE_URL). Parsed at load
+	// so a malformed value fails fast at startup instead of producing a
+	// broken link inside an email body.
+	AppBaseURL *url.URL
+
+	// VerificationTokenTTL is how long an email verification token remains
+	// valid (AUTH_VERIFICATION_TOKEN_TTL).
+	VerificationTokenTTL time.Duration
+	// ResetTokenTTL is how long a password reset token remains valid
+	// (AUTH_RESET_TOKEN_TTL).
+	ResetTokenTTL time.Duration
 }
 
 // Load reads process configuration from the environment, falling back to
@@ -94,6 +133,82 @@ func Load() (Config, error) {
 		return Config{}, err
 	}
 
+	appBaseURLRaw := getEnv("APP_BASE_URL", defaultAppBaseURL)
+	appBaseURL, err := url.Parse(appBaseURLRaw)
+	// A malformed APP_BASE_URL must never reach an email body as a broken
+	// link, so it is parsed and validated at startup, not lazily when the
+	// first email is sent.
+	//
+	// The scheme is allowlisted rather than merely required to be present:
+	// this value becomes a link a user clicks from their mail client, so it
+	// has to be a web origin. "ftp://example.com" and
+	// "javascript://example.com" both carry a scheme and a host, and both
+	// would produce a link the frontend cannot handle. Userinfo is rejected
+	// for the same reason — credentials embedded in an emailed URL are a
+	// phishing shape, not a deployment shape.
+	if err != nil || appBaseURL.Hostname() == "" ||
+		(appBaseURL.Scheme != "http" && appBaseURL.Scheme != "https") ||
+		appBaseURL.User != nil {
+		return Config{}, fmt.Errorf("config: APP_BASE_URL must be an absolute http or https URL with a host and no userinfo, got %q", appBaseURLRaw)
+	}
+	// Origin-only, because internal/mail builds links by *replacing* the
+	// path and query (the frontend routes are absolute: /verify-email,
+	// /reset-password). A base URL carrying its own path, query, or
+	// fragment would have them silently dropped from the link, which is
+	// exactly the broken-link-in-an-email failure this validation exists to
+	// prevent — so reject it loudly at startup instead. Serving the app
+	// under a subpath is a real deployment shape, but it needs
+	// internal/mail to join paths rather than overwrite them; that is a
+	// deliberate change, not something to infer from a config value.
+	if (appBaseURL.Path != "" && appBaseURL.Path != "/") || appBaseURL.RawQuery != "" || appBaseURL.Fragment != "" {
+		return Config{}, fmt.Errorf("config: APP_BASE_URL must be origin-only (scheme and host, optional trailing %q) with no path, query, or fragment, got %q", "/", appBaseURLRaw)
+	}
+
+	verificationTokenTTL, err := getEnvDuration("AUTH_VERIFICATION_TOKEN_TTL", defaultVerificationTokenTTL)
+	if err != nil {
+		return Config{}, err
+	}
+	if verificationTokenTTL < time.Second {
+		return Config{}, fmt.Errorf("config: AUTH_VERIFICATION_TOKEN_TTL must be at least 1s, got %v", verificationTokenTTL)
+	}
+
+	resetTokenTTL, err := getEnvDuration("AUTH_RESET_TOKEN_TTL", defaultResetTokenTTL)
+	if err != nil {
+		return Config{}, err
+	}
+	if resetTokenTTL < time.Second {
+		return Config{}, fmt.Errorf("config: AUTH_RESET_TOKEN_TTL must be at least 1s, got %v", resetTokenTTL)
+	}
+
+	// SMTP_ADDR and MAIL_FROM are validated at startup for the same reason
+	// APP_BASE_URL is: mail sends are asynchronous and best-effort, so a
+	// malformed value produces no error a user or operator would ever see —
+	// registration and reset requests still return their normal success
+	// response, and the only symptom is mail that silently never arrives.
+	// Failing at startup turns that into an immediate, obvious error.
+	smtpAddr := getEnv("SMTP_ADDR", defaultSMTPAddr)
+	if err := validateHostPort(smtpAddr); err != nil {
+		return Config{}, fmt.Errorf("config: SMTP_ADDR must be host:port, got %q: %w", smtpAddr, err)
+	}
+
+	mailFrom := strings.TrimSpace(getEnv("MAIL_FROM", defaultMailFrom))
+	parsedFrom, err := mail.ParseAddress(mailFrom)
+	if err != nil {
+		return Config{}, fmt.Errorf("config: MAIL_FROM must be a valid email address, got %q: %w", mailFrom, err)
+	}
+	// mail.ParseAddress is lenient: it accepts display-name syntax
+	// ("Nuchi <nuchi@localhost>") and bare angle brackets. This value is the
+	// SMTP *envelope* sender, and smtp.Client.Mail emits "MAIL FROM:<%s>"
+	// verbatim, so either form would put MAIL FROM:<Nuchi <nuchi@localhost>>
+	// on the wire and a real server would reject every send — asynchronously,
+	// which is precisely the silent failure this validation exists to
+	// prevent. Require a bare mailbox rather than quietly discarding the
+	// display name; a friendly From header belongs with the production SMTP
+	// wiring (auth, TLS, a real provider) that is out of scope here.
+	if parsedFrom.Address != mailFrom {
+		return Config{}, fmt.Errorf("config: MAIL_FROM must be a bare email address such as %q, not display-name syntax, got %q", parsedFrom.Address, mailFrom)
+	}
+
 	return Config{
 		Host:        getEnv("BACKEND_HOST", defaultHost),
 		Port:        getEnv("BACKEND_PORT", defaultPort),
@@ -103,7 +218,37 @@ func Load() (Config, error) {
 		AccessTokenTTL:  accessTokenTTL,
 		RefreshTokenTTL: refreshTokenTTL,
 		CookieSecure:    cookieSecure,
+
+		SMTPAddr:   smtpAddr,
+		MailFrom:   mailFrom,
+		AppBaseURL: appBaseURL,
+
+		VerificationTokenTTL: verificationTokenTTL,
+		ResetTokenTTL:        resetTokenTTL,
 	}, nil
+}
+
+// validateHostPort reports whether addr is a "host:port" pair usable as an
+// SMTP endpoint: both parts present, with a port that is a number in range.
+// net.SplitHostPort alone is not enough — it accepts an empty host and a
+// non-numeric port, both of which only fail much later, at dial time, in a
+// background send goroutine nobody is watching.
+func validateHostPort(addr string) error {
+	host, port, err := net.SplitHostPort(addr)
+	if err != nil {
+		return err
+	}
+	if host == "" {
+		return fmt.Errorf("host is empty")
+	}
+	portNum, err := strconv.Atoi(port)
+	if err != nil {
+		return fmt.Errorf("port %q is not a number", port)
+	}
+	if portNum < 1 || portNum > 65535 {
+		return fmt.Errorf("port %d is out of range", portNum)
+	}
+	return nil
 }
 
 // Addr returns the listen address accepted by net/http.

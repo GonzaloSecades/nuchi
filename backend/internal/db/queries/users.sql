@@ -34,3 +34,13 @@ SET password_hash = sqlc.arg(password_hash),
     updated_at = now()
 WHERE id = sqlc.arg(id)
 RETURNING *;
+
+-- name: LockUser :one
+-- Row-level lock used to serialize password-reset token issuance per user:
+-- concurrent reset requests for the same user take this lock in turn inside
+-- BEGIN...COMMIT, so the issuance cap check and invalidate-then-create step
+-- that follow cannot interleave across requests (#42).
+SELECT id
+FROM users
+WHERE id = sqlc.arg(id)
+FOR UPDATE;

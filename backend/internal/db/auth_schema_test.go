@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"os"
 	"testing"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -11,17 +10,14 @@ import (
 // TestAuthBaseSchema_LiveDatabase asserts that the auth base migration
 // (backend/migrations/00001_auth_base.sql) has produced the expected
 // tables, columns, nullability, uniqueness, and foreign-key shape. It is
-// skipped unless TEST_DATABASE_URL is set, so CI (which does not run
-// migrations) stays green without a live database.
+// runs against the postgres service CI provisions, and is skipped only
+// when TEST_DATABASE_URL is unset outside CI (see liveDatabaseURL).
 //
 // This test assumes migrations have already been applied to the target
 // database (e.g. via `goose -dir migrations postgres "$TEST_DATABASE_URL" up`
 // run from backend/); it does not apply them itself.
 func TestAuthBaseSchema_LiveDatabase(t *testing.T) {
-	databaseURL := os.Getenv("TEST_DATABASE_URL")
-	if databaseURL == "" {
-		t.Skip("TEST_DATABASE_URL not set; skipping live database schema test")
-	}
+	databaseURL := liveDatabaseURL(t, "live database schema test")
 
 	ctx := context.Background()
 	pool, err := NewPool(ctx, databaseURL)
