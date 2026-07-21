@@ -535,6 +535,8 @@
   "533": "Robustness and Transaction Semantics",
   "534": "graphify reference: GitHub clone and cross-repo merge",
   "535": "graphify reference: transcribe video and audio",
+  "536": "GetSummary200JSONResponse",
   "537": "extraction-spec.md",
+  "538": "RegisterUser201JSONResponse",
   "540": "API Contract and Documentation Standard"
 }
