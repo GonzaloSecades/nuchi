@@ -775,7 +775,7 @@
     "semantic_hash": "1bb2f779f0a75d33af448649d3793ff9"
   },
   "package.json": {
-    "mtime": 1783698026.8037243,
+    "mtime": 1784742043.7327802,
     "ast_hash": "b12ce8a02f9c31286cdd3a4ba807424a",
     "semantic_hash": ""
   },
@@ -875,8 +875,8 @@
     "semantic_hash": "614d3f13c04f409e3c36559b38c8a5db"
   },
   "docs/specs/18-go-backend-replacement/spec.md": {
-    "mtime": 1783698026.7217247,
-    "ast_hash": "951d5e93ea2b25298b81a90343338f4e",
+    "mtime": 1784748314.222078,
+    "ast_hash": "cb85d7c923228886aa883c052365e242",
     "semantic_hash": ""
   },
   "refreshApp/CODEX_CONTEXT.md": {
@@ -1045,8 +1045,8 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "mtime": 1784664178.1005228,
-    "ast_hash": "7617fab8c6154673fa4e6759b49af711",
+    "mtime": 1784748314.222078,
+    "ast_hash": "2d4aa10d182684983fb4909f4aece8f5",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
