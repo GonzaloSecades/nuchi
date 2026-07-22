@@ -347,8 +347,8 @@ Active sequence:
 | 04 | [#37](https://github.com/GonzaloSecades/nuchi/issues/37) | Wire Go database foundation | high | #54 | no |
 | 05 | [#38](https://github.com/GonzaloSecades/nuchi/issues/38) | Create base SQL migrations with users and auth tables | high | #37 | no |
 | 06 | [#39](https://github.com/GonzaloSecades/nuchi/issues/39) | Create finance schema migrations with RLS | high | #38 | no |
-| 07 | [#31](https://github.com/GonzaloSecades/nuchi/issues/31) | Add backend dev scripts and explicit DB reset workflow | low | #39 | no while blocked |
-| 08 | [#40](https://github.com/GonzaloSecades/nuchi/issues/40) | Add sqlc queries for auth and owned resources | high | #31 | no |
+| 07 | [#31](https://github.com/GonzaloSecades/nuchi/issues/31) | Add backend dev scripts and explicit DB reset workflow | low | #39 | closed as obsolete — see note below |
+| 08 | [#40](https://github.com/GonzaloSecades/nuchi/issues/40) | Add sqlc queries for auth and owned resources | high | #39 | no |
 | 09 | [#41](https://github.com/GonzaloSecades/nuchi/issues/41) | Implement password auth and JWT sessions | high | #40 | no |
 | 10 | [#43](https://github.com/GonzaloSecades/nuchi/issues/43) | Add Go auth middleware and DB RLS session binding | high | #41 | no |
 | 11 | [#42](https://github.com/GonzaloSecades/nuchi/issues/42) | Implement email verification and password reset | high | #41; may run parallel to 12-16 | no |
@@ -362,6 +362,13 @@ Active sequence:
 | 19 | [#50](https://github.com/GonzaloSecades/nuchi/issues/50) | Migrate TanStack hooks to generated client | high | #49 | no |
 | 20 | [#51](https://github.com/GonzaloSecades/nuchi/issues/51) | Replace Clerk auth pages with custom auth pages | high | #50 | no |
 | 21 | [#27](https://github.com/GonzaloSecades/nuchi/issues/27) | Remove legacy Hono/Drizzle/Neon/Clerk backend after Go parity | high, blocked | #51 | no |
+
+Seq 07 (#31) was closed as obsolete rather than completed. Its only role in
+this plan was to gate #40, and #40 shipped without it, so it gated nothing. It
+sat unworked because the `blocked` label was applied when the tickets were bulk
+created and never cleared after its own dependency (#39) closed. Seq 08's
+dependency is recorded above as #39 to reflect what actually happened. No step
+in the sequence was skipped.
 
 Superseded duplicates:
 

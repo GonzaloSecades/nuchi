@@ -74,6 +74,24 @@ jobs:
         working-directory: backend
       - run: go test ./...
         working-directory: backend
+      # Kept as a second run rather than replacing the plain one above. The
+      # plain run is the readable signal — a failure there is a logic failure,
+      # unambiguously — while this run adds concurrency coverage the project
+      # has never had: the async email sends, the LockUser-serialized token
+      # issuance, and the concurrent one-time-token consume paths from #42, and
+      # from #43 onward the auth middleware and per-transaction RLS session
+      # binding. The usual argument against a second step is DB-backed test
+      # time, but the suite is ~20s total, so the duplication is not worth
+      # trading the separated signal for.
+      #
+      # The race detector needs cgo, which is off by default on the dev machine
+      # (Windows, no gcc — the detector cannot run there at all). ubuntu-latest
+      # has gcc, so this is the only place it executes.
+      - name: Test under the race detector
+        run: go test -race ./...
+        working-directory: backend
+        env:
+          CGO_ENABLED: 1
 
   openapi:
     runs-on: ubuntu-latest
