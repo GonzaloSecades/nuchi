@@ -538,5 +538,6 @@
   "536": "GetSummary200JSONResponse",
   "537": "extraction-spec.md",
   "538": "RegisterUser201JSONResponse",
+  "539": "GetTransaction200JSONResponse",
   "540": "API Contract and Documentation Standard"
 }
