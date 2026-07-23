@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"errors"
 	"testing"
 	"time"
 
@@ -72,8 +73,42 @@ func TestVerifyAccessToken_ExpiredRejected(t *testing.T) {
 		t.Fatalf("IssueAccessToken: unexpected error: %v", err)
 	}
 
-	if _, err := VerifyAccessToken(secret, token); err == nil {
+	_, err = VerifyAccessToken(secret, token)
+	if err == nil {
 		t.Fatal("VerifyAccessToken: expected an expired token to be rejected")
+	}
+	// #43 carve-out: expiry must be distinguishable from every other
+	// rejection reason so the auth middleware can map it to the contract's
+	// ACCESS_TOKEN_EXPIRED code instead of the generic UNAUTHORIZED.
+	if !errors.Is(err, ErrAccessTokenExpired) {
+		t.Fatalf("VerifyAccessToken: expected ErrAccessTokenExpired, got %v", err)
+	}
+	if errors.Is(err, ErrInvalidAccessToken) {
+		t.Fatalf("VerifyAccessToken: expired token must not also satisfy ErrInvalidAccessToken, got %v", err)
+	}
+}
+
+// TestVerifyAccessToken_NonExpiryFailuresStayGeneric pins the other half of
+// the #43 carve-out: every rejection reason that is not expiry must
+// collapse into ErrInvalidAccessToken, never ErrAccessTokenExpired.
+func TestVerifyAccessToken_NonExpiryFailuresStayGeneric(t *testing.T) {
+	secret := []byte("test-secret-at-least-32-bytes-long!")
+	userID := uuid.New()
+
+	token, _, err := IssueAccessToken([]byte("a-different-secret-at-least-32-bytes!!"), userID, 30*time.Minute)
+	if err != nil {
+		t.Fatalf("IssueAccessToken: unexpected error: %v", err)
+	}
+
+	_, err = VerifyAccessToken(secret, token)
+	if err == nil {
+		t.Fatal("VerifyAccessToken: expected a wrong-secret token to be rejected")
+	}
+	if !errors.Is(err, ErrInvalidAccessToken) {
+		t.Fatalf("VerifyAccessToken: expected ErrInvalidAccessToken, got %v", err)
+	}
+	if errors.Is(err, ErrAccessTokenExpired) {
+		t.Fatalf("VerifyAccessToken: a wrong-secret token must not satisfy ErrAccessTokenExpired, got %v", err)
 	}
 }
 
