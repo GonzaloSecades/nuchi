@@ -15,9 +15,11 @@ Source of truth:
   land there first, then both sides regenerate)
 - Board: https://github.com/users/GonzaloSecades/projects/1
 
-Queue protocol: migration tickets are titled `[Backend Migration NN]`. Work the
-lowest open NN not labeled `blocked`. Only `risk:low` tickets may run
-unattended; `risk:high` tickets are attended work with human merge review.
+Queue protocol: migration tickets are titled `[Backend Migration NN]`. The
+orchestrator decides the working order from the dependency chain in `spec.md`
+(there are no `blocked`/`risk:*` labels — they were retired 2026-07-23 as dead
+metadata; see the flow below). Every ticket is attended: Gonzalo reviews the
+diff and gives the merge signal, so there is no unattended lane to gate.
 
 ## Commands
 
@@ -39,30 +41,39 @@ unattended; `risk:high` tickets are attended work with human merge review.
 - Generated code (`backend/internal/openapi/`, `lib/api/generated/`) is never
   hand-edited.
 
-## Risk Policy
+## Working Flow (streamlined 2026-07-23)
 
-`risk:high` (attended only): money math, SQL migrations, auth, RLS policies,
-bulk import, secrets, data deletion, production deploy changes.
-`risk:low` (unattended after calibration): docs, isolated tests, UI copy,
-dev scripts, CI config, codegen.
+The loop is: **orchestrator briefs → go-migrator develops → review → Gonzalo
+merges → close out**. Gonzalo pushes all implementation to Claude, reviews the
+diff himself, and gives the merge signal. Because he reviews everything, the
+old `risk:*` attended/unattended split and the `blocked` label are gone —
+retired as dead metadata. Keep the flow lean; do not re-add ceremony that this
+flow removed.
 
-## Branch And PR Hard Rules
+Per ticket:
+1. **Brief.** Orchestrator picks the next ticket by dependency order, makes the
+   design decisions, and writes the briefing (ticket + spec section + fixtures
+   section + Hono reference source + OpenAPI operations). Post it as a ticket
+   comment so it survives a cold session.
+2. **Develop.** Dispatch `go-migrator` in an isolated worktree with the
+   briefing. It implements exactly that ticket and refreshes graphify before
+   handing in.
+3. **Review.** Run `parity-reviewer` on the diff when the ticket changes API
+   behavior (skip it for pure CI/docs/config diffs — it has nothing to check
+   there). Address real findings; surface the rest to Gonzalo with reasoning.
+   Copilot is best-effort only: request it once via the API, and if it does not
+   attach (quota), say so and move on — never stall the flow waiting for it.
+4. **Merge (Gonzalo's call).** Never merge without green CI **and** Gonzalo's
+   explicit in-session merge signal. GitHub approval cannot substitute — PRs
+   are self-authored through his `gh` auth, so GitHub forbids self-approval.
+5. **Close out.** Merge commit with a descriptive message; comment verification
+   evidence on the ticket (confirm live tests actually ran, not skipped); close
+   the ticket; set board status to Done; refresh graphify on master.
 
+Branch/PR hard rules (unchanged):
 - Branch names: `claude/<issue-number>-<short-slug>`.
 - PR titles: `[Issue - #<number>] <PR title>`.
 - Never delete a branch after merge.
-- Never merge without green CI and Gonzalo's explicit merge instruction (in
-  session or as a PR comment). GitHub review approval cannot be the signal:
-  Claude works through Gonzalo's `gh` auth, so PRs are self-authored and
-  GitHub forbids self-approval.
-- Copilot is the default first reviewer. Its comments are processed by the
-  `pr-review-cycle` skill: address medium/high findings that are on point,
-  reply to the rest with reasoning, push, let Copilot re-review. Hard cap of
-  3 automated iterations per PR; after that, only Gonzalo re-triggers.
-- On Gonzalo's approval: merge with a merge commit and a descriptive message,
-  comment verification evidence on the ticket, close the ticket, set its board
-  status to Done, unblock the next queue ticket, and refresh graphify on
-  master.
 
 ## Model Orchestration
 
