@@ -536,7 +536,8 @@
   "534": "graphify reference: GitHub clone and cross-repo merge",
   "535": "graphify reference: transcribe video and audio",
   "536": "GetSummary200JSONResponse",
-  "537": "extraction-spec.md",
+  "537": "RequiredHeaderError",
   "538": "RegisterUser201JSONResponse",
+  "539": "GetTransaction200JSONResponse",
   "540": "API Contract and Documentation Standard"
 }

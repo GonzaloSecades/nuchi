@@ -975,13 +975,12 @@ func invalidTokenError() openapi.InvalidTokenErrorJSONResponse {
 
 // writeInternalError handles failures with no dedicated response in the
 // auth operations' documented response set (e.g. a database error talking
-// to Postgres). It is a plain ApiErrorResponse write rather than a
-// generated Visit*Response method because the contract does not declare a
-// 500 for these four operations.
+// to Postgres). It goes through the shared writeAPIError helper
+// (middleware.go) rather than a generated Visit*Response method because the
+// contract does not declare a 500 for these four operations.
 func writeInternalError(w http.ResponseWriter) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusInternalServerError)
-	_ = json.NewEncoder(w).Encode(openapi.ApiErrorResponse{
-		Error: openapi.ApiError{Code: "INTERNAL_ERROR", Message: "Something went wrong. Please try again."},
+	writeAPIError(w, http.StatusInternalServerError, openapi.ApiError{
+		Code:    "INTERNAL_ERROR",
+		Message: "Something went wrong. Please try again.",
 	})
 }
