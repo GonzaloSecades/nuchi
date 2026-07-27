@@ -1475,8 +1475,13 @@
     "semantic_hash": ""
   },
   "backend/migrations/00004_transactions_category_owner_rls.sql": {
-    "mtime": 1785176505.2620988,
-    "ast_hash": "ee62b56867b1d412ec7520666b9a7be4",
+    "mtime": 1785178905.617622,
+    "ast_hash": "a74c516d8f1d8cf6e6271aac9f5c704f",
+    "semantic_hash": ""
+  },
+  "backend/internal/db/migration_upgrade_test.go": {
+    "mtime": 1785178861.3308668,
+    "ast_hash": "e25e1bd9742ec43d32853120da665a53",
     "semantic_hash": ""
   }
 }

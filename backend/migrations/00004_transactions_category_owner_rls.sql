@@ -14,15 +14,28 @@
 -- same rule, per the "RLS is the security backstop; SQL still includes
 -- ownership predicates" invariant.
 
--- The cleanup UPDATE must run with FORCE RLS momentarily lifted: goose applies
--- this migration as the ordinary table-owning role, which FORCE RLS otherwise
--- subjects to the (unset app.user_id => zero visible rows) policy, making the
--- UPDATE a silent no-op. The whole migration runs in one transaction and the
--- ALTER takes an ACCESS EXCLUSIVE lock, so the lifted window is atomic and not
--- observable to any concurrent session. A transaction's owner is its account's
--- owner; null any category that belongs to a different user.
+-- The cleanup UPDATE must run with FORCE RLS momentarily lifted on all three
+-- tables it touches, not just the UPDATE target: goose applies this migration
+-- as the ordinary table-owning role with no app.user_id set, so FORCE RLS
+-- subjects every one of them to its (unset app.user_id => zero visible rows)
+-- policy. Lifting only transactions is not enough — the UPDATE ... FROM reads
+-- accounts and categories too, and if those stay forced the join matches
+-- nothing and the cleanup is a silent no-op. All three are lifted, the UPDATE
+-- runs, then all three are restored. The whole migration runs in one
+-- transaction and each ALTER takes an ACCESS EXCLUSIVE lock, so the lifted
+-- window is atomic and not observable to any concurrent session. A
+-- transaction's owner is its account's owner; null any category that belongs
+-- to a different user.
 -- +goose StatementBegin
 ALTER TABLE transactions NO FORCE ROW LEVEL SECURITY;
+-- +goose StatementEnd
+
+-- +goose StatementBegin
+ALTER TABLE accounts NO FORCE ROW LEVEL SECURITY;
+-- +goose StatementEnd
+
+-- +goose StatementBegin
+ALTER TABLE categories NO FORCE ROW LEVEL SECURITY;
 -- +goose StatementEnd
 
 -- +goose StatementBegin
@@ -36,6 +49,14 @@ WHERE t.account_id = a.id
 
 -- +goose StatementBegin
 ALTER TABLE transactions FORCE ROW LEVEL SECURITY;
+-- +goose StatementEnd
+
+-- +goose StatementBegin
+ALTER TABLE accounts FORCE ROW LEVEL SECURITY;
+-- +goose StatementEnd
+
+-- +goose StatementBegin
+ALTER TABLE categories FORCE ROW LEVEL SECURITY;
 -- +goose StatementEnd
 
 -- +goose StatementBegin
