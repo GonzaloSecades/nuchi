@@ -63,3 +63,57 @@ func WithUserTx(ctx context.Context, pool *pgxpool.Pool, userID uuid.UUID, fn fu
 
 	return nil
 }
+
+// ownedTablesRequiringRLS lists the tables whose row-level security must be
+// active for the API's connection role before the service accepts traffic.
+// Keep it in sync with the FORCE ROW LEVEL SECURITY tables in the finance
+// migrations (00003, 00004).
+var ownedTablesRequiringRLS = []string{"accounts", "categories", "transactions"}
+
+// VerifyRLSActive returns an error unless row-level security is active, for
+// the pool's connection role, on every owned table. Call it once at startup
+// and refuse to serve if it fails.
+//
+// WithUserTx binds the right app.user_id, but a binding enforces nothing when
+// the connection authenticates as a superuser or a role with BYPASSRLS: both
+// silently ignore FORCE ROW LEVEL SECURITY, so every owned-table query would
+// read or write across all tenants regardless of the binding. CI provisions an
+// ordinary role and a fresh Compose volume does too, but production credentials
+// are arbitrary and an older local volume may still have the app role as the
+// bootstrap superuser — a single such misconfiguration silently turns this
+// otherwise-correct request path into unrestricted cross-user access. This
+// guard makes that fail loud at startup instead.
+//
+// row_security_active(table) reports whether RLS would actually be enforced for
+// the current role on that table, and returns false precisely for the
+// superuser/BYPASSRLS roles this guards against — a more direct signal than
+// inspecting role attributes, which are surfaced only to make the error
+// diagnosable.
+func VerifyRLSActive(ctx context.Context, pool *pgxpool.Pool) error {
+	for _, table := range ownedTablesRequiringRLS {
+		var active bool
+		if err := pool.QueryRow(ctx, `SELECT row_security_active($1::text)`, table).Scan(&active); err != nil {
+			return fmt.Errorf("db: check row security for %q: %w", table, err)
+		}
+		if !active {
+			role, super, bypass := connectionRoleAttributes(ctx, pool)
+			return fmt.Errorf(
+				"db: row level security is not active on %q for role %q (rolsuper=%t, rolbypassrls=%t); refusing to serve because every owned-table query would bypass RLS and read or write across tenants",
+				table, role, super, bypass,
+			)
+		}
+	}
+	return nil
+}
+
+// connectionRoleAttributes fetches the current role name and its
+// superuser/bypassrls attributes for diagnostics. Best-effort: on error it
+// returns a placeholder name so the caller's error still names the failing
+// table.
+func connectionRoleAttributes(ctx context.Context, pool *pgxpool.Pool) (role string, super, bypass bool) {
+	role = "unknown"
+	_ = pool.QueryRow(ctx,
+		`SELECT current_user, rolsuper, rolbypassrls FROM pg_roles WHERE rolname = current_user`,
+	).Scan(&role, &super, &bypass)
+	return role, super, bypass
+}

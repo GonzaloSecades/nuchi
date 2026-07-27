@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 	"testing"
 
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
@@ -263,5 +264,48 @@ func TestWithUserTx_RollsBackOnError_LiveDatabase(t *testing.T) {
 	})
 	if !errors.Is(err, pgx.ErrNoRows) {
 		t.Errorf("expected the account created before the returned error to have been rolled back, got %v", err)
+	}
+}
+
+// TestVerifyRLSActive_PassesForOrdinaryRole_LiveDatabase is the positive half
+// of the startup guard: the ordinary application role the migrations run as
+// has RLS active on every owned table, so VerifyRLSActive accepts it.
+func TestVerifyRLSActive_PassesForOrdinaryRole_LiveDatabase(t *testing.T) {
+	databaseURL := liveDatabaseURL(t, "VerifyRLSActive ordinary-role test")
+
+	ctx := context.Background()
+	pool, err := NewPool(ctx, databaseURL)
+	if err != nil {
+		t.Fatalf("expected successful connection, got error: %v", err)
+	}
+	t.Cleanup(pool.Close)
+
+	if err := VerifyRLSActive(ctx, pool); err != nil {
+		t.Fatalf("expected VerifyRLSActive to pass for the ordinary application role, got %v", err)
+	}
+}
+
+// TestVerifyRLSActive_RejectsBypassingRole_LiveDatabase is the negative half:
+// a connection authenticating as a role that bypasses RLS (the bootstrap
+// superuser, reached via ADMIN_DATABASE_URL) silently voids FORCE RLS, so
+// VerifyRLSActive must refuse it. This is the exact misconfiguration the guard
+// exists to stop — a deployment whose DATABASE_URL points at a superuser would
+// otherwise serve every tenant's data to every request.
+func TestVerifyRLSActive_RejectsBypassingRole_LiveDatabase(t *testing.T) {
+	databaseURL := adminDatabaseURL(t, "VerifyRLSActive bypassing-role test")
+
+	ctx := context.Background()
+	pool, err := NewPool(ctx, databaseURL)
+	if err != nil {
+		t.Fatalf("expected successful connection, got error: %v", err)
+	}
+	t.Cleanup(pool.Close)
+
+	err = VerifyRLSActive(ctx, pool)
+	if err == nil {
+		t.Fatal("expected VerifyRLSActive to reject a role that bypasses row level security, got nil")
+	}
+	if !strings.Contains(err.Error(), "row level security is not active") {
+		t.Errorf("expected the rejection to explain the RLS bypass, got %v", err)
 	}
 }

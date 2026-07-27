@@ -37,6 +37,17 @@ func main() {
 	defer pool.Close()
 	logger.Info("connected to database", "host", databaseHost(cfg.DatabaseURL))
 
+	// Refuse to serve if the connection role bypasses RLS (superuser or
+	// BYPASSRLS): the RLS session binding is the request path's tenant
+	// isolation, and a bypassing role silently voids it for every owned-table
+	// query. Better to fail startup than to run wide open.
+	if err := db.VerifyRLSActive(startupCtx, pool); err != nil {
+		logger.Error("refusing to start: database role bypasses row level security", "error", err)
+		pool.Close()
+		os.Exit(1)
+	}
+	logger.Info("row level security verified active for owned tables")
+
 	mailer := mail.NewSMTPMailer(cfg.SMTPAddr, cfg.MailFrom, cfg.AppBaseURL)
 	authServer := httpapi.NewAuthServer(pool, cfg, mailer)
 

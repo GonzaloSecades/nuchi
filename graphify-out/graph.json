@@ -80,7 +80,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns",
-      "community": 517,
+      "community": 432,
       "norm_label": "columns.tsx"
     },
     {
@@ -90,7 +90,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns_responsetype",
-      "community": 517,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -100,7 +100,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_accounts_columns_columns",
-      "community": 517,
+      "community": 317,
       "norm_label": "columns"
     },
     {
@@ -120,7 +120,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "app_dashboard_accounts_page_accountspage",
-      "community": 520,
+      "community": 518,
       "norm_label": "accountspage()"
     },
     {
@@ -160,7 +160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns",
-      "community": 517,
+      "community": 432,
       "norm_label": "columns.tsx"
     },
     {
@@ -170,7 +170,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns_responsetype",
-      "community": 517,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -180,7 +180,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns_columns",
-      "community": 517,
+      "community": 317,
       "norm_label": "columns"
     },
     {
@@ -200,7 +200,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_dashboard_categories_page_categoriespage",
-      "community": 260,
+      "community": 518,
       "norm_label": "categoriespage()"
     },
     {
@@ -350,7 +350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns",
-      "community": 517,
+      "community": 432,
       "norm_label": "columns.tsx"
     },
     {
@@ -360,7 +360,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns_responsetype",
-      "community": 517,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -370,7 +370,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns_columns",
-      "community": 517,
+      "community": 379,
       "norm_label": "columns"
     },
     {
@@ -380,7 +380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card",
-      "community": 40,
+      "community": 517,
       "norm_label": "import-card.tsx"
     },
     {
@@ -390,7 +390,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_requiredoptions",
-      "community": 40,
+      "community": 517,
       "norm_label": "requiredoptions"
     },
     {
@@ -400,7 +400,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_selectedcolumnsstate",
-      "community": 40,
+      "community": 517,
       "norm_label": "selectedcolumnsstate"
     },
     {
@@ -410,7 +410,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_props",
-      "community": 40,
+      "community": 517,
       "norm_label": "props"
     },
     {
@@ -420,7 +420,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_card_importcard",
-      "community": 40,
+      "community": 517,
       "norm_label": "importcard()"
     },
     {
@@ -450,7 +450,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_table_importtable",
-      "community": 40,
+      "community": 517,
       "norm_label": "importtable()"
     },
     {
@@ -490,7 +490,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_transactionspage",
-      "community": 379,
+      "community": 518,
       "norm_label": "transactionspage()"
     },
     {
@@ -510,7 +510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select",
-      "community": 317,
+      "community": 13,
       "norm_label": "table-head-select.tsx"
     },
     {
@@ -520,7 +520,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_props",
-      "community": 317,
+      "community": 13,
       "norm_label": "props"
     },
     {
@@ -530,7 +530,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_options",
-      "community": 317,
+      "community": 13,
       "norm_label": "options"
     },
     {
@@ -540,7 +540,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_importabletransactionfield",
-      "community": 40,
+      "community": 13,
       "norm_label": "importabletransactionfield"
     },
     {
@@ -550,7 +550,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_isimportabletransactionfield",
-      "community": 317,
+      "community": 13,
       "norm_label": "isimportabletransactionfield()"
     },
     {
@@ -560,7 +560,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_tableheadselect",
-      "community": 317,
+      "community": 13,
       "norm_label": "tableheadselect()"
     },
     {
@@ -900,7 +900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_cmd_api_main",
-      "community": 3,
+      "community": 32,
       "norm_label": "main.go"
     },
     {
@@ -910,17 +910,17 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "backend_cmd_api_main_main",
-      "community": 3,
+      "community": 32,
       "norm_label": "main()"
     },
     {
       "label": "databaseHost()",
       "file_type": "code",
       "source_file": "backend/cmd/api/main.go",
-      "source_location": "L85",
+      "source_location": "L96",
       "_origin": "ast",
       "id": "backend_cmd_api_main_databasehost",
-      "community": 3,
+      "community": 32,
       "norm_label": "databasehost()"
     },
     {
@@ -3336,6 +3336,16 @@
       "norm_label": "t"
     },
     {
+      "label": "adminDatabaseURL()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/livedb_test.go",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "backend_internal_db_livedb_test_admindatabaseurl",
+      "community": 32,
+      "norm_label": "admindatabaseurl()"
+    },
+    {
       "label": "queries_live_test.go",
       "file_type": "code",
       "source_file": "backend/internal/db/queries_live_test.go",
@@ -3466,6 +3476,26 @@
       "norm_label": "queries"
     },
     {
+      "label": "VerifyRLSActive()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L92",
+      "_origin": "ast",
+      "id": "backend_internal_db_rls_verifyrlsactive",
+      "community": 32,
+      "norm_label": "verifyrlsactive()"
+    },
+    {
+      "label": "connectionRoleAttributes()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L113",
+      "_origin": "ast",
+      "id": "backend_internal_db_rls_connectionroleattributes",
+      "community": 32,
+      "norm_label": "connectionroleattributes()"
+    },
+    {
       "label": "rls_test.go",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
@@ -3479,7 +3509,7 @@
       "label": "createRLSTestUser()",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "backend_internal_db_rls_test_createrlstestuser",
       "community": 32,
@@ -3529,7 +3559,7 @@
       "label": "deleteRLSTestUsers()",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L37",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "backend_internal_db_rls_test_deleterlstestusers",
       "community": 32,
@@ -3539,7 +3569,7 @@
       "label": "createRLSTestAccount()",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L47",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "backend_internal_db_rls_test_createrlstestaccount",
       "community": 32,
@@ -3549,7 +3579,7 @@
       "label": "TestWithUserTx_OwnerRoundTrip_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L72",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
       "community": 32,
@@ -3559,7 +3589,7 @@
       "label": "TestWithUserTx_PolicyBlocksCrossUserAccess_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L126",
+      "source_location": "L127",
       "_origin": "ast",
       "id": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
       "community": 32,
@@ -3569,7 +3599,7 @@
       "label": "TestWithUserTx_UnboundTransactionFailsClosed_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L189",
+      "source_location": "L190",
       "_origin": "ast",
       "id": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
       "community": 32,
@@ -3579,11 +3609,61 @@
       "label": "TestWithUserTx_RollsBackOnError_LiveDatabase()",
       "file_type": "code",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L227",
+      "source_location": "L228",
       "_origin": "ast",
       "id": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
       "community": 32,
       "norm_label": "testwithusertx_rollsbackonerror_livedatabase()"
+    },
+    {
+      "label": "TestVerifyRLSActive_PassesForOrdinaryRole_LiveDatabase()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L273",
+      "_origin": "ast",
+      "id": "backend_internal_db_rls_test_testverifyrlsactive_passesforordinaryrole_livedatabase",
+      "community": 32,
+      "norm_label": "testverifyrlsactive_passesforordinaryrole_livedatabase()"
+    },
+    {
+      "label": "TestVerifyRLSActive_RejectsBypassingRole_LiveDatabase()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L294",
+      "_origin": "ast",
+      "id": "backend_internal_db_rls_test_testverifyrlsactive_rejectsbypassingrole_livedatabase",
+      "community": 32,
+      "norm_label": "testverifyrlsactive_rejectsbypassingrole_livedatabase()"
+    },
+    {
+      "label": "transactions_category_rls_test.go",
+      "file_type": "code",
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_internal_db_transactions_category_rls_test",
+      "community": 32,
+      "norm_label": "transactions_category_rls_test.go"
+    },
+    {
+      "label": "TestTransactionsCategoryOwnerRLS_LiveDatabase()",
+      "file_type": "code",
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "community": 32,
+      "norm_label": "testtransactionscategoryownerrls_livedatabase()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_db_transactions_category_rls_test_go_t",
+      "community": 32,
+      "norm_label": "t"
     },
     {
       "label": "auth.go",
@@ -5792,7 +5872,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "openapi_apierror",
-      "community": 17,
+      "community": 510,
       "norm_label": "apierror"
     },
     {
@@ -5802,7 +5882,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "openapi_apierrorresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": "apierrorresponse"
     },
     {
@@ -6842,7 +6922,7 @@
       "source_location": "L1493",
       "_origin": "ast",
       "id": "openapi_unescapedcookieparamerror",
-      "community": 17,
+      "community": 520,
       "norm_label": "unescapedcookieparamerror"
     },
     {
@@ -6852,7 +6932,7 @@
       "source_location": "L1498",
       "_origin": "ast",
       "id": "openapi_unescapedcookieparamerror_error",
-      "community": 17,
+      "community": 520,
       "norm_label": ".error()"
     },
     {
@@ -6862,7 +6942,7 @@
       "source_location": "L1502",
       "_origin": "ast",
       "id": "openapi_unescapedcookieparamerror_unwrap",
-      "community": 17,
+      "community": 520,
       "norm_label": ".unwrap()"
     },
     {
@@ -6922,7 +7002,7 @@
       "source_location": "L1527",
       "_origin": "ast",
       "id": "openapi_requiredheadererror",
-      "community": 537,
+      "community": 17,
       "norm_label": "requiredheadererror"
     },
     {
@@ -6932,7 +7012,7 @@
       "source_location": "L1532",
       "_origin": "ast",
       "id": "openapi_requiredheadererror_error",
-      "community": 537,
+      "community": 17,
       "norm_label": ".error()"
     },
     {
@@ -6942,7 +7022,7 @@
       "source_location": "L1536",
       "_origin": "ast",
       "id": "openapi_requiredheadererror_unwrap",
-      "community": 537,
+      "community": 17,
       "norm_label": ".unwrap()"
     },
     {
@@ -7182,7 +7262,7 @@
       "source_location": "L1716",
       "_origin": "ast",
       "id": "openapi_transactionmutationratelimiterrorresponseheaders",
-      "community": 17,
+      "community": 510,
       "norm_label": "transactionmutationratelimiterrorresponseheaders"
     },
     {
@@ -7192,7 +7272,7 @@
       "source_location": "L1719",
       "_origin": "ast",
       "id": "openapi_transactionmutationratelimiterrorjsonresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": "transactionmutationratelimiterrorjsonresponse"
     },
     {
@@ -9612,7 +9692,7 @@
       "source_location": "L3208",
       "_origin": "ast",
       "id": "openapi_createtransaction429jsonresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": "createtransaction429jsonresponse"
     },
     {
@@ -9622,7 +9702,7 @@
       "source_location": "L3212",
       "_origin": "ast",
       "id": "openapi_createtransaction429jsonresponse_visitcreatetransactionresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": ".visitcreatetransactionresponse()"
     },
     {
@@ -9782,7 +9862,7 @@
       "source_location": "L3323",
       "_origin": "ast",
       "id": "openapi_bulkcreatetransactions429jsonresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": "bulkcreatetransactions429jsonresponse"
     },
     {
@@ -9792,7 +9872,7 @@
       "source_location": "L3327",
       "_origin": "ast",
       "id": "openapi_bulkcreatetransactions429jsonresponse_visitbulkcreatetransactionsresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": ".visitbulkcreatetransactionsresponse()"
     },
     {
@@ -9932,7 +10012,7 @@
       "source_location": "L3422",
       "_origin": "ast",
       "id": "openapi_bulkdeletetransactions429jsonresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": "bulkdeletetransactions429jsonresponse"
     },
     {
@@ -9942,7 +10022,7 @@
       "source_location": "L3426",
       "_origin": "ast",
       "id": "openapi_bulkdeletetransactions429jsonresponse_visitbulkdeletetransactionsresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": ".visitbulkdeletetransactionsresponse()"
     },
     {
@@ -10072,7 +10152,7 @@
       "source_location": "L3521",
       "_origin": "ast",
       "id": "openapi_deletetransaction429jsonresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": "deletetransaction429jsonresponse"
     },
     {
@@ -10082,7 +10162,7 @@
       "source_location": "L3525",
       "_origin": "ast",
       "id": "openapi_deletetransaction429jsonresponse_visitdeletetransactionresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": ".visitdeletetransactionresponse()"
     },
     {
@@ -10132,7 +10212,7 @@
       "source_location": "L3562",
       "_origin": "ast",
       "id": "openapi_gettransaction200jsonresponse",
-      "community": 539,
+      "community": 17,
       "norm_label": "gettransaction200jsonresponse"
     },
     {
@@ -10142,7 +10222,7 @@
       "source_location": "L3564",
       "_origin": "ast",
       "id": "openapi_gettransaction200jsonresponse_visitgettransactionresponse",
-      "community": 539,
+      "community": 17,
       "norm_label": ".visitgettransactionresponse()"
     },
     {
@@ -10342,7 +10422,7 @@
       "source_location": "L3701",
       "_origin": "ast",
       "id": "openapi_updatetransaction429jsonresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": "updatetransaction429jsonresponse"
     },
     {
@@ -10352,7 +10432,7 @@
       "source_location": "L3705",
       "_origin": "ast",
       "id": "openapi_updatetransaction429jsonresponse_visitupdatetransactionresponse",
-      "community": 17,
+      "community": 510,
       "norm_label": ".visitupdatetransactionresponse()"
     },
     {
@@ -10932,7 +11012,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_account_filter",
-      "community": 317,
+      "community": 13,
       "norm_label": "account-filter.tsx"
     },
     {
@@ -10942,7 +11022,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_account_filter_accountfilter",
-      "community": 14,
+      "community": 18,
       "norm_label": "accountfilter()"
     },
     {
@@ -10982,7 +11062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_area_variant",
-      "community": 9,
+      "community": 260,
       "norm_label": "area-variant.tsx"
     },
     {
@@ -10992,7 +11072,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_area_variant_props",
-      "community": 9,
+      "community": 260,
       "norm_label": "props"
     },
     {
@@ -11002,7 +11082,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_area_variant_areavariant",
-      "community": 9,
+      "community": 260,
       "norm_label": "areavariant()"
     },
     {
@@ -11012,7 +11092,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_bar_variant",
-      "community": 9,
+      "community": 260,
       "norm_label": "bar-variant.tsx"
     },
     {
@@ -11022,7 +11102,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_bar_variant_props",
-      "community": 9,
+      "community": 260,
       "norm_label": "props"
     },
     {
@@ -11032,7 +11112,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_bar_variant_barvariant",
-      "community": 9,
+      "community": 260,
       "norm_label": "barvariant()"
     },
     {
@@ -11082,7 +11162,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_chart",
-      "community": 317,
+      "community": 260,
       "norm_label": "chart.tsx"
     },
     {
@@ -11092,7 +11172,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_chart_props",
-      "community": 317,
+      "community": 260,
       "norm_label": "props"
     },
     {
@@ -11102,7 +11182,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "components_chart_chartenum",
-      "community": 317,
+      "community": 260,
       "norm_label": "chartenum"
     },
     {
@@ -11112,7 +11192,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "components_chart_chart",
-      "community": 317,
+      "community": 526,
       "norm_label": "chart()"
     },
     {
@@ -11122,7 +11202,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "components_chart_chartloading",
-      "community": 317,
+      "community": 526,
       "norm_label": "chartloading()"
     },
     {
@@ -11142,7 +11222,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_custom_tooltip",
-      "community": 9,
+      "community": 260,
       "norm_label": "custom-tooltip.tsx"
     },
     {
@@ -11152,7 +11232,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "components_custom_tooltip_tooltippayloaditem",
-      "community": 9,
+      "community": 260,
       "norm_label": "tooltippayloaditem"
     },
     {
@@ -11162,7 +11242,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_custom_tooltip_customtooltipprops",
-      "community": 9,
+      "community": 260,
       "norm_label": "customtooltipprops"
     },
     {
@@ -11172,7 +11252,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "components_custom_tooltip_customtooltip",
-      "community": 9,
+      "community": 260,
       "norm_label": "customtooltip()"
     },
     {
@@ -11262,7 +11342,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_charts",
-      "community": 317,
+      "community": 526,
       "norm_label": "data-charts.tsx"
     },
     {
@@ -11272,7 +11352,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_data_charts_datacharts",
-      "community": 317,
+      "community": 526,
       "norm_label": "datacharts()"
     },
     {
@@ -11402,7 +11482,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_date_picker_datepicker",
-      "community": 23,
+      "community": 14,
       "norm_label": "datepicker()"
     },
     {
@@ -11412,7 +11492,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_filters",
-      "community": 14,
+      "community": 18,
       "norm_label": "filters.tsx"
     },
     {
@@ -11422,7 +11502,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "components_filters_filters",
-      "community": 14,
+      "community": 18,
       "norm_label": "filters()"
     },
     {
@@ -11472,7 +11552,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_line_variant",
-      "community": 9,
+      "community": 260,
       "norm_label": "line-variant.tsx"
     },
     {
@@ -11482,7 +11562,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_line_variant_props",
-      "community": 9,
+      "community": 260,
       "norm_label": "props"
     },
     {
@@ -11492,7 +11572,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_line_variant_linevariant",
-      "community": 9,
+      "community": 260,
       "norm_label": "linevariant()"
     },
     {
@@ -11532,7 +11612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_navigation",
-      "community": 14,
+      "community": 518,
       "norm_label": "navigation.tsx"
     },
     {
@@ -11542,7 +11622,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_navigation_routes",
-      "community": 14,
+      "community": 518,
       "norm_label": "routes"
     },
     {
@@ -11612,7 +11692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_radar_variant",
-      "community": 317,
+      "community": 9,
       "norm_label": "radar-variant.tsx"
     },
     {
@@ -11622,7 +11702,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_radar_variant_props",
-      "community": 317,
+      "community": 9,
       "norm_label": "props"
     },
     {
@@ -11632,7 +11712,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_radar_variant_radarvariant",
-      "community": 317,
+      "community": 9,
       "norm_label": "radarvariant()"
     },
     {
@@ -11682,7 +11762,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_select",
-      "community": 13,
+      "community": 45,
       "norm_label": "select.tsx"
     },
     {
@@ -11692,7 +11772,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "components_select_props",
-      "community": 13,
+      "community": 45,
       "norm_label": "props"
     },
     {
@@ -11702,7 +11782,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "components_select_select",
-      "community": 13,
+      "community": 45,
       "norm_label": "select()"
     },
     {
@@ -11712,7 +11792,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_spending_pie",
-      "community": 317,
+      "community": 9,
       "norm_label": "spending-pie.tsx"
     },
     {
@@ -11722,7 +11802,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "components_spending_pie_props",
-      "community": 317,
+      "community": 9,
       "norm_label": "props"
     },
     {
@@ -11732,7 +11812,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "components_spending_pie_spendingpieenum",
-      "community": 317,
+      "community": 9,
       "norm_label": "spendingpieenum"
     },
     {
@@ -11742,7 +11822,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "components_spending_pie_spendingpie",
-      "community": 317,
+      "community": 526,
       "norm_label": "spendingpie()"
     },
     {
@@ -11752,7 +11832,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "components_spending_pie_spendingpieloading",
-      "community": 317,
+      "community": 526,
       "norm_label": "spendingpieloading()"
     },
     {
@@ -11762,7 +11842,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_badge",
-      "community": 517,
+      "community": 432,
       "norm_label": "badge.tsx"
     },
     {
@@ -11772,7 +11852,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_ui_badge_badgevariants",
-      "community": 517,
+      "community": 432,
       "norm_label": "badgevariants"
     },
     {
@@ -11782,7 +11862,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "components_ui_badge_badge",
-      "community": 517,
+      "community": 432,
       "norm_label": "badge()"
     },
     {
@@ -11902,7 +11982,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "components_ui_card_cardaction",
-      "community": 42,
+      "community": 317,
       "norm_label": "cardaction()"
     },
     {
@@ -11922,7 +12002,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "components_ui_card_cardfooter",
-      "community": 42,
+      "community": 317,
       "norm_label": "cardfooter()"
     },
     {
@@ -11932,7 +12012,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_checkbox",
-      "community": 517,
+      "community": 432,
       "norm_label": "checkbox.tsx"
     },
     {
@@ -11942,7 +12022,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_ui_checkbox_checkbox",
-      "community": 517,
+      "community": 432,
       "norm_label": "checkbox()"
     },
     {
@@ -11952,7 +12032,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_dialog",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialog.tsx"
     },
     {
@@ -11962,7 +12042,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_ui_dialog_dialog",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialog()"
     },
     {
@@ -11972,7 +12052,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogtrigger",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogtrigger()"
     },
     {
@@ -11982,7 +12062,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogportal",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogportal()"
     },
     {
@@ -11992,7 +12072,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogclose",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogclose()"
     },
     {
@@ -12002,7 +12082,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogoverlay",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogoverlay()"
     },
     {
@@ -12012,7 +12092,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogcontent",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogcontent()"
     },
     {
@@ -12022,7 +12102,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogheader",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogheader()"
     },
     {
@@ -12032,7 +12112,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogfooter",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogfooter()"
     },
     {
@@ -12042,7 +12122,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogtitle",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogtitle()"
     },
     {
@@ -12052,7 +12132,7 @@
       "source_location": "L134",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogdescription",
-      "community": 13,
+      "community": 14,
       "norm_label": "dialogdescription()"
     },
     {
@@ -12062,7 +12142,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdown-menu.tsx"
     },
     {
@@ -12082,7 +12162,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenuportal",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenuportal()"
     },
     {
@@ -12102,7 +12182,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenucontent",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenucontent()"
     },
     {
@@ -12112,7 +12192,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenugroup",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenugroup()"
     },
     {
@@ -12122,7 +12202,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenuitem",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenuitem()"
     },
     {
@@ -12132,7 +12212,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenucheckboxitem",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenucheckboxitem()"
     },
     {
@@ -12142,7 +12222,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenuradiogroup",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenuradiogroup()"
     },
     {
@@ -12152,7 +12232,7 @@
       "source_location": "L122",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenuradioitem",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenuradioitem()"
     },
     {
@@ -12162,7 +12242,7 @@
       "source_location": "L146",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenulabel",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenulabel()"
     },
     {
@@ -12172,7 +12252,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenuseparator",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenuseparator()"
     },
     {
@@ -12182,7 +12262,7 @@
       "source_location": "L179",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenushortcut",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenushortcut()"
     },
     {
@@ -12192,7 +12272,7 @@
       "source_location": "L195",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenusub",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenusub()"
     },
     {
@@ -12202,7 +12282,7 @@
       "source_location": "L201",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenusubtrigger",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenusubtrigger()"
     },
     {
@@ -12212,7 +12292,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenusubcontent",
-      "community": 42,
+      "community": 14,
       "norm_label": "dropdownmenusubcontent()"
     },
     {
@@ -12462,7 +12542,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_select",
-      "community": 317,
+      "community": 13,
       "norm_label": "select.tsx"
     },
     {
@@ -12472,7 +12552,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_ui_select_select",
-      "community": 317,
+      "community": 13,
       "norm_label": "select()"
     },
     {
@@ -12482,7 +12562,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "components_ui_select_selectgroup",
-      "community": 317,
+      "community": 13,
       "norm_label": "selectgroup()"
     },
     {
@@ -12492,7 +12572,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_ui_select_selectvalue",
-      "community": 317,
+      "community": 13,
       "norm_label": "selectvalue()"
     },
     {
@@ -12502,7 +12582,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "components_ui_select_selecttrigger",
-      "community": 317,
+      "community": 13,
       "norm_label": "selecttrigger()"
     },
     {
@@ -12512,7 +12592,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "components_ui_select_selectcontent",
-      "community": 317,
+      "community": 13,
       "norm_label": "selectcontent()"
     },
     {
@@ -12522,7 +12602,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "components_ui_select_selectlabel",
-      "community": 42,
+      "community": 13,
       "norm_label": "selectlabel()"
     },
     {
@@ -12532,7 +12612,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "components_ui_select_selectitem",
-      "community": 317,
+      "community": 13,
       "norm_label": "selectitem()"
     },
     {
@@ -12542,7 +12622,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "components_ui_select_selectseparator",
-      "community": 42,
+      "community": 13,
       "norm_label": "selectseparator()"
     },
     {
@@ -12552,7 +12632,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "components_ui_select_selectscrollupbutton",
-      "community": 42,
+      "community": 13,
       "norm_label": "selectscrollupbutton()"
     },
     {
@@ -12562,7 +12642,7 @@
       "source_location": "L161",
       "_origin": "ast",
       "id": "components_ui_select_selectscrolldownbutton",
-      "community": 42,
+      "community": 13,
       "norm_label": "selectscrolldownbutton()"
     },
     {
@@ -12592,7 +12672,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_sheet",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheet.tsx"
     },
     {
@@ -12602,7 +12682,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_ui_sheet_sheet",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheet()"
     },
     {
@@ -12612,7 +12692,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_ui_sheet_sheettrigger",
-      "community": 14,
+      "community": 518,
       "norm_label": "sheettrigger()"
     },
     {
@@ -12622,7 +12702,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "components_ui_sheet_sheetclose",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheetclose()"
     },
     {
@@ -12632,7 +12712,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "components_ui_sheet_sheetportal",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheetportal()"
     },
     {
@@ -12642,7 +12722,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "components_ui_sheet_sheetoverlay",
-      "community": 42,
+      "community": 14,
       "norm_label": "sheetoverlay()"
     },
     {
@@ -12652,7 +12732,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "components_ui_sheet_sheetcontent",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheetcontent()"
     },
     {
@@ -12662,7 +12742,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "components_ui_sheet_sheetheader",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheetheader()"
     },
     {
@@ -12672,7 +12752,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "components_ui_sheet_sheetfooter",
-      "community": 42,
+      "community": 14,
       "norm_label": "sheetfooter()"
     },
     {
@@ -12682,7 +12762,7 @@
       "source_location": "L104",
       "_origin": "ast",
       "id": "components_ui_sheet_sheettitle",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheettitle()"
     },
     {
@@ -12692,7 +12772,7 @@
       "source_location": "L117",
       "_origin": "ast",
       "id": "components_ui_sheet_sheetdescription",
-      "community": 510,
+      "community": 518,
       "norm_label": "sheetdescription()"
     },
     {
@@ -12902,7 +12982,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_visually_hidden",
-      "community": 14,
+      "community": 518,
       "norm_label": "visually-hidden.tsx"
     },
     {
@@ -12912,7 +12992,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "components_ui_visually_hidden_visuallyhidden",
-      "community": 14,
+      "community": 518,
       "norm_label": "visuallyhidden()"
     },
     {
@@ -13082,7 +13162,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "db_schema",
-      "community": 510,
+      "community": 23,
       "norm_label": "schema.ts"
     },
     {
@@ -13092,7 +13172,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "db_schema_citext",
-      "community": 510,
+      "community": 23,
       "norm_label": "citext"
     },
     {
@@ -13112,7 +13192,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "db_schema_accountsrelations",
-      "community": 510,
+      "community": 23,
       "norm_label": "accountsrelations"
     },
     {
@@ -13132,7 +13212,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "db_schema_categoriesrelations",
-      "community": 510,
+      "community": 23,
       "norm_label": "categoriesrelations"
     },
     {
@@ -13152,7 +13232,7 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "db_schema_transactionsrelations",
-      "community": 510,
+      "community": 23,
       "norm_label": "transactionsrelations"
     },
     {
@@ -13162,7 +13242,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "db_schema_insertaccountschema",
-      "community": 510,
+      "community": 23,
       "norm_label": "insertaccountschema"
     },
     {
@@ -13172,7 +13252,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "db_schema_insertcategoryschema",
-      "community": 510,
+      "community": 23,
       "norm_label": "insertcategoryschema"
     },
     {
@@ -13252,7 +13332,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_usebulkdeleteaccounts",
-      "community": 520,
+      "community": 518,
       "norm_label": "usebulkdeleteaccounts()"
     },
     {
@@ -13262,7 +13342,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account",
-      "community": 513,
+      "community": 518,
       "norm_label": "use-create-account.ts"
     },
     {
@@ -13272,7 +13352,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_responsetype",
-      "community": 513,
+      "community": 518,
       "norm_label": "responsetype"
     },
     {
@@ -13282,7 +13362,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_requesttype",
-      "community": 513,
+      "community": 518,
       "norm_label": "requesttype"
     },
     {
@@ -13372,7 +13452,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_account",
-      "community": 348,
+      "community": 432,
       "norm_label": "use-get-account.ts"
     },
     {
@@ -13452,7 +13532,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "features_accounts_components_account_form_accountform",
-      "community": 348,
+      "community": 23,
       "norm_label": "accountform()"
     },
     {
@@ -13492,7 +13572,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_components_new_account_sheet",
-      "community": 510,
+      "community": 518,
       "norm_label": "new-account-sheet.tsx"
     },
     {
@@ -13502,7 +13582,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "features_accounts_components_new_account_sheet_formvalues",
-      "community": 510,
+      "community": 518,
       "norm_label": "formvalues"
     },
     {
@@ -13522,7 +13602,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_new_account",
-      "community": 520,
+      "community": 518,
       "norm_label": "use-new-account.ts"
     },
     {
@@ -13532,7 +13612,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_new_account_newaccountstate",
-      "community": 520,
+      "community": 518,
       "norm_label": "newaccountstate"
     },
     {
@@ -13542,7 +13622,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_new_account_usenewaccount",
-      "community": 520,
+      "community": 518,
       "norm_label": "usenewaccount"
     },
     {
@@ -13582,7 +13662,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_select_account",
-      "community": 13,
+      "community": 14,
       "norm_label": "use-select-account.tsx"
     },
     {
@@ -13632,7 +13712,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_categories_api_use_bulk_delete_categories_usebulkdeletecategories",
-      "community": 260,
+      "community": 518,
       "norm_label": "usebulkdeletecategories()"
     },
     {
@@ -13642,7 +13722,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category",
-      "community": 513,
+      "community": 518,
       "norm_label": "use-create-category.ts"
     },
     {
@@ -13652,7 +13732,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_responsetype",
-      "community": 513,
+      "community": 518,
       "norm_label": "responsetype"
     },
     {
@@ -13662,7 +13742,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_requesttype",
-      "community": 513,
+      "community": 518,
       "norm_label": "requesttype"
     },
     {
@@ -13682,7 +13762,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category",
-      "community": 432,
+      "community": 42,
       "norm_label": "use-delete-category.ts"
     },
     {
@@ -13692,7 +13772,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category_responsetype",
-      "community": 432,
+      "community": 42,
       "norm_label": "responsetype"
     },
     {
@@ -13702,7 +13782,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category_usedeletecategory",
-      "community": 432,
+      "community": 42,
       "norm_label": "usedeletecategory()"
     },
     {
@@ -13742,7 +13822,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_categories_api_use_edit_category_useeditcategory",
-      "community": 432,
+      "community": 42,
       "norm_label": "useeditcategory()"
     },
     {
@@ -13772,7 +13852,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_get_category",
-      "community": 432,
+      "community": 42,
       "norm_label": "use-get-category.ts"
     },
     {
@@ -13782,7 +13862,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "features_categories_api_use_get_category_usegetcategory",
-      "community": 432,
+      "community": 42,
       "norm_label": "usegetcategory()"
     },
     {
@@ -13832,7 +13912,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "features_categories_components_category_form_categoryform",
-      "community": 510,
+      "community": 23,
       "norm_label": "categoryform()"
     },
     {
@@ -13842,7 +13922,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet",
-      "community": 510,
+      "community": 42,
       "norm_label": "edit-category-sheet.tsx"
     },
     {
@@ -13852,7 +13932,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet_formvalues",
-      "community": 510,
+      "community": 42,
       "norm_label": "formvalues"
     },
     {
@@ -13862,7 +13942,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet_editcategorysheet",
-      "community": 432,
+      "community": 42,
       "norm_label": "editcategorysheet()"
     },
     {
@@ -13872,7 +13952,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_components_new_category_sheet",
-      "community": 510,
+      "community": 518,
       "norm_label": "new-category-sheet.tsx"
     },
     {
@@ -13882,7 +13962,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "features_categories_components_new_category_sheet_formvalues",
-      "community": 510,
+      "community": 518,
       "norm_label": "formvalues"
     },
     {
@@ -13902,7 +13982,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category",
-      "community": 260,
+      "community": 518,
       "norm_label": "use-new-category.ts"
     },
     {
@@ -13912,7 +13992,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category_newcategorystate",
-      "community": 260,
+      "community": 518,
       "norm_label": "newcategorystate"
     },
     {
@@ -13922,7 +14002,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category_usenewcategory",
-      "community": 260,
+      "community": 518,
       "norm_label": "usenewcategory"
     },
     {
@@ -13972,7 +14052,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_summary_use_get_summary_usegetsummary",
-      "community": 432,
+      "community": 526,
       "norm_label": "usegetsummary()"
     },
     {
@@ -13982,7 +14062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_create_transactions",
-      "community": 379,
+      "community": 432,
       "norm_label": "use-bulk-create-transactions.ts"
     },
     {
@@ -13992,7 +14072,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_create_transactions_responsetype",
-      "community": 379,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -14002,7 +14082,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_create_transactions_requesttype",
-      "community": 379,
+      "community": 432,
       "norm_label": "requesttype"
     },
     {
@@ -14012,7 +14092,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_create_transactions_usebulkcreatetransactions",
-      "community": 379,
+      "community": 518,
       "norm_label": "usebulkcreatetransactions()"
     },
     {
@@ -14022,7 +14102,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_delete_transactions",
-      "community": 379,
+      "community": 432,
       "norm_label": "use-bulk-delete-transactions.ts"
     },
     {
@@ -14032,7 +14112,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_delete_transactions_responsetype",
-      "community": 379,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -14042,7 +14122,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_delete_transactions_requesttype",
-      "community": 379,
+      "community": 432,
       "norm_label": "requesttype"
     },
     {
@@ -14052,7 +14132,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_transactions_api_use_bulk_delete_transactions_usebulkdeletetransactions",
-      "community": 379,
+      "community": 518,
       "norm_label": "usebulkdeletetransactions()"
     },
     {
@@ -14102,7 +14182,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_api_use_delete_transaction",
-      "community": 432,
+      "community": 518,
       "norm_label": "use-delete-transaction.ts"
     },
     {
@@ -14112,7 +14192,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_api_use_delete_transaction_responsetype",
-      "community": 432,
+      "community": 518,
       "norm_label": "responsetype"
     },
     {
@@ -14182,7 +14262,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "features_transactions_api_use_get_transaction_usegettransaction",
-      "community": 432,
+      "community": 518,
       "norm_label": "usegettransaction()"
     },
     {
@@ -14322,7 +14402,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "features_transactions_components_transaction_form_transactionform",
-      "community": 518,
+      "community": 23,
       "norm_label": "transactionform()"
     },
     {
@@ -14392,7 +14472,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_use_confirm",
-      "community": 13,
+      "community": 14,
       "norm_label": "use-confirm.tsx"
     },
     {
@@ -14552,7 +14632,7 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "lib_api_error_createapierror",
-      "community": 432,
+      "community": 518,
       "norm_label": "createapierror()"
     },
     {
@@ -14692,7 +14772,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_select_options_test",
-      "community": 13,
+      "community": 45,
       "norm_label": "select-options.test.ts"
     },
     {
@@ -14702,7 +14782,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_select_options",
-      "community": 13,
+      "community": 45,
       "norm_label": "select-options.ts"
     },
     {
@@ -14712,7 +14792,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_select_options_selectoption",
-      "community": 13,
+      "community": 45,
       "norm_label": "selectoption"
     },
     {
@@ -14722,7 +14802,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_select_options_mergecreatedselectoption",
-      "community": 13,
+      "community": 45,
       "norm_label": "mergecreatedselectoption()"
     },
     {
@@ -14732,7 +14812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_transaction_import_test",
-      "community": 40,
+      "community": 517,
       "norm_label": "transaction-import.test.ts"
     },
     {
@@ -14742,7 +14822,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_transaction_import",
-      "community": 40,
+      "community": 517,
       "norm_label": "transaction-import.ts"
     },
     {
@@ -14752,7 +14832,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_transaction_import_importedtransactionrow",
-      "community": 40,
+      "community": 517,
       "norm_label": "importedtransactionrow"
     },
     {
@@ -14762,7 +14842,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_transaction_import_rawimportedtransactionrow",
-      "community": 40,
+      "community": 517,
       "norm_label": "rawimportedtransactionrow"
     },
     {
@@ -14772,7 +14852,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_transaction_import_importedtransactionrowerror",
-      "community": 40,
+      "community": 517,
       "norm_label": "importedtransactionrowerror"
     },
     {
@@ -14782,7 +14862,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_transaction_import_parseimportedtransactionrows",
-      "community": 40,
+      "community": 517,
       "norm_label": "parseimportedtransactionrows()"
     },
     {
@@ -14912,7 +14992,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_utils",
-      "community": 9,
+      "community": 432,
       "norm_label": "utils.ts"
     },
     {
@@ -14922,7 +15002,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "lib_utils_cn",
-      "community": 42,
+      "community": 14,
       "norm_label": "cn()"
     },
     {
@@ -14942,7 +15022,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_utils_convertamounttomiliunits",
-      "community": 40,
+      "community": 23,
       "norm_label": "convertamounttomiliunits()"
     },
     {
@@ -14982,7 +15062,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "lib_utils_period",
-      "community": 9,
+      "community": 432,
       "norm_label": "period"
     },
     {
@@ -14992,7 +15072,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "lib_utils_formatdaterange",
-      "community": 526,
+      "community": 14,
       "norm_label": "formatdaterange()"
     },
     {
@@ -30230,7 +30310,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/cmd/api/main.go",
-      "source_location": "L85",
+      "source_location": "L96",
       "weight": 1.0,
       "source": "backend_cmd_api_main",
       "target": "backend_cmd_api_main_databasehost",
@@ -30296,7 +30376,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/cmd/api/main.go",
-      "source_location": "L41",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "backend_cmd_api_main_main",
+      "target": "backend_internal_db_rls_verifyrlsactive"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/cmd/api/main.go",
+      "source_location": "L52",
       "weight": 1.0,
       "source": "backend_cmd_api_main_main",
       "target": "backend_internal_http_auth_newauthserver"
@@ -30307,7 +30398,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/cmd/api/main.go",
-      "source_location": "L45",
+      "source_location": "L56",
       "weight": 1.0,
       "source": "backend_cmd_api_main_main",
       "target": "backend_internal_http_router_newrouter"
@@ -30318,7 +30409,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/cmd/api/main.go",
-      "source_location": "L40",
+      "source_location": "L51",
       "weight": 1.0,
       "source": "backend_cmd_api_main_main",
       "target": "backend_internal_mail_smtp_newsmtpmailer"
@@ -32832,7 +32923,29 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L76",
+      "source_location": "L277",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_passesforordinaryrole_livedatabase",
+      "target": "backend_internal_db_db_newpool"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L298",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_rejectsbypassingrole_livedatabase",
+      "target": "backend_internal_db_db_newpool"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L77",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -32843,7 +32956,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L130",
+      "source_location": "L131",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -32854,7 +32967,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L231",
+      "source_location": "L232",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
       "target": "backend_internal_db_db_newpool"
@@ -32865,9 +32978,20 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L193",
+      "source_location": "L194",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
+      "target": "backend_internal_db_db_newpool"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
       "target": "backend_internal_db_db_newpool"
     },
     {
@@ -33266,6 +33390,17 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_finance_rls_test_inserttestuser"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
@@ -33387,6 +33522,39 @@
       "target": "backend_internal_db_finance_rls_test_setappuser"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_finance_rls_test_setappuser"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_finance_rls_test_inserttestaccount"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_finance_rls_test_inserttestcategory"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/finance_rls_test.go",
@@ -33396,6 +33564,28 @@
       "source": "backend_internal_db_finance_rls_test_inserttesttransaction",
       "target": "backend_internal_db_finance_rls_test_go_time",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L161",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_finance_rls_test_assertrowcount"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_finance_rls_test_assertrlsviolation"
     },
     {
       "relation": "contains",
@@ -35004,7 +35194,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L241",
+      "source_location": "L242",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
       "target": "backend_internal_db_gen_db_new"
@@ -36526,6 +36716,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/livedb_test.go",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "backend_internal_db_livedb_test",
+      "target": "backend_internal_db_livedb_test_admindatabaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/livedb_test.go",
       "source_location": "L17",
       "weight": 1.0,
       "source": "backend_internal_db_livedb_test",
@@ -36571,7 +36771,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L73",
+      "source_location": "L274",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_passesforordinaryrole_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L74",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
       "target": "backend_internal_db_livedb_test_livedatabaseurl"
@@ -36582,7 +36793,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L127",
+      "source_location": "L128",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
       "target": "backend_internal_db_livedb_test_livedatabaseurl"
@@ -36593,7 +36804,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L228",
+      "source_location": "L229",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
       "target": "backend_internal_db_livedb_test_livedatabaseurl"
@@ -36604,10 +36815,43 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L190",
+      "source_location": "L191",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
       "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_livedb_test_livedatabaseurl"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/livedb_test.go",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_livedb_test_admindatabaseurl",
+      "target": "backend_internal_db_livedb_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L295",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_rejectsbypassingrole_livedatabase",
+      "target": "backend_internal_db_livedb_test_admindatabaseurl"
     },
     {
       "relation": "contains",
@@ -36730,6 +36974,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls.go",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls",
+      "target": "backend_internal_db_rls_connectionroleattributes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls",
+      "target": "backend_internal_db_rls_verifyrlsactive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls.go",
       "source_location": "L37",
       "weight": 1.0,
       "source": "backend_internal_db_rls",
@@ -36742,7 +37006,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_createrlstestaccount",
       "target": "backend_internal_db_rls_withusertx"
@@ -36753,7 +37017,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
       "target": "backend_internal_db_rls_withusertx"
@@ -36764,7 +37028,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L243",
+      "source_location": "L244",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
       "target": "backend_internal_db_rls_withusertx"
@@ -36836,10 +37100,87 @@
       "target": "backend_internal_db_rls_withusertx"
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L113",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_rls_connectionroleattributes",
+      "target": "backend_internal_db_rls_go_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_rls_verifyrlsactive",
+      "target": "backend_internal_db_rls_go_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L113",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_rls_connectionroleattributes",
+      "target": "backend_internal_db_rls_go_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_rls_verifyrlsactive",
+      "target": "backend_internal_db_rls_go_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L283",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_passesforordinaryrole_livedatabase",
+      "target": "backend_internal_db_rls_verifyrlsactive"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L304",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_rejectsbypassingrole_livedatabase",
+      "target": "backend_internal_db_rls_verifyrlsactive"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls.go",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_verifyrlsactive",
+      "target": "backend_internal_db_rls_connectionroleattributes",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test",
       "target": "backend_internal_db_rls_test_createrlstestaccount",
@@ -36849,7 +37190,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test",
       "target": "backend_internal_db_rls_test_createrlstestuser",
@@ -36859,7 +37200,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test",
       "target": "backend_internal_db_rls_test_deleterlstestusers",
@@ -36869,7 +37210,27 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L72",
+      "source_location": "L273",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test",
+      "target": "backend_internal_db_rls_test_testverifyrlsactive_passesforordinaryrole_livedatabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L294",
+      "weight": 1.0,
+      "source": "backend_internal_db_rls_test",
+      "target": "backend_internal_db_rls_test_testverifyrlsactive_rejectsbypassingrole_livedatabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L73",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test",
       "target": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
@@ -36879,7 +37240,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L126",
+      "source_location": "L127",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test",
       "target": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
@@ -36889,7 +37250,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L227",
+      "source_location": "L228",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test",
       "target": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
@@ -36899,7 +37260,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L189",
+      "source_location": "L190",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test",
       "target": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
@@ -36909,7 +37270,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_createrlstestuser",
@@ -36920,7 +37281,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_createrlstestuser",
@@ -36931,7 +37292,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_createrlstestuser",
@@ -36942,7 +37303,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_db_rls_test_createrlstestuser",
@@ -36954,7 +37315,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L82",
+      "source_location": "L83",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
       "target": "backend_internal_db_rls_test_createrlstestuser",
@@ -36965,7 +37326,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L136",
+      "source_location": "L137",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
       "target": "backend_internal_db_rls_test_createrlstestuser",
@@ -36976,7 +37337,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L237",
+      "source_location": "L238",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
       "target": "backend_internal_db_rls_test_createrlstestuser",
@@ -36987,7 +37348,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L199",
+      "source_location": "L200",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
       "target": "backend_internal_db_rls_test_createrlstestuser",
@@ -36997,7 +37358,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_createrlstestaccount",
@@ -37008,7 +37369,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_deleterlstestusers",
@@ -37019,7 +37380,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_createrlstestaccount",
@@ -37030,7 +37391,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_deleterlstestusers",
@@ -37041,7 +37402,29 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L72",
+      "source_location": "L273",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_passesforordinaryrole_livedatabase",
+      "target": "backend_internal_db_rls_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L294",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_rls_test_testverifyrlsactive_rejectsbypassingrole_livedatabase",
+      "target": "backend_internal_db_rls_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/rls_test.go",
+      "source_location": "L73",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
@@ -37052,7 +37435,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L126",
+      "source_location": "L127",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
@@ -37063,7 +37446,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L227",
+      "source_location": "L228",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
@@ -37074,7 +37457,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L189",
+      "source_location": "L190",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
@@ -37085,7 +37468,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_createrlstestaccount",
@@ -37096,7 +37479,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_deleterlstestusers",
@@ -37107,7 +37490,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_db_rls_test_createrlstestaccount",
@@ -37119,7 +37502,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L84",
+      "source_location": "L85",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
       "target": "backend_internal_db_rls_test_deleterlstestusers",
@@ -37130,7 +37513,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
       "target": "backend_internal_db_rls_test_deleterlstestusers",
@@ -37141,7 +37524,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L238",
+      "source_location": "L239",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_rollsbackonerror_livedatabase",
       "target": "backend_internal_db_rls_test_deleterlstestusers",
@@ -37152,7 +37535,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L200",
+      "source_location": "L201",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
       "target": "backend_internal_db_rls_test_deleterlstestusers",
@@ -37163,7 +37546,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L87",
+      "source_location": "L88",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_ownerroundtrip_livedatabase",
       "target": "backend_internal_db_rls_test_createrlstestaccount",
@@ -37174,7 +37557,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L141",
+      "source_location": "L142",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_policyblockscrossuseraccess_livedatabase",
       "target": "backend_internal_db_rls_test_createrlstestaccount",
@@ -37185,10 +37568,31 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/db/rls_test.go",
-      "source_location": "L203",
+      "source_location": "L204",
       "weight": 1.0,
       "source": "backend_internal_db_rls_test_testwithusertx_unboundtransactionfailsclosed_livedatabase",
       "target": "backend_internal_db_rls_test_createrlstestaccount",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "backend_internal_db_transactions_category_rls_test",
+      "target": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/db/transactions_category_rls_test.go",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_db_transactions_category_rls_test_testtransactionscategoryownerrls_livedatabase",
+      "target": "backend_internal_db_transactions_category_rls_test_go_t",
       "confidence_score": 1.0
     },
     {
@@ -72513,5 +72917,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "65cfd0518c9506d142ecddf7b3e287291b707a60"
+  "built_at_commit": "3a9e429c7cc5d7b7bc6045573814ae8d651e94be"
 }

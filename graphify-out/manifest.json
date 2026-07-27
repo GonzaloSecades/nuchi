@@ -140,8 +140,8 @@
     "semantic_hash": "a974b84f869ed5e86967fc377f86a12a"
   },
   "backend/cmd/api/main.go": {
-    "mtime": 1784776716.4437468,
-    "ast_hash": "b58790eed295c0a01b8a72c61e492ece",
+    "mtime": 1785176539.8831787,
+    "ast_hash": "af0614cf83f7548b851e581cc3b0ee21",
     "semantic_hash": ""
   },
   "backend/internal/config/config.go": {
@@ -1420,8 +1420,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/livedb_test.go": {
-    "mtime": 1784776716.4727507,
-    "ast_hash": "1dd93e919c07f404f9dabe67787fe81e",
+    "mtime": 1785176549.3732822,
+    "ast_hash": "8c4ad41d29cc74b7077c2556cd08100e",
     "semantic_hash": ""
   },
   "backend/internal/http/livedb_test.go": {
@@ -1445,13 +1445,13 @@
     "semantic_hash": ""
   },
   "backend/internal/db/rls.go": {
-    "mtime": 1784777097.3664489,
-    "ast_hash": "664918ce324583512aefef914a851235",
+    "mtime": 1785176527.8663676,
+    "ast_hash": "d23f4412ed3a5808c61deb9c75bd3ab4",
     "semantic_hash": ""
   },
   "backend/internal/db/rls_test.go": {
-    "mtime": 1784777355.5667634,
-    "ast_hash": "b6a6a90b006b1fc9a7d231cb14b3d3e0",
+    "mtime": 1785176674.5818398,
+    "ast_hash": "5fcce1f05bfcb7c444ed73765f063cd7",
     "semantic_hash": ""
   },
   "backend/internal/http/middleware.go": {
@@ -1467,6 +1467,16 @@
   "backend/internal/http/middleware_test.go": {
     "mtime": 1784777200.0791092,
     "ast_hash": "6547f1cd81048be755c64376cd8cafc4",
+    "semantic_hash": ""
+  },
+  "backend/internal/db/transactions_category_rls_test.go": {
+    "mtime": 1785176648.7030272,
+    "ast_hash": "097e6feb916ddea6d38c68ae24a91b39",
+    "semantic_hash": ""
+  },
+  "backend/migrations/00004_transactions_category_owner_rls.sql": {
+    "mtime": 1785176505.2620988,
+    "ast_hash": "ee62b56867b1d412ec7520666b9a7be4",
     "semantic_hash": ""
   }
 }
