@@ -541,5 +541,15 @@
   "539": "GetTransaction200JSONResponse",
   "540": "API Contract and Documentation Standard",
   "541": "UnescapedCookieParamError",
-  "542": "extraction-spec.md"
+  "542": "extraction-spec.md",
+  "543": "InvalidRefreshTokenErrorJSONResponse",
+  "544": "EmailNotVerifiedErrorJSONResponse",
+  "545": "UnmarshalingParamError",
+  "546": "DeleteTransaction200JSONResponse",
+  "547": "GetSummary200JSONResponse",
+  "548": "GetTransaction200JSONResponse",
+  "549": "ListCategories200JSONResponse",
+  "550": "ListTransactions200JSONResponse",
+  "551": "UpdateCategory200JSONResponse",
+  "552": "VerifyEmail200JSONResponse"
 }

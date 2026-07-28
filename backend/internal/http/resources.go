@@ -12,12 +12,25 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// maxResourceBodyBytes caps request bodies on the authenticated owned-
-// resource endpoints (accounts, categories, transactions, summary). Larger
-// than maxAuthBodyBytes because bulk-delete requests can legitimately carry
-// up to 500 chunked ids (lib/chunk-items.ts): a 4 KiB limit would reject
-// real client requests, not just abuse.
-const maxResourceBodyBytes = 64 * 1024
+// decodeResourceBody decodes a request body on the authenticated owned-
+// resource endpoints, with the same strict discipline as the auth endpoints
+// (unknown fields rejected, exactly one JSON value required) but no byte
+// cap.
+//
+// The cap is deliberately absent. Neither the legacy Hono validators nor
+// the contract's AccountInput/BulkDeleteRequest declare maxLength, maxItems,
+// or any byte-size limit, so a large-but-contract-valid body that Hono
+// accepts and processes must not become a 400 here — the frontend's
+// 500-item chunk size (lib/chunk-items.ts) is a client implementation
+// detail, not an API constraint. Introducing a real limit is a contract
+// change, scoped separately (post-migration improvement 0013).
+//
+// These endpoints sit behind RequireAuth, and the server's ReadTimeout
+// (cmd/api/main.go) still bounds how long any single request may spend
+// streaming a body.
+func decodeResourceBody[T any](w http.ResponseWriter, r *http.Request, dst *T) bool {
+	return decodeJSONBody(w, r, dst, noBodyLimit)
+}
 
 // ResourceServer implements the generated openapi.ServerInterface methods
 // for the owned-resource routes (accounts in #44; categories, transactions,
@@ -64,26 +77,26 @@ func withResourceID(fn func(w http.ResponseWriter, r *http.Request, id openapi.R
 // present, runs fn inside db.WithUserTx bound to that user (internal/db/
 // rls.go — the only sanctioned way to touch accounts/categories/
 // transactions; see its doc comment on why a bare dbgen.New(pool) silently
-// yields zero rows outside a transaction). The returned userID is the
-// caller's own authenticated id, handed back so handlers do not need a
-// second UserIDFromContext call to build query params.
+// yields zero rows outside a transaction). The authenticated id is passed
+// to fn, which is the only place a handler needs it — building query
+// params — so it is deliberately not also returned.
 //
 // If the context carries no authenticated user, withUser writes 401
 // UNAUTHORIZED itself and returns ok=false; this is unreachable behind
 // RequireAuth today and is deliberate defense in depth (design decision
 // 6.4) against ever binding app.user_id to the zero UUID. Callers must
-// check ok before using err or userID.
-func (s *ResourceServer) withUser(w http.ResponseWriter, r *http.Request, fn func(userID uuid.UUID, q *dbgen.Queries) error) (userID uuid.UUID, err error, ok bool) {
-	userID, ok = UserIDFromContext(r.Context())
+// check ok before using err.
+func (s *ResourceServer) withUser(w http.ResponseWriter, r *http.Request, fn func(userID uuid.UUID, q *dbgen.Queries) error) (err error, ok bool) {
+	userID, ok := UserIDFromContext(r.Context())
 	if !ok {
 		writeUnauthorizedError(w)
-		return uuid.UUID{}, nil, false
+		return nil, false
 	}
 
 	err = db.WithUserTx(r.Context(), s.pool, userID, func(q *dbgen.Queries) error {
 		return fn(userID, q)
 	})
-	return userID, err, true
+	return err, true
 }
 
 // pgUserID converts an authenticated user id into the pgtype.UUID shape the

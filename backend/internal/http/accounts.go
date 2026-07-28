@@ -7,6 +7,9 @@ import (
 	"unicode/utf8"
 
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
+	// Aliased: the bare package name `id` would read as shadowed inside the
+	// by-id handlers, whose route parameter is also named id.
+	idgen "github.com/GonzaloSecades/nuchi/backend/internal/id"
 	"github.com/GonzaloSecades/nuchi/backend/internal/openapi"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
@@ -40,7 +43,7 @@ type bulkDeleteBody struct {
 // fixture's list/get-vs-create/update asymmetry (briefing §3).
 func (s *ResourceServer) ListAccounts(w http.ResponseWriter, r *http.Request) {
 	var rows []dbgen.Account
-	_, err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
+	err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		var err error
 		rows, err = q.ListAccounts(r.Context(), pgUserID(userID))
 		return err
@@ -69,7 +72,7 @@ func (s *ResourceServer) ListAccounts(w http.ResponseWriter, r *http.Request) {
 // 404 for a missing or foreign id (6.8).
 func (s *ResourceServer) GetAccount(w http.ResponseWriter, r *http.Request, id openapi.ResourceId) {
 	var account dbgen.Account
-	_, err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
+	err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		row, err := q.GetAccount(r.Context(), dbgen.GetAccountParams{ID: id, UserID: pgUserID(userID)})
 		if errors.Is(err, pgx.ErrNoRows) {
 			return errAccountNotFound
@@ -103,7 +106,7 @@ func (s *ResourceServer) GetAccount(w http.ResponseWriter, r *http.Request, id o
 // on success; 409 on a duplicate (user_id, name).
 func (s *ResourceServer) CreateAccount(w http.ResponseWriter, r *http.Request) {
 	var body accountInputBody
-	if !decodeJSONBody(w, r, &body, maxResourceBodyBytes) {
+	if !decodeResourceBody(w, r, &body) {
 		resp := openapi.CreateAccount400JSONResponse{ValidationErrorJSONResponse: validationError()}
 		_ = resp.VisitCreateAccountResponse(w)
 		return
@@ -115,22 +118,21 @@ func (s *ResourceServer) CreateAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := uuid.NewV7()
-	if err != nil {
-		logAccountsError(r, "create account", err)
-		resp := openapi.CreateAccount500JSONResponse{DatabaseErrorJSONResponse: dbError("DatabaseError - Failed to create account")}
-		_ = resp.VisitCreateAccountResponse(w)
-		return
-	}
+	// Legacy accounts.ts generates ids with @paralleldrive/cuid2's
+	// createId(), and the finance tables keep text primary keys holding that
+	// format. Converging finance ids on UUIDv7 is an observable change that
+	// post-migration improvement 0002 defers until after parity, so this
+	// migration keeps producing cuid2-shaped ids (internal/id).
+	accountID := idgen.New()
 
 	var account dbgen.Account
-	_, txErr, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
+	txErr, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		row, err := q.CreateAccount(r.Context(), dbgen.CreateAccountParams{
-			ID:     id.String(),
+			ID:     accountID,
 			Name:   body.Name,
 			UserID: pgUserID(userID),
 			// PlaidID stays NULL: legacy accounts.ts never sets it on
-			// create (design decision 6.6).
+			// create.
 		})
 		if err != nil {
 			return err
@@ -164,7 +166,7 @@ func (s *ResourceServer) CreateAccount(w http.ResponseWriter, r *http.Request) {
 // 6.8).
 func (s *ResourceServer) UpdateAccount(w http.ResponseWriter, r *http.Request, id openapi.ResourceId) {
 	var body accountInputBody
-	if !decodeJSONBody(w, r, &body, maxResourceBodyBytes) {
+	if !decodeResourceBody(w, r, &body) {
 		resp := openapi.UpdateAccount400JSONResponse{ValidationErrorJSONResponse: validationError()}
 		_ = resp.VisitUpdateAccountResponse(w)
 		return
@@ -177,7 +179,7 @@ func (s *ResourceServer) UpdateAccount(w http.ResponseWriter, r *http.Request, i
 	}
 
 	var account dbgen.Account
-	_, err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
+	err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		row, err := q.UpdateAccountName(r.Context(), dbgen.UpdateAccountNameParams{
 			Name:   body.Name,
 			ID:     id,
@@ -218,7 +220,7 @@ func (s *ResourceServer) UpdateAccount(w http.ResponseWriter, r *http.Request, i
 // through the database foreign key (00002 migration), not application code.
 func (s *ResourceServer) DeleteAccount(w http.ResponseWriter, r *http.Request, id openapi.ResourceId) {
 	var deletedID string
-	_, err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
+	err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		row, err := q.DeleteAccount(r.Context(), dbgen.DeleteAccountParams{ID: id, UserID: pgUserID(userID)})
 		if errors.Is(err, pgx.ErrNoRows) {
 			return errAccountNotFound
@@ -252,7 +254,7 @@ func (s *ResourceServer) DeleteAccount(w http.ResponseWriter, r *http.Request, i
 // user_id = $2 query; this operation never 404s (fixtures line 825).
 func (s *ResourceServer) BulkDeleteAccounts(w http.ResponseWriter, r *http.Request) {
 	var body bulkDeleteBody
-	if !decodeJSONBody(w, r, &body, maxResourceBodyBytes) {
+	if !decodeResourceBody(w, r, &body) {
 		resp := openapi.BulkDeleteAccounts400JSONResponse{ValidationErrorJSONResponse: validationError()}
 		_ = resp.VisitBulkDeleteAccountsResponse(w)
 		return
@@ -265,7 +267,7 @@ func (s *ResourceServer) BulkDeleteAccounts(w http.ResponseWriter, r *http.Reque
 	}
 
 	var deletedIDs []string
-	_, err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
+	err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		var err error
 		deletedIDs, err = q.BulkDeleteAccounts(r.Context(), dbgen.BulkDeleteAccountsParams{
 			Ids:    body.Ids,

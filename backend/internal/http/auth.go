@@ -49,7 +49,13 @@ func decodeAuthBody[T any](w http.ResponseWriter, r *http.Request, dst *T) bool 
 	return decodeJSONBody(w, r, dst, maxAuthBodyBytes)
 }
 
-// decodeJSONBody decodes a JSON request body under limit bytes into dst. The
+// noBodyLimit is the limit value decodeJSONBody treats as "no byte cap".
+// Used by the authenticated resource endpoints, whose contract schemas
+// declare no size bound (see decodeResourceBody in resources.go).
+const noBodyLimit int64 = -1
+
+// decodeJSONBody decodes a JSON request body under limit bytes into dst,
+// or with no byte cap when limit is noBodyLimit. The
 // boolean result reports whether decoding succeeded; on failure the caller
 // responds with its operation's 400 ValidationError (an oversized body or
 // an unknown field is a malformed request, same as invalid JSON — the
@@ -64,7 +70,9 @@ func decodeAuthBody[T any](w http.ResponseWriter, r *http.Request, dst *T) bool 
 // Future fields (profiles, households, roles) arrive as contract changes
 // first, at which point they are known fields and pass untouched (#63).
 func decodeJSONBody[T any](w http.ResponseWriter, r *http.Request, dst *T, limit int64) bool {
-	r.Body = http.MaxBytesReader(w, r.Body, limit)
+	if limit != noBodyLimit {
+		r.Body = http.MaxBytesReader(w, r.Body, limit)
+	}
 	dec := json.NewDecoder(r.Body)
 	dec.DisallowUnknownFields()
 	if dec.Decode(dst) != nil {

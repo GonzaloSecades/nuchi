@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
@@ -23,6 +24,12 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
+
+// legacyResourceIDPattern is the cuid2 shape legacy finance ids have and
+// that the Go replacement must keep producing for parity: 24 characters, a
+// leading lowercase letter, the rest base36. A UUID fails this pattern,
+// which is the regression it exists to catch.
+var legacyResourceIDPattern = regexp.MustCompile(`^[a-z][0-9a-z]{23}$`)
 
 // accountsTestEnv wires a live pgxpool and a router mounting the real
 // AuthServer + ResourceServer, following the same TEST_DATABASE_URL skip
@@ -163,8 +170,12 @@ func TestAccountsLive_HappyPath_AllOperations(t *testing.T) {
 	if created.Data.UserId != userID.String() {
 		t.Errorf("create: expected userId %q, got %q", userID.String(), created.Data.UserId)
 	}
-	if created.Data.Id == "" {
-		t.Error("create: expected non-empty id")
+	// Ids must keep the legacy cuid2 format: the finance tables hold
+	// cuid-style text primary keys, and converging them on UUIDv7 is
+	// deferred to post-migration improvement 0002. A UUID here would be an
+	// observable change and would mix id formats within one table.
+	if !legacyResourceIDPattern.MatchString(created.Data.Id) {
+		t.Errorf("create: expected a cuid2-format id matching %s, got %q", legacyResourceIDPattern, created.Data.Id)
 	}
 	// plaidId must be present as JSON null, never omitted.
 	if !strings.Contains(createRawBody, `"plaidId":null`) {
@@ -590,9 +601,23 @@ func TestAccountsLive_Validation(t *testing.T) {
 		rec := env.do(t, http.MethodPost, "/api/accounts", token, map[string]string{})
 		assertValidationError(t, rec)
 	})
-	t.Run("create: oversized body", func(t *testing.T) {
-		rec := env.do(t, http.MethodPost, "/api/accounts", token, accountInputBody{Name: strings.Repeat("x", maxResourceBodyBytes+1)})
-		assertValidationError(t, rec)
+	// A large-but-contract-valid body must be ACCEPTED, not rejected: neither
+	// the legacy Hono validators nor AccountInput declare any maxLength or
+	// byte cap, so Hono accepts and stores a name this size. Freezing that
+	// here guards against an undocumented API limit creeping back in.
+	t.Run("create: large body is accepted, not capped", func(t *testing.T) {
+		largeName := strings.Repeat("x", 128*1024)
+		rec := env.do(t, http.MethodPost, "/api/accounts", token, accountInputBody{Name: largeName})
+		if rec.Code != http.StatusOK {
+			t.Fatalf("expected 200 for a large contract-valid name, got %d (body: %s)", rec.Code, rec.Body.String())
+		}
+		var created openapi.AccountResponse
+		if err := json.NewDecoder(rec.Body).Decode(&created); err != nil {
+			t.Fatalf("decode create response: %v", err)
+		}
+		if created.Data.Name != largeName {
+			t.Errorf("expected the full %d-character name to round-trip, got %d characters", len(largeName), len(created.Data.Name))
+		}
 	})
 
 	t.Run("update: unknown field", func(t *testing.T) {
@@ -622,13 +647,22 @@ func TestAccountsLive_Validation(t *testing.T) {
 		rec := env.do(t, http.MethodPost, "/api/accounts/bulk-delete", token, map[string]any{"ids": []string{"x"}, "extra": "nope"})
 		assertValidationError(t, rec)
 	})
-	t.Run("bulk-delete: oversized body", func(t *testing.T) {
+	// Same guard on the other side: a bulk-delete far larger than the
+	// frontend's 500-item chunk (a client detail, not an API constraint) must
+	// be processed, not rejected. The ids are unowned, so it deletes nothing
+	// and returns an empty list.
+	t.Run("bulk-delete: large id list is accepted, not capped", func(t *testing.T) {
 		ids := make([]string, 0, 4000)
-		for i := 0; i < 4000; i++ {
+		for i := range 4000 {
 			ids = append(ids, fmt.Sprintf("padding-id-%d-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", i))
 		}
 		rec := env.do(t, http.MethodPost, "/api/accounts/bulk-delete", token, bulkDeleteBody{Ids: ids})
-		assertValidationError(t, rec)
+		if rec.Code != http.StatusOK {
+			t.Fatalf("expected 200 for a large bulk-delete body, got %d (body: %s)", rec.Code, rec.Body.String())
+		}
+		if body := rec.Body.String(); !strings.Contains(body, `"data":[]`) {
+			t.Errorf("expected an empty data array for unowned ids, got %s", body)
+		}
 	})
 }
 
