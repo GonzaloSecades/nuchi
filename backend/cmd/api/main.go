@@ -50,10 +50,11 @@ func main() {
 
 	mailer := mail.NewSMTPMailer(cfg.SMTPAddr, cfg.MailFrom, cfg.AppBaseURL)
 	authServer := httpapi.NewAuthServer(pool, cfg, mailer)
+	resourceServer := httpapi.NewResourceServer(pool)
 
 	server := &http.Server{
 		Addr:    cfg.Addr(),
-		Handler: httpapi.NewRouter(authServer),
+		Handler: httpapi.NewRouter(authServer, resourceServer),
 		// ReadTimeout bounds the whole request read (headers + body), not
 		// just headers: without it an anonymous client on the public auth
 		// endpoints can hold a connection open indefinitely by streaming a

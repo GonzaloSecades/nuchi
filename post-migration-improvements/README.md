@@ -103,3 +103,4 @@ gates. Numbering stays global and sequential within
 | 0010 | [Auth operations do not declare 500 responses in the contract](claude-backend-improvements/0010-auth-contract-omits-500.md) | api | low |
 | 0011 | [No resend endpoint; email delivery is fire-and-forget](claude-backend-improvements/0011-no-resend-endpoint-fire-and-forget-mail.md) | auth/infra | medium |
 | 0012 | [Residual timing oracle on password-reset request](claude-backend-improvements/0012-reset-request-timing-oracle.md) | auth | low |
+| 0013 | [Resource endpoints accept unbounded request bodies](claude-backend-improvements/0013-no-request-body-size-cap-on-resource-endpoints.md) | http | medium |

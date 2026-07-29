@@ -63,7 +63,7 @@ func newAuthTestEnv(t *testing.T) authTestEnv {
 
 	mailer := mail.NewCapturingMailer()
 	authServer := NewAuthServer(pool, cfg, mailer)
-	router := NewRouter(authServer)
+	router := NewRouter(authServer, NewResourceServer(pool))
 
 	return authTestEnv{pool: pool, router: router, cfg: cfg, accessTTL: cfg.AccessTokenTTL, mailer: mailer}
 }

@@ -684,7 +684,7 @@ func TestAuthLive_ConfirmPasswordReset_RollbackFault_TokenRemainsUsable(t *testi
 	tokens := waitForCapturedTokens(t, env.mailer.ResetSends, email, 1, 3*time.Second)
 	token := tokens[0]
 
-	faultyRouter := NewRouter(env.faultyAuthServer("SET password_hash"))
+	faultyRouter := NewRouter(env.faultyAuthServer("SET password_hash"), nil)
 
 	faultyRec, err := doRequestNoT(faultyRouter, http.MethodPost, "/api/auth/password-reset/confirm", resetConfirmBody{Token: token, Password: "attempted-new-password"}, nil)
 	if err != nil {
@@ -724,7 +724,7 @@ func TestAuthLive_VerifyEmail_RollbackFault_TokenRemainsUsable(t *testing.T) {
 	tokens := waitForCapturedTokens(t, env.mailer.VerificationSends, email, 1, 3*time.Second)
 	token := tokens[0]
 
-	faultyRouter := NewRouter(env.faultyAuthServer("SET email_verified_at"))
+	faultyRouter := NewRouter(env.faultyAuthServer("SET email_verified_at"), nil)
 
 	faultyRec, err := doRequestNoT(faultyRouter, http.MethodPost, "/api/auth/verify-email", tokenBody{Token: token}, nil)
 	if err != nil {

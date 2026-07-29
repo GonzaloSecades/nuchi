@@ -42,21 +42,37 @@ const (
 const maxAuthBodyBytes = 4 * 1024
 
 // decodeAuthBody decodes an auth request body under maxAuthBodyBytes into
-// dst. The boolean result reports whether decoding succeeded; on failure
-// the caller responds with its operation's 400 ValidationError (an
-// oversized body or an unknown field is a malformed request, same as
-// invalid JSON — the response shape stays within the contract). Generic
-// over the body shape so all seven auth request bodies
-// (credentialsBody, tokenBody, resetRequestBody, resetConfirmBody) share
-// the same strict-decoding discipline.
+// dst. It is a thin wrapper over decodeJSONBody fixing the auth endpoints'
+// long-standing 4 KiB limit, so this call site's behavior is unchanged by
+// #44 generalizing the decoder for the resource endpoints' larger bodies.
+func decodeAuthBody[T any](w http.ResponseWriter, r *http.Request, dst *T) bool {
+	return decodeJSONBody(w, r, dst, maxAuthBodyBytes)
+}
+
+// noBodyLimit is the limit value decodeJSONBody treats as "no byte cap".
+// Used by the authenticated resource endpoints, whose contract schemas
+// declare no size bound (see decodeResourceBody in resources.go).
+const noBodyLimit int64 = -1
+
+// decodeJSONBody decodes a JSON request body under limit bytes into dst,
+// or with no byte cap when limit is noBodyLimit. The
+// boolean result reports whether decoding succeeded; on failure the caller
+// responds with its operation's 400 ValidationError (an oversized body or
+// an unknown field is a malformed request, same as invalid JSON — the
+// response shape stays within the contract). Generic over the body shape so
+// every request body across auth (credentialsBody, tokenBody,
+// resetRequestBody, resetConfirmBody) and resources (AccountInput,
+// BulkDeleteRequest, ...) shares the same strict-decoding discipline.
 //
 // Unknown fields are rejected because the contract declares
-// additionalProperties: false on every auth request schema — the contract
-// is the oracle, and silent tolerance would let it drift. Future fields
-// (profiles, households, roles) arrive as contract changes first, at which
-// point they are known fields and pass untouched (#63).
-func decodeAuthBody[T any](w http.ResponseWriter, r *http.Request, dst *T) bool {
-	r.Body = http.MaxBytesReader(w, r.Body, maxAuthBodyBytes)
+// additionalProperties: false on every request schema this is used for —
+// the contract is the oracle, and silent tolerance would let it drift.
+// Future fields (profiles, households, roles) arrive as contract changes
+// first, at which point they are known fields and pass untouched (#63).
+func decodeJSONBody[T any](w http.ResponseWriter, r *http.Request, dst *T, limit int64) bool {
+	if limit != noBodyLimit {
+		r.Body = http.MaxBytesReader(w, r.Body, limit)
+	}
 	dec := json.NewDecoder(r.Body)
 	dec.DisallowUnknownFields()
 	if dec.Decode(dst) != nil {
