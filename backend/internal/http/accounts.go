@@ -2,9 +2,7 @@ package httpapi
 
 import (
 	"errors"
-	"log/slog"
 	"net/http"
-	"unicode/utf8"
 
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
 	// Aliased: the bare package name `id` would read as shadowed inside the
@@ -52,7 +50,7 @@ func (s *ResourceServer) ListAccounts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err != nil {
-		logAccountsError(r, "list accounts", err)
+		logResourceError(r, "list accounts", err)
 		resp := openapi.ListAccounts500JSONResponse{DatabaseErrorJSONResponse: dbError("DatabaseError - Failed to fetch accounts")}
 		_ = resp.VisitListAccountsResponse(w)
 		return
@@ -95,7 +93,7 @@ func (s *ResourceServer) GetAccount(w http.ResponseWriter, r *http.Request, id o
 		resp := openapi.GetAccount404JSONResponse{AccountNotFoundErrorJSONResponse: accountNotFoundError()}
 		_ = resp.VisitGetAccountResponse(w)
 	default:
-		logAccountsError(r, "fetch account", err)
+		logResourceError(r, "fetch account", err)
 		resp := openapi.GetAccount500JSONResponse{DatabaseErrorJSONResponse: dbError("DatabaseError - Failed to fetch account")}
 		_ = resp.VisitGetAccountResponse(w)
 	}
@@ -152,7 +150,7 @@ func (s *ResourceServer) CreateAccount(w http.ResponseWriter, r *http.Request) {
 		resp := openapi.CreateAccount409JSONResponse{DuplicateAccountNameErrorJSONResponse: duplicateAccountNameError(txErr)}
 		_ = resp.VisitCreateAccountResponse(w)
 	default:
-		logAccountsError(r, "create account", txErr)
+		logResourceError(r, "create account", txErr)
 		resp := openapi.CreateAccount500JSONResponse{DatabaseErrorJSONResponse: dbError("DatabaseError - Failed to create account")}
 		_ = resp.VisitCreateAccountResponse(w)
 	}
@@ -209,7 +207,7 @@ func (s *ResourceServer) UpdateAccount(w http.ResponseWriter, r *http.Request, i
 		resp := openapi.UpdateAccount409JSONResponse{DuplicateAccountNameErrorJSONResponse: duplicateAccountNameError(err)}
 		_ = resp.VisitUpdateAccountResponse(w)
 	default:
-		logAccountsError(r, "update account", err)
+		logResourceError(r, "update account", err)
 		resp := openapi.UpdateAccount500JSONResponse{DatabaseErrorJSONResponse: dbError("DatabaseError - Failed to update account")}
 		_ = resp.VisitUpdateAccountResponse(w)
 	}
@@ -243,7 +241,7 @@ func (s *ResourceServer) DeleteAccount(w http.ResponseWriter, r *http.Request, i
 		resp := openapi.DeleteAccount404JSONResponse{AccountNotFoundErrorJSONResponse: accountNotFoundError()}
 		_ = resp.VisitDeleteAccountResponse(w)
 	default:
-		logAccountsError(r, "delete account", err)
+		logResourceError(r, "delete account", err)
 		resp := openapi.DeleteAccount500JSONResponse{DatabaseErrorJSONResponse: dbError("DatabaseError - Failed to delete account")}
 		_ = resp.VisitDeleteAccountResponse(w)
 	}
@@ -279,7 +277,7 @@ func (s *ResourceServer) BulkDeleteAccounts(w http.ResponseWriter, r *http.Reque
 		return
 	}
 	if err != nil {
-		logAccountsError(r, "delete accounts", err)
+		logResourceError(r, "delete accounts", err)
 		resp := openapi.BulkDeleteAccounts500JSONResponse{DatabaseErrorJSONResponse: dbError("DatabaseError - Failed to delete accounts")}
 		_ = resp.VisitBulkDeleteAccountsResponse(w)
 		return
@@ -296,14 +294,11 @@ func (s *ResourceServer) BulkDeleteAccounts(w http.ResponseWriter, r *http.Reque
 
 // --- validation -----------------------------------------------------------
 
-// validateAccountName enforces the contract's AccountInput.name: minLength
-// 1, counted in runes (not bytes) to match #41's convention. No trimming —
-// trimming would change stored values relative to legacy.
+// validateAccountName enforces the contract's AccountInput.name. Shares
+// validateResourceName with categories: both schemas declare the same
+// minLength 1 on an identically named field.
 func validateAccountName(name string) []apiFieldError {
-	if utf8.RuneCountInString(name) < 1 {
-		return []apiFieldError{{Path: "name", Message: "Name is required."}}
-	}
-	return nil
+	return validateResourceName(name)
 }
 
 // validateBulkDeleteIds enforces the contract's BulkDeleteRequest.ids:
@@ -390,12 +385,4 @@ func constraintName(err error) string {
 		return pgErr.ConstraintName
 	}
 	return ""
-}
-
-// logAccountsError logs a database failure on an accounts operation.
-// Follows auth.go's convention (see writeInternalError / sendAsync): the
-// raw driver error is logged server-side only, never placed in the
-// response body.
-func logAccountsError(r *http.Request, operation string, err error) {
-	slog.Default().ErrorContext(r.Context(), "accounts operation failed", "operation", operation, "error", err)
 }

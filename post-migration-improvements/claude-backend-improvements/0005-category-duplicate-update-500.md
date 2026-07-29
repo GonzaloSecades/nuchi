@@ -32,9 +32,23 @@ the API surface.
 
 ## Proposed improvement
 
-Make duplicate-name update return `409` with the same error shape as
-duplicate-name create — the Go query layer already surfaces the unique
-violation (SQLSTATE 23505) cleanly, so the handler change is trivial. Needs
-a coordinated OpenAPI + fixtures + frontend-toast update, hence post-parity.
-Should be among the first optimization tickets: user-visible, low effort,
-removes a false-alarm class from error monitoring.
+**Resolved during the migration — this entry is closed, kept for history.**
+
+The contract was the deciding authority per `spec.md` line 104 ("Decide
+current mismatches explicitly in OpenAPI instead of inheriting them
+accidentally, especially category duplicate update returning `500` while
+category duplicate create returns `409`"), and `updateCategory` in
+`openapi/nuchi.openapi.json` declares `409` with the shared
+`DuplicateCategoryNameError` shape. #45 therefore shipped `409`, matching
+duplicate-name create, rather than porting the legacy `500`.
+
+This is the one deliberate behavior divergence in #45. It is not a parity
+break: parity defers to the contract where the contract made an explicit
+decision, which is exactly what the spec line above instructed. Frozen by
+`TestCategoriesLive_DuplicateName_OnUpdate`, which covers both the exact and
+case-differing (citext) collisions and fails if the handler regresses to
+`500`.
+
+Fixtures line 321 still documents the legacy `500` as *current Hono*
+behavior; that description stays accurate for the legacy stack until #27
+removes it.

@@ -49,6 +49,15 @@ func NewRouter(authServer *AuthServer, resources *ResourceServer) http.Handler {
 					r.Patch("/{id}", withResourceID(resources.UpdateAccount))
 					r.Delete("/{id}", withResourceID(resources.DeleteAccount))
 				})
+
+				r.Route("/api/categories", func(r chi.Router) {
+					r.Get("/", resources.ListCategories)
+					r.Post("/", resources.CreateCategory)
+					r.Post("/bulk-delete", resources.BulkDeleteCategories)
+					r.Get("/{id}", withResourceID(resources.GetCategory))
+					r.Patch("/{id}", withResourceID(resources.UpdateCategory))
+					r.Delete("/{id}", withResourceID(resources.DeleteCategory))
+				})
 			}
 		})
 	}

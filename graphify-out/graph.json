@@ -50,7 +50,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions",
-      "community": 42,
+      "community": 348,
       "norm_label": "actions.tsx"
     },
     {
@@ -60,7 +60,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions_props",
-      "community": 42,
+      "community": 348,
       "norm_label": "props"
     },
     {
@@ -70,7 +70,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_dashboard_accounts_actions_actions",
-      "community": 42,
+      "community": 348,
       "norm_label": "actions()"
     },
     {
@@ -130,7 +130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_categories_actions",
-      "community": 379,
+      "community": 42,
       "norm_label": "actions.tsx"
     },
     {
@@ -140,7 +140,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "app_dashboard_categories_actions_props",
-      "community": 379,
+      "community": 42,
       "norm_label": "props"
     },
     {
@@ -150,7 +150,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "app_dashboard_categories_actions_actions",
-      "community": 379,
+      "community": 42,
       "norm_label": "actions()"
     },
     {
@@ -160,7 +160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns",
-      "community": 432,
+      "community": 42,
       "norm_label": "columns.tsx"
     },
     {
@@ -170,7 +170,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns_responsetype",
-      "community": 432,
+      "community": 42,
       "norm_label": "responsetype"
     },
     {
@@ -180,7 +180,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_dashboard_categories_columns_columns",
-      "community": 432,
+      "community": 42,
       "norm_label": "columns"
     },
     {
@@ -200,7 +200,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_dashboard_categories_page_categoriespage",
-      "community": 518,
+      "community": 376,
       "norm_label": "categoriespage()"
     },
     {
@@ -240,7 +240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_page",
-      "community": 317,
+      "community": 45,
       "norm_label": "page.tsx"
     },
     {
@@ -250,7 +250,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_dashboard_page_dashboardpage",
-      "community": 317,
+      "community": 45,
       "norm_label": "dashboardpage()"
     },
     {
@@ -260,7 +260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_account_column",
-      "community": 42,
+      "community": 348,
       "norm_label": "account-column.tsx"
     },
     {
@@ -270,7 +270,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "app_dashboard_transactions_account_column_props",
-      "community": 42,
+      "community": 348,
       "norm_label": "props"
     },
     {
@@ -280,7 +280,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_dashboard_transactions_account_column_accountcolumn",
-      "community": 42,
+      "community": 348,
       "norm_label": "accountcolumn()"
     },
     {
@@ -370,7 +370,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_dashboard_transactions_columns_columns",
-      "community": 260,
+      "community": 42,
       "norm_label": "columns"
     },
     {
@@ -430,7 +430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_table",
-      "community": 13,
+      "community": 260,
       "norm_label": "import-table.tsx"
     },
     {
@@ -440,7 +440,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "app_dashboard_transactions_import_table_props",
-      "community": 13,
+      "community": 260,
       "norm_label": "props"
     },
     {
@@ -460,7 +460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page",
-      "community": 260,
+      "community": 317,
       "norm_label": "page.tsx"
     },
     {
@@ -470,7 +470,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_variants",
-      "community": 260,
+      "community": 317,
       "norm_label": "variants"
     },
     {
@@ -480,7 +480,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_initial_import_results",
-      "community": 260,
+      "community": 317,
       "norm_label": "initial_import_results"
     },
     {
@@ -500,7 +500,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "app_dashboard_transactions_page_transactionspagewrapper",
-      "community": 260,
+      "community": 317,
       "norm_label": "transactionspagewrapper()"
     },
     {
@@ -510,7 +510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select",
-      "community": 317,
+      "community": 260,
       "norm_label": "table-head-select.tsx"
     },
     {
@@ -520,7 +520,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_props",
-      "community": 317,
+      "community": 260,
       "norm_label": "props"
     },
     {
@@ -530,7 +530,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_options",
-      "community": 317,
+      "community": 260,
       "norm_label": "options"
     },
     {
@@ -550,7 +550,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_isimportabletransactionfield",
-      "community": 13,
+      "community": 260,
       "norm_label": "isimportabletransactionfield()"
     },
     {
@@ -560,7 +560,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "app_dashboard_transactions_table_head_select_tableheadselect",
-      "community": 13,
+      "community": 260,
       "norm_label": "tableheadselect()"
     },
     {
@@ -570,7 +570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button",
-      "community": 260,
+      "community": 14,
       "norm_label": "upload-button.tsx"
     },
     {
@@ -580,7 +580,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_props",
-      "community": 260,
+      "community": 14,
       "norm_label": "props"
     },
     {
@@ -590,7 +590,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_csvreaderrenderprops",
-      "community": 260,
+      "community": 14,
       "norm_label": "csvreaderrenderprops"
     },
     {
@@ -600,7 +600,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_csvuploadresults",
-      "community": 260,
+      "community": 14,
       "norm_label": "csvuploadresults"
     },
     {
@@ -610,7 +610,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_dashboard_transactions_upload_button_uploadbutton",
-      "community": 260,
+      "community": 14,
       "norm_label": "uploadbutton()"
     },
     {
@@ -640,7 +640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_route_categories",
-      "community": 20,
+      "community": 9,
       "norm_label": "categories.ts"
     },
     {
@@ -760,7 +760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_route_summary",
-      "community": 20,
+      "community": 9,
       "norm_label": "summary.ts"
     },
     {
@@ -2551,7 +2551,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "category",
+      "id": "backend_internal_db_gen_categories_sql_go_category",
       "community": 58,
       "norm_label": "category"
     },
@@ -3819,7 +3819,7 @@
       "label": "accountInputBody",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L31",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "http_accountinputbody",
       "community": 388,
@@ -3829,7 +3829,7 @@
       "label": "bulkDeleteBody",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L37",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "http_bulkdeletebody",
       "community": 388,
@@ -3839,7 +3839,7 @@
       "label": "ResourceServer",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L44",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_go_http_resourceserver",
       "community": 388,
@@ -3849,7 +3849,7 @@
       "label": ".ListAccounts()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L44",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "http_resourceserver_listaccounts",
       "community": 388,
@@ -3879,7 +3879,7 @@
       "label": ".GetAccount()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L73",
+      "source_location": "L71",
       "_origin": "ast",
       "id": "http_resourceserver_getaccount",
       "community": 388,
@@ -3899,7 +3899,7 @@
       "label": ".CreateAccount()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L107",
+      "source_location": "L105",
       "_origin": "ast",
       "id": "http_resourceserver_createaccount",
       "community": 388,
@@ -3909,7 +3909,7 @@
       "label": ".UpdateAccount()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L167",
+      "source_location": "L165",
       "_origin": "ast",
       "id": "http_resourceserver_updateaccount",
       "community": 388,
@@ -3919,7 +3919,7 @@
       "label": ".DeleteAccount()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L221",
+      "source_location": "L219",
       "_origin": "ast",
       "id": "http_resourceserver_deleteaccount",
       "community": 388,
@@ -3929,7 +3929,7 @@
       "label": ".BulkDeleteAccounts()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L255",
+      "source_location": "L253",
       "_origin": "ast",
       "id": "http_resourceserver_bulkdeleteaccounts",
       "community": 388,
@@ -3939,7 +3939,7 @@
       "label": "validateAccountName()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L302",
+      "source_location": "L300",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_validateaccountname",
       "community": 388,
@@ -3949,7 +3949,7 @@
       "label": "validateBulkDeleteIds()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L313",
+      "source_location": "L308",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_validatebulkdeleteids",
       "community": 388,
@@ -3959,7 +3959,7 @@
       "label": "toAccountSummary()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L330",
+      "source_location": "L325",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_toaccountsummary",
       "community": 388,
@@ -3979,7 +3979,7 @@
       "label": "toAccount()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L338",
+      "source_location": "L333",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_toaccount",
       "community": 388,
@@ -3989,7 +3989,7 @@
       "label": "accountNotFoundError()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L354",
+      "source_location": "L349",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_accountnotfounderror",
       "community": 388,
@@ -3999,7 +3999,7 @@
       "label": "duplicateAccountNameError()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L365",
+      "source_location": "L360",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_duplicateaccountnameerror",
       "community": 388,
@@ -4009,7 +4009,7 @@
       "label": "isUniqueViolation()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L378",
+      "source_location": "L373",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_isuniqueviolation",
       "community": 388,
@@ -4019,21 +4019,11 @@
       "label": "constraintName()",
       "file_type": "code",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L387",
+      "source_location": "L382",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_constraintname",
       "community": 388,
       "norm_label": "constraintname()"
-    },
-    {
-      "label": "logAccountsError()",
-      "file_type": "code",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L399",
-      "_origin": "ast",
-      "id": "backend_internal_http_accounts_logaccountserror",
-      "community": 388,
-      "norm_label": "logaccountserror()"
     },
     {
       "label": "accounts_live_test.go",
@@ -5026,6 +5016,376 @@
       "norm_label": "testauthlive_refresh_cookieisperuseranddoesnotleakidentity()"
     },
     {
+      "label": "categories.go",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories",
+      "community": 388,
+      "norm_label": "categories.go"
+    },
+    {
+      "label": "categoryInputBody",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "http_categoryinputbody",
+      "community": 388,
+      "norm_label": "categoryinputbody"
+    },
+    {
+      "label": "ResourceServer",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_go_http_resourceserver",
+      "community": 388,
+      "norm_label": "resourceserver"
+    },
+    {
+      "label": ".ListCategories()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "http_resourceserver_listcategories",
+      "community": 388,
+      "norm_label": ".listcategories()"
+    },
+    {
+      "label": "ResponseWriter",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_go_responsewriter",
+      "community": 388,
+      "norm_label": "responsewriter"
+    },
+    {
+      "label": "Request",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_go_request",
+      "community": 388,
+      "norm_label": "request"
+    },
+    {
+      "label": ".GetCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L58",
+      "_origin": "ast",
+      "id": "http_resourceserver_getcategory",
+      "community": 388,
+      "norm_label": ".getcategory()"
+    },
+    {
+      "label": "ResourceId",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_go_resourceid",
+      "community": 388,
+      "norm_label": "resourceid"
+    },
+    {
+      "label": ".CreateCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L92",
+      "_origin": "ast",
+      "id": "http_resourceserver_createcategory",
+      "community": 388,
+      "norm_label": ".createcategory()"
+    },
+    {
+      "label": ".UpdateCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L159",
+      "_origin": "ast",
+      "id": "http_resourceserver_updatecategory",
+      "community": 388,
+      "norm_label": ".updatecategory()"
+    },
+    {
+      "label": ".DeleteCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L215",
+      "_origin": "ast",
+      "id": "http_resourceserver_deletecategory",
+      "community": 388,
+      "norm_label": ".deletecategory()"
+    },
+    {
+      "label": ".BulkDeleteCategories()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L250",
+      "_origin": "ast",
+      "id": "http_resourceserver_bulkdeletecategories",
+      "community": 388,
+      "norm_label": ".bulkdeletecategories()"
+    },
+    {
+      "label": "validateCategoryName()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L296",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_validatecategoryname",
+      "community": 388,
+      "norm_label": "validatecategoryname()"
+    },
+    {
+      "label": "toCategorySummary()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L304",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_tocategorysummary",
+      "community": 388,
+      "norm_label": "tocategorysummary()"
+    },
+    {
+      "label": "Category",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_go_category",
+      "community": 388,
+      "norm_label": "category"
+    },
+    {
+      "label": "toCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L311",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_tocategory",
+      "community": 388,
+      "norm_label": "tocategory()"
+    },
+    {
+      "label": "categoryNotFoundError()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L327",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_categorynotfounderror",
+      "community": 388,
+      "norm_label": "categorynotfounderror()"
+    },
+    {
+      "label": "duplicateCategoryNameError()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L337",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_duplicatecategorynameerror",
+      "community": 388,
+      "norm_label": "duplicatecategorynameerror()"
+    },
+    {
+      "label": "categories_live_test.go",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test",
+      "community": 41,
+      "norm_label": "categories_live_test.go"
+    },
+    {
+      "label": "assertCategoryNotFound()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_assertcategorynotfound",
+      "community": 41,
+      "norm_label": "assertcategorynotfound()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_go_t",
+      "community": 41,
+      "norm_label": "t"
+    },
+    {
+      "label": "ResponseRecorder",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_go_responserecorder",
+      "community": 41,
+      "norm_label": "responserecorder"
+    },
+    {
+      "label": "assertDuplicateCategoryName()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_assertduplicatecategoryname",
+      "community": 41,
+      "norm_label": "assertduplicatecategoryname()"
+    },
+    {
+      "label": "createTestCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_createtestcategory",
+      "community": 41,
+      "norm_label": "createtestcategory()"
+    },
+    {
+      "label": "TestCategoriesLive_HappyPath_AllOperations()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_happypath_alloperations",
+      "community": 41,
+      "norm_label": "testcategorieslive_happypath_alloperations()"
+    },
+    {
+      "label": "TestCategoriesLive_ListEmpty_ReturnsEmptyArrayNotNull()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L181",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_listempty_returnsemptyarraynotnull",
+      "community": 41,
+      "norm_label": "testcategorieslive_listempty_returnsemptyarraynotnull()"
+    },
+    {
+      "label": "TestCategoriesLive_DuplicateName_OnCreate()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L198",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_oncreate",
+      "community": 41,
+      "norm_label": "testcategorieslive_duplicatename_oncreate()"
+    },
+    {
+      "label": "TestCategoriesLive_DuplicateName_OnUpdate()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L224",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_onupdate",
+      "community": 41,
+      "norm_label": "testcategorieslive_duplicatename_onupdate()"
+    },
+    {
+      "label": "TestCategoriesLive_NotFound_Nonexistent()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L244",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_notfound_nonexistent",
+      "community": 41,
+      "norm_label": "testcategorieslive_notfound_nonexistent()"
+    },
+    {
+      "label": "TestCategoriesLive_CrossUserIsolation()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L263",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_crossuserisolation",
+      "community": 41,
+      "norm_label": "testcategorieslive_crossuserisolation()"
+    },
+    {
+      "label": "TestCategoriesLive_Unauthorized()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L327",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_unauthorized",
+      "community": 41,
+      "norm_label": "testcategorieslive_unauthorized()"
+    },
+    {
+      "label": "TestCategoriesLive_Validation()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L386",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_validation",
+      "community": 41,
+      "norm_label": "testcategorieslive_validation()"
+    },
+    {
+      "label": "TestCategoriesLive_DeleteSetsTransactionCategoryNull()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L446",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "community": 41,
+      "norm_label": "testcategorieslive_deletesetstransactioncategorynull()"
+    },
+    {
+      "label": "seedTransaction()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L483",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_seedtransaction",
+      "community": 41,
+      "norm_label": "seedtransaction()"
+    },
+    {
+      "label": "Pool",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_go_pool",
+      "community": 41,
+      "norm_label": "pool"
+    },
+    {
+      "label": "UUID",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_go_uuid",
+      "community": 41,
+      "norm_label": "uuid"
+    },
+    {
+      "label": "assertTransactionSurvivesWithNullCategory()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L510",
+      "_origin": "ast",
+      "id": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "community": 41,
+      "norm_label": "asserttransactionsurviveswithnullcategory()"
+    },
+    {
       "label": "email_flows_live_test.go",
       "file_type": "code",
       "source_file": "backend/internal/http/email_flows_live_test.go",
@@ -5979,7 +6339,7 @@
       "label": "decodeResourceBody()",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L31",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "backend_internal_http_resources_decoderesourcebody",
       "community": 388,
@@ -6019,7 +6379,7 @@
       "label": "ResourceServer",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L42",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "backend_internal_http_resources_go_http_resourceserver",
       "community": 388,
@@ -6039,27 +6399,27 @@
       "label": "NewResourceServer()",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L47",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "backend_internal_http_resources_newresourceserver",
       "community": 388,
       "norm_label": "newresourceserver()"
     },
     {
-      "label": "accountsServerMethods",
+      "label": "resourceServerMethods",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L56",
+      "source_location": "L58",
       "_origin": "ast",
-      "id": "http_accountsservermethods",
+      "id": "http_resourceservermethods",
       "community": 388,
-      "norm_label": "accountsservermethods"
+      "norm_label": "resourceservermethods"
     },
     {
       "label": "withResourceID()",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L70",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "backend_internal_http_resources_withresourceid",
       "community": 388,
@@ -6089,7 +6449,7 @@
       "label": ".withUser()",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L89",
+      "source_location": "L98",
       "_origin": "ast",
       "id": "http_resourceserver_withuser",
       "community": 388,
@@ -6119,17 +6479,37 @@
       "label": "pgUserID()",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L104",
+      "source_location": "L113",
       "_origin": "ast",
       "id": "backend_internal_http_resources_pguserid",
       "community": 388,
       "norm_label": "pguserid()"
     },
     {
+      "label": "validateResourceName()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/resources.go",
+      "source_location": "L122",
+      "_origin": "ast",
+      "id": "backend_internal_http_resources_validateresourcename",
+      "community": 388,
+      "norm_label": "validateresourcename()"
+    },
+    {
+      "label": "logResourceError()",
+      "file_type": "code",
+      "source_file": "backend/internal/http/resources.go",
+      "source_location": "L133",
+      "_origin": "ast",
+      "id": "backend_internal_http_resources_logresourceerror",
+      "community": 388,
+      "norm_label": "logresourceerror()"
+    },
+    {
       "label": "dbError()",
       "file_type": "code",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L111",
+      "source_location": "L140",
       "_origin": "ast",
       "id": "backend_internal_http_resources_dberror",
       "community": 388,
@@ -11952,7 +12332,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_account_filter_accountfilter",
-      "community": 18,
+      "community": 14,
       "norm_label": "accountfilter()"
     },
     {
@@ -11962,7 +12342,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_amount_input",
-      "community": 45,
+      "community": 13,
       "norm_label": "amount-input.tsx"
     },
     {
@@ -11972,7 +12352,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_amount_input_props",
-      "community": 45,
+      "community": 13,
       "norm_label": "props"
     },
     {
@@ -11982,7 +12362,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "components_amount_input_amountinput",
-      "community": 45,
+      "community": 13,
       "norm_label": "amountinput()"
     },
     {
@@ -12142,7 +12522,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_count_up",
-      "community": 9,
+      "community": 45,
       "norm_label": "count-up.tsx"
     },
     {
@@ -12192,7 +12572,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_card",
-      "community": 9,
+      "community": 45,
       "norm_label": "data-card.tsx"
     },
     {
@@ -12202,7 +12582,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "components_data_card_boxvariant",
-      "community": 9,
+      "community": 45,
       "norm_label": "boxvariant"
     },
     {
@@ -12212,7 +12592,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "components_data_card_iconvariant",
-      "community": 9,
+      "community": 45,
       "norm_label": "iconvariant"
     },
     {
@@ -12222,7 +12602,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "components_data_card_boxvariants",
-      "community": 9,
+      "community": 45,
       "norm_label": "boxvariants"
     },
     {
@@ -12232,7 +12612,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "components_data_card_iconvariants",
-      "community": 9,
+      "community": 45,
       "norm_label": "iconvariants"
     },
     {
@@ -12242,7 +12622,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "components_data_card_datacardprops",
-      "community": 9,
+      "community": 45,
       "norm_label": "datacardprops"
     },
     {
@@ -12252,7 +12632,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "components_data_card_datacard",
-      "community": 9,
+      "community": 45,
       "norm_label": "datacard()"
     },
     {
@@ -12262,7 +12642,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "components_data_card_datacardloading",
-      "community": 9,
+      "community": 45,
       "norm_label": "datacardloading()"
     },
     {
@@ -12282,7 +12662,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_data_charts_datacharts",
-      "community": 317,
+      "community": 45,
       "norm_label": "datacharts()"
     },
     {
@@ -12292,7 +12672,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_grid",
-      "community": 9,
+      "community": 45,
       "norm_label": "data-grid.tsx"
     },
     {
@@ -12302,7 +12682,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_data_grid_datagrid",
-      "community": 9,
+      "community": 45,
       "norm_label": "datagrid()"
     },
     {
@@ -12312,7 +12692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_data_table",
-      "community": 13,
+      "community": 260,
       "norm_label": "data-table.tsx"
     },
     {
@@ -12322,7 +12702,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "components_data_table_datatableprops",
-      "community": 13,
+      "community": 260,
       "norm_label": "datatableprops"
     },
     {
@@ -12382,7 +12762,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "components_date_filter_datefilter",
-      "community": 18,
+      "community": 14,
       "norm_label": "datefilter()"
     },
     {
@@ -12412,7 +12792,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_date_picker_datepicker",
-      "community": 14,
+      "community": 23,
       "norm_label": "datepicker()"
     },
     {
@@ -12422,7 +12802,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_filters",
-      "community": 18,
+      "community": 14,
       "norm_label": "filters.tsx"
     },
     {
@@ -12432,7 +12812,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "components_filters_filters",
-      "community": 18,
+      "community": 14,
       "norm_label": "filters()"
     },
     {
@@ -12532,7 +12912,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "components_nav_button_navbutton",
-      "community": 13,
+      "community": 14,
       "norm_label": "navbutton()"
     },
     {
@@ -12542,7 +12922,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_navigation",
-      "community": 376,
+      "community": 518,
       "norm_label": "navigation.tsx"
     },
     {
@@ -12552,7 +12932,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_navigation_routes",
-      "community": 376,
+      "community": 518,
       "norm_label": "routes"
     },
     {
@@ -12902,7 +13282,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "components_ui_card_carddescription",
-      "community": 9,
+      "community": 45,
       "norm_label": "carddescription()"
     },
     {
@@ -12962,7 +13342,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_dialog",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialog.tsx"
     },
     {
@@ -12972,7 +13352,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_ui_dialog_dialog",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialog()"
     },
     {
@@ -12982,7 +13362,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogtrigger",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogtrigger()"
     },
     {
@@ -12992,7 +13372,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogportal",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogportal()"
     },
     {
@@ -13002,7 +13382,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogclose",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogclose()"
     },
     {
@@ -13012,7 +13392,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogoverlay",
-      "community": 13,
+      "community": 35,
       "norm_label": "dialogoverlay()"
     },
     {
@@ -13022,7 +13402,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogcontent",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogcontent()"
     },
     {
@@ -13032,7 +13412,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogheader",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogheader()"
     },
     {
@@ -13042,7 +13422,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogfooter",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogfooter()"
     },
     {
@@ -13052,7 +13432,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogtitle",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogtitle()"
     },
     {
@@ -13062,7 +13442,7 @@
       "source_location": "L134",
       "_origin": "ast",
       "id": "components_ui_dialog_dialogdescription",
-      "community": 14,
+      "community": 35,
       "norm_label": "dialogdescription()"
     },
     {
@@ -13112,7 +13492,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenucontent",
-      "community": 42,
+      "community": 13,
       "norm_label": "dropdownmenucontent()"
     },
     {
@@ -13132,7 +13512,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "components_ui_dropdown_menu_dropdownmenuitem",
-      "community": 42,
+      "community": 13,
       "norm_label": "dropdownmenuitem()"
     },
     {
@@ -13622,7 +14002,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_ui_sheet_sheettrigger",
-      "community": 376,
+      "community": 518,
       "norm_label": "sheettrigger()"
     },
     {
@@ -13752,7 +14132,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_table",
-      "community": 13,
+      "community": 260,
       "norm_label": "table.tsx"
     },
     {
@@ -13762,7 +14142,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_ui_table_table",
-      "community": 13,
+      "community": 260,
       "norm_label": "table()"
     },
     {
@@ -13772,7 +14152,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_ui_table_tableheader",
-      "community": 13,
+      "community": 260,
       "norm_label": "tableheader()"
     },
     {
@@ -13782,7 +14162,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "components_ui_table_tablebody",
-      "community": 13,
+      "community": 260,
       "norm_label": "tablebody()"
     },
     {
@@ -13792,7 +14172,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "components_ui_table_tablefooter",
-      "community": 13,
+      "community": 260,
       "norm_label": "tablefooter()"
     },
     {
@@ -13802,7 +14182,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "components_ui_table_tablerow",
-      "community": 13,
+      "community": 260,
       "norm_label": "tablerow()"
     },
     {
@@ -13812,7 +14192,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "components_ui_table_tablehead",
-      "community": 13,
+      "community": 260,
       "norm_label": "tablehead()"
     },
     {
@@ -13822,7 +14202,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "components_ui_table_tablecell",
-      "community": 13,
+      "community": 260,
       "norm_label": "tablecell()"
     },
     {
@@ -13832,7 +14212,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "components_ui_table_tablecaption",
-      "community": 13,
+      "community": 260,
       "norm_label": "tablecaption()"
     },
     {
@@ -13862,7 +14242,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_tooltip",
-      "community": 45,
+      "community": 13,
       "norm_label": "tooltip.tsx"
     },
     {
@@ -13872,7 +14252,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltipprovider",
-      "community": 45,
+      "community": 13,
       "norm_label": "tooltipprovider()"
     },
     {
@@ -13882,7 +14262,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltip",
-      "community": 45,
+      "community": 13,
       "norm_label": "tooltip()"
     },
     {
@@ -13892,7 +14272,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltiptrigger",
-      "community": 45,
+      "community": 13,
       "norm_label": "tooltiptrigger()"
     },
     {
@@ -13902,7 +14282,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "components_ui_tooltip_tooltipcontent",
-      "community": 45,
+      "community": 13,
       "norm_label": "tooltipcontent()"
     },
     {
@@ -13912,7 +14292,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_visually_hidden",
-      "community": 376,
+      "community": 518,
       "norm_label": "visually-hidden.tsx"
     },
     {
@@ -13922,7 +14302,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "components_ui_visually_hidden_visuallyhidden",
-      "community": 376,
+      "community": 518,
       "norm_label": "visuallyhidden()"
     },
     {
@@ -13992,7 +14372,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "db_connection_getdatabaseurl",
-      "community": 49,
+      "community": 354,
       "norm_label": "getdatabaseurl()"
     },
     {
@@ -14062,7 +14442,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "db_drizzle",
-      "community": 354,
+      "community": 9,
       "norm_label": "drizzle.ts"
     },
     {
@@ -14072,7 +14452,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "db_drizzle_pool",
-      "community": 354,
+      "community": 9,
       "norm_label": "pool"
     },
     {
@@ -14082,7 +14462,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "db_drizzle_db",
-      "community": 20,
+      "community": 9,
       "norm_label": "db"
     },
     {
@@ -14132,7 +14512,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "db_schema_categories",
-      "community": 20,
+      "community": 9,
       "norm_label": "categories"
     },
     {
@@ -14232,7 +14612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts",
-      "community": 510,
+      "community": 432,
       "norm_label": "use-bulk-delete-accounts.ts"
     },
     {
@@ -14242,7 +14622,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_responsetype",
-      "community": 510,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -14252,7 +14632,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_requesttype",
-      "community": 510,
+      "community": 432,
       "norm_label": "requesttype"
     },
     {
@@ -14262,7 +14642,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_accounts_api_use_bulk_delete_accounts_usebulkdeleteaccounts",
-      "community": 510,
+      "community": 432,
       "norm_label": "usebulkdeleteaccounts()"
     },
     {
@@ -14272,7 +14652,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account",
-      "community": 432,
+      "community": 510,
       "norm_label": "use-create-account.ts"
     },
     {
@@ -14282,7 +14662,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_responsetype",
-      "community": 432,
+      "community": 510,
       "norm_label": "responsetype"
     },
     {
@@ -14292,7 +14672,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_requesttype",
-      "community": 432,
+      "community": 510,
       "norm_label": "requesttype"
     },
     {
@@ -14302,7 +14682,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_accounts_api_use_create_account_usecreateaccount",
-      "community": 518,
+      "community": 510,
       "norm_label": "usecreateaccount()"
     },
     {
@@ -14342,7 +14722,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account",
-      "community": 348,
+      "community": 432,
       "norm_label": "use-edit-account.ts"
     },
     {
@@ -14352,7 +14732,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account_responsetype",
-      "community": 348,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -14362,7 +14742,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account_requesttype",
-      "community": 348,
+      "community": 432,
       "norm_label": "requesttype"
     },
     {
@@ -14372,7 +14752,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "features_accounts_api_use_edit_account_useeditaccount",
-      "community": 348,
+      "community": 432,
       "norm_label": "useeditaccount()"
     },
     {
@@ -14392,7 +14772,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_account_usegetaccount",
-      "community": 348,
+      "community": 432,
       "norm_label": "usegetaccount()"
     },
     {
@@ -14412,7 +14792,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_accounts_api_use_get_accounts_usegetaccounts",
-      "community": 518,
+      "community": 510,
       "norm_label": "usegetaccounts()"
     },
     {
@@ -14462,7 +14842,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "features_accounts_components_account_form_accountform",
-      "community": 518,
+      "community": 23,
       "norm_label": "accountform()"
     },
     {
@@ -14502,7 +14882,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_components_new_account_sheet",
-      "community": 518,
+      "community": 510,
       "norm_label": "new-account-sheet.tsx"
     },
     {
@@ -14512,7 +14892,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "features_accounts_components_new_account_sheet_formvalues",
-      "community": 518,
+      "community": 510,
       "norm_label": "formvalues"
     },
     {
@@ -14522,7 +14902,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "features_accounts_components_new_account_sheet_newaccountsheet",
-      "community": 518,
+      "community": 510,
       "norm_label": "newaccountsheet()"
     },
     {
@@ -14562,7 +14942,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_open_account",
-      "community": 42,
+      "community": 348,
       "norm_label": "use-open-account.ts"
     },
     {
@@ -14572,7 +14952,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_open_account_openaccountstate",
-      "community": 42,
+      "community": 348,
       "norm_label": "openaccountstate"
     },
     {
@@ -14582,7 +14962,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_open_account_useopenaccount",
-      "community": 42,
+      "community": 348,
       "norm_label": "useopenaccount"
     },
     {
@@ -14592,7 +14972,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_select_account",
-      "community": 14,
+      "community": 35,
       "norm_label": "use-select-account.tsx"
     },
     {
@@ -14602,7 +14982,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "features_accounts_hooks_use_select_account_useselectaccount",
-      "community": 518,
+      "community": 510,
       "norm_label": "useselectaccount()"
     },
     {
@@ -14652,7 +15032,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category",
-      "community": 432,
+      "community": 513,
       "norm_label": "use-create-category.ts"
     },
     {
@@ -14662,7 +15042,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_responsetype",
-      "community": 432,
+      "community": 513,
       "norm_label": "responsetype"
     },
     {
@@ -14672,7 +15052,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_requesttype",
-      "community": 432,
+      "community": 513,
       "norm_label": "requesttype"
     },
     {
@@ -14682,7 +15062,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "features_categories_api_use_create_category_usecreatecategory",
-      "community": 518,
+      "community": 510,
       "norm_label": "usecreatecategory()"
     },
     {
@@ -14692,7 +15072,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category",
-      "community": 379,
+      "community": 432,
       "norm_label": "use-delete-category.ts"
     },
     {
@@ -14702,7 +15082,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_api_use_delete_category_responsetype",
-      "community": 379,
+      "community": 432,
       "norm_label": "responsetype"
     },
     {
@@ -14772,7 +15152,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_categories_api_use_get_categories_usegetcategories",
-      "community": 518,
+      "community": 510,
       "norm_label": "usegetcategories()"
     },
     {
@@ -14842,7 +15222,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "features_categories_components_category_form_categoryform",
-      "community": 23,
+      "community": 518,
       "norm_label": "categoryform()"
     },
     {
@@ -14852,7 +15232,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet",
-      "community": 379,
+      "community": 518,
       "norm_label": "edit-category-sheet.tsx"
     },
     {
@@ -14862,7 +15242,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "features_categories_components_edit_category_sheet_formvalues",
-      "community": 379,
+      "community": 518,
       "norm_label": "formvalues"
     },
     {
@@ -14902,7 +15282,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "features_categories_components_new_category_sheet_newcategorysheet",
-      "community": 518,
+      "community": 510,
       "norm_label": "newcategorysheet()"
     },
     {
@@ -14912,7 +15292,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category",
-      "community": 518,
+      "community": 376,
       "norm_label": "use-new-category.ts"
     },
     {
@@ -14922,7 +15302,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category_newcategorystate",
-      "community": 518,
+      "community": 376,
       "norm_label": "newcategorystate"
     },
     {
@@ -14932,7 +15312,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_categories_hooks_use_new_category_usenewcategory",
-      "community": 518,
+      "community": 376,
       "norm_label": "usenewcategory"
     },
     {
@@ -14942,7 +15322,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_categories_hooks_use_open_category",
-      "community": 379,
+      "community": 42,
       "norm_label": "use-open-category.ts"
     },
     {
@@ -14952,7 +15332,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_categories_hooks_use_open_category_opencategorystate",
-      "community": 379,
+      "community": 42,
       "norm_label": "opencategorystate"
     },
     {
@@ -14962,7 +15342,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "features_categories_hooks_use_open_category_useopencategory",
-      "community": 379,
+      "community": 42,
       "norm_label": "useopencategory"
     },
     {
@@ -14982,7 +15362,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "features_summary_use_get_summary_usegetsummary",
-      "community": 432,
+      "community": 45,
       "norm_label": "usegetsummary()"
     },
     {
@@ -15102,7 +15482,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "features_transactions_api_use_create_transaction_usecreatetransaction",
-      "community": 513,
+      "community": 510,
       "norm_label": "usecreatetransaction()"
     },
     {
@@ -15242,7 +15622,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "features_transactions_components_edit_transaction_sheet_edittransactionsheet",
-      "community": 518,
+      "community": 510,
       "norm_label": "edittransactionsheet()"
     },
     {
@@ -15252,7 +15632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet",
-      "community": 518,
+      "community": 510,
       "norm_label": "new-transaction-sheet.tsx"
     },
     {
@@ -15262,7 +15642,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet_formvalues",
-      "community": 518,
+      "community": 510,
       "norm_label": "formvalues"
     },
     {
@@ -15272,7 +15652,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "features_transactions_components_new_transaction_sheet_newtransactionsheet",
-      "community": 518,
+      "community": 510,
       "norm_label": "newtransactionsheet()"
     },
     {
@@ -15332,7 +15712,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "features_transactions_components_transaction_form_transactionform",
-      "community": 518,
+      "community": 510,
       "norm_label": "transactionform()"
     },
     {
@@ -15342,7 +15722,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction",
-      "community": 518,
+      "community": 510,
       "norm_label": "use-new-transaction.ts"
     },
     {
@@ -15352,7 +15732,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction_newtransactionstate",
-      "community": 518,
+      "community": 510,
       "norm_label": "newtransactionstate"
     },
     {
@@ -15362,7 +15742,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "features_transactions_hooks_use_new_transaction_usenewtransaction",
-      "community": 518,
+      "community": 510,
       "norm_label": "usenewtransaction"
     },
     {
@@ -15402,7 +15782,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_use_confirm",
-      "community": 14,
+      "community": 35,
       "norm_label": "use-confirm.tsx"
     },
     {
@@ -15412,7 +15792,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "hooks_use_confirm_useconfirm",
-      "community": 379,
+      "community": 348,
       "norm_label": "useconfirm()"
     },
     {
@@ -15422,7 +15802,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_api_base_url_test",
-      "community": 432,
+      "community": 378,
       "norm_label": "api-base-url.test.ts"
     },
     {
@@ -15432,7 +15812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_api_base_url",
-      "community": 432,
+      "community": 378,
       "norm_label": "api-base-url.ts"
     },
     {
@@ -15442,7 +15822,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_api_base_url_resolveapibaseurloptions",
-      "community": 432,
+      "community": 378,
       "norm_label": "resolveapibaseurloptions"
     },
     {
@@ -15452,7 +15832,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_api_base_url_resolveapibaseurl",
-      "community": 432,
+      "community": 378,
       "norm_label": "resolveapibaseurl()"
     },
     {
@@ -15652,7 +16032,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items_test",
-      "community": 260,
+      "community": 317,
       "norm_label": "chunk-items.test.ts"
     },
     {
@@ -15662,7 +16042,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items",
-      "community": 260,
+      "community": 317,
       "norm_label": "chunk-items.ts"
     },
     {
@@ -15672,7 +16052,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_chunk_items_chunkitems",
-      "community": 260,
+      "community": 317,
       "norm_label": "chunkitems()"
     },
     {
@@ -15972,7 +16352,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_utils_calculatepercentagechange",
-      "community": 20,
+      "community": 9,
       "norm_label": "calculatepercentagechange()"
     },
     {
@@ -15982,7 +16362,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_utils_fillmissingdays",
-      "community": 20,
+      "community": 9,
       "norm_label": "fillmissingdays()"
     },
     {
@@ -16002,7 +16382,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "lib_utils_formatdaterange",
-      "community": 9,
+      "community": 45,
       "norm_label": "formatdaterange()"
     },
     {
@@ -16962,7 +17342,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "providers_sheet_provider",
-      "community": 518,
+      "community": 510,
       "norm_label": "sheet-provider.tsx"
     },
     {
@@ -30928,6 +31308,17 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L335",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_unauthorized",
+      "target": "backend_internal_auth_jwt_issueaccesstoken"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "backend/internal/http/middleware_live_test.go",
       "source_location": "L121",
       "weight": 1.0,
@@ -35370,7 +35761,7 @@
       "weight": 1.0,
       "context": "return_type",
       "source": "gen_queries_createcategory",
-      "target": "category",
+      "target": "backend_internal_db_gen_categories_sql_go_category",
       "confidence_score": 1.0
     },
     {
@@ -35381,7 +35772,7 @@
       "weight": 1.0,
       "context": "return_type",
       "source": "gen_queries_getcategory",
-      "target": "category",
+      "target": "backend_internal_db_gen_categories_sql_go_category",
       "confidence_score": 1.0
     },
     {
@@ -35392,7 +35783,7 @@
       "weight": 1.0,
       "context": "return_type",
       "source": "gen_queries_listcategories",
-      "target": "category",
+      "target": "backend_internal_db_gen_categories_sql_go_category",
       "confidence_score": 1.0
     },
     {
@@ -35403,7 +35794,7 @@
       "weight": 1.0,
       "context": "return_type",
       "source": "gen_queries_updatecategoryname",
-      "target": "category",
+      "target": "backend_internal_db_gen_categories_sql_go_category",
       "confidence_score": 1.0
     },
     {
@@ -37660,6 +38051,28 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L516",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "target": "backend_internal_db_rls_withusertx"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L488",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_seedtransaction",
+      "target": "backend_internal_db_rls_withusertx"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "backend/internal/http/middleware_live_test.go",
       "source_location": "L43",
       "weight": 1.0,
@@ -37683,7 +38096,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L96",
+      "source_location": "L105",
       "weight": 1.0,
       "source": "http_resourceserver_withuser",
       "target": "backend_internal_db_rls_withusertx"
@@ -38188,7 +38601,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L354",
+      "source_location": "L349",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_accountnotfounderror",
@@ -38198,7 +38611,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L387",
+      "source_location": "L382",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_constraintname",
@@ -38208,7 +38621,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L365",
+      "source_location": "L360",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_duplicateaccountnameerror",
@@ -38218,7 +38631,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L378",
+      "source_location": "L373",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_isuniqueviolation",
@@ -38228,17 +38641,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L399",
-      "weight": 1.0,
-      "source": "backend_internal_http_accounts",
-      "target": "backend_internal_http_accounts_logaccountserror",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L338",
+      "source_location": "L333",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_toaccount",
@@ -38248,7 +38651,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L330",
+      "source_location": "L325",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_toaccountsummary",
@@ -38258,7 +38661,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L302",
+      "source_location": "L300",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_validateaccountname",
@@ -38268,7 +38671,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L313",
+      "source_location": "L308",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "backend_internal_http_accounts_validatebulkdeleteids",
@@ -38278,7 +38681,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L31",
+      "source_location": "L29",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "http_accountinputbody",
@@ -38288,7 +38691,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L37",
+      "source_location": "L35",
       "weight": 1.0,
       "source": "backend_internal_http_accounts",
       "target": "http_bulkdeletebody",
@@ -38298,7 +38701,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L255",
+      "source_location": "L253",
       "weight": 1.0,
       "source": "backend_internal_http_accounts_go_http_resourceserver",
       "target": "http_resourceserver_bulkdeleteaccounts",
@@ -38308,7 +38711,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L107",
+      "source_location": "L105",
       "weight": 1.0,
       "source": "backend_internal_http_accounts_go_http_resourceserver",
       "target": "http_resourceserver_createaccount",
@@ -38318,7 +38721,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L221",
+      "source_location": "L219",
       "weight": 1.0,
       "source": "backend_internal_http_accounts_go_http_resourceserver",
       "target": "http_resourceserver_deleteaccount",
@@ -38328,7 +38731,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L73",
+      "source_location": "L71",
       "weight": 1.0,
       "source": "backend_internal_http_accounts_go_http_resourceserver",
       "target": "http_resourceserver_getaccount",
@@ -38338,7 +38741,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L44",
+      "source_location": "L42",
       "weight": 1.0,
       "source": "backend_internal_http_accounts_go_http_resourceserver",
       "target": "http_resourceserver_listaccounts",
@@ -38348,7 +38751,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L167",
+      "source_location": "L165",
       "weight": 1.0,
       "source": "backend_internal_http_accounts_go_http_resourceserver",
       "target": "http_resourceserver_updateaccount",
@@ -38358,7 +38761,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L44",
+      "source_location": "L42",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_listaccounts",
@@ -38369,7 +38772,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L44",
+      "source_location": "L42",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_listaccounts",
@@ -38381,18 +38784,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L55",
-      "weight": 1.0,
-      "source": "http_resourceserver_listaccounts",
-      "target": "backend_internal_http_accounts_logaccountserror",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L65",
+      "source_location": "L63",
       "weight": 1.0,
       "source": "http_resourceserver_listaccounts",
       "target": "backend_internal_http_accounts_toaccountsummary",
@@ -38404,7 +38796,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L56",
+      "source_location": "L54",
       "weight": 1.0,
       "source": "http_resourceserver_listaccounts",
       "target": "backend_internal_http_resources_dberror"
@@ -38415,7 +38807,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L48",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "http_resourceserver_listaccounts",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L46",
       "weight": 1.0,
       "source": "http_resourceserver_listaccounts",
       "target": "backend_internal_http_resources_pguserid"
@@ -38424,7 +38827,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L255",
+      "source_location": "L253",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_bulkdeleteaccounts",
@@ -38435,7 +38838,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L107",
+      "source_location": "L105",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_createaccount",
@@ -38446,7 +38849,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L221",
+      "source_location": "L219",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_deleteaccount",
@@ -38457,7 +38860,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L73",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_getaccount",
@@ -38468,7 +38871,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L167",
+      "source_location": "L165",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_updateaccount",
@@ -38479,18 +38882,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L399",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "source": "backend_internal_http_accounts_logaccountserror",
-      "target": "backend_internal_http_accounts_go_request",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L255",
+      "source_location": "L253",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_bulkdeleteaccounts",
@@ -38501,7 +38893,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L107",
+      "source_location": "L105",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_createaccount",
@@ -38512,7 +38904,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L221",
+      "source_location": "L219",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_deleteaccount",
@@ -38523,7 +38915,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L73",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_getaccount",
@@ -38534,7 +38926,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L167",
+      "source_location": "L165",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_updateaccount",
@@ -38546,7 +38938,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L95",
+      "source_location": "L93",
       "weight": 1.0,
       "source": "http_resourceserver_getaccount",
       "target": "backend_internal_http_accounts_accountnotfounderror",
@@ -38556,7 +38948,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L73",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_getaccount",
@@ -38568,18 +38960,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L98",
-      "weight": 1.0,
-      "source": "http_resourceserver_getaccount",
-      "target": "backend_internal_http_accounts_logaccountserror",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L92",
+      "source_location": "L90",
       "weight": 1.0,
       "source": "http_resourceserver_getaccount",
       "target": "backend_internal_http_accounts_toaccountsummary",
@@ -38591,7 +38972,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L99",
+      "source_location": "L97",
       "weight": 1.0,
       "source": "http_resourceserver_getaccount",
       "target": "backend_internal_http_resources_dberror"
@@ -38602,7 +38983,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L76",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "http_resourceserver_getaccount",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L74",
       "weight": 1.0,
       "source": "http_resourceserver_getaccount",
       "target": "backend_internal_http_resources_pguserid"
@@ -38611,7 +39003,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L221",
+      "source_location": "L219",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_deleteaccount",
@@ -38622,7 +39014,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L167",
+      "source_location": "L165",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_updateaccount",
@@ -38634,32 +39026,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L152",
+      "source_location": "L150",
       "weight": 1.0,
       "source": "http_resourceserver_createaccount",
       "target": "backend_internal_http_accounts_duplicateaccountnameerror",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L151",
-      "weight": 1.0,
-      "source": "http_resourceserver_createaccount",
-      "target": "backend_internal_http_accounts_isuniqueviolation",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L155",
-      "weight": 1.0,
-      "source": "http_resourceserver_createaccount",
-      "target": "backend_internal_http_accounts_logaccountserror",
       "confidence_score": 1.0
     },
     {
@@ -38670,6 +39040,17 @@
       "source_location": "L149",
       "weight": 1.0,
       "source": "http_resourceserver_createaccount",
+      "target": "backend_internal_http_accounts_isuniqueviolation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L147",
+      "weight": 1.0,
+      "source": "http_resourceserver_createaccount",
       "target": "backend_internal_http_accounts_toaccount",
       "confidence_score": 1.0
     },
@@ -38678,7 +39059,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L115",
+      "source_location": "L113",
       "weight": 1.0,
       "source": "http_resourceserver_createaccount",
       "target": "backend_internal_http_accounts_validateaccountname",
@@ -38690,7 +39071,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L110",
+      "source_location": "L108",
       "weight": 1.0,
       "source": "http_resourceserver_createaccount",
       "target": "backend_internal_http_auth_validationerror"
@@ -38701,7 +39082,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L156",
+      "source_location": "L154",
       "weight": 1.0,
       "source": "http_resourceserver_createaccount",
       "target": "backend_internal_http_resources_dberror"
@@ -38712,7 +39093,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L109",
+      "source_location": "L107",
       "weight": 1.0,
       "source": "http_resourceserver_createaccount",
       "target": "backend_internal_http_resources_decoderesourcebody"
@@ -38723,7 +39104,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L133",
+      "source_location": "L153",
+      "weight": 1.0,
+      "source": "http_resourceserver_createaccount",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L131",
       "weight": 1.0,
       "source": "http_resourceserver_createaccount",
       "target": "backend_internal_http_resources_pguserid"
@@ -38733,7 +39125,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L206",
+      "source_location": "L204",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_accounts_accountnotfounderror",
@@ -38744,7 +39136,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L209",
+      "source_location": "L207",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_accounts_duplicateaccountnameerror",
@@ -38755,7 +39147,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L208",
+      "source_location": "L206",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_accounts_isuniqueviolation",
@@ -38766,18 +39158,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L212",
-      "weight": 1.0,
-      "source": "http_resourceserver_updateaccount",
-      "target": "backend_internal_http_accounts_logaccountserror",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L203",
+      "source_location": "L201",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_accounts_toaccount",
@@ -38788,7 +39169,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L175",
+      "source_location": "L173",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_accounts_validateaccountname",
@@ -38800,7 +39181,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L170",
+      "source_location": "L168",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_auth_validationerror"
@@ -38811,7 +39192,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L213",
+      "source_location": "L211",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_resources_dberror"
@@ -38822,7 +39203,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L169",
+      "source_location": "L167",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_resources_decoderesourcebody"
@@ -38833,7 +39214,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L186",
+      "source_location": "L210",
+      "weight": 1.0,
+      "source": "http_resourceserver_updateaccount",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L184",
       "weight": 1.0,
       "source": "http_resourceserver_updateaccount",
       "target": "backend_internal_http_resources_pguserid"
@@ -38843,7 +39235,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L243",
+      "source_location": "L241",
       "weight": 1.0,
       "source": "http_resourceserver_deleteaccount",
       "target": "backend_internal_http_accounts_accountnotfounderror",
@@ -38852,21 +39244,10 @@
     {
       "relation": "calls",
       "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L246",
-      "weight": 1.0,
-      "source": "http_resourceserver_deleteaccount",
-      "target": "backend_internal_http_accounts_logaccountserror",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L247",
+      "source_location": "L245",
       "weight": 1.0,
       "source": "http_resourceserver_deleteaccount",
       "target": "backend_internal_http_resources_dberror"
@@ -38877,7 +39258,18 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L224",
+      "source_location": "L244",
+      "weight": 1.0,
+      "source": "http_resourceserver_deleteaccount",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L222",
       "weight": 1.0,
       "source": "http_resourceserver_deleteaccount",
       "target": "backend_internal_http_resources_pguserid"
@@ -38887,18 +39279,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L282",
-      "weight": 1.0,
-      "source": "http_resourceserver_bulkdeleteaccounts",
-      "target": "backend_internal_http_accounts_logaccountserror",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L263",
+      "source_location": "L261",
       "weight": 1.0,
       "source": "http_resourceserver_bulkdeleteaccounts",
       "target": "backend_internal_http_accounts_validatebulkdeleteids",
@@ -38910,7 +39291,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L258",
+      "source_location": "L256",
       "weight": 1.0,
       "source": "http_resourceserver_bulkdeleteaccounts",
       "target": "backend_internal_http_auth_validationerror"
@@ -38921,7 +39302,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L283",
+      "source_location": "L281",
       "weight": 1.0,
       "source": "http_resourceserver_bulkdeleteaccounts",
       "target": "backend_internal_http_resources_dberror"
@@ -38932,7 +39313,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L257",
+      "source_location": "L255",
       "weight": 1.0,
       "source": "http_resourceserver_bulkdeleteaccounts",
       "target": "backend_internal_http_resources_decoderesourcebody"
@@ -38943,16 +39324,38 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L274",
+      "source_location": "L280",
+      "weight": 1.0,
+      "source": "http_resourceserver_bulkdeleteaccounts",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L272",
       "weight": 1.0,
       "source": "http_resourceserver_bulkdeleteaccounts",
       "target": "backend_internal_http_resources_pguserid"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/accounts.go",
+      "source_location": "L301",
+      "weight": 1.0,
+      "source": "backend_internal_http_accounts_validateaccountname",
+      "target": "backend_internal_http_resources_validateresourcename"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L302",
+      "source_location": "L300",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_accounts_validateaccountname",
@@ -38963,7 +39366,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L313",
+      "source_location": "L308",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_accounts_validatebulkdeleteids",
@@ -38971,10 +39374,21 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L258",
+      "weight": 1.0,
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_accounts_validatebulkdeleteids"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L330",
+      "source_location": "L325",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_accounts_toaccountsummary",
@@ -38985,7 +39399,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L330",
+      "source_location": "L325",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_accounts_toaccountsummary",
@@ -38996,7 +39410,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L338",
+      "source_location": "L333",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_accounts_toaccount",
@@ -39007,7 +39421,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L354",
+      "source_location": "L349",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_accounts_accountnotfounderror",
@@ -39019,7 +39433,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L366",
+      "source_location": "L361",
       "weight": 1.0,
       "source": "backend_internal_http_accounts_duplicateaccountnameerror",
       "target": "backend_internal_http_accounts_constraintname",
@@ -39029,12 +39443,45 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts.go",
-      "source_location": "L365",
+      "source_location": "L360",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_accounts_duplicateaccountnameerror",
       "target": "openapi_duplicateaccountnameerrorjsonresponse",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L134",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_accounts_isuniqueviolation"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L200",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_accounts_isuniqueviolation"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L338",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_duplicatecategorynameerror",
+      "target": "backend_internal_http_accounts_constraintname"
     },
     {
       "relation": "contains",
@@ -39225,6 +39672,17 @@
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_accounts_live_test_newaccountstestenv",
+      "target": "http_accountstestenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L57",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_createtestcategory",
       "target": "http_accountstestenv",
       "confidence_score": 1.0
     },
@@ -39445,6 +39903,105 @@
       "source": "backend_internal_http_accounts_live_test_testaccountslive_validation",
       "target": "backend_internal_http_accounts_live_test_newaccountstestenv",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L264",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_crossuserisolation",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L447",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L199",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_oncreate",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L225",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_onupdate",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_happypath_alloperations",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_listempty_returnsemptyarraynotnull",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L245",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_notfound_nonexistent",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L328",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_unauthorized",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L387",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_validation",
+      "target": "backend_internal_http_accounts_live_test_newaccountstestenv"
     },
     {
       "relation": "references",
@@ -39977,6 +40534,39 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_assertcategorynotfound",
+      "target": "backend_internal_http_accounts_live_test_decodeaccountsapierror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_assertduplicatecategoryname",
+      "target": "backend_internal_http_accounts_live_test_decodeaccountsapierror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L375",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_unauthorized",
+      "target": "backend_internal_http_accounts_live_test_decodeaccountsapierror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/accounts_live_test.go",
       "source_location": "L369",
@@ -40050,6 +40640,28 @@
       "source": "backend_internal_http_accounts_live_test_testaccountslive_deletecascadestransactions",
       "target": "backend_internal_http_accounts_live_test_createtestaccount",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L452",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "target": "backend_internal_http_accounts_live_test_createtestaccount"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L392",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_validation",
+      "target": "backend_internal_http_accounts_live_test_assertvalidationerror"
     },
     {
       "relation": "calls",
@@ -40608,7 +41220,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L32",
+      "source_location": "L34",
       "weight": 1.0,
       "source": "backend_internal_http_resources_decoderesourcebody",
       "target": "backend_internal_http_auth_decodejsonbody"
@@ -40830,6 +41442,28 @@
       "context": "parameter_type",
       "source": "backend_internal_http_auth_newauthserver",
       "target": "mail_mailer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L296",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "backend_internal_http_categories_validatecategoryname",
+      "target": "http_apifielderror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/resources.go",
+      "source_location": "L122",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "backend_internal_http_resources_validateresourcename",
+      "target": "http_apifielderror",
       "confidence_score": 1.0
     },
     {
@@ -41403,6 +42037,39 @@
       "source": "backend_internal_http_auth_writeregistervalidationerror",
       "target": "backend_internal_http_auth_validationerror",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L253",
+      "weight": 1.0,
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_auth_validationerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_auth_validationerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_auth_validationerror"
     },
     {
       "relation": "references",
@@ -43208,6 +43875,1223 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L327",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories",
+      "target": "backend_internal_http_categories_categorynotfounderror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L337",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories",
+      "target": "backend_internal_http_categories_duplicatecategorynameerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L311",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories",
+      "target": "backend_internal_http_categories_tocategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L304",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories",
+      "target": "backend_internal_http_categories_tocategorysummary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L296",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories",
+      "target": "backend_internal_http_categories_validatecategoryname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories",
+      "target": "http_categoryinputbody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L250",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_go_http_resourceserver",
+      "target": "http_resourceserver_bulkdeletecategories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_go_http_resourceserver",
+      "target": "http_resourceserver_createcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L215",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_go_http_resourceserver",
+      "target": "http_resourceserver_deletecategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_go_http_resourceserver",
+      "target": "http_resourceserver_getcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_go_http_resourceserver",
+      "target": "http_resourceserver_listcategories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L159",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_go_http_resourceserver",
+      "target": "http_resourceserver_updatecategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_listcategories",
+      "target": "backend_internal_http_categories_go_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_listcategories",
+      "target": "backend_internal_http_categories_go_responsewriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "http_resourceserver_listcategories",
+      "target": "backend_internal_http_categories_tocategorysummary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "http_resourceserver_listcategories",
+      "target": "backend_internal_http_resources_dberror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "http_resourceserver_listcategories",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "http_resourceserver_listcategories",
+      "target": "backend_internal_http_resources_pguserid"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L250",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_categories_go_responsewriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_categories_go_responsewriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L215",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_deletecategory",
+      "target": "backend_internal_http_categories_go_responsewriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L58",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_categories_go_responsewriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_categories_go_responsewriter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L250",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_categories_go_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L92",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_categories_go_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L215",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_deletecategory",
+      "target": "backend_internal_http_categories_go_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L58",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_categories_go_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_categories_go_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_categories_categorynotfounderror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L58",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_categories_go_resourceid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_categories_tocategorysummary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L84",
+      "weight": 1.0,
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_resources_dberror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "http_resourceserver_getcategory",
+      "target": "backend_internal_http_resources_pguserid"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L215",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_deletecategory",
+      "target": "backend_internal_http_categories_go_resourceid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L159",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_categories_go_resourceid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_categories_duplicatecategorynameerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L132",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_categories_tocategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_categories_validatecategoryname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_resources_dberror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_resources_decoderesourcebody"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L138",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "http_resourceserver_createcategory",
+      "target": "backend_internal_http_resources_pguserid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L198",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_categories_categorynotfounderror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L201",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_categories_duplicatecategorynameerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L195",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_categories_tocategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L167",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_categories_validatecategoryname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L205",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_resources_dberror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L161",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_resources_decoderesourcebody"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "http_resourceserver_updatecategory",
+      "target": "backend_internal_http_resources_pguserid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L237",
+      "weight": 1.0,
+      "source": "http_resourceserver_deletecategory",
+      "target": "backend_internal_http_categories_categorynotfounderror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L241",
+      "weight": 1.0,
+      "source": "http_resourceserver_deletecategory",
+      "target": "backend_internal_http_resources_dberror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L240",
+      "weight": 1.0,
+      "source": "http_resourceserver_deletecategory",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L218",
+      "weight": 1.0,
+      "source": "http_resourceserver_deletecategory",
+      "target": "backend_internal_http_resources_pguserid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L278",
+      "weight": 1.0,
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_resources_dberror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L252",
+      "weight": 1.0,
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_resources_decoderesourcebody"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L277",
+      "weight": 1.0,
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_resources_logresourceerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L269",
+      "weight": 1.0,
+      "source": "http_resourceserver_bulkdeletecategories",
+      "target": "backend_internal_http_resources_pguserid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L297",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_validatecategoryname",
+      "target": "backend_internal_http_resources_validateresourcename"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L304",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_tocategorysummary",
+      "target": "backend_internal_http_categories_go_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L304",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "backend_internal_http_categories_tocategorysummary",
+      "target": "openapi_categorysummary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L311",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "backend_internal_http_categories_tocategory",
+      "target": "backend_internal_http_categories_go_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L327",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "backend_internal_http_categories_categorynotfounderror",
+      "target": "openapi_categorynotfounderrorjsonresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories.go",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "backend_internal_http_categories_duplicatecategorynameerror",
+      "target": "openapi_duplicatecategorynameerrorjsonresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_assertcategorynotfound",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_assertduplicatecategoryname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L510",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L483",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_seedtransaction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L263",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_crossuserisolation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L446",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L198",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_oncreate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L224",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_onupdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_happypath_alloperations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L181",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_listempty_returnsemptyarraynotnull",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L244",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_notfound_nonexistent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L327",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_unauthorized",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L386",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test",
+      "target": "backend_internal_http_categories_live_test_testcategorieslive_validation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_assertcategorynotfound",
+      "target": "backend_internal_http_categories_live_test_go_responserecorder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_assertcategorynotfound",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L272",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_crossuserisolation",
+      "target": "backend_internal_http_categories_live_test_assertcategorynotfound",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L251",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_notfound_nonexistent",
+      "target": "backend_internal_http_categories_live_test_assertcategorynotfound",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_assertduplicatecategoryname",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L510",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L57",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_createtestcategory",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L483",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_seedtransaction",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L263",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_crossuserisolation",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L446",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L198",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_oncreate",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L224",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_onupdate",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L72",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_happypath_alloperations",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L181",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_listempty_returnsemptyarraynotnull",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L244",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_notfound_nonexistent",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L327",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_unauthorized",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L386",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_validation",
+      "target": "backend_internal_http_categories_live_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_assertduplicatecategoryname",
+      "target": "backend_internal_http_categories_live_test_go_responserecorder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L206",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_oncreate",
+      "target": "backend_internal_http_categories_live_test_assertduplicatecategoryname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L233",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_onupdate",
+      "target": "backend_internal_http_categories_live_test_assertduplicatecategoryname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L268",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_crossuserisolation",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L451",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L202",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_oncreate",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L228",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_duplicatename_onupdate",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L167",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_happypath_alloperations",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L333",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_unauthorized",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L403",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_validation",
+      "target": "backend_internal_http_categories_live_test_createtestcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L460",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "target": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L453",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_testcategorieslive_deletesetstransactioncategorynull",
+      "target": "backend_internal_http_categories_live_test_seedtransaction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L483",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_seedtransaction",
+      "target": "backend_internal_http_categories_live_test_go_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L483",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_seedtransaction",
+      "target": "backend_internal_http_categories_live_test_go_uuid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L510",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "target": "backend_internal_http_categories_live_test_go_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L510",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "target": "backend_internal_http_categories_live_test_go_uuid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/internal/http/categories_live_test.go",
+      "source_location": "L517",
+      "weight": 1.0,
+      "source": "backend_internal_http_categories_live_test_asserttransactionsurviveswithnullcategory",
+      "target": "backend_internal_http_resources_pguserid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/email_flows_live_test.go",
       "source_location": "L149",
       "weight": 1.0,
@@ -44304,7 +46188,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L90",
+      "source_location": "L99",
       "weight": 1.0,
       "source": "http_resourceserver_withuser",
       "target": "backend_internal_http_middleware_useridfromcontext"
@@ -44469,7 +46353,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L92",
+      "source_location": "L101",
       "weight": 1.0,
       "source": "http_resourceserver_withuser",
       "target": "backend_internal_http_middleware_writeunauthorizederror"
@@ -45231,7 +47115,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L111",
+      "source_location": "L140",
       "weight": 1.0,
       "source": "backend_internal_http_resources",
       "target": "backend_internal_http_resources_dberror",
@@ -45241,7 +47125,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0,
       "source": "backend_internal_http_resources",
       "target": "backend_internal_http_resources_decoderesourcebody",
@@ -45251,7 +47135,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L42",
+      "source_location": "L44",
       "weight": 1.0,
       "source": "backend_internal_http_resources",
       "target": "backend_internal_http_resources_go_http_resourceserver",
@@ -45261,7 +47145,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L47",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "backend_internal_http_resources",
+      "target": "backend_internal_http_resources_logresourceerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/resources.go",
+      "source_location": "L49",
       "weight": 1.0,
       "source": "backend_internal_http_resources",
       "target": "backend_internal_http_resources_newresourceserver",
@@ -45271,7 +47165,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L104",
+      "source_location": "L113",
       "weight": 1.0,
       "source": "backend_internal_http_resources",
       "target": "backend_internal_http_resources_pguserid",
@@ -45281,7 +47175,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L70",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "backend_internal_http_resources",
+      "target": "backend_internal_http_resources_validateresourcename",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/resources.go",
+      "source_location": "L79",
       "weight": 1.0,
       "source": "backend_internal_http_resources",
       "target": "backend_internal_http_resources_withresourceid",
@@ -45291,17 +47195,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L56",
+      "source_location": "L58",
       "weight": 1.0,
       "source": "backend_internal_http_resources",
-      "target": "http_accountsservermethods",
+      "target": "http_resourceservermethods",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_resources_decoderesourcebody",
@@ -45312,7 +47216,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_resources_decoderesourcebody",
@@ -45323,7 +47227,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_resources_decoderesourcebody",
@@ -45334,7 +47238,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L70",
+      "source_location": "L79",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_resources_withresourceid",
@@ -45345,7 +47249,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L89",
+      "source_location": "L98",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_withuser",
@@ -45356,7 +47260,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L70",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "backend_internal_http_resources_logresourceerror",
+      "target": "backend_internal_http_resources_go_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/internal/http/resources.go",
+      "source_location": "L79",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_resources_withresourceid",
@@ -45367,7 +47282,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L89",
+      "source_location": "L98",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_withuser",
@@ -45378,7 +47293,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L43",
+      "source_location": "L45",
       "weight": 1.0,
       "context": "field",
       "source": "backend_internal_http_resources_go_http_resourceserver",
@@ -45389,7 +47304,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L89",
+      "source_location": "L98",
       "weight": 1.0,
       "source": "backend_internal_http_resources_go_http_resourceserver",
       "target": "http_resourceserver_withuser",
@@ -45399,7 +47314,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L47",
+      "source_location": "L49",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_resources_newresourceserver",
@@ -45410,7 +47325,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L47",
+      "source_location": "L49",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_resources_newresourceserver",
@@ -45421,7 +47336,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L70",
+      "source_location": "L79",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_resources_withresourceid",
@@ -45432,7 +47347,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L70",
+      "source_location": "L79",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "backend_internal_http_resources_withresourceid",
@@ -45454,7 +47369,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L89",
+      "source_location": "L98",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_withuser",
@@ -45465,7 +47380,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L89",
+      "source_location": "L98",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "http_resourceserver_withuser",
@@ -45476,7 +47391,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L104",
+      "source_location": "L113",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_resources_pguserid",
@@ -45487,7 +47402,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/internal/http/resources.go",
-      "source_location": "L111",
+      "source_location": "L140",
       "weight": 1.0,
       "context": "return_type",
       "source": "backend_internal_http_resources_dberror",
@@ -75511,5 +77426,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "dbb52bcca31fb4df4a661fb01e8cea613709eb03"
+  "built_at_commit": "552a6b3337eecee44f541ea93592ac49d74a6530"
 }
