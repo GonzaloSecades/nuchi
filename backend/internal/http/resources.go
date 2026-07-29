@@ -3,11 +3,13 @@ package httpapi
 import (
 	"log/slog"
 	"net/http"
+	"time"
 	"unicode/utf8"
 
 	"github.com/GonzaloSecades/nuchi/backend/internal/db"
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
 	"github.com/GonzaloSecades/nuchi/backend/internal/openapi"
+	"github.com/GonzaloSecades/nuchi/backend/internal/ratelimit"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
@@ -43,11 +45,29 @@ func decodeResourceBody[T any](w http.ResponseWriter, r *http.Request, dst *T) b
 // the RLS session user for that transaction's lifetime.
 type ResourceServer struct {
 	pool *pgxpool.Pool
+
+	// limiter enforces the per-user, per-action transaction mutation limit.
+	// Held on the server rather than in a package global so tests get an
+	// isolated budget and cannot leak state into each other.
+	limiter *ratelimit.Limiter
+
+	// clock supplies "now" for the transaction list's date defaults. nil means
+	// time.Now; tests pin it so a range assertion does not depend on when the
+	// suite runs.
+	clock func() time.Time
 }
 
-// NewResourceServer builds a ResourceServer backed by pool.
+// NewResourceServer builds a ResourceServer backed by pool, with a fresh
+// mutation rate limiter on the real clock.
 func NewResourceServer(pool *pgxpool.Pool) *ResourceServer {
-	return &ResourceServer{pool: pool}
+	return &ResourceServer{pool: pool, limiter: ratelimit.New(nil)}
+}
+
+// newResourceServerWithClock builds a ResourceServer whose limiter and date
+// defaults both read from clock. Test-only: it exists so the rate-limit and
+// date-range tests can advance time instead of sleeping.
+func newResourceServerWithClock(pool *pgxpool.Pool, clock func() time.Time) *ResourceServer {
+	return &ResourceServer{pool: pool, limiter: ratelimit.New(clock), clock: clock}
 }
 
 // resourceServerMethods documents that ResourceServer's handler methods
@@ -69,6 +89,12 @@ type resourceServerMethods interface {
 	GetCategory(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	UpdateCategory(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	DeleteCategory(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+
+	ListTransactions(w http.ResponseWriter, r *http.Request, params openapi.ListTransactionsParams)
+	CreateTransaction(w http.ResponseWriter, r *http.Request)
+	GetTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+	UpdateTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+	DeleteTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 }
 
 var _ resourceServerMethods = (*ResourceServer)(nil)
@@ -79,6 +105,25 @@ var _ resourceServerMethods = (*ResourceServer)(nil)
 func withResourceID(fn func(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fn(w, r, chi.URLParam(r, "id"))
+	}
+}
+
+// withListTransactionsParams adapts the generated (w, r, params) signature to
+// a plain chi handler.
+//
+// It populates AccountId only. from/to are deliberately left nil and read
+// raw from the query string by the handler: the generated FromDate/ToDate are
+// openapi_types.Date — a struct that cannot hold a malformed value — so
+// binding them here would discard precisely the inputs the contract requires
+// distinct INVALID_QUERY messages for, and would answer with a generic binder
+// error instead.
+func withListTransactionsParams(fn func(w http.ResponseWriter, r *http.Request, params openapi.ListTransactionsParams)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var params openapi.ListTransactionsParams
+		if accountID := r.URL.Query().Get("accountId"); accountID != "" {
+			params.AccountId = &accountID
+		}
+		fn(w, r, params)
 	}
 }
 

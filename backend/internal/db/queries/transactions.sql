@@ -18,14 +18,24 @@ SELECT
     t.amount,
     t.notes,
     a.name AS account,
-    t.account_id
+    t.account_id,
+    -- The contract requires currency on TransactionListItem. It must come
+    -- from the column, never a hardcoded 'ARS' in the handler, which would
+    -- silently lie the moment the data disagrees.
+    t.currency
 FROM transactions t
 JOIN accounts a ON a.id = t.account_id AND a.user_id = sqlc.arg(user_id)
 LEFT JOIN categories c ON c.id = t.category_id AND c.user_id = sqlc.arg(user_id)
 WHERE t.date >= sqlc.arg(start_date)
   AND t.date <= sqlc.arg(end_date)
   AND (sqlc.narg(account_id)::text IS NULL OR t.account_id = sqlc.narg(account_id))
-ORDER BY t.date DESC;
+-- t.id DESC breaks ties deterministically. Legacy orders by date alone, and
+-- most rows share midnight, so the order among same-date rows was arbitrary
+-- and could differ between identical requests. Clients could never rely on
+-- it, so pinning it changes nothing observable while removing the
+-- nondeterminism -- the same behavior-preserving reasoning used for
+-- accounts.sql's ORDER BY name in #40.
+ORDER BY t.date DESC, t.id DESC;
 
 -- name: GetTransaction :one
 -- Legacy GET /:id selects only the transaction's own columns (no joined
