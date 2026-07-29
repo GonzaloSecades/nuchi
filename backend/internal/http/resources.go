@@ -1,7 +1,9 @@
 package httpapi
 
 import (
+	"log/slog"
 	"net/http"
+	"unicode/utf8"
 
 	"github.com/GonzaloSecades/nuchi/backend/internal/db"
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
@@ -48,21 +50,28 @@ func NewResourceServer(pool *pgxpool.Pool) *ResourceServer {
 	return &ResourceServer{pool: pool}
 }
 
-// accountsServerMethods documents that ResourceServer's account methods
+// resourceServerMethods documents that ResourceServer's handler methods
 // have the exact signatures openapi.ServerInterface declares for the same
 // operation names. It is not used for dispatch (chi routing stays
-// hand-wired, same as auth), only as a compile-time signature check so
-// #45-#48 adding categories/transactions/summary methods stay additive.
-type accountsServerMethods interface {
+// hand-wired, same as auth), only as a compile-time signature check, and it
+// grows as #46-#48 add transactions and summary.
+type resourceServerMethods interface {
 	ListAccounts(w http.ResponseWriter, r *http.Request)
 	CreateAccount(w http.ResponseWriter, r *http.Request)
 	BulkDeleteAccounts(w http.ResponseWriter, r *http.Request)
 	GetAccount(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	UpdateAccount(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	DeleteAccount(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+
+	ListCategories(w http.ResponseWriter, r *http.Request)
+	CreateCategory(w http.ResponseWriter, r *http.Request)
+	BulkDeleteCategories(w http.ResponseWriter, r *http.Request)
+	GetCategory(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+	UpdateCategory(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+	DeleteCategory(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 }
 
-var _ accountsServerMethods = (*ResourceServer)(nil)
+var _ resourceServerMethods = (*ResourceServer)(nil)
 
 // withResourceID adapts a handler with the generated (w, r, id) signature
 // into a plain chi handler that reads the {id} URL parameter. Shared by
@@ -103,6 +112,26 @@ func (s *ResourceServer) withUser(w http.ResponseWriter, r *http.Request, fn fun
 // sqlc-generated query params expect.
 func pgUserID(userID uuid.UUID) pgtype.UUID {
 	return pgtype.UUID{Bytes: [16]byte(userID), Valid: true}
+}
+
+// validateResourceName enforces the minLength 1 that every owned-resource
+// name field declares (AccountInput.name, CategoryInput.name). Counted in
+// runes rather than bytes, matching #41's convention, so a multi-byte
+// single-character name is not rejected. No trimming — trimming would
+// change stored values relative to legacy.
+func validateResourceName(name string) []apiFieldError {
+	if utf8.RuneCountInString(name) < 1 {
+		return []apiFieldError{{Path: "name", Message: "Name is required."}}
+	}
+	return nil
+}
+
+// logResourceError logs a database failure on an owned-resource operation.
+// Follows auth.go's convention (see writeInternalError / sendAsync): the
+// raw driver error is logged server-side only, never placed in the
+// response body.
+func logResourceError(r *http.Request, operation string, err error) {
+	slog.Default().ErrorContext(r.Context(), "resource operation failed", "operation", operation, "error", err)
 }
 
 // dbError builds the contract's DatabaseErrorJSONResponse embedding message,

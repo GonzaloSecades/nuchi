@@ -377,6 +377,7 @@
   "375": "compositePrimaryKeys",
   "376": ".GetCategory",
   "377": "BulkCreateTransactionsRequestObject",
+  "378": "api-base-url.ts",
   "379": "name",
   "380": "account_id",
   "381": "amount",
