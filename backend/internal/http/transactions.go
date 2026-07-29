@@ -79,17 +79,30 @@ type transactionInput struct {
 // struct that cannot represent a malformed value, so binding through it would
 // discard exactly the inputs the contract requires three specific
 // INVALID_QUERY messages for.
+//
+// All three parameters distinguish "omitted" from "present but empty". None of
+// them sets allowEmptyValue, which defaults to false in OpenAPI 3.0.3, and each
+// references a schema with a minimum length, so an empty value is malformed
+// rather than a request for the default.
 func (s *ResourceServer) ListTransactions(w http.ResponseWriter, r *http.Request, params openapi.ListTransactionsParams) {
 	query := r.URL.Query()
-	start, end, dateErr := parseDateRange(query.Get("from"), query.Get("to"), s.now())
+	start, end, dateErr := parseDateRange(optionalQueryParam(query, "from"), optionalQueryParam(query, "to"), s.now())
 	if dateErr != nil {
 		resp := openapi.ListTransactions400JSONResponse{InvalidDateQueryErrorJSONResponse: invalidDateQueryError(dateErr)}
 		_ = resp.VisitListTransactionsResponse(w)
 		return
 	}
 
+	// accountId references ResourceId (minLength 1), so an explicitly empty
+	// value is rejected for the same reason as an empty date rather than
+	// silently meaning "no filter".
 	accountID := pgtype.Text{}
-	if params.AccountId != nil && *params.AccountId != "" {
+	if params.AccountId != nil {
+		if *params.AccountId == "" {
+			resp := openapi.ListTransactions400JSONResponse{InvalidDateQueryErrorJSONResponse: invalidQueryError("accountId must not be empty.")}
+			_ = resp.VisitListTransactionsResponse(w)
+			return
+		}
 		accountID = pgtype.Text{String: *params.AccountId, Valid: true}
 	}
 
@@ -485,14 +498,21 @@ func validateTransactionInput(body transactionInputBody) (transactionInput, []ap
 	if body.Notes != nil {
 		out.notes = pgtype.Text{String: *body.Notes, Valid: true}
 	}
-	// Omitted and explicit null are the same outcome: no category. Anything
-	// else — including the empty string — is treated as a reference and looked
-	// up, so it fails as a missing category rather than silently clearing the
-	// association. Legacy gates on `values.categoryId == null`, which catches
-	// null and undefined but not "", so an empty id falls through to its
-	// category lookup and 404s; matching that gate keeps the behavior.
+	// Omitted and explicit null are the same outcome: no category. Only nil
+	// means "no category".
+	//
+	// A present-but-empty categoryId is neither: the field is nullable, but its
+	// non-null branch is ResourceId with minLength 1, so "" is a malformed
+	// request value and fails validation here — before any lookup — rather than
+	// being reported as a reference that was not found. A 404 would claim a
+	// syntactically valid id was missing, which is a different thing and leaves
+	// the response outside the contract.
 	if body.CategoryID != nil {
-		out.categoryID = pgtype.Text{String: *body.CategoryID, Valid: true}
+		if *body.CategoryID == "" {
+			fields = append(fields, apiFieldError{Path: "categoryId", Message: "Category must not be empty."})
+		} else {
+			out.categoryID = pgtype.Text{String: *body.CategoryID, Valid: true}
+		}
 	}
 
 	return out, fields
@@ -563,8 +583,14 @@ func textPointer(value pgtype.Text) *string {
 // --- errors ---------------------------------------------------------------
 
 func invalidDateQueryError(err error) openapi.InvalidDateQueryErrorJSONResponse {
+	return invalidQueryError(err.Error())
+}
+
+// invalidQueryError builds the contract's INVALID_QUERY body for any malformed
+// query parameter, date or otherwise.
+func invalidQueryError(message string) openapi.InvalidDateQueryErrorJSONResponse {
 	return openapi.InvalidDateQueryErrorJSONResponse{
-		Error: openapi.ApiError{Code: "INVALID_QUERY", Message: err.Error()},
+		Error: openapi.ApiError{Code: "INVALID_QUERY", Message: message},
 	}
 }
 

@@ -24,10 +24,18 @@ var (
 	errDateSpan   = dateRangeError{"Date range cannot exceed 366 days."}
 )
 
-// parseDateRange resolves the optional `from`/`to` query strings into the
+// parseDateRange resolves the optional `from`/`to` query parameters into the
 // inclusive [start, end] window the transaction and summary queries filter on.
-// from and to are the raw query values; an empty string means the parameter
-// was absent.
+//
+// from and to are nil when the parameter was omitted and non-nil when it was
+// present, so an explicitly empty value (`?from=`) is distinguishable from an
+// absent one and is rejected. url.Values.Get collapses those two cases, which
+// is why presence is passed in rather than inferred here. Only omission
+// defaults: the contract's parameters reference DateString and do not set
+// allowEmptyValue, which defaults to false in OpenAPI 3.0.3, so an empty value
+// is malformed rather than a request for the default range. Legacy's
+// parseStrictDate normalized empty to absent; the contract governs, and the
+// client is expected to omit unset parameters instead.
 //
 // Everything is computed in UTC from a single `now`. Legacy parses these in
 // the Node process's local timezone (lib/transaction-route-utils.ts), which
@@ -44,12 +52,12 @@ var (
 //   - a provided `from` is the start of that calendar day (00:00:00.000).
 //   - a provided `to` is the end of that calendar day (23:59:59.999999999).
 //   - the range is inclusive at both ends and capped at 366 days.
-func parseDateRange(from, to string, now time.Time) (start, end time.Time, err error) {
+func parseDateRange(from, to *string, now time.Time) (start, end time.Time, err error) {
 	now = now.UTC()
 
 	end = now
-	if to != "" {
-		parsed, ok := parseCalendarDate(to)
+	if to != nil {
+		parsed, ok := parseCalendarDate(*to)
 		if !ok {
 			return time.Time{}, time.Time{}, errDateFormat
 		}
@@ -57,8 +65,8 @@ func parseDateRange(from, to string, now time.Time) (start, end time.Time, err e
 	}
 
 	start = now.AddDate(0, 0, -defaultRangeDays)
-	if from != "" {
-		parsed, ok := parseCalendarDate(from)
+	if from != nil {
+		parsed, ok := parseCalendarDate(*from)
 		if !ok {
 			return time.Time{}, time.Time{}, errDateFormat
 		}

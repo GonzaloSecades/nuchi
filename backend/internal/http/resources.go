@@ -3,6 +3,7 @@ package httpapi
 import (
 	"log/slog"
 	"net/http"
+	"net/url"
 	"time"
 	"unicode/utf8"
 
@@ -120,11 +121,28 @@ func withResourceID(fn func(w http.ResponseWriter, r *http.Request, id openapi.R
 func withListTransactionsParams(fn func(w http.ResponseWriter, r *http.Request, params openapi.ListTransactionsParams)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var params openapi.ListTransactionsParams
-		if accountID := r.URL.Query().Get("accountId"); accountID != "" {
-			params.AccountId = &accountID
-		}
+		// Presence, not emptiness: an explicitly empty accountId must reach the
+		// handler as a present-but-invalid value so it can be rejected, rather
+		// than being flattened into "omitted".
+		params.AccountId = optionalQueryParam(r.URL.Query(), "accountId")
 		fn(w, r, params)
 	}
+}
+
+// optionalQueryParam returns a pointer to the raw value of key when the
+// parameter is present, and nil when it is absent.
+//
+// url.Values.Get cannot express the difference: it returns "" for both an
+// omitted key and `?key=`. Every optional query parameter in the contract
+// references a schema with a minimum length and none sets allowEmptyValue
+// (false by default in OpenAPI 3.0.3), so the distinction is the difference
+// between defaulting and a 400.
+func optionalQueryParam(query url.Values, key string) *string {
+	if !query.Has(key) {
+		return nil
+	}
+	value := query.Get(key)
+	return &value
 }
 
 // withUser resolves the authenticated user id from r's context and, if

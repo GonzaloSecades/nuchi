@@ -590,66 +590,94 @@ func TestTransactionsLive_Unauthorized(t *testing.T) {
 	}
 }
 
-// TestTransactionsLive_EmptyCategoryIdIsARejectedReference pins that an empty
-// categoryId is treated as a reference that does not exist, not as "clear the
-// category". Legacy gates on `values.categoryId == null`, which catches null
-// and undefined but not "", so an empty id falls through to its category
-// lookup and 404s. Silently clearing it instead would turn an invalid client
-// value into a successful write.
-func TestTransactionsLive_EmptyCategoryIdIsARejectedReference(t *testing.T) {
+// TestTransactionsLive_EmptyCategoryIdFailsValidation pins that a
+// present-but-empty categoryId is a request validation failure, not a lookup
+// miss.
+//
+// The field is nullable, but its non-null branch is ResourceId with
+// minLength 1, so "" is neither null nor a valid id. It must fail with a
+// field-level 400 before any lookup runs: a 404 would claim a syntactically
+// valid reference was missing, which is a different assertion and outside the
+// contract. Only nil (omitted or explicit null) means "no category".
+func TestTransactionsLive_EmptyCategoryIdFailsValidation(t *testing.T) {
 	env := newTransactionsTestEnv(t)
 	_, token := env.createAccountsTestUser(t, "txn-empty-cat")
 	accountID := createTestAccount(t, env.accountsTestEnv, token, "Cash")
 
 	empty := ""
 
+	// Reads the body exactly once: decodeAccountsAPIError consumes it, so
+	// asserting the status through a second helper that also decodes would see
+	// an empty body.
+	assertCategoryFieldError := func(t *testing.T, rec *httptest.ResponseRecorder) {
+		t.Helper()
+		if rec.Code != http.StatusBadRequest {
+			t.Fatalf("expected 400, got %d (body: %s)", rec.Code, rec.Body.String())
+		}
+		body := decodeAccountsAPIError(t, rec)
+		if body.Error.Code != "VALIDATION_ERROR" {
+			t.Errorf("expected code VALIDATION_ERROR, got %q", body.Error.Code)
+		}
+		if body.Error.Details == nil {
+			t.Fatalf("expected details.fields naming categoryId, got no details")
+		}
+		if !strings.Contains(fmt.Sprint(*body.Error.Details), "categoryId") {
+			t.Errorf("expected a categoryId field error, got %v", *body.Error.Details)
+		}
+	}
+
 	t.Run("create", func(t *testing.T) {
 		body := validTransactionBody(accountID)
 		body.CategoryID = &empty
-		rec := env.do(t, http.MethodPost, "/api/transactions", token, body)
-		assertTransactionAPIError(t, rec, http.StatusNotFound, "CATEGORY_NOT_FOUND")
+		assertCategoryFieldError(t, env.do(t, http.MethodPost, "/api/transactions", token, body))
 	})
 
 	t.Run("update", func(t *testing.T) {
 		existing := createTestTransaction(t, env, token, validTransactionBody(accountID))
 		body := validTransactionBody(accountID)
 		body.CategoryID = &empty
-		rec := env.do(t, http.MethodPatch, "/api/transactions/"+existing.Id, token, body)
-		assertTransactionAPIError(t, rec, http.StatusNotFound, "CATEGORY_NOT_FOUND")
+		assertCategoryFieldError(t, env.do(t, http.MethodPatch, "/api/transactions/"+existing.Id, token, body))
 	})
 }
 
-// TestTransactionsLive_EmptyDateParamsDefaultRatherThanFail pins that `?from=`
-// and `?to=` are treated as absent, not malformed.
+// TestTransactionsLive_EmptyQueryParamsAreRejected pins that `?from=`, `?to=`
+// and `?accountId=` are malformed rather than equivalent to omission.
 //
-// url.Values.Get returns "" for both an omitted key and an explicitly empty
-// one, and legacy's parseStrictDate short-circuits on `if (!value)`, so an
-// empty value takes the default range there too. Rejecting it would diverge
-// from legacy and would break the existing client, whose transactions hook
-// sends from/to as empty strings whenever no filter is set.
-func TestTransactionsLive_EmptyDateParamsDefaultRatherThanFail(t *testing.T) {
+// url.Values.Get returns "" for both, so presence is carried as a pointer. The
+// contract's parameters reference DateString/ResourceId and none sets
+// allowEmptyValue, which defaults to false in OpenAPI 3.0.3, so an explicitly
+// empty value cannot be normalized to a default-range request while the
+// contract stands. Legacy's parseStrictDate did normalize it; the contract
+// governs, and callers omit unset parameters instead.
+func TestTransactionsLive_EmptyQueryParamsAreRejected(t *testing.T) {
 	env := newTransactionsTestEnv(t)
-	_, token := env.createAccountsTestUser(t, "txn-empty-dates")
+	_, token := env.createAccountsTestUser(t, "txn-empty-params")
 	accountID := createTestAccount(t, env.accountsTestEnv, token, "Cash")
 
-	// Dated inside the default 30-day window that ends at the pinned clock.
 	body := validTransactionBody(accountID)
 	body.Date = "2026-07-20"
 	created := createTestTransaction(t, env, token, body)
 
-	for _, query := range []string{"?from=&to=", "?from=", "?to=", "?from=&to=&accountId="} {
+	for _, query := range []string{"?from=", "?to=", "?from=&to=", "?accountId=", "?from=2026-07-01&to="} {
 		t.Run(query, func(t *testing.T) {
 			rec := env.do(t, http.MethodGet, "/api/transactions"+query, token, nil)
-			if rec.Code != http.StatusOK {
-				t.Fatalf("expected 200 for empty date params, got %d (body: %s)", rec.Code, rec.Body.String())
-			}
-			var listed openapi.TransactionListResponse
-			if err := json.NewDecoder(rec.Body).Decode(&listed); err != nil {
-				t.Fatalf("decode list: %v", err)
-			}
-			if len(listed.Data) != 1 || listed.Data[0].Id != created.Id {
-				t.Errorf("expected the default range to include the seeded transaction, got %+v", listed.Data)
-			}
+			assertTransactionAPIError(t, rec, http.StatusBadRequest, "INVALID_QUERY")
 		})
 	}
+
+	// Omission still defaults, which is the case an empty value must not be
+	// confused with.
+	t.Run("omitted parameters default", func(t *testing.T) {
+		rec := env.do(t, http.MethodGet, "/api/transactions", token, nil)
+		if rec.Code != http.StatusOK {
+			t.Fatalf("expected 200 when the parameters are omitted, got %d (body: %s)", rec.Code, rec.Body.String())
+		}
+		var listed openapi.TransactionListResponse
+		if err := json.NewDecoder(rec.Body).Decode(&listed); err != nil {
+			t.Fatalf("decode list: %v", err)
+		}
+		if len(listed.Data) != 1 || listed.Data[0].Id != created.Id {
+			t.Errorf("expected the default range to include the seeded transaction, got %+v", listed.Data)
+		}
+	})
 }
