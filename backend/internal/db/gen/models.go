@@ -51,7 +51,7 @@ type RefreshToken struct {
 
 type Transaction struct {
 	ID         string
-	Amount     int32
+	Amount     int64
 	Payee      string
 	Notes      pgtype.Text
 	Date       pgtype.Timestamp

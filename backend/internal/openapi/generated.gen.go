@@ -240,19 +240,19 @@ type Summary struct {
 	Days []SummaryDay `json:"days"`
 
 	// ExpensesAmount Sum of absolute negative transaction amounts in milliunits.
-	ExpensesAmount int `json:"expensesAmount"`
+	ExpensesAmount int64 `json:"expensesAmount"`
 
 	// ExpensesChange Percentage change versus the previous period.
 	ExpensesChange float32 `json:"expensesChange"`
 
 	// IncomeAmount Sum of non-negative transaction amounts in milliunits.
-	IncomeAmount int `json:"incomeAmount"`
+	IncomeAmount int64 `json:"incomeAmount"`
 
 	// IncomeChange Percentage change versus the previous period.
 	IncomeChange float32 `json:"incomeChange"`
 
 	// RemainingAmount Sum of signed transaction amounts in milliunits.
-	RemainingAmount int `json:"remainingAmount"`
+	RemainingAmount int64 `json:"remainingAmount"`
 
 	// RemainingChange Percentage change versus the previous period.
 	RemainingChange float32 `json:"remainingChange"`
@@ -263,7 +263,7 @@ type SummaryCategory struct {
 	Name string `json:"name"`
 
 	// Value Absolute expense sum in milliunits.
-	Value int `json:"value"`
+	Value int64 `json:"value"`
 }
 
 // SummaryDay defines model for SummaryDay.
@@ -271,10 +271,10 @@ type SummaryDay struct {
 	Date time.Time `json:"date"`
 
 	// Expenses Absolute expense sum in milliunits for this day.
-	Expenses int `json:"expenses"`
+	Expenses int64 `json:"expenses"`
 
 	// Income Income sum in milliunits for this day.
-	Income int `json:"income"`
+	Income int64 `json:"income"`
 }
 
 // SummaryResponse defines model for SummaryResponse.
@@ -293,7 +293,7 @@ type Transaction struct {
 	AccountId ResourceId `json:"accountId"`
 
 	// Amount Signed integer milliunits.
-	Amount     int         `json:"amount"`
+	Amount     int64       `json:"amount"`
 	CategoryId *ResourceId `json:"categoryId"`
 
 	// Currency Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.
@@ -325,7 +325,7 @@ type TransactionInput struct {
 	AccountId ResourceId `json:"accountId"`
 
 	// Amount Signed integer milliunits. Positive values are income; negative values are expenses.
-	Amount     int         `json:"amount"`
+	Amount     int64       `json:"amount"`
 	CategoryId *ResourceId `json:"categoryId,omitempty"`
 
 	// Currency Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.
@@ -343,7 +343,7 @@ type TransactionListItem struct {
 	AccountId ResourceId `json:"accountId"`
 
 	// Amount Signed integer milliunits.
-	Amount     int         `json:"amount"`
+	Amount     int64       `json:"amount"`
 	Category   *string     `json:"category"`
 	CategoryId *ResourceId `json:"categoryId"`
 

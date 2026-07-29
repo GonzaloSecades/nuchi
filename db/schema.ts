@@ -2,7 +2,7 @@ import { relations } from 'drizzle-orm';
 import {
   customType,
   index,
-  integer,
+  bigint,
   pgTable,
   text,
   timestamp,
@@ -63,9 +63,16 @@ export const categoriesRelations = relations(categories, ({ many }) => ({
 
 /**
  * Defines the schema for the transactions table.
- * The `amount` column uses a PostgreSQL integer to represent the smallest unit of currency (e.g., cents),
+ * The `amount` column uses a PostgreSQL bigint to represent the smallest unit of currency (e.g., cents),
  * and values are stored in miliunits to avoid floating point precision issues.
  * Example: $10.50 => 10500.
+ *
+ * `mode: 'number'` is required: node-postgres returns int8 as a *string* by
+ * default, so without it every amount would arrive here as "10500" and break
+ * the arithmetic and formatting downstream. Number mode is exact up to
+ * Number.MAX_SAFE_INTEGER, which is also the bound the API validates against
+ * (see migration 00005 and the OpenAPI amount fields), so no value the API
+ * accepts can lose precision here.
  * The `date` column is the date of the transaction; users can add dates in the past or future, and it is not pre-filled.
  */
 
@@ -73,7 +80,7 @@ export const transactions = pgTable(
   'transactions',
   {
     id: text('id').primaryKey(),
-    amount: integer('amount').notNull(),
+    amount: bigint('amount', { mode: 'number' }).notNull(),
     payee: text('payee').notNull(),
     notes: text('notes'),
     date: timestamp('date', { mode: 'date' }).notNull(),

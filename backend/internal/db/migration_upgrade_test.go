@@ -237,3 +237,131 @@ func withDatabase(t *testing.T, databaseURL, name string) string {
 func pgIdent(name string) string {
 	return `"` + strings.ReplaceAll(name, `"`, `""`) + `"`
 }
+
+// TestMigration00005_PreservesAmountsAndLiftsInt32Cap_LiveDatabase proves the
+// int4 -> int8 widening is value-preserving for rows that already exist, and
+// that the new column actually accepts amounts the old one could not.
+//
+// The risk this guards is silent corruption: if the widening were ever written
+// with a lossy USING clause (or reverted carelessly), a large positive income
+// could wrap into a negative expense with no error anywhere. Seeding the exact
+// int4 boundaries is the sharpest available check, since those are the values a
+// wraparound bug would mangle most visibly.
+func TestMigration00005_PreservesAmountsAndLiftsInt32Cap_LiveDatabase(t *testing.T) {
+	appURL := liveDatabaseURL(t, "00005 upgrade test (app role)")
+	adminURL := adminDatabaseURL(t, "00005 upgrade test (admin role)")
+	gooseBin := gooseBinary(t)
+
+	migrationsDir, err := filepath.Abs(filepath.Join("..", "..", "migrations"))
+	if err != nil {
+		t.Fatalf("resolve migrations dir: %v", err)
+	}
+
+	appRole := userInURL(t, appURL)
+	tempDB := "nuchi_migtest_" + strings.ReplaceAll(uuid.NewString(), "-", "")
+	tempAppURL := withDatabase(t, appURL, tempDB)
+	tempAdminURL := withDatabase(t, adminURL, tempDB)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	defer cancel()
+
+	adminConn := connect(ctx, t, adminURL)
+	if _, err := adminConn.Exec(ctx, fmt.Sprintf("CREATE DATABASE %s", pgIdent(tempDB))); err != nil {
+		adminConn.Close(ctx)
+		t.Fatalf("create throwaway database: %v", err)
+	}
+	adminConn.Close(ctx)
+
+	defer func() {
+		dropCtx, dropCancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer dropCancel()
+		cleanupConn, err := pgx.Connect(dropCtx, adminURL)
+		if err != nil {
+			t.Errorf("cleanup: connect to drop throwaway database: %v", err)
+			return
+		}
+		defer cleanupConn.Close(dropCtx)
+		if _, err := cleanupConn.Exec(dropCtx, fmt.Sprintf("DROP DATABASE IF EXISTS %s WITH (FORCE)", pgIdent(tempDB))); err != nil {
+			t.Errorf("cleanup: drop throwaway database %q: %v", tempDB, err)
+		}
+	}()
+
+	bootstrapConn := connect(ctx, t, tempAdminURL)
+	for _, stmt := range []string{
+		fmt.Sprintf("ALTER SCHEMA public OWNER TO %s", pgIdent(appRole)),
+		"CREATE EXTENSION IF NOT EXISTS citext",
+	} {
+		if _, err := bootstrapConn.Exec(ctx, stmt); err != nil {
+			bootstrapConn.Close(ctx)
+			t.Fatalf("bootstrap throwaway database (%q): %v", stmt, err)
+		}
+	}
+	bootstrapConn.Close(ctx)
+
+	// Migrate to v4: amount is still int4 here.
+	runGoose(ctx, t, gooseBin, migrationsDir, tempAppURL, "up-to", "4")
+
+	seedConn := connect(ctx, t, tempAppURL)
+	userID := insertUpgradeUser(ctx, t, seedConn, "migup5")
+	setSessionAppUser(ctx, t, seedConn, userID)
+	execUpgrade(ctx, t, seedConn, `INSERT INTO accounts (id, name, user_id) VALUES ($1,$2,$3)`, "mig5-acct", "Mig5 Acct", userID)
+
+	// The int4 extremes plus an ordinary positive/negative pair and zero.
+	seeded := map[string]int64{
+		"mig5-max":      2147483647,
+		"mig5-min":      -2147483648,
+		"mig5-positive": 500000,
+		"mig5-negative": -12500,
+		"mig5-zero":     0,
+	}
+	for id, amount := range seeded {
+		execUpgrade(ctx, t, seedConn,
+			`INSERT INTO transactions (id, amount, payee, date, account_id, currency) VALUES ($1,$2,$3,$4,$5,'ARS')`,
+			id, amount, "mig5 payee", time.Date(2026, 1, 15, 0, 0, 0, 0, time.UTC), "mig5-acct")
+	}
+	seedConn.Close(ctx)
+
+	// Apply 00005.
+	runGoose(ctx, t, gooseBin, migrationsDir, tempAppURL, "up")
+
+	verifyConn := connect(ctx, t, tempAdminURL)
+	defer verifyConn.Close(ctx)
+
+	var dataType string
+	if err := verifyConn.QueryRow(ctx,
+		`SELECT data_type FROM information_schema.columns WHERE table_name = 'transactions' AND column_name = 'amount'`,
+	).Scan(&dataType); err != nil {
+		t.Fatalf("read amount column type: %v", err)
+	}
+	if dataType != "bigint" {
+		t.Fatalf("expected amount to be bigint after 00005, got %q", dataType)
+	}
+
+	// Every seeded value survives byte for byte, sign included.
+	for id, want := range seeded {
+		var got int64
+		if err := verifyConn.QueryRow(ctx, `SELECT amount FROM transactions WHERE id = $1`, id).Scan(&got); err != nil {
+			t.Fatalf("read %q after upgrade: %v", id, err)
+		}
+		if got != want {
+			t.Errorf("%s: amount changed across the widening: want %d, got %d", id, want, got)
+		}
+	}
+
+	// The point of the migration: an amount the int4 column could never hold.
+	// 3_000_000_000 milliunits is 3,000,000 ARS — roughly USD 2,000, an
+	// unremarkable rent or medical bill, and impossible before this change.
+	setSessionAppUser(ctx, t, verifyConn, userID)
+	const beyondInt32 = int64(3_000_000_000)
+	execUpgrade(ctx, t, verifyConn,
+		`INSERT INTO transactions (id, amount, payee, date, account_id, currency) VALUES ($1,$2,$3,$4,$5,'ARS')`,
+		"mig5-beyond", beyondInt32, "mig5 payee", time.Date(2026, 1, 16, 0, 0, 0, 0, time.UTC), "mig5-acct")
+
+	var beyond int64
+	if err := verifyConn.QueryRow(ctx, `SELECT amount FROM transactions WHERE id = $1`, "mig5-beyond").Scan(&beyond); err != nil {
+		t.Fatalf("read beyond-int32 amount: %v", err)
+	}
+	if beyond != beyondInt32 {
+		t.Errorf("beyond-int32 amount did not round-trip: want %d, got %d", beyondInt32, beyond)
+	}
+}

@@ -92,7 +92,12 @@ INSERT INTO transactions (id, amount, payee, notes, date, account_id, category_i
 SELECT r.id, r.amount, r.payee, r.notes, r.date, r.account_id, r.category_id, r.currency
 FROM jsonb_to_recordset(sqlc.arg(payload)::jsonb) AS r(
     id text,
-    amount integer,
+    -- Must track transactions.amount's column type (bigint since migration
+    -- 00005). Left as integer, this recordset column would raise "value out
+    -- of range for type integer" for any amount past the old int4 cap, so
+    -- bulk-create and the CSV import path would keep a limit that single
+    -- create no longer has — two different caps in one API.
+    amount bigint,
     payee text,
     notes text,
     date timestamp,

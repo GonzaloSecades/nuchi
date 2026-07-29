@@ -570,6 +570,7 @@ export interface components {
         };
         TransactionInput: {
             /**
+             * Format: int64
              * @description Signed integer milliunits. Positive values are income; negative values are expenses.
              * @example -12500
              */
@@ -587,6 +588,7 @@ export interface components {
         Transaction: {
             id: components["schemas"]["ResourceId"];
             /**
+             * Format: int64
              * @description Signed integer milliunits.
              * @example -12500
              */
@@ -617,6 +619,7 @@ export interface components {
             /** @example Market */
             payee: string;
             /**
+             * Format: int64
              * @description Signed integer milliunits.
              * @example -12500
              */
@@ -657,6 +660,7 @@ export interface components {
             /** @example Groceries */
             name: string;
             /**
+             * Format: int64
              * @description Absolute expense sum in milliunits.
              * @example 12500
              */
@@ -669,11 +673,13 @@ export interface components {
              */
             date: string;
             /**
+             * Format: int64
              * @description Income sum in milliunits for this day.
              * @example 500000
              */
             income: number;
             /**
+             * Format: int64
              * @description Absolute expense sum in milliunits for this day.
              * @example 12500
              */
@@ -681,6 +687,7 @@ export interface components {
         };
         Summary: {
             /**
+             * Format: int64
              * @description Sum of signed transaction amounts in milliunits.
              * @example 487500
              */
@@ -691,6 +698,7 @@ export interface components {
              */
             remainingChange: number;
             /**
+             * Format: int64
              * @description Sum of non-negative transaction amounts in milliunits.
              * @example 500000
              */
@@ -701,6 +709,7 @@ export interface components {
              */
             incomeChange: number;
             /**
+             * Format: int64
              * @description Sum of absolute negative transaction amounts in milliunits.
              * @example 12500
              */
