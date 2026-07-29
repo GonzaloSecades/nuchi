@@ -1140,8 +1140,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/README.md": {
-    "mtime": 1785339811.0512998,
-    "ast_hash": "217fa0ff2e86dfdffb372de7c2369377",
+    "mtime": 1785344126.165848,
+    "ast_hash": "b030cd59daedc920c3c113a1e9c7aadd",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
@@ -1540,13 +1540,13 @@
     "semantic_hash": ""
   },
   "backend/internal/http/transactions.go": {
-    "mtime": 1785343417.8569858,
-    "ast_hash": "ea5ae2aec97bc7263fa97648088541f4",
+    "mtime": 1785359459.0682046,
+    "ast_hash": "7200386c9c7e3143540a8609e4c2ed89",
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_live_test.go": {
-    "mtime": 1785343668.142646,
-    "ast_hash": "421d0faf197712f14c3c741749169d51",
+    "mtime": 1785359491.9387846,
+    "ast_hash": "e9614d6b5ac46865a7168af778d0bd84",
     "semantic_hash": ""
   },
   "backend/internal/ratelimit/mutation.go": {
@@ -1572,6 +1572,21 @@
   "graphify-out/memory/query_20260729_043740_should_nuchi_create_shared_claude_and_codex_skills.md": {
     "mtime": 1785299860.4048235,
     "ast_hash": "9a7c63bda3664266ad7ade0031b28b6a",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/transactions_fkrace_test.go": {
+    "mtime": 1785359542.6625497,
+    "ast_hash": "65f3f375698668cb25a569cfed65eee0",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0014-date-filters-parsed-in-utc.md": {
+    "mtime": 1785344101.245959,
+    "ast_hash": "7afc0abc80baf4d158faffda9c12b7e9",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0015-out-of-range-amount-returns-400.md": {
+    "mtime": 1785344119.077733,
+    "ast_hash": "fdc85b6c64f7aa1c6661a13b2af2b701",
     "semantic_hash": ""
   }
 }

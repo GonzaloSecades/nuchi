@@ -552,5 +552,7 @@
   "550": "ListTransactions200JSONResponse",
   "551": "UpdateCategory200JSONResponse",
   "552": "VerifyEmail200JSONResponse",
-  "553": "Q: Should Nuchi create shared Claude and Codex skills around Graphify and CodeGraph after the Go migration?"
+  "553": "Q: Should Nuchi create shared Claude and Codex skills around Graphify and CodeGraph after the Go migration?",
+  "554": "UpdateAccount200JSONResponse",
+  "555": "UpdateTransaction404JSONResponse"
 }

@@ -589,3 +589,67 @@ func TestTransactionsLive_Unauthorized(t *testing.T) {
 		}
 	}
 }
+
+// TestTransactionsLive_EmptyCategoryIdIsARejectedReference pins that an empty
+// categoryId is treated as a reference that does not exist, not as "clear the
+// category". Legacy gates on `values.categoryId == null`, which catches null
+// and undefined but not "", so an empty id falls through to its category
+// lookup and 404s. Silently clearing it instead would turn an invalid client
+// value into a successful write.
+func TestTransactionsLive_EmptyCategoryIdIsARejectedReference(t *testing.T) {
+	env := newTransactionsTestEnv(t)
+	_, token := env.createAccountsTestUser(t, "txn-empty-cat")
+	accountID := createTestAccount(t, env.accountsTestEnv, token, "Cash")
+
+	empty := ""
+
+	t.Run("create", func(t *testing.T) {
+		body := validTransactionBody(accountID)
+		body.CategoryID = &empty
+		rec := env.do(t, http.MethodPost, "/api/transactions", token, body)
+		assertTransactionAPIError(t, rec, http.StatusNotFound, "CATEGORY_NOT_FOUND")
+	})
+
+	t.Run("update", func(t *testing.T) {
+		existing := createTestTransaction(t, env, token, validTransactionBody(accountID))
+		body := validTransactionBody(accountID)
+		body.CategoryID = &empty
+		rec := env.do(t, http.MethodPatch, "/api/transactions/"+existing.Id, token, body)
+		assertTransactionAPIError(t, rec, http.StatusNotFound, "CATEGORY_NOT_FOUND")
+	})
+}
+
+// TestTransactionsLive_EmptyDateParamsDefaultRatherThanFail pins that `?from=`
+// and `?to=` are treated as absent, not malformed.
+//
+// url.Values.Get returns "" for both an omitted key and an explicitly empty
+// one, and legacy's parseStrictDate short-circuits on `if (!value)`, so an
+// empty value takes the default range there too. Rejecting it would diverge
+// from legacy and would break the existing client, whose transactions hook
+// sends from/to as empty strings whenever no filter is set.
+func TestTransactionsLive_EmptyDateParamsDefaultRatherThanFail(t *testing.T) {
+	env := newTransactionsTestEnv(t)
+	_, token := env.createAccountsTestUser(t, "txn-empty-dates")
+	accountID := createTestAccount(t, env.accountsTestEnv, token, "Cash")
+
+	// Dated inside the default 30-day window that ends at the pinned clock.
+	body := validTransactionBody(accountID)
+	body.Date = "2026-07-20"
+	created := createTestTransaction(t, env, token, body)
+
+	for _, query := range []string{"?from=&to=", "?from=", "?to=", "?from=&to=&accountId="} {
+		t.Run(query, func(t *testing.T) {
+			rec := env.do(t, http.MethodGet, "/api/transactions"+query, token, nil)
+			if rec.Code != http.StatusOK {
+				t.Fatalf("expected 200 for empty date params, got %d (body: %s)", rec.Code, rec.Body.String())
+			}
+			var listed openapi.TransactionListResponse
+			if err := json.NewDecoder(rec.Body).Decode(&listed); err != nil {
+				t.Fatalf("decode list: %v", err)
+			}
+			if len(listed.Data) != 1 || listed.Data[0].Id != created.Id {
+				t.Errorf("expected the default range to include the seeded transaction, got %+v", listed.Data)
+			}
+		})
+	}
+}

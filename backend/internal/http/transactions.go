@@ -13,6 +13,7 @@ import (
 	"github.com/GonzaloSecades/nuchi/backend/internal/ratelimit"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
@@ -157,8 +158,15 @@ func (s *ResourceServer) GetTransaction(w http.ResponseWriter, r *http.Request, 
 
 // CreateTransaction implements POST /api/transactions. Reference ownership is
 // validated inside the same transaction as the insert, so the checks and the
-// write share one RLS-bound identity and cannot interleave with a concurrent
-// delete of the referenced account.
+// write share one RLS-bound identity and either both land or neither does.
+//
+// That is not the same as excluding a concurrent delete of the referenced
+// account or category. The validation reads are plain SELECTs and take no row
+// locks, so under READ COMMITTED another transaction may delete a referenced
+// row after the check and before the insert; the insert then fails on the
+// foreign key. referenceErrorFromForeignKeyViolation maps that outcome back to
+// the same 404 the up-front check would have produced, so the race surfaces as
+// "account not found" rather than a generic 500.
 func (s *ResourceServer) CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	var body transactionInputBody
 	if !decodeResourceBody(w, r, &body) {
@@ -205,7 +213,8 @@ func (s *ResourceServer) CreateTransaction(w http.ResponseWriter, r *http.Reques
 			Currency:   input.currency,
 		})
 		if err != nil {
-			return err
+			// A referenced row may have been deleted since the check above.
+			return referenceErrorFromForeignKeyViolation(err)
 		}
 		created = row
 		return nil
@@ -284,7 +293,8 @@ func (s *ResourceServer) UpdateTransaction(w http.ResponseWriter, r *http.Reques
 			return errTransactionNotFound
 		}
 		if err != nil {
-			return err
+			// A referenced row may have been deleted since the check above.
+			return referenceErrorFromForeignKeyViolation(err)
 		}
 		updated = row
 		return nil
@@ -385,6 +395,38 @@ func validateTransactionReferences(r *http.Request, q *dbgen.Queries, userID uui
 	return nil
 }
 
+// referenceErrorFromForeignKeyViolation converts a foreign-key violation on
+// the transactions table into the matching reference sentinel, or returns err
+// unchanged when it is not one.
+//
+// This closes the gap between validateTransactionReferences and the write.
+// Those checks are unlocked SELECTs, so a concurrent delete of the referenced
+// account or category can commit in between and the write then fails with
+// SQLSTATE 23503. Without this mapping the caller would get a 500 for what is
+// really "that account no longer exists" — the same condition the up-front
+// check reports as 404. The constraint name says which reference broke.
+//
+// The alternative was SELECT ... FOR KEY SHARE on the reference rows, which
+// would serialize the delete behind the write. That is a stronger guarantee,
+// but it takes locks on every mutation to prevent an outcome this mapping
+// already reports correctly, so it is not worth the contention here. Legacy
+// has the same unlocked race and answers it with a 500, so mapping to 404 is
+// strictly better than what it did.
+func referenceErrorFromForeignKeyViolation(err error) error {
+	var pgErr *pgconn.PgError
+	if !errors.As(err, &pgErr) || pgErr.Code != "23503" {
+		return err
+	}
+	switch pgErr.ConstraintName {
+	case "transactions_account_id_fkey":
+		return errAccountReferenceNotFound
+	case "transactions_category_id_fkey":
+		return errCategoryReferenceNotFound
+	default:
+		return err
+	}
+}
+
 // allowMutation consults the limiter and converts its decision into the
 // handler's (allowed, retryAfterSeconds) pair.
 func (s *ResourceServer) allowMutation(userID uuid.UUID, action ratelimit.Action) (bool, int) {
@@ -443,8 +485,13 @@ func validateTransactionInput(body transactionInputBody) (transactionInput, []ap
 	if body.Notes != nil {
 		out.notes = pgtype.Text{String: *body.Notes, Valid: true}
 	}
-	// Omitted and explicit null are the same outcome: no category.
-	if body.CategoryID != nil && *body.CategoryID != "" {
+	// Omitted and explicit null are the same outcome: no category. Anything
+	// else — including the empty string — is treated as a reference and looked
+	// up, so it fails as a missing category rather than silently clearing the
+	// association. Legacy gates on `values.categoryId == null`, which catches
+	// null and undefined but not "", so an empty id falls through to its
+	// category lookup and 404s; matching that gate keeps the behavior.
+	if body.CategoryID != nil {
 		out.categoryID = pgtype.Text{String: *body.CategoryID, Valid: true}
 	}
 
