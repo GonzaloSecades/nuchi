@@ -154,6 +154,40 @@ func (q *Queries) ListCategories(ctx context.Context, userID pgtype.UUID) ([]Cat
 	return items, nil
 }
 
+const listOwnedCategoryIDs = `-- name: ListOwnedCategoryIDs :many
+SELECT id
+FROM categories
+WHERE user_id = $1
+  AND id = ANY($2::text[])
+`
+
+type ListOwnedCategoryIDsParams struct {
+	UserID pgtype.UUID
+	Ids    []string
+}
+
+// Set-based ownership check for bulk operations; mirrors
+// ListOwnedAccountIDs. See its comment for why this is not a per-row lookup.
+func (q *Queries) ListOwnedCategoryIDs(ctx context.Context, arg ListOwnedCategoryIDsParams) ([]string, error) {
+	rows, err := q.db.Query(ctx, listOwnedCategoryIDs, arg.UserID, arg.Ids)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []string
+	for rows.Next() {
+		var id string
+		if err := rows.Scan(&id); err != nil {
+			return nil, err
+		}
+		items = append(items, id)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateCategoryName = `-- name: UpdateCategoryName :one
 UPDATE categories
 SET name = $1

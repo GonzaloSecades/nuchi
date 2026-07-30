@@ -98,6 +98,14 @@ RETURNING t.id;
 -- either exists in the JSON with all its fields or it does not - there is no
 -- multi-array cardinality to keep in sync. NULL notes/categoryId in the JSON
 -- land as SQL NULLs natively.
+--
+-- Response order is NOT established here. Nothing in PostgreSQL guarantees
+-- that RETURNING emits rows in the order the source SELECT produced them, and
+-- WITH ORDINALITY cannot be combined with a column definition list at all, so
+-- an ORDER BY here would buy an appearance of ordering rather than the real
+-- thing. The handler instead reorders the returned rows by the ids it
+-- generated, which is a guarantee by construction rather than an assumption
+-- about the executor.
 INSERT INTO transactions (id, amount, payee, notes, date, account_id, category_id, currency)
 SELECT r.id, r.amount, r.payee, r.notes, r.date, r.account_id, r.category_id, r.currency
 FROM jsonb_to_recordset(sqlc.arg(payload)::jsonb) AS r(

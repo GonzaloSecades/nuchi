@@ -511,8 +511,7 @@ export interface components {
          */
         DateString: string;
         /**
-         * @description Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.
-         * @default ARS
+         * @description Transaction currency. Required on every write and currently limited to ARS: the API rejects an omitted or unknown value rather than defaulting it, so a client that believes it is sending another currency fails loudly. Multi-currency is a later change.
          * @enum {string}
          */
         CurrencyCode: "ARS";

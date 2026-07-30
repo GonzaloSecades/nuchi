@@ -62,10 +62,16 @@ func NewRouter(authServer *AuthServer, resources *ResourceServer) http.Handler {
 				r.Route("/api/transactions", func(r chi.Router) {
 					r.Get("/", withListTransactionsParams(resources.ListTransactions))
 					r.Post("/", resources.CreateTransaction)
+					// Static paths are registered before /{id} for readability;
+					// chi's trie prefers a static segment over a parameter
+					// regardless of declaration order, and these are POST-only
+					// while /{id} has no POST, so there is no ambiguity either
+					// way.
+					r.Post("/bulk-create", resources.BulkCreateTransactions)
+					r.Post("/bulk-delete", resources.BulkDeleteTransactions)
 					r.Get("/{id}", withResourceID(resources.GetTransaction))
 					r.Patch("/{id}", withResourceID(resources.UpdateTransaction))
 					r.Delete("/{id}", withResourceID(resources.DeleteTransaction))
-					// bulk-create and bulk-delete mount here in #47.
 				})
 			}
 		})

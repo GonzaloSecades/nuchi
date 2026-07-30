@@ -105,8 +105,9 @@ this field alone" edit today — a partial edit API is a planned change.
 ## Rate limiting
 
 A user may make **60 changes per minute**, counted separately for creating,
-editing, and deleting. So 60 creates and 60 deletes in the same minute is fine;
-61 creates is not.
+editing, deleting, bulk-creating and bulk-deleting. So 60 creates and 60 deletes
+in the same minute is fine; 61 creates is not. A CSV import consumes the
+bulk-create budget only, so importing does not lock a user out of editing.
 
 When the limit is hit the app reports how many seconds to wait. This exists to
 protect the database from a runaway import or a stuck retry loop, not to
@@ -143,6 +144,25 @@ arrive later without a data migration, but only ARS is accepted today. Sending
 anything else is rejected rather than quietly stored, so no transaction can end
 up mislabeled.
 
+## Importing many at once
+
+A CSV import posts transactions in batches of up to **500 rows**. Two rules
+matter for support:
+
+- **A batch is all-or-nothing.** If any row in a batch is invalid, nothing from
+  that batch is saved — there is no partial import leaving half the rows behind.
+- **A large import is several batches, and each is independent.** A 1,200-row
+  file is three requests, so an early batch can succeed and a later one fail.
+  The user is left with the successful batches saved. Re-importing the whole
+  file would duplicate those rows, since there is no duplicate detection yet.
+
+When a batch is rejected, every problem row is reported at once with its
+position in the file, rather than one error per attempt.
+
+There are also size caps — roughly 1 MB per import batch and 100 KB per bulk
+delete. These are far above what 500 rows of transaction data occupies; a user
+hitting them is a sign something is malformed rather than merely large.
+
 ## What this deliberately cannot do yet
 
 Ordered roughly by how likely a user is to feel it:
@@ -152,7 +172,9 @@ Ordered roughly by how likely a user is to feel it:
    grows.
 2. **No partial edit.** Editing always replaces the whole record.
 3. **No duplicate protection on retry.** If a create is retried after a network
-   failure, two identical transactions can result. Idempotency keys are planned.
+   failure, two identical transactions can result — and for a CSV import, a
+   whole re-uploaded file duplicates everything already saved. Idempotency keys
+   are planned.
 4. **Single currency.**
 5. **No per-user timezone.** Day boundaries are UTC, so a filter near midnight
    is judged in UTC rather than in the user's local day.
