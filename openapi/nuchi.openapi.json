@@ -894,7 +894,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/InvalidDateQueryError"
+            "$ref": "#/components/responses/InvalidQueryError"
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
@@ -1232,7 +1232,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/InvalidDateQueryError"
+            "$ref": "#/components/responses/InvalidQueryError"
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
@@ -1349,8 +1349,8 @@
           }
         }
       },
-      "InvalidDateQueryError": {
-        "description": "The date range query is invalid.",
+      "InvalidQueryError": {
+        "description": "The query string is invalid: a malformed or out-of-range date range, or a parameter that was supplied empty. None of these parameters sets allowEmptyValue (false by default), so an explicitly empty value is malformed rather than a request for the default.",
         "content": {
           "application/json": {
             "schema": {
@@ -1378,6 +1378,22 @@
                   "error": {
                     "code": "INVALID_QUERY",
                     "message": "Date range cannot exceed 366 days."
+                  }
+                }
+              },
+              "emptyParameter": {
+                "value": {
+                  "error": {
+                    "code": "INVALID_QUERY",
+                    "message": "from and to must use yyyy-MM-dd dates."
+                  }
+                }
+              },
+              "emptyAccountId": {
+                "value": {
+                  "error": {
+                    "code": "INVALID_QUERY",
+                    "message": "accountId must not be empty."
                   }
                 }
               }

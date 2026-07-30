@@ -88,7 +88,7 @@ func (s *ResourceServer) ListTransactions(w http.ResponseWriter, r *http.Request
 	query := r.URL.Query()
 	start, end, dateErr := parseDateRange(optionalQueryParam(query, "from"), optionalQueryParam(query, "to"), s.now())
 	if dateErr != nil {
-		resp := openapi.ListTransactions400JSONResponse{InvalidDateQueryErrorJSONResponse: invalidDateQueryError(dateErr)}
+		resp := openapi.ListTransactions400JSONResponse{InvalidQueryErrorJSONResponse: invalidDateQueryError(dateErr)}
 		_ = resp.VisitListTransactionsResponse(w)
 		return
 	}
@@ -99,7 +99,7 @@ func (s *ResourceServer) ListTransactions(w http.ResponseWriter, r *http.Request
 	accountID := pgtype.Text{}
 	if params.AccountId != nil {
 		if *params.AccountId == "" {
-			resp := openapi.ListTransactions400JSONResponse{InvalidDateQueryErrorJSONResponse: invalidQueryError("accountId must not be empty.")}
+			resp := openapi.ListTransactions400JSONResponse{InvalidQueryErrorJSONResponse: invalidQueryError("accountId must not be empty.")}
 			_ = resp.VisitListTransactionsResponse(w)
 			return
 		}
@@ -582,14 +582,19 @@ func textPointer(value pgtype.Text) *string {
 
 // --- errors ---------------------------------------------------------------
 
-func invalidDateQueryError(err error) openapi.InvalidDateQueryErrorJSONResponse {
+func invalidDateQueryError(err error) openapi.InvalidQueryErrorJSONResponse {
 	return invalidQueryError(err.Error())
 }
 
+// The contract's response component is InvalidQueryError rather than
+// InvalidDateQueryError: this ticket added a non-date use of it (an empty
+// accountId), so a name and description scoped to dates would have
+// misdescribed an observable response in the generated documentation.
+
 // invalidQueryError builds the contract's INVALID_QUERY body for any malformed
 // query parameter, date or otherwise.
-func invalidQueryError(message string) openapi.InvalidDateQueryErrorJSONResponse {
-	return openapi.InvalidDateQueryErrorJSONResponse{
+func invalidQueryError(message string) openapi.InvalidQueryErrorJSONResponse {
+	return openapi.InvalidQueryErrorJSONResponse{
 		Error: openapi.ApiError{Code: "INVALID_QUERY", Message: message},
 	}
 }

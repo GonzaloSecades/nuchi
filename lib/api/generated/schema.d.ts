@@ -738,8 +738,8 @@ export interface components {
                 "application/json": components["schemas"]["ApiErrorResponse"];
             };
         };
-        /** @description The date range query is invalid. */
-        InvalidDateQueryError: {
+        /** @description The query string is invalid: a malformed or out-of-range date range, or a parameter that was supplied empty. None of these parameters sets allowEmptyValue (false by default), so an explicitly empty value is malformed rather than a request for the default. */
+        InvalidQueryError: {
             headers: {
                 [name: string]: unknown;
             };
@@ -1447,7 +1447,7 @@ export interface operations {
                     "application/json": components["schemas"]["TransactionListResponse"];
                 };
             };
-            400: components["responses"]["InvalidDateQueryError"];
+            400: components["responses"]["InvalidQueryError"];
             401: components["responses"]["UnauthorizedError"];
             500: components["responses"]["DatabaseError"];
         };
@@ -1649,7 +1649,7 @@ export interface operations {
                     "application/json": components["schemas"]["SummaryResponse"];
                 };
             };
-            400: components["responses"]["InvalidDateQueryError"];
+            400: components["responses"]["InvalidQueryError"];
             401: components["responses"]["UnauthorizedError"];
             500: components["responses"]["DatabaseError"];
         };

@@ -920,8 +920,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "openapi/nuchi.openapi.json": {
-    "mtime": 1785339199.5642672,
-    "ast_hash": "6e63327d0e5393e69bd6b5b41ed94e97",
+    "mtime": 1785381580.5568056,
+    "ast_hash": "22c288f4d7ab4271c4662af6d114872f",
     "semantic_hash": ""
   },
   "scripts/validate-openapi.ts": {
@@ -1060,13 +1060,13 @@
     "semantic_hash": ""
   },
   "lib/api/generated/schema.d.ts": {
-    "mtime": 1785339241.964857,
-    "ast_hash": "14ba7d3d966c3f6745b50e3201720fc4",
+    "mtime": 1785381611.7182033,
+    "ast_hash": "3648b2162b671cf9925624afc99ca8e7",
     "semantic_hash": ""
   },
   "backend/internal/openapi/generated.gen.go": {
-    "mtime": 1785339232.9877267,
-    "ast_hash": "273a5a31b966ec2c15d1804af1b590c2",
+    "mtime": 1785381602.683951,
+    "ast_hash": "ae635e720f95f0b30639cfc087a434f0",
     "semantic_hash": ""
   },
   "backend/internal/config/config_test.go": {
@@ -1540,8 +1540,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/transactions.go": {
-    "mtime": 1785367267.4507473,
-    "ast_hash": "e7823237a9ad8a1d157eafec1ca26499",
+    "mtime": 1785381624.812673,
+    "ast_hash": "30f728287fba077f817d5b1a3c1199ad",
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_live_test.go": {
@@ -1592,6 +1592,16 @@
   "lib/query-params.ts": {
     "mtime": 1785366977.2328844,
     "ast_hash": "466ba851a6f782dbe9fcad81ce408fe2",
+    "semantic_hash": ""
+  },
+  "docs/api/transactions.md": {
+    "mtime": 1785376279.0903857,
+    "ast_hash": "6a1aa1591d47ee09c0db878e57a0e608",
+    "semantic_hash": ""
+  },
+  "docs/product/transactions.md": {
+    "mtime": 1785376319.7317214,
+    "ast_hash": "13472307850ec2019ac260f0aa2c1248",
     "semantic_hash": ""
   }
 }

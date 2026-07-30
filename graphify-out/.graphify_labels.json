@@ -561,5 +561,6 @@
   "559": "GetAccount200JSONResponse",
   "560": "ListAccounts200JSONResponse",
   "561": "ListCategories200JSONResponse",
-  "562": "UpdateTransaction200JSONResponse"
+  "562": "UpdateTransaction200JSONResponse",
+  "563": "VerifyEmail200JSONResponse"
 }

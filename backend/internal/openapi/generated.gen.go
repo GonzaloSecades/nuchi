@@ -397,8 +397,8 @@ type DuplicateCategoryNameError = ApiErrorResponse
 // EmailNotVerifiedError defines model for EmailNotVerifiedError.
 type EmailNotVerifiedError = ApiErrorResponse
 
-// InvalidDateQueryError defines model for InvalidDateQueryError.
-type InvalidDateQueryError = ApiErrorResponse
+// InvalidQueryError defines model for InvalidQueryError.
+type InvalidQueryError = ApiErrorResponse
 
 // InvalidRefreshTokenError defines model for InvalidRefreshTokenError.
 type InvalidRefreshTokenError = ApiErrorResponse
@@ -1705,7 +1705,7 @@ type DuplicateCategoryNameErrorJSONResponse ApiErrorResponse
 
 type EmailNotVerifiedErrorJSONResponse ApiErrorResponse
 
-type InvalidDateQueryErrorJSONResponse ApiErrorResponse
+type InvalidQueryErrorJSONResponse ApiErrorResponse
 
 type InvalidRefreshTokenErrorJSONResponse ApiErrorResponse
 
@@ -3029,9 +3029,7 @@ func (response GetSummary200JSONResponse) VisitGetSummaryResponse(w http.Respons
 	return err
 }
 
-type GetSummary400JSONResponse struct {
-	InvalidDateQueryErrorJSONResponse
-}
+type GetSummary400JSONResponse struct{ InvalidQueryErrorJSONResponse }
 
 func (response GetSummary400JSONResponse) VisitGetSummaryResponse(w http.ResponseWriter) error {
 
@@ -3095,9 +3093,7 @@ func (response ListTransactions200JSONResponse) VisitListTransactionsResponse(w 
 	return err
 }
 
-type ListTransactions400JSONResponse struct {
-	InvalidDateQueryErrorJSONResponse
-}
+type ListTransactions400JSONResponse struct{ InvalidQueryErrorJSONResponse }
 
 func (response ListTransactions400JSONResponse) VisitListTransactionsResponse(w http.ResponseWriter) error {
 
