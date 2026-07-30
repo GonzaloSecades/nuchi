@@ -58,6 +58,15 @@ func NewRouter(authServer *AuthServer, resources *ResourceServer) http.Handler {
 					r.Patch("/{id}", withResourceID(resources.UpdateCategory))
 					r.Delete("/{id}", withResourceID(resources.DeleteCategory))
 				})
+
+				r.Route("/api/transactions", func(r chi.Router) {
+					r.Get("/", withListTransactionsParams(resources.ListTransactions))
+					r.Post("/", resources.CreateTransaction)
+					r.Get("/{id}", withResourceID(resources.GetTransaction))
+					r.Patch("/{id}", withResourceID(resources.UpdateTransaction))
+					r.Delete("/{id}", withResourceID(resources.DeleteTransaction))
+					// bulk-create and bulk-delete mount here in #47.
+				})
 			}
 		})
 	}

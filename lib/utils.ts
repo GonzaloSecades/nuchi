@@ -10,8 +10,32 @@ export function convertAmountFromMiliunits(amount: number) {
   return amount / 1000;
 }
 
+/**
+ * Largest magnitude the API accepts for a milliunit amount.
+ *
+ * `transactions.amount` is a PostgreSQL bigint (migration 00005), whose range
+ * is wider than this, but the API deliberately validates against JavaScript's
+ * safe-integer limit so every amount it returns is exact in the browser. Values
+ * past this bound are rejected with 400 rather than silently losing precision
+ * here.
+ */
+export const MAX_SAFE_MILIUNITS = Number.MAX_SAFE_INTEGER;
+
 export function convertAmountToMiliunits(amount: number) {
   return Math.round(amount * 1000);
+}
+
+/**
+ * Reports whether a milliunit amount is exactly representable and within the
+ * range the API accepts. Guards the submit paths (transaction form, CSV
+ * import) so an out-of-range value fails with a field-level message instead of
+ * a server 400 or, worse, a silently rounded number.
+ */
+export function isSafeMiliunitAmount(amountInMiliunits: number) {
+  return (
+    Number.isSafeInteger(amountInMiliunits) &&
+    Math.abs(amountInMiliunits) <= MAX_SAFE_MILIUNITS
+  );
 }
 
 export function formatCurrency(value: number) {

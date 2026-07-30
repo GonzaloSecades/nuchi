@@ -1,6 +1,6 @@
 import { format, isValid, parse } from 'date-fns';
 
-import { convertAmountToMiliunits } from '@/lib/utils';
+import { convertAmountToMiliunits, isSafeMiliunitAmount } from '@/lib/utils';
 
 export const TRANSACTION_IMPORT_DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 export const TRANSACTION_IMPORT_OUTPUT_DATE_FORMAT = 'yyyy-MM-dd';
@@ -74,13 +74,22 @@ export function parseImportedTransactionRows(
       });
     }
 
+    const amountInMiliunits = convertAmountToMiliunits(amount);
+    if (!isSafeMiliunitAmount(amountInMiliunits)) {
+      rowErrors.push({
+        rowNumber,
+        field: 'amount',
+        message: 'Amount is too large.',
+      });
+    }
+
     if (rowErrors.length > 0) {
       errors.push(...rowErrors);
       return;
     }
 
     data.push({
-      amount: convertAmountToMiliunits(amount),
+      amount: amountInMiliunits,
       date: format(parsedDate, TRANSACTION_IMPORT_OUTPUT_DATE_FORMAT),
       payee,
     });

@@ -58,7 +58,10 @@ func TestFinanceBaseSchema_LiveDatabase(t *testing.T) {
 			table: "transactions",
 			columns: []columnSpec{
 				{"id", "text", false},
-				{"amount", "int4", false},
+				// int8 since migration 00005: int4 milliunits capped a single
+				// transaction near 2.15M ARS (~USD 1,400), which is below
+				// ordinary Argentine expenses like rent or a medical bill.
+				{"amount", "int8", false},
 				{"payee", "text", false},
 				{"notes", "text", true},
 				{"date", "timestamp", false},

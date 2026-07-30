@@ -29,7 +29,47 @@ Go arithmetic performed in `int32` before insert could wrap silently. For a
 personal finance app, a transaction that cannot be recorded — or worse,
 records wrongly — is a core-product failure, not an edge case.
 
-## Proposed improvement
+## Resolved during the migration (#46)
+
+**This entry is closed. Kept for history.**
+
+Widened to `bigint` / Go `int64` in migration `00005`, ahead of the #46
+handlers, because implementing transactions against a cap we already knew was
+wrong would have meant writing throwaway `int32` bounds checks and tests and
+then deleting them.
+
+What forced the timing: at the BCRA reference rate the old ceiling of
+2,147,483.647 ARS is roughly **USD 1,400** — below a month's rent, a medical
+bill, or a used-car payment in Argentina. That is a product defect, not a
+theoretical limit.
+
+Shipped together, because a partial change would have left two different caps
+in one API:
+
+- `00005_transactions_amount_bigint.sql` — `ALTER COLUMN amount TYPE bigint`,
+  append-only. Its Down deliberately fails if any row no longer fits in int4,
+  rather than truncating financial data during a rollback.
+- The `jsonb_to_recordset` column list in `BulkCreateTransactions` — left at
+  `integer`, bulk-create and the whole CSV import path would have kept the old
+  cap while single create no longer had it.
+- OpenAPI: every milliunit field (`TransactionInput`, `Transaction`,
+  `TransactionListItem`, `SummaryCategory.value`, `SummaryDay.income/expenses`,
+  `Summary.*Amount`) is now `format: int64` bounded to ±(2^53−1).
+- Drizzle: `bigint('amount', { mode: 'number' })`. Required, not cosmetic —
+  node-postgres returns int8 as a *string*, so the legacy stack would have
+  started receiving `"12500"` and breaking its arithmetic.
+- Frontend: `isSafeMiliunitAmount` guards the transaction form and the CSV
+  importer.
+
+The API bound is deliberately **narrower than the column**: ±(2^53−1)
+milliunits, JavaScript's safe-integer limit, so every value the API returns is
+exact in the browser. Values between that and bigint's range are reachable only
+by direct SQL. Do not "fix" the validator to match the column.
+
+Note the OpenAPI `minimum`/`maximum` are documentation only — oapi-codegen
+emits no range validation — so the handler must check the bound explicitly.
+
+## Original proposed improvement (superseded)
 
 Widen the column to `bigint` (`ALTER TABLE transactions ALTER COLUMN amount
 TYPE bigint` — cheap table rewrite at personal-app scale) and regenerate

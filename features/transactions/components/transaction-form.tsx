@@ -18,14 +18,30 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { InsertTransactionSchema } from '@/db/schema';
-import { convertAmountToMiliunits } from '@/lib/utils';
+import {
+  convertAmountToMiliunits,
+  isSafeMiliunitAmount,
+} from '@/lib/utils';
 
 const formSchema = z.object({
   date: z.date(),
   accountId: z.string(),
   categoryId: z.string().nullable().optional(),
   payee: z.string(),
-  amount: z.string(),
+  // Bounded to the safe-integer range the API accepts: transactions.amount is
+  // a bigint, but anything past Number.MAX_SAFE_INTEGER milliunits cannot be
+  // represented exactly in the browser, so it is rejected here with a field
+  // message rather than round-tripping as a subtly wrong number.
+  amount: z.string().refine(
+    (value) => {
+      const parsed = parseFloat(value);
+      return (
+        Number.isFinite(parsed) &&
+        isSafeMiliunitAmount(convertAmountToMiliunits(parsed))
+      );
+    },
+    { message: 'Amount is too large.' }
+  ),
   notes: z.string().nullable().optional(),
 });
 

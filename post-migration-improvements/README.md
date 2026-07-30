@@ -96,7 +96,7 @@ gates. Numbering stays global and sequential within
 | 0003 | [Transaction rate limiting is in-memory](claude-backend-improvements/0003-in-memory-rate-limiting.md) | api/infra | medium |
 | 0004 | [Bulk-delete silently ignores missing/unowned IDs](claude-backend-improvements/0004-bulk-delete-silent-ignore.md) | api | low |
 | 0005 | [Category duplicate update returns 500, create returns 409](claude-backend-improvements/0005-category-duplicate-update-500.md) | api | high |
-| 0006 | [transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS](claude-backend-improvements/0006-amount-int32-milliunit-cap.md) | schema | high |
+| 0006 | [transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS](claude-backend-improvements/0006-amount-int32-milliunit-cap.md) — **resolved in #46** | schema | high |
 | 0007 | [JWT signing is HS256 with a single static secret](claude-backend-improvements/0007-jwt-hs256-single-secret.md) | auth | medium |
 | 0008 | [Access tokens cannot be revoked mid-life](claude-backend-improvements/0008-no-midlife-access-token-revocation.md) | auth | low |
 | 0009 | [No refresh-token reuse detection or session listing](claude-backend-improvements/0009-refresh-reuse-detection-session-listing.md) | auth | low |
@@ -104,3 +104,5 @@ gates. Numbering stays global and sequential within
 | 0011 | [No resend endpoint; email delivery is fire-and-forget](claude-backend-improvements/0011-no-resend-endpoint-fire-and-forget-mail.md) | auth/infra | medium |
 | 0012 | [Residual timing oracle on password-reset request](claude-backend-improvements/0012-reset-request-timing-oracle.md) | auth | low |
 | 0013 | [Resource endpoints accept unbounded request bodies](claude-backend-improvements/0013-no-request-body-size-cap-on-resource-endpoints.md) | http | medium |
+| 0014 | [Date filters are parsed in UTC, not the host timezone](claude-backend-improvements/0014-date-filters-parsed-in-utc.md) | api | low |
+| 0015 | [Out-of-range amounts return 400, where legacy returned 500](claude-backend-improvements/0015-out-of-range-amount-returns-400.md) | api | low |

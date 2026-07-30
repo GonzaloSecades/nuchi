@@ -570,6 +570,7 @@ export interface components {
         };
         TransactionInput: {
             /**
+             * Format: int64
              * @description Signed integer milliunits. Positive values are income; negative values are expenses.
              * @example -12500
              */
@@ -587,6 +588,7 @@ export interface components {
         Transaction: {
             id: components["schemas"]["ResourceId"];
             /**
+             * Format: int64
              * @description Signed integer milliunits.
              * @example -12500
              */
@@ -617,6 +619,7 @@ export interface components {
             /** @example Market */
             payee: string;
             /**
+             * Format: int64
              * @description Signed integer milliunits.
              * @example -12500
              */
@@ -657,6 +660,7 @@ export interface components {
             /** @example Groceries */
             name: string;
             /**
+             * Format: int64
              * @description Absolute expense sum in milliunits.
              * @example 12500
              */
@@ -669,11 +673,13 @@ export interface components {
              */
             date: string;
             /**
+             * Format: int64
              * @description Income sum in milliunits for this day.
              * @example 500000
              */
             income: number;
             /**
+             * Format: int64
              * @description Absolute expense sum in milliunits for this day.
              * @example 12500
              */
@@ -681,6 +687,7 @@ export interface components {
         };
         Summary: {
             /**
+             * Format: int64
              * @description Sum of signed transaction amounts in milliunits.
              * @example 487500
              */
@@ -691,6 +698,7 @@ export interface components {
              */
             remainingChange: number;
             /**
+             * Format: int64
              * @description Sum of non-negative transaction amounts in milliunits.
              * @example 500000
              */
@@ -701,6 +709,7 @@ export interface components {
              */
             incomeChange: number;
             /**
+             * Format: int64
              * @description Sum of absolute negative transaction amounts in milliunits.
              * @example 12500
              */
@@ -729,8 +738,8 @@ export interface components {
                 "application/json": components["schemas"]["ApiErrorResponse"];
             };
         };
-        /** @description The date range query is invalid. */
-        InvalidDateQueryError: {
+        /** @description The query string is invalid: a malformed or out-of-range date range, or a parameter that was supplied empty. None of these parameters sets allowEmptyValue (false by default), so an explicitly empty value is malformed rather than a request for the default. */
+        InvalidQueryError: {
             headers: {
                 [name: string]: unknown;
             };
@@ -1438,7 +1447,7 @@ export interface operations {
                     "application/json": components["schemas"]["TransactionListResponse"];
                 };
             };
-            400: components["responses"]["InvalidDateQueryError"];
+            400: components["responses"]["InvalidQueryError"];
             401: components["responses"]["UnauthorizedError"];
             500: components["responses"]["DatabaseError"];
         };
@@ -1640,7 +1649,7 @@ export interface operations {
                     "application/json": components["schemas"]["SummaryResponse"];
                 };
             };
-            400: components["responses"]["InvalidDateQueryError"];
+            400: components["responses"]["InvalidQueryError"];
             401: components["responses"]["UnauthorizedError"];
             500: components["responses"]["DatabaseError"];
         };

@@ -742,6 +742,7 @@ program
 project
 promise
 prompt
+properly
 proposal
 proposed
 props
@@ -989,6 +990,7 @@ tanstack
 target
 tech
 technical
+tell
 template
 test
 testing

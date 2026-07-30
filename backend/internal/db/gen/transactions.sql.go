@@ -16,7 +16,12 @@ INSERT INTO transactions (id, amount, payee, notes, date, account_id, category_i
 SELECT r.id, r.amount, r.payee, r.notes, r.date, r.account_id, r.category_id, r.currency
 FROM jsonb_to_recordset($1::jsonb) AS r(
     id text,
-    amount integer,
+    -- Must track transactions.amount's column type (bigint since migration
+    -- 00005). Left as integer, this recordset column would raise "value out
+    -- of range for type integer" for any amount past the old int4 cap, so
+    -- bulk-create and the CSV import path would keep a limit that single
+    -- create no longer has — two different caps in one API.
+    amount bigint,
     payee text,
     notes text,
     date timestamp,
@@ -116,7 +121,7 @@ RETURNING id, amount, payee, notes, date, account_id, category_id, currency
 
 type CreateTransactionParams struct {
 	ID         string
-	Amount     int32
+	Amount     int64
 	Payee      string
 	Notes      pgtype.Text
 	Date       pgtype.Timestamp
@@ -217,14 +222,18 @@ SELECT
     t.amount,
     t.notes,
     a.name AS account,
-    t.account_id
+    t.account_id,
+    -- The contract requires currency on TransactionListItem. It must come
+    -- from the column, never a hardcoded 'ARS' in the handler, which would
+    -- silently lie the moment the data disagrees.
+    t.currency
 FROM transactions t
 JOIN accounts a ON a.id = t.account_id AND a.user_id = $1
 LEFT JOIN categories c ON c.id = t.category_id AND c.user_id = $1
 WHERE t.date >= $2
   AND t.date <= $3
   AND ($4::text IS NULL OR t.account_id = $4)
-ORDER BY t.date DESC
+ORDER BY t.date DESC, t.id DESC
 `
 
 type ListTransactionsParams struct {
@@ -240,10 +249,11 @@ type ListTransactionsRow struct {
 	Category   pgtype.Text
 	CategoryID pgtype.Text
 	Payee      string
-	Amount     int32
+	Amount     int64
 	Notes      pgtype.Text
 	Account    string
 	AccountID  string
+	Currency   string
 }
 
 // Transactions have no direct user_id column; every query below owns them
@@ -255,6 +265,12 @@ type ListTransactionsRow struct {
 // name, left join category for its (optional) name, date range inclusive on
 // both ends, optional accountId filter. Handler concerns (date
 // defaulting/validation, 366-day cap) live outside this query.
+// t.id DESC breaks ties deterministically. Legacy orders by date alone, and
+// most rows share midnight, so the order among same-date rows was arbitrary
+// and could differ between identical requests. Clients could never rely on
+// it, so pinning it changes nothing observable while removing the
+// nondeterminism -- the same behavior-preserving reasoning used for
+// accounts.sql's ORDER BY name in #40.
 func (q *Queries) ListTransactions(ctx context.Context, arg ListTransactionsParams) ([]ListTransactionsRow, error) {
 	rows, err := q.db.Query(ctx, listTransactions,
 		arg.UserID,
@@ -279,6 +295,7 @@ func (q *Queries) ListTransactions(ctx context.Context, arg ListTransactionsPara
 			&i.Notes,
 			&i.Account,
 			&i.AccountID,
+			&i.Currency,
 		); err != nil {
 			return nil, err
 		}
@@ -308,7 +325,7 @@ RETURNING t.id, t.amount, t.payee, t.notes, t.date, t.account_id, t.category_id,
 `
 
 type UpdateTransactionParams struct {
-	Amount     int32
+	Amount     int64
 	Payee      string
 	Notes      pgtype.Text
 	Date       pgtype.Timestamp

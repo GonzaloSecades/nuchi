@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/router.go": {
-    "mtime": 1785299160.5024939,
-    "ast_hash": "9019405dedfd2632fa74953d9ef78f42",
+    "mtime": 1785343448.0870383,
+    "ast_hash": "0028dfa197b8b77098ccca5aec6abebc",
     "semantic_hash": ""
   },
   "components.json": {
@@ -415,9 +415,9 @@
     "semantic_hash": "231c8d06860dc3b91a8736ed7018f6be"
   },
   "db/schema.ts": {
-    "mtime": 1783698026.7147307,
-    "ast_hash": "7b894991c744333c2537b2814fd7c491",
-    "semantic_hash": "7b894991c744333c2537b2814fd7c491"
+    "mtime": 1785339287.574346,
+    "ast_hash": "f882f0444652131c2a9d72dd8db58065",
+    "semantic_hash": ""
   },
   "drizzle.config.ts": {
     "mtime": 1783698026.7217247,
@@ -630,9 +630,9 @@
     "semantic_hash": "cf1b909f1cc666056c826133f28ff687"
   },
   "features/summary/use-get-summary.ts": {
-    "mtime": 1783698026.7617302,
-    "ast_hash": "11733b2a81f054a67a7fe0b4e4395241",
-    "semantic_hash": "11733b2a81f054a67a7fe0b4e4395241"
+    "mtime": 1785367267.4537404,
+    "ast_hash": "a1de2b85f18953713659096f55038e36",
+    "semantic_hash": ""
   },
   "features/transactions/api/use-bulk-create-transactions.ts": {
     "mtime": 1783698026.7637303,
@@ -665,9 +665,9 @@
     "semantic_hash": "f1acd3c01aa08aef4154b85beaee7777"
   },
   "features/transactions/api/use-get-transactions.ts": {
-    "mtime": 1783698026.7667286,
-    "ast_hash": "0b3c01ed924bca03d9b4eecb6091d37e",
-    "semantic_hash": "0b3c01ed924bca03d9b4eecb6091d37e"
+    "mtime": 1785367267.4547427,
+    "ast_hash": "5d3046f43c236a859db17997fb441dac",
+    "semantic_hash": ""
   },
   "features/transactions/components/edit-transaction-sheet.tsx": {
     "mtime": 1783698026.767732,
@@ -680,9 +680,9 @@
     "semantic_hash": "687a00a2104d398ea3644aaadda4f56e"
   },
   "features/transactions/components/transaction-form.tsx": {
-    "mtime": 1783698026.7697315,
-    "ast_hash": "d2cad1fe2acc4fb3d9ea2825067441be",
-    "semantic_hash": "d2cad1fe2acc4fb3d9ea2825067441be"
+    "mtime": 1785339749.0463207,
+    "ast_hash": "412b7b7c50e1bcd6cc226cdf2ef78b04",
+    "semantic_hash": ""
   },
   "features/transactions/hooks/use-new-transaction.ts": {
     "mtime": 1783698026.7707274,
@@ -745,9 +745,9 @@
     "semantic_hash": "4d374a452c5574fdd81560c9b7701baf"
   },
   "lib/transaction-import.ts": {
-    "mtime": 1783698026.7957249,
-    "ast_hash": "343a027eed9ca2d9ac57963fa5035472",
-    "semantic_hash": "343a027eed9ca2d9ac57963fa5035472"
+    "mtime": 1785339735.889582,
+    "ast_hash": "9cb56255fdc248578cf1a41d6827ef6b",
+    "semantic_hash": ""
   },
   "lib/transaction-limits.ts": {
     "mtime": 1783698026.7967248,
@@ -765,9 +765,9 @@
     "semantic_hash": "d5b31a484ab4348ed3b91ca1243b88c3"
   },
   "lib/utils.ts": {
-    "mtime": 1783698026.7987258,
-    "ast_hash": "7f31f0445ffd29bbd4d58ed86e1ae568",
-    "semantic_hash": "7f31f0445ffd29bbd4d58ed86e1ae568"
+    "mtime": 1785339719.9198418,
+    "ast_hash": "e45b0765f9aa80e8561d8b0df322a1c5",
+    "semantic_hash": ""
   },
   "next.config.ts": {
     "mtime": 1783698026.7987258,
@@ -920,8 +920,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "openapi/nuchi.openapi.json": {
-    "mtime": 1783698026.801723,
-    "ast_hash": "aaaf6fff33095e2859910a5a51868241",
+    "mtime": 1785381580.5568056,
+    "ast_hash": "22c288f4d7ab4271c4662af6d114872f",
     "semantic_hash": ""
   },
   "scripts/validate-openapi.ts": {
@@ -1060,13 +1060,13 @@
     "semantic_hash": ""
   },
   "lib/api/generated/schema.d.ts": {
-    "mtime": 1783698026.7917266,
-    "ast_hash": "74d8afeedee4554b2ea3668aa5ce804e",
+    "mtime": 1785381611.7182033,
+    "ast_hash": "3648b2162b671cf9925624afc99ca8e7",
     "semantic_hash": ""
   },
   "backend/internal/openapi/generated.gen.go": {
-    "mtime": 1783698026.6757264,
-    "ast_hash": "08cd9ebcbd805f53ad4cf86929cf52e7",
+    "mtime": 1785381602.683951,
+    "ast_hash": "ae635e720f95f0b30639cfc087a434f0",
     "semantic_hash": ""
   },
   "backend/internal/config/config_test.go": {
@@ -1105,8 +1105,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/finance_schema_test.go": {
-    "mtime": 1784664178.116521,
-    "ast_hash": "b1f212b072e882200ba0ca980d6c0321",
+    "mtime": 1785339494.6825256,
+    "ast_hash": "38c0b368150f285a1fbff4997f005ae0",
     "semantic_hash": ""
   },
   "backend/migrations/00002_finance_base.sql": {
@@ -1140,47 +1140,47 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/README.md": {
-    "mtime": 1785295957.3933516,
-    "ast_hash": "33e315b1b5557c08ffd2bb885d948dc7",
+    "mtime": 1785344126.165848,
+    "ast_hash": "b030cd59daedc920c3c113a1e9c7aadd",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
-    "mtime": 1783887559.0466275,
+    "mtime": 1785343201.2578356,
     "ast_hash": "af1dc6dd7cb96a277729363d132b2b07",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/auth_tokens.sql.go": {
-    "mtime": 1783887559.04918,
+    "mtime": 1785343201.2593992,
     "ast_hash": "42e6f12daa50c1456b94131a8c1e2e7e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/categories.sql.go": {
-    "mtime": 1783887559.0496902,
+    "mtime": 1785343201.2588444,
     "ast_hash": "5d1b7fc9c52c60275f499b56be493f72",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/db.go": {
-    "mtime": 1783887559.0512123,
+    "mtime": 1785343201.2601533,
     "ast_hash": "2cbddc42f0f37817a76d68976a4de47e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/models.go": {
-    "mtime": 1783887559.0517206,
-    "ast_hash": "d0cfef4d937f49dc3fdab9a12c584cd6",
+    "mtime": 1785343201.2601533,
+    "ast_hash": "467f6f14eefc04c8f5694fe777ed5fcf",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/summary.sql.go": {
-    "mtime": 1783887559.0527315,
+    "mtime": 1785343201.2619474,
     "ast_hash": "e85b9f8abe428d8d4fb9d174f9d6d26e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/transactions.sql.go": {
-    "mtime": 1783887559.0537689,
-    "ast_hash": "a59d638fbd799924efa2bc6c979a22bb",
+    "mtime": 1785343201.263717,
+    "ast_hash": "539f4f300df9c727433b5f51fdff1b25",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/users.sql.go": {
-    "mtime": 1784664178.1185212,
+    "mtime": 1785343201.2601533,
     "ast_hash": "04e56c6a60df24019975998c499b029f",
     "semantic_hash": ""
   },
@@ -1205,8 +1205,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/queries/transactions.sql": {
-    "mtime": 1783887559.0634835,
-    "ast_hash": "02a072d89078bb63502c772d6c82e8cc",
+    "mtime": 1785343177.5016923,
+    "ast_hash": "7ce0dac67646bb5dbeb41f4b54ea463e",
     "semantic_hash": ""
   },
   "backend/internal/db/queries/users.sql": {
@@ -1245,8 +1245,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/claude-backend-improvements/0006-amount-int32-milliunit-cap.md": {
-    "mtime": 1783887559.0825,
-    "ast_hash": "751e99677def5208b91e516742bc981e",
+    "mtime": 1785339798.310504,
+    "ast_hash": "12c1fbfe74424d1c11395138b3e134cb",
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/00-current-state.md": {
@@ -1480,8 +1480,8 @@
     "semantic_hash": ""
   },
   "backend/internal/db/migration_upgrade_test.go": {
-    "mtime": 1785182787.5530064,
-    "ast_hash": "e25e1bd9742ec43d32853120da665a53",
+    "mtime": 1785339548.0939295,
+    "ast_hash": "82d5c38c3f2213cc2c4b291777127f6a",
     "semantic_hash": ""
   },
   "backend/internal/http/accounts.go": {
@@ -1495,8 +1495,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/resources.go": {
-    "mtime": 1785299160.501492,
-    "ast_hash": "0b2d8677ebda54fd42bc8b9072333294",
+    "mtime": 1785367267.4497464,
+    "ast_hash": "d3dd979f521741db58899b35e14d2e30",
     "semantic_hash": ""
   },
   "backend/internal/id/cuid2.go": {
@@ -1527,6 +1527,81 @@
   "graphify-out/memory/query_20260729_041253_check_the_graphify_outcome_for_nuchi_and_tell_me_h.md": {
     "mtime": 1785298373.5607057,
     "ast_hash": "36610d5fe04c2dead60e99a0eb200875",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/daterange.go": {
+    "mtime": 1785367267.4477465,
+    "ast_hash": "b0f11c60cc7ce4d4a1b89784f68cab53",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/daterange_test.go": {
+    "mtime": 1785367267.448744,
+    "ast_hash": "2c3c9b75f321fd199b978bc124982387",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/transactions.go": {
+    "mtime": 1785381624.812673,
+    "ast_hash": "30f728287fba077f817d5b1a3c1199ad",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/transactions_live_test.go": {
+    "mtime": 1785367267.4527442,
+    "ast_hash": "e3c5fbdf16e1d4080648e7a24abb3e2f",
+    "semantic_hash": ""
+  },
+  "backend/internal/ratelimit/mutation.go": {
+    "mtime": 1785343224.207286,
+    "ast_hash": "d51315aec0b0a609fcb1bbbae51dbb2f",
+    "semantic_hash": ""
+  },
+  "backend/internal/ratelimit/mutation_test.go": {
+    "mtime": 1785343246.9893503,
+    "ast_hash": "46c98e173ab058d9c1fef438d828e173",
+    "semantic_hash": ""
+  },
+  "backend/migrations/00005_transactions_amount_bigint.sql": {
+    "mtime": 1785339190.1731708,
+    "ast_hash": "ac7023a33b2e205a157a4b1e2b3aa435",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260729_042659_would_it_be_a_good_complement_or_suplement_adding.md": {
+    "mtime": 1785299219.9564984,
+    "ast_hash": "66e9015287cbe5202615d25744ba3719",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260729_043740_should_nuchi_create_shared_claude_and_codex_skills.md": {
+    "mtime": 1785299860.4048235,
+    "ast_hash": "9a7c63bda3664266ad7ade0031b28b6a",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/transactions_fkrace_test.go": {
+    "mtime": 1785359542.6625497,
+    "ast_hash": "65f3f375698668cb25a569cfed65eee0",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0014-date-filters-parsed-in-utc.md": {
+    "mtime": 1785344101.245959,
+    "ast_hash": "7afc0abc80baf4d158faffda9c12b7e9",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0015-out-of-range-amount-returns-400.md": {
+    "mtime": 1785344119.077733,
+    "ast_hash": "fdc85b6c64f7aa1c6661a13b2af2b701",
+    "semantic_hash": ""
+  },
+  "lib/query-params.ts": {
+    "mtime": 1785366977.2328844,
+    "ast_hash": "466ba851a6f782dbe9fcad81ce408fe2",
+    "semantic_hash": ""
+  },
+  "docs/api/transactions.md": {
+    "mtime": 1785376279.0903857,
+    "ast_hash": "6a1aa1591d47ee09c0db878e57a0e608",
+    "semantic_hash": ""
+  },
+  "docs/product/transactions.md": {
+    "mtime": 1785376319.7317214,
+    "ast_hash": "13472307850ec2019ac260f0aa2c1248",
     "semantic_hash": ""
   }
 }
