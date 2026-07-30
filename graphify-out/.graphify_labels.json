@@ -565,6 +565,5 @@
   "563": "VerifyEmail200JSONResponse",
   "564": "Strategic Notes",
   "565": "InvalidParamFormatError",
-  "566": "UnescapedCookieParamError",
-  "567": "UpdateCategory200JSONResponse"
+  "566": "UnescapedCookieParamError"
 }

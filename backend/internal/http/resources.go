@@ -151,6 +151,8 @@ type resourceServerMethods interface {
 	GetTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	UpdateTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	DeleteTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+	BulkCreateTransactions(w http.ResponseWriter, r *http.Request)
+	BulkDeleteTransactions(w http.ResponseWriter, r *http.Request)
 }
 
 var _ resourceServerMethods = (*ResourceServer)(nil)

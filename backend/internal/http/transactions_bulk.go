@@ -60,14 +60,14 @@ func (s *ResourceServer) BulkCreateTransactions(w http.ResponseWriter, r *http.R
 		_ = resp.VisitBulkCreateTransactionsResponse(w)
 		return
 	case bodyDecodeMalformed:
-		resp := openapi.BulkCreateTransactions400JSONResponse{ValidationErrorJSONResponse: validationError()}
+		resp := openapi.BulkCreateTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError()}
 		_ = resp.VisitBulkCreateTransactionsResponse(w)
 		return
 	}
 
 	inputs, fields := validateBulkTransactionInputs(body)
 	if len(fields) > 0 {
-		resp := openapi.BulkCreateTransactions400JSONResponse{ValidationErrorJSONResponse: validationError(fields...)}
+		resp := openapi.BulkCreateTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError(fields...)}
 		_ = resp.VisitBulkCreateTransactionsResponse(w)
 		return
 	}
@@ -115,6 +115,14 @@ func (s *ResourceServer) BulkCreateTransactions(w http.ResponseWriter, r *http.R
 			// A referenced row may have been deleted since the checks above.
 			return referenceErrorFromForeignKeyViolation(err)
 		}
+		// Checked before the transaction commits, not after. A short RETURNING
+		// set means the batch did not fully land, and returning here rolls it
+		// back; discovering the mismatch after commit could only produce a
+		// successful-looking response that silently dropped rows, with the
+		// partial insert already durable.
+		if len(out) != len(rows) {
+			return fmt.Errorf("httpapi: bulk create inserted %d of %d rows", len(out), len(rows))
+		}
 		created = out
 		return nil
 	})
@@ -150,13 +158,13 @@ func (s *ResourceServer) BulkDeleteTransactions(w http.ResponseWriter, r *http.R
 		_ = resp.VisitBulkDeleteTransactionsResponse(w)
 		return
 	case bodyDecodeMalformed:
-		resp := openapi.BulkDeleteTransactions400JSONResponse{ValidationErrorJSONResponse: validationError()}
+		resp := openapi.BulkDeleteTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError()}
 		_ = resp.VisitBulkDeleteTransactionsResponse(w)
 		return
 	}
 
 	if fields := validateTransactionBulkDeleteIDs(body.Ids); len(fields) > 0 {
-		resp := openapi.BulkDeleteTransactions400JSONResponse{ValidationErrorJSONResponse: validationError(fields...)}
+		resp := openapi.BulkDeleteTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError(fields...)}
 		_ = resp.VisitBulkDeleteTransactionsResponse(w)
 		return
 	}
@@ -209,10 +217,10 @@ func (s *ResourceServer) BulkDeleteTransactions(w http.ResponseWriter, r *http.R
 // import flow, where a client maps each response row back to the spreadsheet
 // row that produced it.
 //
-// Rows the database did not return are skipped rather than faked. That cannot
-// happen today (the insert is all-or-nothing), so the guard exists to fail
-// visibly as a short response instead of emitting a zero-valued transaction if
-// that ever changes.
+// A cardinality mismatch is caught inside the transaction, before commit, so by
+// the time this runs every requested id is present. The lookup miss below is
+// therefore unreachable; it is here so a future change cannot turn a missing row
+// into a zero-valued transaction in the response.
 func orderedByRequest(requested []bulkTransactionRow, created []dbgen.Transaction) []openapi.Transaction {
 	byID := make(map[string]dbgen.Transaction, len(created))
 	for _, row := range created {
@@ -351,6 +359,15 @@ func validateTransactionBulkDeleteIDs(ids []string) []apiFieldError {
 }
 
 // --- errors ---------------------------------------------------------------
+
+// bulkValidationError builds the contract's BulkValidationError body. Same
+// envelope as the single-resource ValidationError, but a distinct response
+// component so the contract can document the indexed `[i].field` / `$` paths
+// and the collect-every-failure behavior, which generated clients would
+// otherwise never see.
+func bulkValidationError(fields ...apiFieldError) openapi.BulkValidationErrorJSONResponse {
+	return openapi.BulkValidationErrorJSONResponse(validationError(fields...))
+}
 
 func requestBodyTooLargeError() openapi.RequestBodyTooLargeErrorJSONResponse {
 	return openapi.RequestBodyTooLargeErrorJSONResponse{

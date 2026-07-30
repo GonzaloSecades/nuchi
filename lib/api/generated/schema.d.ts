@@ -318,13 +318,13 @@ export interface paths {
         };
         /**
          * List transactions
-         * @description Current Hono behavior: lists transactions joined through owned accounts, supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts by date descending. Intentional migration behavior: each transaction includes required `currency`, defaulting to `ARS`.
+         * @description Current Hono behavior: lists transactions joined through owned accounts, supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts by date descending. Intentional migration behavior: each transaction includes required `currency`, which is accepted only as `ARS` and rejected when omitted.
          */
         get: operations["listTransactions"];
         put?: never;
         /**
          * Create a transaction
-         * @description Current Hono behavior: validates owned account and optional owned category before inserting and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required in the contract and defaults to `ARS`.
+         * @description Current Hono behavior: validates owned account and optional owned category before inserting and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required and accepted only as `ARS`; an omitted or unknown value is rejected rather than defaulted.
          */
         post: operations["createTransaction"];
         delete?: never;
@@ -344,7 +344,11 @@ export interface paths {
         put?: never;
         /**
          * Bulk create transactions
-         * @description Current Hono behavior: accepts 1 to 500 transactions as a JSON array, rejects numeric `Content-Length` over 1,000,000 bytes, validates all rows and owned account/category references before inserting, and returns all inserted rows in `{ data }`. Intentional migration behavior: each row includes required `currency`, defaulting to `ARS`.
+         * @description Current Hono behavior: accepts 1 to 500 transactions as a JSON array, validates all rows and owned account/category references before inserting, and returns all inserted rows in `{ data }`. Nothing is inserted when any row is invalid.
+         *
+         *     Returned rows are in the same order as the submitted array, so a client can map each result back to the row that produced it.
+         *
+         *     Intentional migration behavior: each row includes required `currency`, accepted only as `ARS` and rejected when omitted. The 1,000,000-byte limit is enforced against the request stream, not only a declared `Content-Length`, so a chunked or unknown-length body over the limit is also rejected with 413.
          */
         post: operations["bulkCreateTransactions"];
         delete?: never;
@@ -364,7 +368,9 @@ export interface paths {
         put?: never;
         /**
          * Bulk delete transactions
-         * @description Current Hono behavior: accepts 1 to 500 IDs, rejects numeric `Content-Length` over 100,000 bytes, deletes owned transactions matching requested IDs, ignores missing or unowned IDs, and returns deleted IDs in `{ data }`.
+         * @description Current Hono behavior: accepts 1 to 500 IDs, deletes owned transactions matching requested IDs, ignores missing or unowned IDs, and returns deleted IDs in `{ data }`.
+         *
+         *     Intentional migration behavior: the 100,000-byte limit is enforced against the request stream, not only a declared `Content-Length`, so a chunked or unknown-length body over the limit is also rejected with 413.
          */
         post: operations["bulkDeleteTransactions"];
         delete?: never;
@@ -384,7 +390,7 @@ export interface paths {
         };
         /**
          * Get a transaction
-         * @description Current Hono behavior: returns one transaction joined through an owned account or 404 when missing or unowned. Intentional migration behavior: the returned transaction includes required `currency`, defaulting to `ARS`.
+         * @description Current Hono behavior: returns one transaction joined through an owned account or 404 when missing or unowned. Intentional migration behavior: each transaction includes required `currency`, which is accepted only as `ARS` and rejected when omitted.
          */
         get: operations["getTransaction"];
         put?: never;
@@ -398,7 +404,7 @@ export interface paths {
         head?: never;
         /**
          * Update a transaction
-         * @description Current Hono behavior: validates the target transaction, owned account, and optional owned category before updating and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required in the contract and defaults to `ARS`.
+         * @description Current Hono behavior: validates the target transaction, owned account, and optional owned category before updating and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required and accepted only as `ARS`; an omitted or unknown value is rejected rather than defaulted.
          */
         patch: operations["updateTransaction"];
         trace?: never;
@@ -412,7 +418,7 @@ export interface paths {
         };
         /**
          * Get dashboard summary
-         * @description Current Hono behavior: returns dashboard totals, change percentages, expense category breakdown, and daily income/expense series for the selected inclusive date range. The endpoint supports the same `from`, `to`, and `accountId` filters as transaction list, defaults to the last 30 days, and rejects ranges over 366 days. Amounts remain integer milliunits and use the single-currency ARS default until multi-currency UX exists.
+         * @description Current Hono behavior: returns dashboard totals, change percentages, expense category breakdown, and daily income/expense series for the selected inclusive date range. The endpoint supports the same `from`, `to`, and `accountId` filters as transaction list, defaults to the last 30 days, and rejects ranges over 366 days. Amounts remain integer milliunits; transactions are single-currency ARS until multi-currency UX exists.
          */
         get: operations["getSummary"];
         put?: never;
@@ -730,6 +736,19 @@ export interface components {
     responses: {
         /** @description The request body, route parameter, or query string is invalid. Intentional migration behavior: Go handlers return this structured shape instead of Hono/Zod validator's package-default validation body. */
         ValidationError: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ApiErrorResponse"];
+            };
+        };
+        /**
+         * @description The batch is invalid. Every failing row is reported in one response rather than one per request, so a client fixing a large import does not have to discover its bad rows one at a time.
+         *
+         *     `details.fields[].path` identifies the failure: `[i].field` for a problem in row `i` (zero-based), and `$` for a problem with the array itself, such as being empty or exceeding the row maximum. This indexed shape is an intentional migration decision; the current Hono validator reports the raw Zod error instead.
+         */
+        BulkValidationError: {
             headers: {
                 [name: string]: unknown;
             };
@@ -1502,7 +1521,7 @@ export interface operations {
                     "application/json": components["schemas"]["TransactionBulkCreateResponse"];
                 };
             };
-            400: components["responses"]["ValidationError"];
+            400: components["responses"]["BulkValidationError"];
             401: components["responses"]["UnauthorizedError"];
             404: components["responses"]["TransactionReferenceNotFoundError"];
             413: components["responses"]["RequestBodyTooLargeError"];
@@ -1532,7 +1551,7 @@ export interface operations {
                     "application/json": components["schemas"]["DeletedResourceListResponse"];
                 };
             };
-            400: components["responses"]["ValidationError"];
+            400: components["responses"]["BulkValidationError"];
             401: components["responses"]["UnauthorizedError"];
             413: components["responses"]["RequestBodyTooLargeError"];
             429: components["responses"]["TransactionMutationRateLimitError"];

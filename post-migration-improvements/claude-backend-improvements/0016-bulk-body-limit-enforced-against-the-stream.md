@@ -60,10 +60,12 @@ behavior.
 Nothing to undo; the Go behavior is the stricter and more honest one. Two
 follow-ups worth folding into the post-parity hardening pass:
 
-- Move the byte limits into the OpenAPI document so they are discoverable
-  rather than living only in the handler and a legacy TypeScript constants
-  file. OpenAPI has no native request-size keyword, so this means documenting
-  them in the operation descriptions alongside the existing `maxItems`.
+- Make the byte limits machine-readable. They are already stated in both bulk
+  operation descriptions, so they are discoverable by a human reading the
+  contract — but prose cannot be consumed by routing or middleware, and the
+  handler constants can drift from it silently. A documented vendor extension
+  (`x-max-request-bytes`) read by the router, or a single generated constant, is
+  what would make the contract and the code impossible to disagree.
 - Apply the same stream-enforced discipline to any future bulk endpoint by
   default, rather than per-handler. If more arrive, `decodeBulkBody` should
   become middleware keyed by route so a new bulk endpoint cannot silently ship

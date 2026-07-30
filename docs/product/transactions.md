@@ -159,9 +159,12 @@ matter for support:
 When a batch is rejected, every problem row is reported at once with its
 position in the file, rather than one error per attempt.
 
-There are also size caps — roughly 1 MB per import batch and 100 KB per bulk
-delete. These are far above what 500 rows of transaction data occupies; a user
-hitting them is a sign something is malformed rather than merely large.
+There are also total-payload caps — roughly 1 MB per import batch and 100 KB per
+bulk delete. A batch of 500 rows fits comfortably under these with ordinary
+data, but they are reachable legitimately: payee and notes have no length limit
+of their own, so around 2 KB of text per row is enough to cross the batch cap.
+A user who hits one has a batch that is genuinely too large, not necessarily a
+malformed one, and the fix is a smaller batch rather than different data.
 
 ## What this deliberately cannot do yet
 

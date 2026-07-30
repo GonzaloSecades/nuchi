@@ -77,8 +77,12 @@ change what the next list returns without rewriting any transaction. Mapped by
 Required on every write, and must be exactly `"ARS"` (`CurrencyCode` is a
 single-value enum). Omitted or unknown values are rejected with a field-level
 400 rather than defaulted — a client that believes it is sending USD should
-fail loudly. The contract's `default: "ARS"` is decorative and is queued for
-removal.
+fail loudly.
+
+The contract says this in one place only: the schema declares no `default`, and
+no operation description claims one. An earlier draft carried both a decorative
+`default: "ARS"` and "defaults to ARS" wording in several descriptions, which
+advertised the opposite of what the handler does; that was removed in #47.
 
 Legacy has **no currency field at all**; it is a Go-side addition, so nothing
 was broken by requiring it.

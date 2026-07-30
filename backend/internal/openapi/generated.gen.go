@@ -379,6 +379,9 @@ type ToDate = DateString
 // AccountNotFoundError defines model for AccountNotFoundError.
 type AccountNotFoundError = ApiErrorResponse
 
+// BulkValidationError defines model for BulkValidationError.
+type BulkValidationError = ApiErrorResponse
+
 // CategoryNotFoundError defines model for CategoryNotFoundError.
 type CategoryNotFoundError = ApiErrorResponse
 
@@ -1692,6 +1695,8 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 }
 
 type AccountNotFoundErrorJSONResponse ApiErrorResponse
+
+type BulkValidationErrorJSONResponse ApiErrorResponse
 
 type CategoryNotFoundErrorJSONResponse ApiErrorResponse
 
@@ -3256,7 +3261,9 @@ func (response BulkCreateTransactions200JSONResponse) VisitBulkCreateTransaction
 	return err
 }
 
-type BulkCreateTransactions400JSONResponse struct{ ValidationErrorJSONResponse }
+type BulkCreateTransactions400JSONResponse struct {
+	BulkValidationErrorJSONResponse
+}
 
 func (response BulkCreateTransactions400JSONResponse) VisitBulkCreateTransactionsResponse(w http.ResponseWriter) error {
 
@@ -3371,7 +3378,9 @@ func (response BulkDeleteTransactions200JSONResponse) VisitBulkDeleteTransaction
 	return err
 }
 
-type BulkDeleteTransactions400JSONResponse struct{ ValidationErrorJSONResponse }
+type BulkDeleteTransactions400JSONResponse struct {
+	BulkValidationErrorJSONResponse
+}
 
 func (response BulkDeleteTransactions400JSONResponse) VisitBulkDeleteTransactionsResponse(w http.ResponseWriter) error {
 

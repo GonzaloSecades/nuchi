@@ -920,8 +920,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "openapi/nuchi.openapi.json": {
-    "mtime": 1785387705.7451768,
-    "ast_hash": "34d76c4a0c43d5d44ba3eeb65e667d0a",
+    "mtime": 1785423965.7488437,
+    "ast_hash": "f5e9dd287bbb17e9f2b039a17f27a8ff",
     "semantic_hash": ""
   },
   "scripts/validate-openapi.ts": {
@@ -1060,13 +1060,13 @@
     "semantic_hash": ""
   },
   "lib/api/generated/schema.d.ts": {
-    "mtime": 1785387709.174404,
-    "ast_hash": "d0219649da64855f819614e29bca920f",
+    "mtime": 1785423982.7081616,
+    "ast_hash": "7da07e3d9ed13bc9c47a9073481a7930",
     "semantic_hash": ""
   },
   "backend/internal/openapi/generated.gen.go": {
-    "mtime": 1785387707.7953656,
-    "ast_hash": "7420ca446d2970695945c3462e55d968",
+    "mtime": 1785423972.9845061,
+    "ast_hash": "efd9350e9290edcce393633e476e672a",
     "semantic_hash": ""
   },
   "backend/internal/config/config_test.go": {
@@ -1495,8 +1495,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/resources.go": {
-    "mtime": 1785387666.7354703,
-    "ast_hash": "15e10fa9425c04274e5401bd01cc9ec0",
+    "mtime": 1785423990.9680505,
+    "ast_hash": "17a1c288c003881f3ab22a240b5f58ee",
     "semantic_hash": ""
   },
   "backend/internal/id/cuid2.go": {
@@ -1595,28 +1595,33 @@
     "semantic_hash": ""
   },
   "docs/api/transactions.md": {
-    "mtime": 1785388045.813722,
-    "ast_hash": "01eb8b71d6c92d29524da6c5b877057e",
+    "mtime": 1785424183.3484168,
+    "ast_hash": "bd378b0fedbbded1b7198abb3b7b254f",
     "semantic_hash": ""
   },
   "docs/product/transactions.md": {
-    "mtime": 1785388045.8147242,
-    "ast_hash": "d049ea737d5679ba0a5b1f26e6a234ac",
+    "mtime": 1785424183.3494184,
+    "ast_hash": "d83bbab8cb15dce2f974de3556ae1a18",
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_bulk.go": {
-    "mtime": 1785387862.3254895,
-    "ast_hash": "b6a10d51674ffc678a3531c67ec86381",
+    "mtime": 1785424109.6611526,
+    "ast_hash": "296b47750dc8aba8b10ed5180702a117",
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_bulk_live_test.go": {
-    "mtime": 1785387949.1950948,
-    "ast_hash": "3921bd2b372b6d559b6dfaf5dcb2df6b",
+    "mtime": 1785424049.991455,
+    "ast_hash": "21c90ffab2ffa0830b31a03997fb791e",
     "semantic_hash": ""
   },
   "post-migration-improvements/claude-backend-improvements/0016-bulk-body-limit-enforced-against-the-stream.md": {
-    "mtime": 1785387975.6020103,
-    "ast_hash": "3802d5f39650c6221186b83192877bd9",
+    "mtime": 1785424183.35042,
+    "ast_hash": "76f0a56faa7c576c16eda4a8ce49ef94",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/transactions_bulk_order_test.go": {
+    "mtime": 1785424034.8121915,
+    "ast_hash": "28f7a22ead0df095bbf6b2b12da4a711",
     "semantic_hash": ""
   }
 }

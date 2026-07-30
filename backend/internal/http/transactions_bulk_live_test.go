@@ -64,7 +64,7 @@ func TestTransactionsBulkLive_CreateHappyPath(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("expected 200, got %d (body: %s)", rec.Code, rec.Body.String())
 	}
-	var created openapi.TransactionListResponse
+	var created openapi.TransactionBulkCreateResponse
 	raw := rec.Body.String()
 	if err := json.NewDecoder(strings.NewReader(raw)).Decode(&created); err != nil {
 		t.Fatalf("decode: %v", err)
@@ -154,7 +154,7 @@ func TestTransactionsBulkLive_CreateRowCountLimits(t *testing.T) {
 			t.Fatalf("expected 200 for %d rows, got %d (body: %s)",
 				maxBulkCreateTransactions, rec.Code, rec.Body.String())
 		}
-		var created openapi.TransactionListResponse
+		var created openapi.TransactionBulkCreateResponse
 		if err := json.NewDecoder(rec.Body).Decode(&created); err != nil {
 			t.Fatalf("decode: %v", err)
 		}
@@ -431,6 +431,41 @@ func TestTransactionsBulkLive_RateLimitBudgetsAreIndependent(t *testing.T) {
 	if got := env.do(t, http.MethodPost, "/api/transactions", token,
 		validTransactionBody(accountID)); got.Code != http.StatusOK {
 		t.Errorf("single create has an independent budget, got %d", got.Code)
+	}
+}
+
+// TestTransactionsBulkLive_BulkDeleteBudgetIsIndependent exhausts the other
+// direction.
+//
+// Exhausting only bulk-create leaves a misconfigured bulk-delete key
+// undetected: if bulk-delete shared another action's budget, or keyed itself
+// wrongly, this is the test that catches it. Uses its own user so the budgets
+// start clean.
+func TestTransactionsBulkLive_BulkDeleteBudgetIsIndependent(t *testing.T) {
+	env := newTransactionsTestEnv(t)
+	_, token := env.createAccountsTestUser(t, "bulk-del-ratelimit")
+	accountID := createTestAccount(t, env.accountsTestEnv, token, "Cash")
+	existing := createTestTransaction(t, env, token, validTransactionBody(accountID))
+
+	for i := range 60 {
+		rec := env.do(t, http.MethodPost, "/api/transactions/bulk-delete", token,
+			bulkDeleteBody{Ids: []string{"missing-id"}})
+		if rec.Code != http.StatusOK {
+			t.Fatalf("bulk-delete %d of 60: expected 200, got %d (body: %s)", i+1, rec.Code, rec.Body.String())
+		}
+	}
+
+	rec := env.do(t, http.MethodPost, "/api/transactions/bulk-delete", token,
+		bulkDeleteBody{Ids: []string{"missing-id"}})
+	assertTransactionAPIError(t, rec, http.StatusTooManyRequests, "TRANSACTION_MUTATION_RATE_LIMITED")
+
+	// Every other action still has its own budget.
+	if got := env.do(t, http.MethodPost, "/api/transactions/bulk-create", token,
+		bulkCreateRows(accountID, 1)); got.Code != http.StatusOK {
+		t.Errorf("bulk-create must be unaffected by an exhausted bulk-delete budget, got %d", got.Code)
+	}
+	if got := env.do(t, http.MethodDelete, "/api/transactions/"+existing.Id, token, nil); got.Code != http.StatusOK {
+		t.Errorf("single delete must be unaffected by an exhausted bulk-delete budget, got %d", got.Code)
 	}
 }
 
