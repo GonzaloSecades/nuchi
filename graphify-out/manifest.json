@@ -1290,8 +1290,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/README.md": {
-    "mtime": 1786214969.845413,
-    "ast_hash": "5e9b7f75a8e17501a4402d0ff838e365",
+    "mtime": 1786225371.6650388,
+    "ast_hash": "b33b56dcf8d6b414fef799eda910a380",
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/templates/endpoint-review.md": {
@@ -1440,13 +1440,13 @@
     "semantic_hash": ""
   },
   "backend/internal/db/rls.go": {
-    "mtime": 1786214969.526411,
-    "ast_hash": "d23f4412ed3a5808c61deb9c75bd3ab4",
+    "mtime": 1786225371.6530662,
+    "ast_hash": "29540d53842519af5eef9a615babd767",
     "semantic_hash": ""
   },
   "backend/internal/db/rls_test.go": {
-    "mtime": 1786214969.5274143,
-    "ast_hash": "5fcce1f05bfcb7c444ed73765f063cd7",
+    "mtime": 1786225371.6620414,
+    "ast_hash": "2317e6848c26a332e84ebd714205dd9c",
     "semantic_hash": ""
   },
   "backend/internal/http/middleware.go": {
@@ -1490,8 +1490,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/resources.go": {
-    "mtime": 1786215117.8562024,
-    "ast_hash": "2ca13979328e246294e25c6a66082762",
+    "mtime": 1786225371.656041,
+    "ast_hash": "7ab7d17943063503029c78aec44b80ae",
     "semantic_hash": ""
   },
   "backend/internal/id/cuid2.go": {
@@ -1645,8 +1645,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/summary.go": {
-    "mtime": 1786215095.7123916,
-    "ast_hash": "88ce2cc730a72c4def430a7e90fa81a7",
+    "mtime": 1786225371.658042,
+    "ast_hash": "43f2c2e67fb07e9515e2b70971870219",
     "semantic_hash": ""
   },
   "backend/internal/http/summary_live_test.go": {
@@ -1655,13 +1655,13 @@
     "semantic_hash": ""
   },
   "backend/internal/http/summary_test.go": {
-    "mtime": 1786215170.968572,
-    "ast_hash": "716c6b1784be861857e6d3f5f188c2a5",
+    "mtime": 1786225371.6610458,
+    "ast_hash": "e5639031f7f54f7d31f1c37737cb7918",
     "semantic_hash": ""
   },
   "docs/api/summary.md": {
-    "mtime": 1786215353.5857306,
-    "ast_hash": "5fc2c165d324d553d9696230030a550b",
+    "mtime": 1786225371.6640372,
+    "ast_hash": "cd0a7de76d9ea453399f49acded6ce2f",
     "semantic_hash": ""
   },
   "docs/product/summary.md": {
@@ -1672,6 +1672,11 @@
   "post-migration-improvements/claude-backend-improvements/0017-summary-category-chart-excludes-uncategorized.md": {
     "mtime": 1786215314.1706123,
     "ast_hash": "8865d4bd33388ddb388fd79ca8bce0ea",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/Codex-summary-aggregate-contract-range.md": {
+    "mtime": 1786225371.666049,
+    "ast_hash": "929d06b984521e71934380d078b06617",
     "semantic_hash": ""
   }
 }

@@ -7,6 +7,7 @@ import (
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
 	"github.com/GonzaloSecades/nuchi/backend/internal/openapi"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
@@ -24,9 +25,10 @@ const otherCategoryName = "Other"
 //
 // Four queries run inside one WithUserTx: current-period totals, the previous
 // period's totals for the change percentages, the category breakdown, and the
-// per-day series. Sharing a transaction gives all four one RLS binding and a
-// consistent snapshot — legacy fires them independently, so a write landing
-// mid-request can make its totals disagree with its own daily series.
+// per-day series. The transaction uses repeatable-read isolation, giving all
+// four one RLS binding and one snapshot — legacy fires them independently, so
+// a write landing mid-request can make its totals disagree with its own daily
+// series.
 //
 // The aggregation itself is deliberately split: SQL sums, Go shapes. Bucketing
 // and zero-filling stay here because they are presentation decisions, and
@@ -64,7 +66,7 @@ func (s *ResourceServer) GetSummary(w http.ResponseWriter, r *http.Request, para
 	var categoryRows []dbgen.GetCategorySpendingRow
 	var dailyRows []dbgen.GetDailyTotalsRow
 
-	err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
+	err, ok := s.withUserTxOptions(w, r, pgx.TxOptions{IsoLevel: pgx.RepeatableRead}, func(userID uuid.UUID, q *dbgen.Queries) error {
 		var err error
 		current, err = q.GetPeriodTotals(r.Context(), dbgen.GetPeriodTotalsParams{
 			UserID:    pgUserID(userID),
@@ -144,7 +146,9 @@ func percentageChange(current, previous int64) float32 {
 		}
 		return 100
 	}
-	return float32(float64(current-previous) / float64(previous) * 100)
+	// Widen before subtracting: current-previous can overflow int64 even though
+	// each operand is valid on its own.
+	return float32((float64(current) - float64(previous)) / float64(previous) * 100)
 }
 
 // bucketCategories returns the largest maxSummaryCategories entries as-is and

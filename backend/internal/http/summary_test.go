@@ -1,6 +1,7 @@
 package httpapi
 
 import (
+	"math"
 	"testing"
 	"time"
 
@@ -45,6 +46,17 @@ func TestPercentageChange_UsesFloatDivision(t *testing.T) {
 	// 1000 -> 1005 is +0.5%, which integer division would report as 0.
 	if got := percentageChange(1005, 1000); got != 0.5 {
 		t.Errorf("expected 0.5, got %v — a truncating division would give 0", got)
+	}
+}
+
+func TestPercentageChange_WidensBeforeSubtracting(t *testing.T) {
+	// Subtracting in int64 wraps both of these cases and flips the sign before
+	// the result reaches float64.
+	if got := percentageChange(math.MaxInt64, -1); got >= 0 {
+		t.Errorf("expected a negative change for MaxInt64 versus -1, got %v", got)
+	}
+	if got := percentageChange(math.MinInt64, 1); got >= 0 {
+		t.Errorf("expected a negative change for MinInt64 versus 1, got %v", got)
 	}
 }
 

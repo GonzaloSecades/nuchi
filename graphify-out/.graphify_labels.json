@@ -570,5 +570,6 @@
   "568": "Q: last comment address if you have anything more to say label it for a future improvement post migration and name it Codex-{title}",
   "569": "EmailNotVerifiedErrorJSONResponse",
   "570": "RequiredHeaderError",
-  "571": "BulkDeleteAccounts200JSONResponse"
+  "571": "BulkDeleteAccounts200JSONResponse",
+  "572": "CreateCategory200JSONResponse"
 }

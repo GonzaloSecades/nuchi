@@ -16,6 +16,7 @@ import (
 	"github.com/GonzaloSecades/nuchi/backend/internal/ratelimit"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -254,13 +255,26 @@ func withSummaryParams(fn func(w http.ResponseWriter, r *http.Request, params op
 // 6.4) against ever binding app.user_id to the zero UUID. Callers must
 // check ok before using err.
 func (s *ResourceServer) withUser(w http.ResponseWriter, r *http.Request, fn func(userID uuid.UUID, q *dbgen.Queries) error) (err error, ok bool) {
+	return s.withUserTxOptions(w, r, pgx.TxOptions{}, fn)
+}
+
+// withUserTxOptions is withUser with explicit transaction options. Most
+// resource operations use PostgreSQL's defaults through withUser; aggregate
+// read models can opt into a stable snapshot without bypassing the shared RLS
+// binding path.
+func (s *ResourceServer) withUserTxOptions(
+	w http.ResponseWriter,
+	r *http.Request,
+	options pgx.TxOptions,
+	fn func(userID uuid.UUID, q *dbgen.Queries) error,
+) (err error, ok bool) {
 	userID, ok := UserIDFromContext(r.Context())
 	if !ok {
 		writeUnauthorizedError(w)
 		return nil, false
 	}
 
-	err = db.WithUserTx(r.Context(), s.pool, userID, func(q *dbgen.Queries) error {
+	err = db.WithUserTxOptions(r.Context(), s.pool, userID, options, func(q *dbgen.Queries) error {
 		return fn(userID, q)
 	})
 	return err, true

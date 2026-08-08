@@ -38,7 +38,8 @@ reference](transactions.md) for the full rules.
 `GetPeriodTotals` runs twice — current window and comparison window — alongside
 `GetCategorySpending` and `GetDailyTotals`, all inside a single `WithUserTx`.
 
-Two reasons this matters beyond tidiness:
+The handler requests PostgreSQL `REPEATABLE READ`, rather than relying on the
+default `READ COMMITTED` transaction. Two reasons this matters beyond tidiness:
 
 - One RLS binding covers all four.
 - All four see **one snapshot**. Legacy fires them independently, so a write
@@ -142,9 +143,12 @@ would leak another user's data.
 | 0014 | Date filters parsed in UTC rather than the host timezone (shared with transactions) |
 | 0017 | Category chart excludes uncategorized spending while the total includes it |
 
-The aggregates already cast to `::bigint` (from #40), so they were unaffected by
-the `amount` widening in #46 — a sum of many large amounts cannot overflow the
-way a single `int4` column could.
+Individual amounts fit the contract, but a sufficiently large aggregate can
+still exceed PostgreSQL `bigint` or the stricter JavaScript-safe range declared
+for summary fields. Resolving that requires an explicit response-contract
+decision; it is tracked in
+[`Codex-summary-aggregate-contract-range.md`](../../post-migration-improvements/codex-backend-improvements/Codex-summary-aggregate-contract-range.md)
+rather than silently clamping or changing parity behavior in this migration.
 
 No pagination or caching: the endpoint recomputes everything per request. Fine
 at personal-finance scale, and the first thing to revisit if a user's history
