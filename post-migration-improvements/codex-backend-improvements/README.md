@@ -33,7 +33,9 @@ Read in this order:
    infrastructure.
 5. [`08-delivery-roadmap.md`](08-delivery-roadmap.md) turns the design into
    phases, evidence, and release gates.
-6. [`templates/`](templates/) contains the required proposal and endpoint
+6. [`Codex-atomic-multi-chunk-transaction-imports.md`](Codex-atomic-multi-chunk-transaction-imports.md)
+   is the first scoped proposal produced from a migration review.
+7. [`templates/`](templates/) contains the required proposal and endpoint
    review templates.
 
 ## Decision hierarchy

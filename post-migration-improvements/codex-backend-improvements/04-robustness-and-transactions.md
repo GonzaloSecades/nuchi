@@ -29,6 +29,9 @@ Rollback errors are logged with the original cause preserved.
   category in the same transaction as the write. RLS remains the backstop.
 - Bulk create is all-or-error: validate the full bounded batch, then insert it
   atomically. No partial inserts escape on a bad reference or row.
+- Whole-import atomicity across several bounded requests requires a persisted
+  staging/finalization workflow; see
+  [`Codex-atomic-multi-chunk-transaction-imports.md`](Codex-atomic-multi-chunk-transaction-imports.md).
 - Bulk delete atomically deletes only owned rows and returns only affected IDs;
   any future ignored count is computed without revealing ownership.
 - Auth token rotation/consumption and relevant session revocation are atomic.

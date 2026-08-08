@@ -256,7 +256,9 @@ a separate contract change.
 
 A CSV import larger than 500 rows is several requests. Each is atomic on its
 own, so an early chunk can commit and a later one fail. Whole-import atomicity
-would need an import-session concept and is out of scope here.
+would need an import-session concept and is out of scope here. The post-migration
+design is tracked in
+[`Codex-atomic-multi-chunk-transaction-imports.md`](../../post-migration-improvements/codex-backend-improvements/Codex-atomic-multi-chunk-transaction-imports.md).
 
 ## Ordering
 

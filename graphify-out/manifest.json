@@ -1270,8 +1270,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/04-robustness-and-transactions.md": {
-    "mtime": 1783886369.22533,
-    "ast_hash": "18487368076de09133109d8497b7a14c",
+    "mtime": 1786205798.1811972,
+    "ast_hash": "201c715d72c549583e498f59f60fbc03",
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/05-api-documentation.md": {
@@ -1295,8 +1295,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/README.md": {
-    "mtime": 1783886259.7889216,
-    "ast_hash": "dd880b25040ad1b40166d3dbb0275649",
+    "mtime": 1786205798.1811972,
+    "ast_hash": "5e9b7f75a8e17501a4402d0ff838e365",
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/templates/endpoint-review.md": {
@@ -1595,8 +1595,8 @@
     "semantic_hash": ""
   },
   "docs/api/transactions.md": {
-    "mtime": 1786205675.6228557,
-    "ast_hash": "d15c08d11c7a0fb3ab3c388aa0e1fa4d",
+    "mtime": 1786205798.1811972,
+    "ast_hash": "4eba0955b18b868f7c1b3508080ea8a6",
     "semantic_hash": ""
   },
   "docs/product/transactions.md": {
@@ -1637,6 +1637,16 @@
   "graphify-out/memory/query_20260808_134543_check_the_changes_introduced_for_your_reviews_and.md": {
     "mtime": 1786205675.6480496,
     "ast_hash": "21b35d2dc70b3e62fb019a44841a5141",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/Codex-atomic-multi-chunk-transaction-imports.md": {
+    "mtime": 1786205798.179185,
+    "ast_hash": "cfb8686ca1500c7e13df40c5a917b0e6",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260808_161854_last_comment_address_if_you_have_anything_more_to.md": {
+    "mtime": 1786205934.9202065,
+    "ast_hash": "5b666f7e59862ae7dd5c4122aca53698",
     "semantic_hash": ""
   }
 }
