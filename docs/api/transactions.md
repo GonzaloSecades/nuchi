@@ -178,14 +178,28 @@ comparing returned count against requested count. A per-row lookup at the
 500-row maximum would be 1,000 round trips inside one transaction. Accounts are
 checked before categories, matching the single-row precedence.
 
-### Response order is guaranteed in Go, not SQL
+### Response order and the returned id set are verified in Go, not SQL
 
 PostgreSQL does not promise that `RETURNING` emits rows in the source SELECT's
 order, and `WITH ORDINALITY` cannot be combined with a column definition list,
-so the ordering cannot honestly be established in the query. `orderedByRequest`
-pairs the returned rows back to the ids the handler generated, making the
-correspondence a property of the code. The CSV import flow depends on it to map
-a response row to the spreadsheet row that produced it.
+so the ordering cannot honestly be established in the query.
+
+`matchCreatedToRequested` pairs the returned rows back to the ids the handler
+generated, which makes the correspondence a property of the code. The CSV import
+flow depends on that to map a response row to the spreadsheet row that produced
+it.
+
+Crucially it **verifies while it pairs**: a requested id missing from the
+result, an id that was never requested, or the same id returned twice are all
+errors rather than something to work around. It runs inside the transaction, so
+any of them roll the batch back.
+
+That combination is deliberate. An earlier version checked only `len(created)
+== len(requested)` and ordered separately, which passed for an equal-sized but
+*wrong* id set — the ordering step then silently skipped the unmatched rows and
+returned a committed 200 that was short by however many ids had been swapped.
+Verifying and ordering in one pass means ordering-without-verifying is not
+expressible here.
 
 ### Byte limits and the 413
 
