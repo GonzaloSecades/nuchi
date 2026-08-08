@@ -217,7 +217,11 @@ func accountIDFilter(accountID *string) (pgtype.Text, error) {
 		return pgtype.Text{}, nil
 	}
 	if *accountID == "" {
-		return pgtype.Text{}, dateRangeError{"accountId must not be empty."}
+		// A plain error, not dateRangeError: that type is documented as carrying
+		// one of the three date-range messages, and widening it to cover
+		// accountId would make its own documentation untrue. The response is
+		// identical either way -- the caller only reads Error().
+		return pgtype.Text{}, errors.New("accountId must not be empty.")
 	}
 	return pgtype.Text{String: *accountID, Valid: true}, nil
 }
