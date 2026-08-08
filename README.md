@@ -246,10 +246,11 @@ Two things to know before flipping it:
   running app — the switch exists so the shape is testable, not because it is
   ready to use.
 
-`GO_API_URL` must be origin-only (no path, query, or fragment). The matched
-request path is appended to it, so a trailing path would produce destinations
-like `/base/api/...`; the build fails loudly on that rather than leaving you to
-debug a 404.
+`GO_API_URL` must be origin-only (no credentials, path, query, or fragment).
+The matched request path is appended to it, so a trailing path would produce
+destinations like `/base/api/...`; the build fails loudly on that rather than
+leaving you to debug a 404. Credentials are rejected because `URL.origin`
+silently removes them, which would otherwise hide a bad deployment value.
 
 Health check:
 

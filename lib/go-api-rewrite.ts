@@ -42,6 +42,11 @@ export function normalizeGoApiUrl(url: string): string {
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
     throw new Error(`GO_API_URL must use http or https, got: ${url}`);
   }
+  if (parsed.username || parsed.password) {
+    throw new Error(
+      `GO_API_URL must not include username or password credentials, got: ${url}`
+    );
+  }
   if (parsed.pathname !== '/' || parsed.search || parsed.hash) {
     throw new Error(
       `GO_API_URL must be origin-only (no path, query, or fragment), got: ${url}`

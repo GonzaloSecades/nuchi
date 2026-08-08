@@ -576,7 +576,6 @@
   "574": "GetSummary200JSONResponse",
   "575": "GetTransaction200JSONResponse",
   "576": "ListAccounts200JSONResponse",
-  "577": "ListTransactions200JSONResponse",
   "578": "UpdateAccount200JSONResponse",
   "579": "UpdateTransaction200JSONResponse",
   "580": "UpdateTransaction404JSONResponse",

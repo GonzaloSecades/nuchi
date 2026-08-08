@@ -3992,7 +3992,7 @@
       "source_location": "L300",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_validateaccountname",
-      "community": 378,
+      "community": 20,
       "norm_label": "validateaccountname()"
     },
     {
@@ -4002,7 +4002,7 @@
       "source_location": "L308",
       "_origin": "ast",
       "id": "backend_internal_http_accounts_validatebulkdeleteids",
-      "community": 378,
+      "community": 20,
       "norm_label": "validatebulkdeleteids()"
     },
     {
@@ -5192,7 +5192,7 @@
       "source_location": "L296",
       "_origin": "ast",
       "id": "backend_internal_http_categories_validatecategoryname",
-      "community": 42,
+      "community": 378,
       "norm_label": "validatecategoryname()"
     },
     {
@@ -6792,7 +6792,7 @@
       "source_location": "L233",
       "_origin": "ast",
       "id": "backend_internal_http_resources_pguserid",
-      "community": 20,
+      "community": 42,
       "norm_label": "pguserid()"
     },
     {
@@ -6812,7 +6812,7 @@
       "source_location": "L253",
       "_origin": "ast",
       "id": "backend_internal_http_resources_logresourceerror",
-      "community": 42,
+      "community": 20,
       "norm_label": "logresourceerror()"
     },
     {
@@ -6822,7 +6822,7 @@
       "source_location": "L260",
       "_origin": "ast",
       "id": "backend_internal_http_resources_dberror",
-      "community": 20,
+      "community": 42,
       "norm_label": "dberror()"
     },
     {
@@ -9672,7 +9672,7 @@
       "source_location": "L1533",
       "_origin": "ast",
       "id": "openapi_requiredheadererror",
-      "community": 570,
+      "community": 17,
       "norm_label": "requiredheadererror"
     },
     {
@@ -9682,7 +9682,7 @@
       "source_location": "L1538",
       "_origin": "ast",
       "id": "openapi_requiredheadererror_error",
-      "community": 570,
+      "community": 17,
       "norm_label": ".error()"
     },
     {
@@ -9692,7 +9692,7 @@
       "source_location": "L1542",
       "_origin": "ast",
       "id": "openapi_requiredheadererror_unwrap",
-      "community": 570,
+      "community": 17,
       "norm_label": ".unwrap()"
     },
     {
@@ -9702,7 +9702,7 @@
       "source_location": "L1546",
       "_origin": "ast",
       "id": "openapi_invalidparamformaterror",
-      "community": 17,
+      "community": 570,
       "norm_label": "invalidparamformaterror"
     },
     {
@@ -9712,7 +9712,7 @@
       "source_location": "L1551",
       "_origin": "ast",
       "id": "openapi_invalidparamformaterror_error",
-      "community": 17,
+      "community": 570,
       "norm_label": ".error()"
     },
     {
@@ -9722,7 +9722,7 @@
       "source_location": "L1555",
       "_origin": "ast",
       "id": "openapi_invalidparamformaterror_unwrap",
-      "community": 17,
+      "community": 570,
       "norm_label": ".unwrap()"
     },
     {
@@ -10472,7 +10472,7 @@
       "source_location": "L2024",
       "_origin": "ast",
       "id": "openapi_getaccount200jsonresponse",
-      "community": 17,
+      "community": 574,
       "norm_label": "getaccount200jsonresponse"
     },
     {
@@ -10482,7 +10482,7 @@
       "source_location": "L2026",
       "_origin": "ast",
       "id": "openapi_getaccount200jsonresponse_visitgetaccountresponse",
-      "community": 17,
+      "community": 574,
       "norm_label": ".visitgetaccountresponse()"
     },
     {
@@ -11782,7 +11782,7 @@
       "source_location": "L2830",
       "_origin": "ast",
       "id": "openapi_getcategory200jsonresponse",
-      "community": 17,
+      "community": 575,
       "norm_label": "getcategory200jsonresponse"
     },
     {
@@ -11792,7 +11792,7 @@
       "source_location": "L2832",
       "_origin": "ast",
       "id": "openapi_getcategory200jsonresponse_visitgetcategoryresponse",
-      "community": 17,
+      "community": 575,
       "norm_label": ".visitgetcategoryresponse()"
     },
     {
@@ -12092,7 +12092,7 @@
       "source_location": "L3028",
       "_origin": "ast",
       "id": "openapi_getsummary200jsonresponse",
-      "community": 574,
+      "community": 17,
       "norm_label": "getsummary200jsonresponse"
     },
     {
@@ -12102,7 +12102,7 @@
       "source_location": "L3030",
       "_origin": "ast",
       "id": "openapi_getsummary200jsonresponse_visitgetsummaryresponse",
-      "community": 574,
+      "community": 17,
       "norm_label": ".visitgetsummaryresponse()"
     },
     {
@@ -12192,7 +12192,7 @@
       "source_location": "L3092",
       "_origin": "ast",
       "id": "openapi_listtransactions200jsonresponse",
-      "community": 577,
+      "community": 17,
       "norm_label": "listtransactions200jsonresponse"
     },
     {
@@ -12202,7 +12202,7 @@
       "source_location": "L3094",
       "_origin": "ast",
       "id": "openapi_listtransactions200jsonresponse_visitlisttransactionsresponse",
-      "community": 577,
+      "community": 17,
       "norm_label": ".visitlisttransactionsresponse()"
     },
     {
@@ -12902,7 +12902,7 @@
       "source_location": "L3572",
       "_origin": "ast",
       "id": "openapi_gettransaction200jsonresponse",
-      "community": 575,
+      "community": 17,
       "norm_label": "gettransaction200jsonresponse"
     },
     {
@@ -12912,7 +12912,7 @@
       "source_location": "L3574",
       "_origin": "ast",
       "id": "openapi_gettransaction200jsonresponse_visitgettransactionresponse",
-      "community": 575,
+      "community": 17,
       "norm_label": ".visitgettransactionresponse()"
     },
     {
@@ -17729,7 +17729,7 @@
       "label": "normalizeGoApiUrl()",
       "file_type": "code",
       "source_file": "lib/go-api-rewrite.ts",
-      "source_location": "L29",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "lib_go_api_rewrite_normalizegoapiurl",
       "community": 83,
@@ -17739,7 +17739,7 @@
       "label": "goApiRewrites()",
       "file_type": "code",
       "source_file": "lib/go-api-rewrite.ts",
-      "source_location": "L69",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "lib_go_api_rewrite_goapirewrites",
       "community": 83,
@@ -21549,7 +21549,7 @@
       "label": "Switching `/api/*` to the Go backend",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L218",
+      "source_location": "L224",
       "_origin": "ast",
       "id": "readme_switching_api_to_the_go_backend",
       "community": 33,
@@ -21559,7 +21559,7 @@
       "label": "OpenAPI",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L266",
+      "source_location": "L273",
       "_origin": "ast",
       "id": "readme_openapi",
       "community": 33,
@@ -21569,7 +21569,7 @@
       "label": "Database",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L301",
+      "source_location": "L308",
       "_origin": "ast",
       "id": "readme_database",
       "community": 33,
@@ -21579,7 +21579,7 @@
       "label": "Graphify",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L314",
+      "source_location": "L321",
       "_origin": "ast",
       "id": "readme_graphify",
       "community": 33,
@@ -21589,7 +21589,7 @@
       "label": "Migration Roadmap",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L330",
+      "source_location": "L337",
       "_origin": "ast",
       "id": "readme_migration_roadmap",
       "community": 33,
@@ -21599,7 +21599,7 @@
       "label": "Troubleshooting",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L345",
+      "source_location": "L352",
       "_origin": "ast",
       "id": "readme_troubleshooting",
       "community": 33,
@@ -21609,7 +21609,7 @@
       "label": "Docker Engine Not Reachable",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L347",
+      "source_location": "L354",
       "_origin": "ast",
       "id": "readme_docker_engine_not_reachable",
       "community": 33,
@@ -21619,7 +21619,7 @@
       "label": "Build Fails With Clerk Placeholder Keys",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L351",
+      "source_location": "L358",
       "_origin": "ast",
       "id": "readme_build_fails_with_clerk_placeholder_keys",
       "community": 33,
@@ -21629,7 +21629,7 @@
       "label": "GitHub Project Board Requires Scope",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L355",
+      "source_location": "L362",
       "_origin": "ast",
       "id": "readme_github_project_board_requires_scope",
       "community": 33,
@@ -21639,7 +21639,7 @@
       "label": "Graphify Warnings",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L359",
+      "source_location": "L366",
       "_origin": "ast",
       "id": "readme_graphify_warnings",
       "community": 33,
@@ -21649,7 +21649,7 @@
       "label": "Contributing And Workflow",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L363",
+      "source_location": "L370",
       "_origin": "ast",
       "id": "readme_contributing_and_workflow",
       "community": 33,
@@ -21659,7 +21659,7 @@
       "label": "Canonical Docs",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L377",
+      "source_location": "L384",
       "_origin": "ast",
       "id": "readme_canonical_docs",
       "community": 33,
@@ -79415,7 +79415,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/go-api-rewrite.ts",
-      "source_location": "L69",
+      "source_location": "L77",
       "weight": 1.0,
       "source": "lib_go_api_rewrite",
       "target": "lib_go_api_rewrite_goapirewrites",
@@ -79425,7 +79425,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/go-api-rewrite.ts",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1.0,
       "source": "lib_go_api_rewrite",
       "target": "lib_go_api_rewrite_normalizegoapiurl",
@@ -79457,7 +79457,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/go-api-rewrite.ts",
-      "source_location": "L76",
+      "source_location": "L84",
       "weight": 1.0,
       "source": "lib_go_api_rewrite_goapirewrites",
       "target": "lib_go_api_rewrite_normalizegoapiurl",
@@ -83168,7 +83168,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L377",
+      "source_location": "L384",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_canonical_docs",
@@ -83178,7 +83178,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L363",
+      "source_location": "L370",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_contributing_and_workflow",
@@ -83188,7 +83188,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L301",
+      "source_location": "L308",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_database",
@@ -83218,7 +83218,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L314",
+      "source_location": "L321",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_graphify",
@@ -83238,7 +83238,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L330",
+      "source_location": "L337",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_migration_roadmap",
@@ -83258,7 +83258,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L266",
+      "source_location": "L273",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_openapi",
@@ -83298,7 +83298,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L345",
+      "source_location": "L352",
       "weight": 1.0,
       "source": "readme_nuchi",
       "target": "readme_troubleshooting",
@@ -83378,7 +83378,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L218",
+      "source_location": "L224",
       "weight": 1.0,
       "source": "readme_running_next_and_go_together",
       "target": "readme_switching_api_to_the_go_backend",
@@ -83388,7 +83388,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L351",
+      "source_location": "L358",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_build_fails_with_clerk_placeholder_keys",
@@ -83398,7 +83398,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L347",
+      "source_location": "L354",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_docker_engine_not_reachable",
@@ -83408,7 +83408,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L355",
+      "source_location": "L362",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_github_project_board_requires_scope",
@@ -83418,7 +83418,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L359",
+      "source_location": "L366",
       "weight": 1.0,
       "source": "readme_troubleshooting",
       "target": "readme_graphify_warnings",
@@ -88346,5 +88346,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "79548587c06aa0c5430819480fdc67a32f2a52ab"
+  "built_at_commit": "0c50b4497296486ae0a93eaa193d2643540dd457"
 }

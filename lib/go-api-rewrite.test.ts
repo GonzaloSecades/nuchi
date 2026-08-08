@@ -49,6 +49,15 @@ describe('normalizeGoApiUrl', () => {
     );
   });
 
+  it('rejects embedded credentials instead of silently dropping them', () => {
+    expect(() =>
+      normalizeGoApiUrl('http://deploy-user@localhost:8080')
+    ).toThrow(/must not include username or password credentials/);
+    expect(() =>
+      normalizeGoApiUrl('https://deploy-user:secret@api.example.com')
+    ).toThrow(/must not include username or password credentials/);
+  });
+
   it('rejects a relative or malformed value', () => {
     // `new URL('localhost:8080')` parses: "localhost:" is read as the scheme,
     // not a host. So this is caught by the protocol check rather than the

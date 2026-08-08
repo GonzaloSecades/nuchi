@@ -1,16 +1,16 @@
 # Graph Report - wt-30  (2026-08-08)
 
 ## Corpus Check
-- 320 files · ~175,199 words
+- 320 files · ~175,351 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3075 nodes · 5431 edges · 586 communities (186 shown, 400 thin omitted)
+- 3075 nodes · 5431 edges · 585 communities (186 shown, 399 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 429 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `79548587`
+- Built from commit: `0c50b449`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -573,7 +573,6 @@
 - [[_COMMUNITY_GetSummary200JSONResponse|GetSummary200JSONResponse]]
 - [[_COMMUNITY_GetTransaction200JSONResponse|GetTransaction200JSONResponse]]
 - [[_COMMUNITY_ListAccounts200JSONResponse|ListAccounts200JSONResponse]]
-- [[_COMMUNITY_ListTransactions200JSONResponse|ListTransactions200JSONResponse]]
 - [[_COMMUNITY_UpdateAccount200JSONResponse|UpdateAccount200JSONResponse]]
 - [[_COMMUNITY_UpdateTransaction200JSONResponse|UpdateTransaction200JSONResponse]]
 - [[_COMMUNITY_UpdateTransaction404JSONResponse|UpdateTransaction404JSONResponse]]
@@ -610,7 +609,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (586 total, 400 thin omitted)
+## Communities (585 total, 399 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -662,7 +661,7 @@ Nodes (9): Follow-Up Memory, Implemented Scope, Last Verified, Local Database, M
 
 ### Community 17 - "Transactions Ts"
 Cohesion: 0.01
-Nodes (130): Time, BulkCreateTransactionsJSONRequestBody, BulkDeleteAccountsJSONRequestBody, BulkDeleteCategoriesJSONRequestBody, BulkDeleteTransactionsJSONRequestBody, ConfirmPasswordResetJSONRequestBody, CreateAccountJSONRequestBody, CreateCategoryJSONRequestBody (+122 more)
+Nodes (131): Time, BulkCreateTransactionsJSONRequestBody, BulkDeleteAccountsJSONRequestBody, BulkDeleteCategoriesJSONRequestBody, BulkDeleteTransactionsJSONRequestBody, ConfirmPasswordResetJSONRequestBody, CreateAccountJSONRequestBody, CreateCategoryJSONRequestBody (+123 more)
 
 ### Community 18 - "0001 Snapshot Json"
 Cohesion: 0.21
@@ -673,8 +672,8 @@ Cohesion: 0.11
 Nodes (19): app, app, app, AppType, DELETE, GET, OPTIONS, PATCH (+11 more)
 
 ### Community 20 - "0000 Snapshot Json"
-Cohesion: 0.24
-Nodes (15): accountNotFoundError(), constraintName(), duplicateAccountNameError(), Account, ResourceServer, Request, ResourceId, ResponseWriter (+7 more)
+Cohesion: 0.21
+Nodes (16): accountNotFoundError(), constraintName(), duplicateAccountNameError(), Account, ResourceServer, Request, ResourceId, ResponseWriter (+8 more)
 
 ### Community 23 - "Nuchi Project Context"
 Cohesion: 0.12
@@ -737,7 +736,7 @@ Cohesion: 0.09
 Nodes (82): assertAccountNotFound(), assertValidationError(), createTestAccount(), decodeAccountsAPIError(), Handler, Pool, ResponseRecorder, T (+74 more)
 
 ### Community 42 - "Api Error"
-Cohesion: 0.27
+Cohesion: 0.29
 Nodes (12): categoryNotFoundError(), duplicateCategoryNameError(), Category, ResourceServer, Request, ResourceId, ResponseWriter, toCategory() (+4 more)
 
 ### Community 43 - "Edit Account Sheet Tsx"
@@ -941,8 +940,8 @@ Cohesion: 0.33
 Nodes (5): 0010 — Auth operations do not declare 500 responses in the contract, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
 ### Community 378 - "api-base-url.ts"
-Cohesion: 0.26
-Nodes (12): validateAccountName(), validateBulkDeleteIds(), validateResourceName(), validateBulkTransactionInputs(), Text, Timestamp, parseAmount(), validateTransactionInput() (+4 more)
+Cohesion: 0.29
+Nodes (11): validateCategoryName(), validateResourceName(), validateBulkTransactionInputs(), Text, Timestamp, parseAmount(), validateTransactionInput(), apiFieldError (+3 more)
 
 ### Community 379 - "name"
 Cohesion: 0.22
@@ -1283,7 +1282,7 @@ Nodes (4): 3. Transfers, Balances, and Net Worth, Product impact, What this feat
 ## Knowledge Gaps
 - **1168 isolated node(s):** `Props`, `ResponseType`, `Props`, `ResponseType`, `Props` (+1163 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **400 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **399 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_

@@ -845,8 +845,8 @@
     "semantic_hash": "63554a20789b246c658cfbd38898b199"
   },
   "README.md": {
-    "mtime": 1786216041.7946155,
-    "ast_hash": "33c664cef49f5d194c1e1523a92847cf",
+    "mtime": 1786225430.0528812,
+    "ast_hash": "418d1db792a563852c2127ff73b53263",
     "semantic_hash": ""
   },
   "backend/README.md": {
@@ -1645,13 +1645,13 @@
     "semantic_hash": ""
   },
   "lib/go-api-rewrite.test.ts": {
-    "mtime": 1786215902.6689448,
-    "ast_hash": "e04ca126a975e762dee60743c4dfb93a",
+    "mtime": 1786225430.0498774,
+    "ast_hash": "b31f0a7d5aa3c2e887cc046734d9f2ed",
     "semantic_hash": ""
   },
   "lib/go-api-rewrite.ts": {
-    "mtime": 1786215979.4805856,
-    "ast_hash": "ad342ac3f181eaca633c365ca1d02726",
+    "mtime": 1786225430.048886,
+    "ast_hash": "341b6378f7ca1338bfbc861cf8109704",
     "semantic_hash": ""
   }
 }
