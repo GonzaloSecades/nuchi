@@ -196,10 +196,16 @@ The Go API listens on `0.0.0.0:8080` by default.
 
 ## Running Next and Go Together
 
-The two run as separate processes. Next serves the UI; Go serves the API. In
-local development the browser only ever talks to the Next origin, and Next
-proxies `/api/*` to Go — so there is no CORS setup, and cookies stay
-same-origin.
+The two run as separate processes: Next serves the UI, Go serves the API.
+
+**By default `/api/*` is still served by the legacy Hono routes**, not by Go.
+The proxy to the Go backend exists but is off until `USE_GO_API=true` — see the
+next section. Running the Go API alongside Next is still useful without the
+flag, since that is how the backend is exercised directly (`curl
+http://localhost:8080/api/health`) and how its tests run.
+
+Once the flag is on, the browser only ever talks to the Next origin and Next
+proxies `/api/*` to Go, so there is no CORS setup and cookies stay same-origin.
 
 Three terminals:
 

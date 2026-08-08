@@ -20,11 +20,14 @@ type RewriteEnv = {
  * Normalizes the configured backend URL, rejecting anything that would produce
  * a broken rewrite destination.
  *
- * Next appends the matched path to the destination, so a trailing slash or an
- * existing path silently yields `//api/...` or `/base/api/...`. Those surface
- * as puzzling 404s from the Go router rather than as a configuration problem,
- * which is why this fails loudly at build time with the offending value
- * instead.
+ * Next appends the matched path to the destination, so a URL carrying a path
+ * silently yields `/base/api/...` and surfaces as a puzzling 404 from the Go
+ * router rather than as a configuration problem. That fails loudly at build
+ * time with the offending value instead.
+ *
+ * A trailing slash is *normalized*, not rejected: `URL.origin` drops it, and it
+ * is the common copy-paste shape rather than a mistake worth failing a build
+ * over.
  */
 export function normalizeGoApiUrl(url: string): string {
   let parsed: URL;
