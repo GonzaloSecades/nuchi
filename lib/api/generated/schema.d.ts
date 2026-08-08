@@ -744,11 +744,32 @@ export interface components {
             };
         };
         /**
-         * @description The batch is invalid. Every failing row is reported in one response rather than one per request, so a client fixing a large import does not have to discover its bad rows one at a time.
+         * @description The bulk-create request is invalid.
          *
-         *     `details.fields[].path` identifies the failure: `[i].field` for a problem in row `i` (zero-based), and `$` for a problem with the array itself, such as being empty or exceeding the row maximum. This indexed shape is an intentional migration decision; the current Hono validator reports the raw Zod error instead.
+         *     When the body parsed but its contents failed validation, every failing row is reported in one response rather than one per request, so a client fixing a large import does not have to discover its bad rows one at a time. `details.fields[].path` is then `[i].field` for a problem in row `i` (zero-based), or `$` for a problem with the array itself such as being empty or exceeding the 500-row maximum.
+         *
+         *     When the body could not be parsed at all — malformed JSON, an unknown field, or more than one JSON value — there are no per-row paths to report and `details` is omitted entirely.
+         *
+         *     The indexed shape is an intentional migration decision; the current Hono validator reports the raw Zod error instead.
          */
-        BulkValidationError: {
+        BulkCreateValidationError: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ApiErrorResponse"];
+            };
+        };
+        /**
+         * @description The bulk-delete request is invalid.
+         *
+         *     Failures are reported against the `ids` array rather than with row indices: `details.fields[].path` is `ids` when the array itself is unusable (missing, empty, or above the 500-id maximum), and `ids[i]` for the first empty id encountered. Unlike bulk-create this operation does not accumulate one error per bad element — a single unusable id makes the whole request invalid, so the first is enough to act on.
+         *
+         *     When the body could not be parsed at all, `details` is omitted entirely.
+         *
+         *     Note this does not cover unknown or unowned ids: those are silently ignored by the delete and never produce an error.
+         */
+        BulkDeleteValidationError: {
             headers: {
                 [name: string]: unknown;
             };
@@ -1521,7 +1542,7 @@ export interface operations {
                     "application/json": components["schemas"]["TransactionBulkCreateResponse"];
                 };
             };
-            400: components["responses"]["BulkValidationError"];
+            400: components["responses"]["BulkCreateValidationError"];
             401: components["responses"]["UnauthorizedError"];
             404: components["responses"]["TransactionReferenceNotFoundError"];
             413: components["responses"]["RequestBodyTooLargeError"];
@@ -1551,7 +1572,7 @@ export interface operations {
                     "application/json": components["schemas"]["DeletedResourceListResponse"];
                 };
             };
-            400: components["responses"]["BulkValidationError"];
+            400: components["responses"]["BulkDeleteValidationError"];
             401: components["responses"]["UnauthorizedError"];
             413: components["responses"]["RequestBodyTooLargeError"];
             429: components["responses"]["TransactionMutationRateLimitError"];

@@ -920,8 +920,8 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "openapi/nuchi.openapi.json": {
-    "mtime": 1785423965.7488437,
-    "ast_hash": "f5e9dd287bbb17e9f2b039a17f27a8ff",
+    "mtime": 1786191671.0734205,
+    "ast_hash": "78222de2511d53db9f19804462284d1c",
     "semantic_hash": ""
   },
   "scripts/validate-openapi.ts": {
@@ -1060,13 +1060,13 @@
     "semantic_hash": ""
   },
   "lib/api/generated/schema.d.ts": {
-    "mtime": 1785423982.7081616,
-    "ast_hash": "7da07e3d9ed13bc9c47a9073481a7930",
+    "mtime": 1786191716.7475314,
+    "ast_hash": "36bdf0b2af2d3e30318cdf7dd3b698a6",
     "semantic_hash": ""
   },
   "backend/internal/openapi/generated.gen.go": {
-    "mtime": 1785423972.9845061,
-    "ast_hash": "efd9350e9290edcce393633e476e672a",
+    "mtime": 1786191707.7174423,
+    "ast_hash": "b36bf8c7610fd5d85e6cf8ee3bbd894a",
     "semantic_hash": ""
   },
   "backend/internal/config/config_test.go": {
@@ -1595,8 +1595,8 @@
     "semantic_hash": ""
   },
   "docs/api/transactions.md": {
-    "mtime": 1785424183.3484168,
-    "ast_hash": "bd378b0fedbbded1b7198abb3b7b254f",
+    "mtime": 1786191978.6111207,
+    "ast_hash": "d3d9637dab672b91ec2571dac43ac970",
     "semantic_hash": ""
   },
   "docs/product/transactions.md": {
@@ -1605,13 +1605,13 @@
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_bulk.go": {
-    "mtime": 1785424109.6611526,
-    "ast_hash": "296b47750dc8aba8b10ed5180702a117",
+    "mtime": 1786191996.3223429,
+    "ast_hash": "5057a157350f57861b2499efb670cc72",
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_bulk_live_test.go": {
-    "mtime": 1785424049.991455,
-    "ast_hash": "21c90ffab2ffa0830b31a03997fb791e",
+    "mtime": 1786191996.3240137,
+    "ast_hash": "3199014c856584a5f8c81fb970c00d0b",
     "semantic_hash": ""
   },
   "post-migration-improvements/claude-backend-improvements/0016-bulk-body-limit-enforced-against-the-stream.md": {
@@ -1620,8 +1620,18 @@
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_bulk_order_test.go": {
-    "mtime": 1785424034.8121915,
-    "ast_hash": "28f7a22ead0df095bbf6b2b12da4a711",
+    "mtime": 1786191820.76689,
+    "ast_hash": "1378baad588cf863ef089c88c453ea72",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260808_121354_recheck_the_changes_and_doanother_review.md": {
+    "mtime": 1786191234.6369753,
+    "ast_hash": "7f055b4c6be27a73f9fbd1f3fbdab3aa",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260808_122407_check_the_tickets_going_foward__what_we_shall_cont.md": {
+    "mtime": 1786191847.2026017,
+    "ast_hash": "6e22a2e91f07339e43f24ba9d7bb369b",
     "semantic_hash": ""
   }
 }

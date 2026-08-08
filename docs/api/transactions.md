@@ -206,14 +206,33 @@ Legacy also ignores a non-numeric `Content-Length`. That branch is unreachable
 here: `net/http` rejects a malformed header with its own `400` before any
 handler runs, so it is neither implemented nor tested.
 
-### Row-level validation errors
+### Validation error paths
 
-Every failure in the batch is reported at once, with indexed field paths —
-`[3].amount`, `[12].currency` — and `$` for failures about the array itself
-(empty, or over the row cap). The contract's `ValidationError` carries
-`details.fields[].path` and says nothing about indices, so this shape is a
-deliberate decision: a client fixing a 500-row CSV import should not have to
-discover its bad rows one request at a time.
+The two operations report failures differently, and the contract documents them
+as two separate response components — `BulkCreateValidationError` and
+`BulkDeleteValidationError` — rather than the shared `ValidationError` the
+single-resource endpoints use.
+
+| Operation | Condition | `details.fields[].path` |
+| --- | --- | --- |
+| bulk-create | a problem in row `i` | `[i].field`, e.g. `[3].amount` |
+| bulk-create | a problem with the array itself (empty, over the row cap) | `$` |
+| bulk-delete | the `ids` array is unusable (missing, empty, over the cap) | `ids` |
+| bulk-delete | the first empty id | `ids[i]`, e.g. `ids[1]` |
+| either | body could not be parsed at all | `details` omitted entirely |
+
+bulk-create **accumulates** every failing row so a client fixing a 500-row CSV
+import does not discover its bad rows one request at a time. bulk-delete stops
+at the first unusable id, because a single bad id invalidates the whole request
+and there is nothing further to act on.
+
+A single shared component for both was wrong and is what the split fixed: it
+documented the create shape and advertised it for bulk-delete too, so generated
+docs promised `[i].field` paths that endpoint never emits. `TestTransactionsBulkLive_ValidationErrorPathsMatchTheContract`
+pins every row of the table above.
+
+Note bulk-delete's error paths cover only *malformed* ids — unknown and unowned
+ids are silently ignored and never produce an error.
 
 Reference-ownership failures stay as the generic `ACCOUNT_NOT_FOUND` /
 `CATEGORY_NOT_FOUND` 404s without row annotation; adding row data there would be

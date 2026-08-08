@@ -990,7 +990,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/BulkValidationError"
+            "$ref": "#/components/responses/BulkCreateValidationError"
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
@@ -1045,7 +1045,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/BulkValidationError"
+            "$ref": "#/components/responses/BulkDeleteValidationError"
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
@@ -1349,8 +1349,8 @@
           }
         }
       },
-      "BulkValidationError": {
-        "description": "The batch is invalid. Every failing row is reported in one response rather than one per request, so a client fixing a large import does not have to discover its bad rows one at a time.\n\n`details.fields[].path` identifies the failure: `[i].field` for a problem in row `i` (zero-based), and `$` for a problem with the array itself, such as being empty or exceeding the row maximum. This indexed shape is an intentional migration decision; the current Hono validator reports the raw Zod error instead.",
+      "BulkCreateValidationError": {
+        "description": "The bulk-create request is invalid.\n\nWhen the body parsed but its contents failed validation, every failing row is reported in one response rather than one per request, so a client fixing a large import does not have to discover its bad rows one at a time. `details.fields[].path` is then `[i].field` for a problem in row `i` (zero-based), or `$` for a problem with the array itself such as being empty or exceeding the 500-row maximum.\n\nWhen the body could not be parsed at all — malformed JSON, an unknown field, or more than one JSON value — there are no per-row paths to report and `details` is omitted entirely.\n\nThe indexed shape is an intentional migration decision; the current Hono validator reports the raw Zod error instead.",
         "content": {
           "application/json": {
             "schema": {
@@ -1390,6 +1390,66 @@
                         }
                       ]
                     }
+                  }
+                }
+              },
+              "malformedBody": {
+                "value": {
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "Request validation failed."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "BulkDeleteValidationError": {
+        "description": "The bulk-delete request is invalid.\n\nFailures are reported against the `ids` array rather than with row indices: `details.fields[].path` is `ids` when the array itself is unusable (missing, empty, or above the 500-id maximum), and `ids[i]` for the first empty id encountered. Unlike bulk-create this operation does not accumulate one error per bad element — a single unusable id makes the whole request invalid, so the first is enough to act on.\n\nWhen the body could not be parsed at all, `details` is omitted entirely.\n\nNote this does not cover unknown or unowned ids: those are silently ignored by the delete and never produce an error.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiErrorResponse"
+            },
+            "examples": {
+              "arrayUnusable": {
+                "value": {
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "Request validation failed.",
+                    "details": {
+                      "fields": [
+                        {
+                          "path": "ids",
+                          "message": "At most 500 ids can be deleted at once."
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "emptyID": {
+                "value": {
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "Request validation failed.",
+                    "details": {
+                      "fields": [
+                        {
+                          "path": "ids[1]",
+                          "message": "Ids must not be empty."
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "malformedBody": {
+                "value": {
+                  "error": {
+                    "code": "VALIDATION_ERROR",
+                    "message": "Request validation failed."
                   }
                 }
               }

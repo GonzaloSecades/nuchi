@@ -565,5 +565,20 @@
   "563": "VerifyEmail200JSONResponse",
   "564": "Strategic Notes",
   "565": "InvalidParamFormatError",
-  "566": "UnescapedCookieParamError"
+  "566": "UnescapedCookieParamError",
+  "567": "UnmarshalingParamError",
+  "568": "BulkCreateTransactions200JSONResponse",
+  "569": "BulkDeleteAccounts200JSONResponse",
+  "570": "ConfirmPasswordReset200JSONResponse",
+  "571": "CreateCategory200JSONResponse",
+  "572": "DeleteCategory200JSONResponse",
+  "573": "GetAccount200JSONResponse",
+  "574": "GetCategory200JSONResponse",
+  "575": "GetTransaction200JSONResponse",
+  "576": "ListAccounts200JSONResponse",
+  "577": "ListTransactions200JSONResponse",
+  "578": "ListTransactions400JSONResponse",
+  "579": "RegisterUser201JSONResponse",
+  "580": "UpdateTransaction200JSONResponse",
+  "581": "VerifyEmail200JSONResponse"
 }

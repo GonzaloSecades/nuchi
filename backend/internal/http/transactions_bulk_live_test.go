@@ -73,9 +73,9 @@ func TestTransactionsBulkLive_CreateHappyPath(t *testing.T) {
 		t.Fatalf("expected 2 created rows, got %d", len(created.Data))
 	}
 
-	// Response order must match request order. The handler reorders the returned
-	// rows by the ids it generated (orderedByRequest), so this is a guarantee by
-	// construction — not an assumption that RETURNING preserves the source
+	// Response order must match request order. The handler rebuilds the pairing
+	// from the ids it generated (matchCreatedToRequested), so this is a guarantee
+	// by construction — not an assumption that RETURNING preserves the source
 	// SELECT's order, which PostgreSQL does not promise.
 	if created.Data[0].Payee != "Market" || created.Data[1].Payee != "Salary" {
 		t.Errorf("expected response order to match request order, got %q then %q",
@@ -480,4 +480,87 @@ func TestTransactionsBulkLive_Unauthorized(t *testing.T) {
 			assertTransactionAPIError(t, rec, http.StatusUnauthorized, "UNAUTHORIZED")
 		})
 	}
+}
+
+// TestTransactionsBulkLive_ValidationErrorPathsMatchTheContract pins the field
+// paths each bulk operation actually emits, because the two differ and the
+// contract now documents them separately.
+//
+// bulk-create reports `[i].field` per failing row and `$` for whole-array
+// problems; bulk-delete reports `ids` and `ids[i]`; an unparseable body on either
+// carries no details at all. A single shared response component previously
+// advertised the create shape for both, so bulk-delete's generated docs promised
+// paths this code never produces.
+func TestTransactionsBulkLive_ValidationErrorPathsMatchTheContract(t *testing.T) {
+	env := newTransactionsTestEnv(t)
+	_, token := env.createAccountsTestUser(t, "bulk-paths")
+	accountID := createTestAccount(t, env.accountsTestEnv, token, "Cash")
+
+	fieldPaths := func(t *testing.T, rec *httptest.ResponseRecorder) []string {
+		t.Helper()
+		if rec.Code != http.StatusBadRequest {
+			t.Fatalf("expected 400, got %d (body: %s)", rec.Code, rec.Body.String())
+		}
+		var parsed struct {
+			Error struct {
+				Details *struct {
+					Fields []struct{ Path string } `json:"fields"`
+				} `json:"details"`
+			} `json:"error"`
+		}
+		if err := json.NewDecoder(rec.Body).Decode(&parsed); err != nil {
+			t.Fatalf("decode: %v", err)
+		}
+		if parsed.Error.Details == nil {
+			return nil
+		}
+		paths := make([]string, 0, len(parsed.Error.Details.Fields))
+		for _, f := range parsed.Error.Details.Fields {
+			paths = append(paths, f.Path)
+		}
+		return paths
+	}
+
+	assertPaths := func(t *testing.T, got, want []string) {
+		t.Helper()
+		if len(got) != len(want) {
+			t.Fatalf("expected paths %v, got %v", want, got)
+		}
+		for i := range want {
+			if got[i] != want[i] {
+				t.Errorf("path %d: expected %q, got %q", i, want[i], got[i])
+			}
+		}
+	}
+
+	t.Run("bulk-create row failure uses [i].field", func(t *testing.T) {
+		rows := bulkCreateRows(accountID, 2)
+		rows[1].Currency = "USD"
+		assertPaths(t, fieldPaths(t, env.do(t, http.MethodPost, "/api/transactions/bulk-create", token, rows)),
+			[]string{"[1].currency"})
+	})
+
+	t.Run("bulk-create whole-array failure uses $", func(t *testing.T) {
+		assertPaths(t, fieldPaths(t, env.do(t, http.MethodPost, "/api/transactions/bulk-create", token, []transactionBody{})),
+			[]string{"$"})
+	})
+
+	t.Run("bulk-delete array failure uses ids", func(t *testing.T) {
+		assertPaths(t, fieldPaths(t, env.do(t, http.MethodPost, "/api/transactions/bulk-delete", token, bulkDeleteBody{Ids: []string{}})),
+			[]string{"ids"})
+	})
+
+	t.Run("bulk-delete empty id uses ids[i]", func(t *testing.T) {
+		assertPaths(t, fieldPaths(t, env.do(t, http.MethodPost, "/api/transactions/bulk-delete", token,
+			bulkDeleteBody{Ids: []string{"ok", ""}})), []string{"ids[1]"})
+	})
+
+	// An unparseable body has nothing to index, so details is omitted on both.
+	t.Run("malformed body carries no details", func(t *testing.T) {
+		for _, path := range []string{"/api/transactions/bulk-create", "/api/transactions/bulk-delete"} {
+			if got := fieldPaths(t, env.do(t, http.MethodPost, path, token, []byte(`{"not":"valid here"`))); got != nil {
+				t.Errorf("%s: expected no details for a malformed body, got %v", path, got)
+			}
+		}
+	})
 }

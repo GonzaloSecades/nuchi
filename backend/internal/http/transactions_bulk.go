@@ -51,7 +51,10 @@ type bulkTransactionRow struct {
 //
 // Every row is validated before anything is written, and the insert is a single
 // statement inside one transaction, so "no partial insert" is structural rather
-// than something unwound on failure.
+// than something unwound on failure. The returned id set is verified against the
+// requested one before that transaction commits, so a batch that did not land
+// exactly as asked rolls back instead of returning a successful-looking short
+// response.
 func (s *ResourceServer) BulkCreateTransactions(w http.ResponseWriter, r *http.Request) {
 	var body []transactionInputBody
 	switch decodeBulkBody(w, r, &body, maxBulkCreateBodyBytes) {
@@ -60,14 +63,14 @@ func (s *ResourceServer) BulkCreateTransactions(w http.ResponseWriter, r *http.R
 		_ = resp.VisitBulkCreateTransactionsResponse(w)
 		return
 	case bodyDecodeMalformed:
-		resp := openapi.BulkCreateTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError()}
+		resp := openapi.BulkCreateTransactions400JSONResponse{BulkCreateValidationErrorJSONResponse: bulkCreateValidationError()}
 		_ = resp.VisitBulkCreateTransactionsResponse(w)
 		return
 	}
 
 	inputs, fields := validateBulkTransactionInputs(body)
 	if len(fields) > 0 {
-		resp := openapi.BulkCreateTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError(fields...)}
+		resp := openapi.BulkCreateTransactions400JSONResponse{BulkCreateValidationErrorJSONResponse: bulkCreateValidationError(fields...)}
 		_ = resp.VisitBulkCreateTransactionsResponse(w)
 		return
 	}
@@ -105,7 +108,7 @@ func (s *ResourceServer) BulkCreateTransactions(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	var created []dbgen.Transaction
+	var ordered []openapi.Transaction
 	txErr, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		if err := validateBulkTransactionReferences(r, q, userID, inputs); err != nil {
 			return err
@@ -115,15 +118,19 @@ func (s *ResourceServer) BulkCreateTransactions(w http.ResponseWriter, r *http.R
 			// A referenced row may have been deleted since the checks above.
 			return referenceErrorFromForeignKeyViolation(err)
 		}
-		// Checked before the transaction commits, not after. A short RETURNING
-		// set means the batch did not fully land, and returning here rolls it
-		// back; discovering the mismatch after commit could only produce a
-		// successful-looking response that silently dropped rows, with the
-		// partial insert already durable.
-		if len(out) != len(rows) {
-			return fmt.Errorf("httpapi: bulk create inserted %d of %d rows", len(out), len(rows))
+		// Checked before the transaction commits, not after: a mismatch here
+		// rolls the batch back, whereas discovering it afterwards could only
+		// produce a successful-looking response that silently dropped rows,
+		// with the partial insert already durable.
+		//
+		// The check is on the id *set*, not the row count. Equal counts do not
+		// prove the right rows came back — a duplicate, an unexpected id, or a
+		// trigger that rewrote one would all keep the length intact while
+		// breaking the request-to-response correspondence.
+		ordered, err = matchCreatedToRequested(rows, out)
+		if err != nil {
+			return err
 		}
-		created = out
 		return nil
 	})
 	if !ok {
@@ -132,7 +139,7 @@ func (s *ResourceServer) BulkCreateTransactions(w http.ResponseWriter, r *http.R
 
 	switch {
 	case txErr == nil:
-		resp := openapi.BulkCreateTransactions200JSONResponse{Data: orderedByRequest(rows, created)}
+		resp := openapi.BulkCreateTransactions200JSONResponse{Data: ordered}
 		_ = resp.VisitBulkCreateTransactionsResponse(w)
 	case errors.Is(txErr, errAccountReferenceNotFound):
 		resp := openapi.BulkCreateTransactions404JSONResponse{TransactionReferenceNotFoundErrorJSONResponse: accountReferenceNotFoundError()}
@@ -158,13 +165,13 @@ func (s *ResourceServer) BulkDeleteTransactions(w http.ResponseWriter, r *http.R
 		_ = resp.VisitBulkDeleteTransactionsResponse(w)
 		return
 	case bodyDecodeMalformed:
-		resp := openapi.BulkDeleteTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError()}
+		resp := openapi.BulkDeleteTransactions400JSONResponse{BulkDeleteValidationErrorJSONResponse: bulkDeleteValidationError()}
 		_ = resp.VisitBulkDeleteTransactionsResponse(w)
 		return
 	}
 
 	if fields := validateTransactionBulkDeleteIDs(body.Ids); len(fields) > 0 {
-		resp := openapi.BulkDeleteTransactions400JSONResponse{BulkValidationErrorJSONResponse: bulkValidationError(fields...)}
+		resp := openapi.BulkDeleteTransactions400JSONResponse{BulkDeleteValidationErrorJSONResponse: bulkDeleteValidationError(fields...)}
 		_ = resp.VisitBulkDeleteTransactionsResponse(w)
 		return
 	}
@@ -207,23 +214,29 @@ func (s *ResourceServer) BulkDeleteTransactions(w http.ResponseWriter, r *http.R
 	_ = resp.VisitBulkDeleteTransactionsResponse(w)
 }
 
-// orderedByRequest returns the created rows in the order they were requested.
+// matchCreatedToRequested pairs the rows the database returned back to the rows
+// that were requested, in request order, and fails if the two sets do not match
+// exactly.
 //
-// PostgreSQL does not guarantee that RETURNING emits rows in the order the
-// source SELECT produced them, so the response order cannot be established in
-// SQL without relying on executor behavior. Since this handler generated the
-// ids itself, it can pair them up directly — the correspondence is then a
-// property of the code rather than an assumption, which matters for the CSV
-// import flow, where a client maps each response row back to the spreadsheet
-// row that produced it.
+// Ordering and verification are one function on purpose. PostgreSQL does not
+// promise that RETURNING emits rows in the source SELECT's order, so the
+// correspondence has to be rebuilt in Go — and rebuilding it is precisely when a
+// mismatch becomes visible. Splitting them would allow ordering without
+// verifying, which is the bug this replaced: a length-only check passed an
+// equal-sized but wrong id set, and the ordering step then silently skipped the
+// unmatched rows and returned a short 200.
 //
-// A cardinality mismatch is caught inside the transaction, before commit, so by
-// the time this runs every requested id is present. The lookup miss below is
-// therefore unreachable; it is here so a future change cannot turn a missing row
-// into a zero-valued transaction in the response.
-func orderedByRequest(requested []bulkTransactionRow, created []dbgen.Transaction) []openapi.Transaction {
+// Since the handler generates the ids itself, "the right rows" is exactly "the
+// ids I sent, each once". Anything else — a missing id, an unexpected one, a
+// duplicate — is a broken invariant rather than something to paper over, and the
+// caller runs this inside the transaction so returning an error rolls the batch
+// back.
+func matchCreatedToRequested(requested []bulkTransactionRow, created []dbgen.Transaction) ([]openapi.Transaction, error) {
 	byID := make(map[string]dbgen.Transaction, len(created))
 	for _, row := range created {
+		if _, duplicate := byID[row.ID]; duplicate {
+			return nil, fmt.Errorf("httpapi: bulk create returned id %q more than once", row.ID)
+		}
 		byID[row.ID] = row
 	}
 
@@ -231,11 +244,18 @@ func orderedByRequest(requested []bulkTransactionRow, created []dbgen.Transactio
 	for _, row := range requested {
 		found, ok := byID[row.ID]
 		if !ok {
-			continue
+			return nil, fmt.Errorf("httpapi: bulk create did not return requested id %q", row.ID)
 		}
+		delete(byID, row.ID)
 		ordered = append(ordered, toTransaction(found))
 	}
-	return ordered
+
+	// Whatever is left was never asked for.
+	for id := range byID {
+		return nil, fmt.Errorf("httpapi: bulk create returned unrequested id %q", id)
+	}
+
+	return ordered, nil
 }
 
 // validateBulkTransactionReferences proves the caller owns every distinct
@@ -360,13 +380,26 @@ func validateTransactionBulkDeleteIDs(ids []string) []apiFieldError {
 
 // --- errors ---------------------------------------------------------------
 
-// bulkValidationError builds the contract's BulkValidationError body. Same
-// envelope as the single-resource ValidationError, but a distinct response
-// component so the contract can document the indexed `[i].field` / `$` paths
-// and the collect-every-failure behavior, which generated clients would
-// otherwise never see.
-func bulkValidationError(fields ...apiFieldError) openapi.BulkValidationErrorJSONResponse {
-	return openapi.BulkValidationErrorJSONResponse(validationError(fields...))
+// bulkCreateValidationError and bulkDeleteValidationError build the two
+// operation-specific bulk validation bodies.
+//
+// The envelope is the same as the single-resource ValidationError in every case;
+// what differs is what the contract documents, and the two operations genuinely
+// differ there. bulk-create reports `[i].field` per failing row and `$` for
+// whole-array problems, accumulating every failure. bulk-delete reports `ids`
+// when the array itself is unusable and `ids[i]` for the first empty id, and
+// stops at the first. A single shared component described one of those and
+// advertised it for both, so generated docs for bulk-delete promised a shape
+// this code never produces.
+//
+// Called with no fields for an unparseable body, where there is nothing to
+// index and `details` is omitted — also now documented on both.
+func bulkCreateValidationError(fields ...apiFieldError) openapi.BulkCreateValidationErrorJSONResponse {
+	return openapi.BulkCreateValidationErrorJSONResponse(validationError(fields...))
+}
+
+func bulkDeleteValidationError(fields ...apiFieldError) openapi.BulkDeleteValidationErrorJSONResponse {
+	return openapi.BulkDeleteValidationErrorJSONResponse(validationError(fields...))
 }
 
 func requestBodyTooLargeError() openapi.RequestBodyTooLargeErrorJSONResponse {
