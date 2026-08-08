@@ -257,3 +257,67 @@ describe('createAuthenticatedFetch', () => {
     expect(calls[1].url).toBe('http://localhost:3000/api/auth/refresh');
   });
 });
+
+describe('createAuthenticatedFetch resilience', () => {
+  let token: string | null = 'initial-token';
+  const store = () => ({
+    getToken: () => token,
+    setToken: (next: string | null) => {
+      token = next;
+    },
+    clearToken: () => {
+      token = null;
+    },
+  });
+
+  // A dropped connection during refresh must surface as the original 401, not
+  // as a thrown fetch error. Otherwise a transient network blip turns into a
+  // crash in whichever query happened to trigger the renewal, which looks
+  // nothing like the 401 the same situation produces when online.
+  it('returns the original 401 when the refresh request throws', async () => {
+    token = 'initial-token';
+    let calls = 0;
+    const fetchImpl = (async (input: RequestInfo | URL) => {
+      calls += 1;
+      if (String(input).endsWith('/api/auth/refresh')) {
+        throw new TypeError('network error');
+      }
+      return jsonResponse(401, {
+        error: { code: 'ACCESS_TOKEN_EXPIRED', message: 'Access token expired.' },
+      });
+    }) as unknown as typeof globalThis.fetch;
+
+    const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
+
+    const response = await authed('/api/accounts');
+
+    expect(response.status).toBe(401);
+    expect(calls).toBe(2);
+  });
+
+  // The shared promise must also be released after a throwing refresh, or the
+  // session could never recover once the network came back.
+  it('can refresh again after a failed refresh', async () => {
+    token = 'initial-token';
+    let refreshAttempts = 0;
+    let resourceAttempts = 0;
+
+    const fetchImpl = (async (input: RequestInfo | URL) => {
+      if (String(input).endsWith('/api/auth/refresh')) {
+        refreshAttempts += 1;
+        if (refreshAttempts === 1) throw new TypeError('network error');
+        return jsonResponse(200, { data: { accessToken: 'recovered' } });
+      }
+      resourceAttempts += 1;
+      return resourceAttempts >= 3
+        ? jsonResponse(200, {})
+        : jsonResponse(401, { error: { code: 'ACCESS_TOKEN_EXPIRED' } });
+    }) as unknown as typeof globalThis.fetch;
+
+    const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
+
+    expect((await authed('/api/accounts')).status).toBe(401);
+    expect((await authed('/api/accounts')).status).toBe(200);
+    expect(refreshAttempts).toBe(2);
+  });
+});

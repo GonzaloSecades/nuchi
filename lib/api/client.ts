@@ -15,12 +15,32 @@ import { ApiError, type ApiErrorDetails } from '@/lib/api-error';
  * here, and a client built elsewhere would silently skip it.
  *
  * Requests stay **same-origin**: `resolveApiBaseUrl()` returns `''` in the
- * browser, so calls go to `/api/*` on the Next origin and are proxied to Go
- * (#30). Cookies therefore stay first-party and no CORS setup is involved.
+ * browser, so calls go to the Next origin and are proxied to Go (#30). Cookies
+ * therefore stay first-party and no CORS setup is involved.
  */
+
+/**
+ * The origin the API is reached through. `''` in the browser, so requests are
+ * same-origin and relative.
+ */
+const apiOrigin = resolveApiBaseUrl();
+
+/**
+ * The base every generated operation is resolved against.
+ *
+ * The `/api` suffix is required. Contract paths are rooted at `/`
+ * (`/accounts`, `/summary`, …) and the `/api` prefix comes from the contract's
+ * `servers[].url` — but openapi-fetch does not read `servers`, it only prepends
+ * `baseUrl`. Passing the bare origin would send `GET('/accounts')` to
+ * `/accounts` and 404, silently missing the proxy entirely.
+ */
+export const API_BASE_URL = `${apiOrigin}/api`;
+
 export const apiClient = createClient<paths>({
-  baseUrl: resolveApiBaseUrl(),
-  fetch: createAuthenticatedFetch({ baseUrl: resolveApiBaseUrl() }),
+  baseUrl: API_BASE_URL,
+  // The origin, not API_BASE_URL: the refresh path this uses already includes
+  // `/api`, so handing it the suffixed base would produce `/api/api/auth/refresh`.
+  fetch: createAuthenticatedFetch({ baseUrl: apiOrigin }),
 });
 
 /**

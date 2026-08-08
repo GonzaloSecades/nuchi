@@ -72,11 +72,21 @@ export function createAuthenticatedFetch({
    * cookie, and this is the only request that needs it.
    */
   async function refresh(): Promise<boolean> {
-    const response = await fetchImpl(`${baseUrl}${REFRESH_PATH}`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-    });
+    // A transient network failure must not escape as a thrown refresh. The
+    // caller's contract is "return the original 401 if the session cannot be
+    // renewed"; letting this reject would instead surface a fetch error to
+    // whichever query happened to trigger the refresh, which is both confusing
+    // and different from what a plain 401 would have done.
+    let response: Response;
+    try {
+      response = await fetchImpl(`${baseUrl}${REFRESH_PATH}`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch {
+      return false;
+    }
 
     if (!response.ok) {
       // The session is over. Clearing here rather than leaving a stale token

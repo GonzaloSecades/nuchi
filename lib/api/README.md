@@ -31,10 +31,21 @@ unauthenticated requests.
 
 ## Same-origin, always
 
-`resolveApiBaseUrl()` returns `''` in the browser, so calls go to `/api/*` on the
-Next origin and are proxied to Go by the rewrite from #30. Cookies stay
-first-party and no CORS configuration is involved. The browser never learns the
-backend's address.
+The client's base URL is `` `${resolveApiBaseUrl()}/api` `` — exported as
+`API_BASE_URL`. `resolveApiBaseUrl()` returns `''` in the browser, so that
+resolves to a relative `/api`, calls go to the Next origin, and the rewrite from
+#30 proxies them to Go. Cookies stay first-party, no CORS configuration is
+involved, and the browser never learns the backend's address.
+
+**The `/api` suffix is required, not decorative.** Contract paths are rooted at
+`/` (`/accounts`, `/summary`, …) and the `/api` prefix lives in the contract's
+`servers[].url` — which openapi-fetch does not read. It only prepends `baseUrl`.
+A bare origin would send `GET('/accounts')` to `/accounts`, which 404s and never
+reaches the proxy at all.
+
+Note `createAuthenticatedFetch` is given the **origin**, not `API_BASE_URL`: the
+refresh path it uses already includes `/api`, so the suffixed base would produce
+`/api/api/auth/refresh`.
 
 ## Tokens
 

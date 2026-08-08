@@ -24,7 +24,15 @@ export function getAccessToken(): string | null {
 export function setAccessToken(token: string | null): void {
   accessToken = token;
   for (const notify of subscribers) {
-    notify(token);
+    // One broken listener must not stop the others from being told, and must
+    // not fail the caller. This runs inside the refresh path: a subscriber
+    // throwing here would turn a successful token renewal into a failed
+    // request.
+    try {
+      notify(token);
+    } catch (error) {
+      console.error('[api] access token subscriber threw', error);
+    }
   }
 }
 
