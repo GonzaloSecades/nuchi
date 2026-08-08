@@ -101,7 +101,8 @@ export function toApiError(
  * which is subject to change and to translation. `DUPLICATE_ACCOUNT_NAME` and
  * `ACCESS_TOKEN_EXPIRED` are the ones the UI currently cares about.
  */
-export function apiErrorCode(errorBody: unknown): string | null {
+export function apiErrorCode(error: unknown): string | null {
+  const errorBody = error instanceof ApiError ? error.details.errorData : error;
   const code = (errorBody as ApiErrorEnvelope | null)?.error?.code;
   return typeof code === 'string' ? code : null;
 }

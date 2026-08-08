@@ -115,6 +115,25 @@ describe('apiErrorCode', () => {
     expect(apiErrorCode({ error: {} })).toBeNull();
     expect(apiErrorCode('not an envelope')).toBeNull();
   });
+
+  it('reads the code from the ApiError thrown by unwrap', () => {
+    const response = failed(409, 'Conflict');
+    let caught: unknown;
+    try {
+      unwrap(
+        {
+          error: { error: { code: 'DUPLICATE_ACCOUNT_NAME' } },
+          response,
+        },
+        'accounts'
+      );
+    } catch (error) {
+      caught = error;
+    }
+
+    expect(caught).toBeInstanceOf(ApiError);
+    expect(apiErrorCode(caught)).toBe('DUPLICATE_ACCOUNT_NAME');
+  });
 });
 
 describe('unwrap', () => {

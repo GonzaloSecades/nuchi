@@ -56,19 +56,22 @@ That combination is deliberate: `localStorage` or a readable cookie would hand
 any XSS a credential it could exfiltrate and reuse elsewhere. In memory, a
 successful XSS still has to act inside the page.
 
-The cost is that a fresh page load starts with no access token. That is fine —
-the refresh cookie is sent automatically, so the first request 401s, triggers a
-refresh, and retries without the user noticing.
+The cost is that a fresh page load starts with no access token. When the first
+protected request receives `UNAUTHORIZED` without having sent an Authorization
+header, the client exchanges the refresh cookie and retries without the user
+noticing. Auth endpoints never enter this bootstrap path.
 
 ## Refresh behavior
 
 On `401` with code `ACCESS_TOKEN_EXPIRED`, the client refreshes once and retries
-the original request.
+the original request. It also does this for the missing-token `UNAUTHORIZED`
+case described above so a full page reload can resume an existing session.
 
 Three rules worth knowing before changing this:
 
-- **Only that code triggers a refresh.** Any other 401 is a credential problem
-  that rotating will not fix; retrying would just double the failed requests.
+- **Only expiry or missing-token bootstrap triggers a refresh.** Any other 401
+  is a credential problem that rotating will not fix; retrying would just
+  double the failed requests.
 - **One refresh at a time.** A dashboard fires several queries at once, so an
   expired token produces several simultaneous 401s. Without a shared in-flight
   promise, the first refresh rotates the token and the rest present the consumed

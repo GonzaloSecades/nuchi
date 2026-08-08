@@ -1645,33 +1645,33 @@
     "semantic_hash": ""
   },
   "lib/api/authenticated-fetch.test.ts": {
-    "mtime": 1786216986.0684435,
-    "ast_hash": "5ca79d78adf2cbeee344660d8b2cd061",
+    "mtime": 1786225937.188146,
+    "ast_hash": "518a7146cab645cf572ec4d0f2f40c94",
     "semantic_hash": ""
   },
   "lib/api/authenticated-fetch.ts": {
-    "mtime": 1786216938.831667,
-    "ast_hash": "ac42a23d4c6abb13a906c6d0ce3e000b",
+    "mtime": 1786225937.1871493,
+    "ast_hash": "08295cf3dd15612980c3101a9cce9a96",
     "semantic_hash": ""
   },
   "lib/api/client.ts": {
-    "mtime": 1786216938.831667,
-    "ast_hash": "73c2ae513c195b0721d12fd542babf13",
+    "mtime": 1786225937.1891532,
+    "ast_hash": "6e8b92ccaabd90210641f076fcb931a9",
     "semantic_hash": ""
   },
   "lib/api/token-store.ts": {
-    "mtime": 1786216938.831667,
-    "ast_hash": "640930f65abed15ef554cbe70ff7da79",
+    "mtime": 1786225657.6504858,
+    "ast_hash": "0dd50200e77e0ff8aa7241330c165476",
     "semantic_hash": ""
   },
   "lib/api/README.md": {
-    "mtime": 1786217069.418729,
-    "ast_hash": "5fa8086646d4c2287892bdb5fce41def",
+    "mtime": 1786225937.1851552,
+    "ast_hash": "d558d7adee63ee2e13e289db2f756c23",
     "semantic_hash": ""
   },
   "lib/api/client.test.ts": {
-    "mtime": 1786217005.0426009,
-    "ast_hash": "4d3ede740a77964f25cf2974e2a81e87",
+    "mtime": 1786225937.1911497,
+    "ast_hash": "e266f37cfdc5807a7b8599ea7846c260",
     "semantic_hash": ""
   },
   "lib/api/token-store.test.ts": {

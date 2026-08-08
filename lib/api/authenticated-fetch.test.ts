@@ -72,6 +72,28 @@ describe('createAuthenticatedFetch', () => {
     expect(headers.get('Authorization')).toBeNull();
   });
 
+  it('bootstraps a fresh page session from the refresh cookie', async () => {
+    token = null;
+    const { fetchImpl, calls } = recordingFetch([
+      unauthorized,
+      () => jsonResponse(200, { data: { accessToken: 'bootstrapped-token' } }),
+      () => jsonResponse(200, { data: [] }),
+    ]);
+    const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
+
+    const response = await authed('/api/accounts');
+
+    expect(response.status).toBe(200);
+    expect(calls.map((call) => call.url)).toEqual([
+      '/api/accounts',
+      '/api/auth/refresh',
+      '/api/accounts',
+    ]);
+    expect(new Headers(calls[2].init?.headers).get('Authorization')).toBe(
+      'Bearer bootstrapped-token'
+    );
+  });
+
   // The refresh token is an httpOnly cookie, so it only travels when the
   // request opts into sending credentials.
   it('always includes credentials so the refresh cookie travels', async () => {
@@ -93,6 +115,29 @@ describe('createAuthenticatedFetch', () => {
 
     expect(response.status).toBe(200);
     expect(callCount()).toBe(1);
+  });
+
+  it('preserves headers carried by an openapi-fetch Request', async () => {
+    let effectiveHeaders = new Headers();
+    const fetchImpl = (async (input: RequestInfo | URL, init?: RequestInit) => {
+      effectiveHeaders = new Request(input, init).headers;
+      return jsonResponse(200, {});
+    }) as unknown as typeof globalThis.fetch;
+    const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
+    const request = new Request('http://localhost:3000/api/transactions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Operation-Header': 'generated-value',
+      },
+      body: JSON.stringify({ amount: 1000 }),
+    });
+
+    await authed(request);
+
+    expect(effectiveHeaders.get('Content-Type')).toBe('application/json');
+    expect(effectiveHeaders.get('X-Operation-Header')).toBe('generated-value');
+    expect(effectiveHeaders.get('Authorization')).toBe('Bearer initial-token');
   });
 
   it('refreshes and retries once when the token has expired', async () => {
@@ -118,8 +163,36 @@ describe('createAuthenticatedFetch', () => {
     expect(token).toBe('fresh-token');
   });
 
-  // Any 401 that is not the documented expiry carve-out is a credential
-  // problem; rotating would not fix it and retrying only doubles the failures.
+  it('retries a mutation with an unconsumed clone of its Request body', async () => {
+    const bodies: string[] = [];
+    let resourceAttempts = 0;
+    const fetchImpl = (async (input: RequestInfo | URL) => {
+      const url = input instanceof Request ? input.url : String(input);
+      if (url.endsWith('/api/auth/refresh')) {
+        return jsonResponse(200, { data: { accessToken: 'fresh-token' } });
+      }
+      if (!(input instanceof Request)) {
+        throw new Error('expected openapi-fetch to supply a Request');
+      }
+      bodies.push(await input.text());
+      resourceAttempts += 1;
+      return resourceAttempts === 1 ? expired() : jsonResponse(200, {});
+    }) as unknown as typeof globalThis.fetch;
+    const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
+    const body = JSON.stringify({ ids: ['txn-1', 'txn-2'] });
+    const request = new Request(
+      'http://localhost:3000/api/transactions/bulk-delete',
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }
+    );
+
+    const response = await authed(request);
+
+    expect(response.status).toBe(200);
+    expect(bodies).toEqual([body, body]);
+  });
+
+  // With a token already attached, any 401 that is not the documented expiry
+  // carve-out is a credential problem; rotating would not fix it.
   it('does not refresh on a non-expiry 401', async () => {
     const { fetchImpl, callCount } = recordingFetch([unauthorized]);
     const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
@@ -129,6 +202,15 @@ describe('createAuthenticatedFetch', () => {
     expect(response.status).toBe(401);
     expect(callCount()).toBe(1);
     expect(token).toBe('initial-token');
+  });
+
+  it('does not bootstrap a public auth endpoint', async () => {
+    token = null;
+    const { fetchImpl, callCount } = recordingFetch([unauthorized]);
+    const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
+
+    expect((await authed('/api/auth/login')).status).toBe(401);
+    expect(callCount()).toBe(1);
   });
 
   it('does not refresh on a 401 with no parseable body', async () => {

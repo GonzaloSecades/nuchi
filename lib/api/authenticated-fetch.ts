@@ -10,9 +10,11 @@ const REFRESH_PATH = '/api/auth/refresh';
 /**
  * The contract's carve-out: an otherwise valid but expired access token is
  * reported with this code so a client knows to refresh rather than re-prompt
- * for credentials. Any other 401 means the credentials themselves are no good.
+ * for credentials. The only other refreshable 401 is a missing-token
+ * UNAUTHORIZED response after a full page reload.
  */
 const EXPIRED_CODE = 'ACCESS_TOKEN_EXPIRED';
+const UNAUTHORIZED_CODE = 'UNAUTHORIZED';
 
 type Dependencies = {
   fetch?: typeof globalThis.fetch;
@@ -114,32 +116,78 @@ export function createAuthenticatedFetch({
     return inFlightRefresh;
   }
 
-  function withAuthorization(init: RequestInit | undefined): RequestInit {
+  function withAuthorization(
+    input: RequestInfo | URL,
+    init: RequestInit | undefined
+  ): RequestInit {
+    // openapi-fetch supplies a Request whose generated Content-Type and
+    // operation headers live on input, normally with no second init argument.
+    // Preserve those headers, then apply explicit init overrides before adding
+    // the current token.
+    const headers = new Headers(
+      input instanceof Request ? input.headers : undefined
+    );
+    new Headers(init?.headers).forEach((value, name) =>
+      headers.set(name, value)
+    );
+
     const token = getToken();
-    if (!token) {
-      return { ...init, credentials: 'include' };
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
     }
-    const headers = new Headers(init?.headers);
-    headers.set('Authorization', `Bearer ${token}`);
     return { ...init, headers, credentials: 'include' };
   }
 
+  function requestPath(input: RequestInfo | URL): string {
+    const value =
+      input instanceof Request
+        ? input.url
+        : input instanceof URL
+          ? input.href
+          : input;
+    try {
+      return new URL(value, 'http://same-origin.invalid').pathname;
+    } catch {
+      return '';
+    }
+  }
+
+  function isAuthRequest(input: RequestInfo | URL): boolean {
+    return requestPath(input).startsWith('/api/auth/');
+  }
+
   return async function authenticatedFetch(input, init) {
-    const response = await fetchImpl(input, withAuthorization(init));
+    // Clone before native fetch consumes the body. The clone is reserved for
+    // the one permitted retry and is especially important for generated POST,
+    // PATCH, and bulk mutation Requests.
+    const retryInput = input instanceof Request ? input.clone() : input;
+    const startedWithoutToken = getToken() === null;
+    const firstInit = withAuthorization(input, init);
+    const startedWithoutAuthorization = !new Headers(firstInit.headers).has(
+      'Authorization'
+    );
+    const response = await fetchImpl(input, firstInit);
 
     if (response.status !== 401) {
       return response;
     }
 
-    // Only an expired token is refreshable. A bad signature or a missing header
-    // is not going to be fixed by rotating, and retrying would just double the
-    // failed requests.
-    if ((await readErrorCode(response)) !== EXPIRED_CODE) {
+    // Auth operations use either no authentication or the refresh cookie; they
+    // must never trigger this resource-request refresh path.
+    if (isAuthRequest(input)) {
       return response;
     }
 
-    // Refreshing the refresh call itself would recurse forever.
-    if (typeof input === 'string' && input.endsWith(REFRESH_PATH)) {
+    const errorCode = await readErrorCode(response);
+    const canBootstrapSession =
+      startedWithoutToken &&
+      startedWithoutAuthorization &&
+      errorCode === UNAUTHORIZED_CODE;
+
+    // An expired token is refreshable. A missing token is also refreshable for
+    // the first protected request after a page load, when only the httpOnly
+    // refresh cookie survives. Other 401s indicate rejected credentials.
+    if (errorCode !== EXPIRED_CODE && !canBootstrapSession) {
       return response;
     }
 
@@ -147,6 +195,6 @@ export function createAuthenticatedFetch({
       return response;
     }
 
-    return fetchImpl(input, withAuthorization(init));
+    return fetchImpl(retryInput, withAuthorization(retryInput, init));
   };
 }

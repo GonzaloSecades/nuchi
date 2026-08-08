@@ -1,3 +1,5 @@
+import 'client-only';
+
 /**
  * In-memory holder for the current access token.
  *
@@ -7,9 +9,12 @@
  * Keeping it in a module variable means a successful XSS still has to act inside
  * the page rather than walking away with the token.
  *
- * The cost is that a full page load starts with no access token. That is fine:
- * the refresh cookie is sent automatically, so the first 401 triggers a refresh
- * and the session resumes without the user noticing.
+ * The client-only marker is load-bearing: a module-level token in a Next server
+ * bundle would be shared by unrelated requests and users.
+ *
+ * The cost is that a full page load starts with no access token. The fetch
+ * wrapper recognizes an unauthenticated protected request, exchanges the
+ * refresh cookie, and retries without the user noticing.
  */
 
 let accessToken: string | null = null;
