@@ -6,6 +6,7 @@ import (
 
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -35,7 +36,21 @@ import (
 // easy to ship by accident, which is why every owned-resource query must
 // route through this helper instead.
 func WithUserTx(ctx context.Context, pool *pgxpool.Pool, userID uuid.UUID, fn func(*dbgen.Queries) error) error {
-	tx, err := pool.Begin(ctx)
+	return WithUserTxOptions(ctx, pool, userID, pgx.TxOptions{}, fn)
+}
+
+// WithUserTxOptions is WithUserTx with explicit transaction semantics.
+// Callers that issue several related reads can request RepeatableRead so every
+// statement observes one database snapshot while retaining the same mandatory
+// transaction-local RLS binding.
+func WithUserTxOptions(
+	ctx context.Context,
+	pool *pgxpool.Pool,
+	userID uuid.UUID,
+	options pgx.TxOptions,
+	fn func(*dbgen.Queries) error,
+) error {
+	tx, err := pool.BeginTx(ctx, options)
 	if err != nil {
 		return fmt.Errorf("db: begin user tx: %w", err)
 	}

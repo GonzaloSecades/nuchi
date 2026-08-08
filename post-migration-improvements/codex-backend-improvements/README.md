@@ -35,7 +35,9 @@ Read in this order:
    phases, evidence, and release gates.
 6. [`Codex-atomic-multi-chunk-transaction-imports.md`](Codex-atomic-multi-chunk-transaction-imports.md)
    is the first scoped proposal produced from a migration review.
-7. [`templates/`](templates/) contains the required proposal and endpoint
+7. [`Codex-summary-aggregate-contract-range.md`](Codex-summary-aggregate-contract-range.md)
+   records the summary range mismatch that needs an explicit contract decision.
+8. [`templates/`](templates/) contains the required proposal and endpoint
    review templates.
 
 ## Decision hierarchy

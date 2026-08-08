@@ -16,6 +16,7 @@ import (
 	"github.com/GonzaloSecades/nuchi/backend/internal/ratelimit"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -153,6 +154,8 @@ type resourceServerMethods interface {
 	DeleteTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	BulkCreateTransactions(w http.ResponseWriter, r *http.Request)
 	BulkDeleteTransactions(w http.ResponseWriter, r *http.Request)
+
+	GetSummary(w http.ResponseWriter, r *http.Request, params openapi.GetSummaryParams)
 }
 
 var _ resourceServerMethods = (*ResourceServer)(nil)
@@ -202,6 +205,42 @@ func optionalQueryParam(query url.Values, key string) *string {
 	return &value
 }
 
+// accountIDFilter converts the optional accountId query parameter into the
+// nullable value the transaction and summary queries take.
+//
+// nil means the parameter was omitted, so no filter applies. A present but
+// empty value is rejected: accountId references ResourceId (minLength 1), so
+// `?accountId=` is malformed for the same reason `?from=` is, rather than
+// silently meaning "no filter". Shared by ListTransactions and GetSummary so
+// the two cannot drift.
+func accountIDFilter(accountID *string) (pgtype.Text, error) {
+	if accountID == nil {
+		return pgtype.Text{}, nil
+	}
+	if *accountID == "" {
+		// A plain error, not dateRangeError: that type is documented as carrying
+		// one of the three date-range messages, and widening it to cover
+		// accountId would make its own documentation untrue. The response is
+		// identical either way -- the caller only reads Error().
+		return pgtype.Text{}, errors.New("accountId must not be empty.")
+	}
+	return pgtype.Text{String: *accountID, Valid: true}, nil
+}
+
+// withSummaryParams adapts the generated (w, r, params) signature to a plain
+// chi handler. Like the transaction list, from/to are left for the handler to
+// read raw — openapi_types.Date cannot carry a malformed value, and the three
+// INVALID_QUERY messages exist precisely for those inputs.
+func withSummaryParams(fn func(w http.ResponseWriter, r *http.Request, params openapi.GetSummaryParams)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var params openapi.GetSummaryParams
+		if accountID := optionalQueryParam(r.URL.Query(), "accountId"); accountID != nil {
+			params.AccountId = accountID
+		}
+		fn(w, r, params)
+	}
+}
+
 // withUser resolves the authenticated user id from r's context and, if
 // present, runs fn inside db.WithUserTx bound to that user (internal/db/
 // rls.go — the only sanctioned way to touch accounts/categories/
@@ -216,13 +255,26 @@ func optionalQueryParam(query url.Values, key string) *string {
 // 6.4) against ever binding app.user_id to the zero UUID. Callers must
 // check ok before using err.
 func (s *ResourceServer) withUser(w http.ResponseWriter, r *http.Request, fn func(userID uuid.UUID, q *dbgen.Queries) error) (err error, ok bool) {
+	return s.withUserTxOptions(w, r, pgx.TxOptions{}, fn)
+}
+
+// withUserTxOptions is withUser with explicit transaction options. Most
+// resource operations use PostgreSQL's defaults through withUser; aggregate
+// read models can opt into a stable snapshot without bypassing the shared RLS
+// binding path.
+func (s *ResourceServer) withUserTxOptions(
+	w http.ResponseWriter,
+	r *http.Request,
+	options pgx.TxOptions,
+	fn func(userID uuid.UUID, q *dbgen.Queries) error,
+) (err error, ok bool) {
 	userID, ok := UserIDFromContext(r.Context())
 	if !ok {
 		writeUnauthorizedError(w)
 		return nil, false
 	}
 
-	err = db.WithUserTx(r.Context(), s.pool, userID, func(q *dbgen.Queries) error {
+	err = db.WithUserTxOptions(r.Context(), s.pool, userID, options, func(q *dbgen.Queries) error {
 		return fn(userID, q)
 	})
 	return err, true
