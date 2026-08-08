@@ -1660,8 +1660,8 @@
     "semantic_hash": ""
   },
   "lib/api/token-store.ts": {
-    "mtime": 1786225657.6504858,
-    "ast_hash": "0dd50200e77e0ff8aa7241330c165476",
+    "mtime": 1786226692.811242,
+    "ast_hash": "30d9650a39eac9d23dab53a7eafd4ca2",
     "semantic_hash": ""
   },
   "lib/api/README.md": {
@@ -1675,8 +1675,8 @@
     "semantic_hash": ""
   },
   "lib/api/token-store.test.ts": {
-    "mtime": 1786216986.1464427,
-    "ast_hash": "bbd4deee85149b1aa20cb1d5354481cc",
+    "mtime": 1786226704.6907957,
+    "ast_hash": "ea05d46d5e0e439545ed368c03e24bc8",
     "semantic_hash": ""
   }
 }
