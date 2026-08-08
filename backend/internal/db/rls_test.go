@@ -267,6 +267,76 @@ func TestWithUserTx_RollsBackOnError_LiveDatabase(t *testing.T) {
 	}
 }
 
+// TestWithUserTxOptions_RepeatableReadUsesOneSnapshot_LiveDatabase proves the
+// option used by the summary handler, rather than merely checking a constant.
+// A row committed between two reads must stay outside the reader's snapshot
+// until that repeatable-read transaction ends.
+func TestWithUserTxOptions_RepeatableReadUsesOneSnapshot_LiveDatabase(t *testing.T) {
+	databaseURL := liveDatabaseURL(t, "WithUserTxOptions repeatable-read test")
+
+	ctx := context.Background()
+	pool, err := NewPool(ctx, databaseURL)
+	if err != nil {
+		t.Fatalf("expected successful connection, got error: %v", err)
+	}
+	t.Cleanup(pool.Close)
+
+	userID := createRLSTestUser(ctx, t, pool, "withusertx-repeatable-read")
+	t.Cleanup(func() { deleteRLSTestUsers(ctx, t, pool, userID) })
+
+	owner := pgtype.UUID{Bytes: [16]byte(userID), Valid: true}
+	accountID := "wut-repeatable-" + uuid.NewString()
+
+	err = WithUserTxOptions(ctx, pool, userID, pgx.TxOptions{IsoLevel: pgx.RepeatableRead}, func(q *dbgen.Queries) error {
+		before, err := q.ListAccounts(ctx, owner)
+		if err != nil {
+			return fmt.Errorf("first snapshot read: %w", err)
+		}
+		if len(before) != 0 {
+			return fmt.Errorf("first snapshot read: expected no accounts, got %d", len(before))
+		}
+
+		writeDone := make(chan error, 1)
+		go func() {
+			writeDone <- WithUserTx(ctx, pool, userID, func(writeQueries *dbgen.Queries) error {
+				_, err := writeQueries.CreateAccount(ctx, dbgen.CreateAccountParams{
+					ID: accountID, Name: "Committed Between Reads", UserID: owner,
+				})
+				return err
+			})
+		}()
+		if err := <-writeDone; err != nil {
+			return fmt.Errorf("concurrent account insert: %w", err)
+		}
+
+		after, err := q.ListAccounts(ctx, owner)
+		if err != nil {
+			return fmt.Errorf("second snapshot read: %w", err)
+		}
+		if len(after) != 0 {
+			return fmt.Errorf("repeatable-read snapshot changed: expected 0 accounts, got %d", len(after))
+		}
+		return nil
+	})
+	if err != nil {
+		t.Fatalf("repeatable-read transaction: %v", err)
+	}
+
+	err = WithUserTx(ctx, pool, userID, func(q *dbgen.Queries) error {
+		accounts, err := q.ListAccounts(ctx, owner)
+		if err != nil {
+			return err
+		}
+		if len(accounts) != 1 || accounts[0].ID != accountID {
+			return fmt.Errorf("expected committed account %q after snapshot ended, got %+v", accountID, accounts)
+		}
+		return nil
+	})
+	if err != nil {
+		t.Fatalf("post-snapshot read: %v", err)
+	}
+}
+
 // TestVerifyRLSActive_PassesForOrdinaryRole_LiveDatabase is the positive half
 // of the startup guard: the ordinary application role the migrations run as
 // has RLS active on every owned table, so VerifyRLSActive accepts it.

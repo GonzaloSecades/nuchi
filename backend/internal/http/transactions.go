@@ -93,17 +93,11 @@ func (s *ResourceServer) ListTransactions(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	// accountId references ResourceId (minLength 1), so an explicitly empty
-	// value is rejected for the same reason as an empty date rather than
-	// silently meaning "no filter".
-	accountID := pgtype.Text{}
-	if params.AccountId != nil {
-		if *params.AccountId == "" {
-			resp := openapi.ListTransactions400JSONResponse{InvalidQueryErrorJSONResponse: invalidQueryError("accountId must not be empty.")}
-			_ = resp.VisitListTransactionsResponse(w)
-			return
-		}
-		accountID = pgtype.Text{String: *params.AccountId, Valid: true}
+	accountID, accountErr := accountIDFilter(params.AccountId)
+	if accountErr != nil {
+		resp := openapi.ListTransactions400JSONResponse{InvalidQueryErrorJSONResponse: invalidQueryError(accountErr.Error())}
+		_ = resp.VisitListTransactionsResponse(w)
+		return
 	}
 
 	var rows []dbgen.ListTransactionsRow

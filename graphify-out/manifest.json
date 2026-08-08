@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/router.go": {
-    "mtime": 1786214970.3452406,
-    "ast_hash": "09119246c2b4cda3539dd84202b01b41",
+    "mtime": 1786233429.9336507,
+    "ast_hash": "080c481dba6ef4eda5e6684dcc408c64",
     "semantic_hash": ""
   },
   "components.json": {
@@ -1135,8 +1135,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/README.md": {
-    "mtime": 1786214970.6113074,
-    "ast_hash": "b6a6de7dd9a8bc0711d4f7b75a88dacd",
+    "mtime": 1786233429.9556506,
+    "ast_hash": "e0ff967379a595df91d1663ba241dc58",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
@@ -1290,8 +1290,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/README.md": {
-    "mtime": 1786214970.6460252,
-    "ast_hash": "5e9b7f75a8e17501a4402d0ff838e365",
+    "mtime": 1786233429.959648,
+    "ast_hash": "b33b56dcf8d6b414fef799eda910a380",
     "semantic_hash": ""
   },
   "post-migration-improvements/codex-backend-improvements/templates/endpoint-review.md": {
@@ -1440,13 +1440,13 @@
     "semantic_hash": ""
   },
   "backend/internal/db/rls.go": {
-    "mtime": 1786214970.3206897,
-    "ast_hash": "d23f4412ed3a5808c61deb9c75bd3ab4",
+    "mtime": 1786233429.9306543,
+    "ast_hash": "29540d53842519af5eef9a615babd767",
     "semantic_hash": ""
   },
   "backend/internal/db/rls_test.go": {
-    "mtime": 1786214970.3206897,
-    "ast_hash": "5fcce1f05bfcb7c444ed73765f063cd7",
+    "mtime": 1786233429.9316547,
+    "ast_hash": "2317e6848c26a332e84ebd714205dd9c",
     "semantic_hash": ""
   },
   "backend/internal/http/middleware.go": {
@@ -1490,8 +1490,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/resources.go": {
-    "mtime": 1786214970.3432388,
-    "ast_hash": "17a1c288c003881f3ab22a240b5f58ee",
+    "mtime": 1786233429.9326546,
+    "ast_hash": "7ab7d17943063503029c78aec44b80ae",
     "semantic_hash": ""
   },
   "backend/internal/id/cuid2.go": {
@@ -1535,8 +1535,8 @@
     "semantic_hash": ""
   },
   "backend/internal/http/transactions.go": {
-    "mtime": 1786214970.3462386,
-    "ast_hash": "30f728287fba077f817d5b1a3c1199ad",
+    "mtime": 1786233429.938648,
+    "ast_hash": "3b020adbd53db14861729e6bc30d508a",
     "semantic_hash": ""
   },
   "backend/internal/http/transactions_live_test.go": {
@@ -1642,6 +1642,41 @@
   "graphify-out/memory/query_20260808_161854_last_comment_address_if_you_have_anything_more_to.md": {
     "mtime": 1786214970.5764222,
     "ast_hash": "464017fd7f9a1ef2d47944c9a1b6c739",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/summary.go": {
+    "mtime": 1786233429.9346526,
+    "ast_hash": "43f2c2e67fb07e9515e2b70971870219",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/summary_live_test.go": {
+    "mtime": 1786233429.9356537,
+    "ast_hash": "2a102b0f9163df9aaa83f400e08556a1",
+    "semantic_hash": ""
+  },
+  "backend/internal/http/summary_test.go": {
+    "mtime": 1786233429.9366465,
+    "ast_hash": "e5639031f7f54f7d31f1c37737cb7918",
+    "semantic_hash": ""
+  },
+  "docs/api/summary.md": {
+    "mtime": 1786233429.9396446,
+    "ast_hash": "cd0a7de76d9ea453399f49acded6ce2f",
+    "semantic_hash": ""
+  },
+  "docs/product/summary.md": {
+    "mtime": 1786233429.9406464,
+    "ast_hash": "5fb30afb0278b49d0bc60d0670749862",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0017-summary-category-chart-excludes-uncategorized.md": {
+    "mtime": 1786233429.9566486,
+    "ast_hash": "8865d4bd33388ddb388fd79ca8bce0ea",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/codex-backend-improvements/Codex-summary-aggregate-contract-range.md": {
+    "mtime": 1786233429.958649,
+    "ast_hash": "929d06b984521e71934380d078b06617",
     "semantic_hash": ""
   },
   "lib/go-api-rewrite.test.ts": {
