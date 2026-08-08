@@ -579,5 +579,10 @@
   "577": "ListTransactions200JSONResponse",
   "578": "UpdateAccount200JSONResponse",
   "579": "UpdateTransaction200JSONResponse",
-  "580": "UpdateTransaction404JSONResponse"
+  "580": "UpdateTransaction404JSONResponse",
+  "581": "UnmarshalingParamError",
+  "582": "extraction-spec.md",
+  "583": "CreateCategory200JSONResponse",
+  "584": "DeleteCategory200JSONResponse",
+  "585": "VerifyEmail200JSONResponse"
 }
