@@ -570,14 +570,5 @@
   "568": "Q: last comment address if you have anything more to say label it for a future improvement post migration and name it Codex-{title}",
   "569": "EmailNotVerifiedErrorJSONResponse",
   "570": "RequiredHeaderError",
-  "571": "BulkDeleteAccounts200JSONResponse",
-  "572": "BulkDeleteCategories200JSONResponse",
-  "573": "DeleteTransaction200JSONResponse",
-  "574": "GetSummary200JSONResponse",
-  "575": "GetTransaction200JSONResponse",
-  "576": "ListAccounts200JSONResponse",
-  "577": "ListTransactions200JSONResponse",
-  "578": "UpdateAccount200JSONResponse",
-  "579": "UpdateTransaction200JSONResponse",
-  "580": "UpdateTransaction404JSONResponse"
+  "571": "BulkDeleteAccounts200JSONResponse"
 }

@@ -73,6 +73,8 @@ func NewRouter(authServer *AuthServer, resources *ResourceServer) http.Handler {
 					r.Patch("/{id}", withResourceID(resources.UpdateTransaction))
 					r.Delete("/{id}", withResourceID(resources.DeleteTransaction))
 				})
+
+				r.Get("/api/summary", withSummaryParams(resources.GetSummary))
 			}
 		})
 	}

@@ -153,6 +153,8 @@ type resourceServerMethods interface {
 	DeleteTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	BulkCreateTransactions(w http.ResponseWriter, r *http.Request)
 	BulkDeleteTransactions(w http.ResponseWriter, r *http.Request)
+
+	GetSummary(w http.ResponseWriter, r *http.Request, params openapi.GetSummaryParams)
 }
 
 var _ resourceServerMethods = (*ResourceServer)(nil)
@@ -200,6 +202,38 @@ func optionalQueryParam(query url.Values, key string) *string {
 	}
 	value := query.Get(key)
 	return &value
+}
+
+// accountIDFilter converts the optional accountId query parameter into the
+// nullable value the transaction and summary queries take.
+//
+// nil means the parameter was omitted, so no filter applies. A present but
+// empty value is rejected: accountId references ResourceId (minLength 1), so
+// `?accountId=` is malformed for the same reason `?from=` is, rather than
+// silently meaning "no filter". Shared by ListTransactions and GetSummary so
+// the two cannot drift.
+func accountIDFilter(accountID *string) (pgtype.Text, error) {
+	if accountID == nil {
+		return pgtype.Text{}, nil
+	}
+	if *accountID == "" {
+		return pgtype.Text{}, dateRangeError{"accountId must not be empty."}
+	}
+	return pgtype.Text{String: *accountID, Valid: true}, nil
+}
+
+// withSummaryParams adapts the generated (w, r, params) signature to a plain
+// chi handler. Like the transaction list, from/to are left for the handler to
+// read raw — openapi_types.Date cannot carry a malformed value, and the three
+// INVALID_QUERY messages exist precisely for those inputs.
+func withSummaryParams(fn func(w http.ResponseWriter, r *http.Request, params openapi.GetSummaryParams)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var params openapi.GetSummaryParams
+		if accountID := optionalQueryParam(r.URL.Query(), "accountId"); accountID != nil {
+			params.AccountId = accountID
+		}
+		fn(w, r, params)
+	}
 }
 
 // withUser resolves the authenticated user id from r's context and, if
