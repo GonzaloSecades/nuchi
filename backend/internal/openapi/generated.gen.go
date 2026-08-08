@@ -176,7 +176,7 @@ type CategorySummaryResponse struct {
 	Data CategorySummary `json:"data"`
 }
 
-// CurrencyCode Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.
+// CurrencyCode Transaction currency. Required on every write and currently limited to ARS: the API rejects an omitted or unknown value rather than defaulting it, so a client that believes it is sending another currency fails loudly. Multi-currency is a later change.
 type CurrencyCode string
 
 // DateString defines model for DateString.
@@ -296,7 +296,7 @@ type Transaction struct {
 	Amount     int64       `json:"amount"`
 	CategoryId *ResourceId `json:"categoryId"`
 
-	// Currency Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.
+	// Currency Transaction currency. Required on every write and currently limited to ARS: the API rejects an omitted or unknown value rather than defaulting it, so a client that believes it is sending another currency fails loudly. Multi-currency is a later change.
 	Currency CurrencyCode `json:"currency"`
 	Date     time.Time    `json:"date"`
 
@@ -328,7 +328,7 @@ type TransactionInput struct {
 	Amount     int64       `json:"amount"`
 	CategoryId *ResourceId `json:"categoryId,omitempty"`
 
-	// Currency Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.
+	// Currency Transaction currency. Required on every write and currently limited to ARS: the API rejects an omitted or unknown value rather than defaulting it, so a client that believes it is sending another currency fails loudly. Multi-currency is a later change.
 	Currency CurrencyCode `json:"currency"`
 	Date     DateString   `json:"date"`
 	Notes    *string      `json:"notes,omitempty"`
@@ -347,7 +347,7 @@ type TransactionListItem struct {
 	Category   *string     `json:"category"`
 	CategoryId *ResourceId `json:"categoryId"`
 
-	// Currency Transaction currency. The Go replacement starts with ARS as the required/default currency until multi-currency UX exists.
+	// Currency Transaction currency. Required on every write and currently limited to ARS: the API rejects an omitted or unknown value rather than defaulting it, so a client that believes it is sending another currency fails loudly. Multi-currency is a later change.
 	Currency CurrencyCode `json:"currency"`
 	Date     time.Time    `json:"date"`
 
@@ -378,6 +378,12 @@ type ToDate = DateString
 
 // AccountNotFoundError defines model for AccountNotFoundError.
 type AccountNotFoundError = ApiErrorResponse
+
+// BulkCreateValidationError defines model for BulkCreateValidationError.
+type BulkCreateValidationError = ApiErrorResponse
+
+// BulkDeleteValidationError defines model for BulkDeleteValidationError.
+type BulkDeleteValidationError = ApiErrorResponse
 
 // CategoryNotFoundError defines model for CategoryNotFoundError.
 type CategoryNotFoundError = ApiErrorResponse
@@ -1692,6 +1698,10 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 }
 
 type AccountNotFoundErrorJSONResponse ApiErrorResponse
+
+type BulkCreateValidationErrorJSONResponse ApiErrorResponse
+
+type BulkDeleteValidationErrorJSONResponse ApiErrorResponse
 
 type CategoryNotFoundErrorJSONResponse ApiErrorResponse
 
@@ -3256,7 +3266,9 @@ func (response BulkCreateTransactions200JSONResponse) VisitBulkCreateTransaction
 	return err
 }
 
-type BulkCreateTransactions400JSONResponse struct{ ValidationErrorJSONResponse }
+type BulkCreateTransactions400JSONResponse struct {
+	BulkCreateValidationErrorJSONResponse
+}
 
 func (response BulkCreateTransactions400JSONResponse) VisitBulkCreateTransactionsResponse(w http.ResponseWriter) error {
 
@@ -3371,7 +3383,9 @@ func (response BulkDeleteTransactions200JSONResponse) VisitBulkDeleteTransaction
 	return err
 }
 
-type BulkDeleteTransactions400JSONResponse struct{ ValidationErrorJSONResponse }
+type BulkDeleteTransactions400JSONResponse struct {
+	BulkDeleteValidationErrorJSONResponse
+}
 
 func (response BulkDeleteTransactions400JSONResponse) VisitBulkDeleteTransactionsResponse(w http.ResponseWriter) error {
 

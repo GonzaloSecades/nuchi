@@ -562,5 +562,8 @@
   "560": "ListAccounts200JSONResponse",
   "561": "ListCategories200JSONResponse",
   "562": "UpdateTransaction200JSONResponse",
-  "563": "VerifyEmail200JSONResponse"
+  "563": "VerifyEmail200JSONResponse",
+  "564": "Strategic Notes",
+  "565": "InvalidParamFormatError",
+  "567": "UnmarshalingParamError"
 }

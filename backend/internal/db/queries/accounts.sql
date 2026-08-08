@@ -41,3 +41,13 @@ DELETE FROM accounts
 WHERE id = ANY(sqlc.arg(ids)::text[])
   AND user_id = sqlc.arg(user_id)
 RETURNING id;
+
+-- name: ListOwnedAccountIDs :many
+-- Set-based ownership check for bulk operations: one round trip for every
+-- distinct account a batch references, rather than a GetAccount per row (500
+-- rows would be 500 queries inside one transaction). The caller compares the
+-- returned count against the number of distinct ids it asked for.
+SELECT id
+FROM accounts
+WHERE user_id = sqlc.arg(user_id)
+  AND id = ANY(sqlc.arg(ids)::text[]);

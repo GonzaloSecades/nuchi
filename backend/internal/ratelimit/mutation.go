@@ -29,9 +29,11 @@ import (
 type Action string
 
 const (
-	ActionCreate Action = "create"
-	ActionUpdate Action = "update"
-	ActionDelete Action = "delete"
+	ActionCreate     Action = "create"
+	ActionUpdate     Action = "update"
+	ActionDelete     Action = "delete"
+	ActionBulkCreate Action = "bulk-create"
+	ActionBulkDelete Action = "bulk-delete"
 )
 
 const (

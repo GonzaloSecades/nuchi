@@ -39,3 +39,11 @@ DELETE FROM categories
 WHERE id = ANY(sqlc.arg(ids)::text[])
   AND user_id = sqlc.arg(user_id)
 RETURNING id;
+
+-- name: ListOwnedCategoryIDs :many
+-- Set-based ownership check for bulk operations; mirrors
+-- ListOwnedAccountIDs. See its comment for why this is not a per-row lookup.
+SELECT id
+FROM categories
+WHERE user_id = sqlc.arg(user_id)
+  AND id = ANY(sqlc.arg(ids)::text[]);

@@ -156,6 +156,42 @@ func (q *Queries) ListAccounts(ctx context.Context, userID pgtype.UUID) ([]Accou
 	return items, nil
 }
 
+const listOwnedAccountIDs = `-- name: ListOwnedAccountIDs :many
+SELECT id
+FROM accounts
+WHERE user_id = $1
+  AND id = ANY($2::text[])
+`
+
+type ListOwnedAccountIDsParams struct {
+	UserID pgtype.UUID
+	Ids    []string
+}
+
+// Set-based ownership check for bulk operations: one round trip for every
+// distinct account a batch references, rather than a GetAccount per row (500
+// rows would be 500 queries inside one transaction). The caller compares the
+// returned count against the number of distinct ids it asked for.
+func (q *Queries) ListOwnedAccountIDs(ctx context.Context, arg ListOwnedAccountIDsParams) ([]string, error) {
+	rows, err := q.db.Query(ctx, listOwnedAccountIDs, arg.UserID, arg.Ids)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []string
+	for rows.Next() {
+		var id string
+		if err := rows.Scan(&id); err != nil {
+			return nil, err
+		}
+		items = append(items, id)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateAccountName = `-- name: UpdateAccountName :one
 UPDATE accounts
 SET name = $1

@@ -1,6 +1,9 @@
 package httpapi
 
 import (
+	"encoding/json"
+	"errors"
+	"io"
 	"log/slog"
 	"net/http"
 	"net/url"
@@ -35,6 +38,58 @@ import (
 // streaming a body.
 func decodeResourceBody[T any](w http.ResponseWriter, r *http.Request, dst *T) bool {
 	return decodeJSONBody(w, r, dst, noBodyLimit)
+}
+
+// bodyDecodeOutcome distinguishes the two ways a size-limited decode can fail,
+// because they map to different documented responses: a malformed body is 400
+// VALIDATION_ERROR, while an oversized one is 413 REQUEST_BODY_TOO_LARGE.
+// Collapsing them (as a bare bool would) answers the one condition the
+// contract gives a dedicated status for with the wrong code.
+type bodyDecodeOutcome int
+
+const (
+	bodyDecodeOK bodyDecodeOutcome = iota
+	bodyDecodeMalformed
+	bodyDecodeTooLarge
+)
+
+// decodeBulkBody decodes a bulk request body under a real byte limit.
+//
+// The limit is enforced twice, deliberately. r.ContentLength is checked first
+// as a cheap rejection for a client that declares an oversized body, mirroring
+// legacy's Content-Length guard. http.MaxBytesReader then enforces it against
+// the actual stream, which is what closes the hole legacy has: a chunked
+// request carries no Content-Length, so legacy's guard passes it through and
+// streams an unbounded body into the decoder. See post-migration improvement
+// 0016 for why that counts as a deliberate divergence.
+//
+// Note legacy's other carve-out -- a non-numeric Content-Length being ignored
+// -- is unreachable here: net/http parses the header and rejects a malformed
+// value with its own 400 before any handler runs.
+func decodeBulkBody[T any](w http.ResponseWriter, r *http.Request, dst *T, limit int64) bodyDecodeOutcome {
+	if r.ContentLength > limit {
+		return bodyDecodeTooLarge
+	}
+
+	r.Body = http.MaxBytesReader(w, r.Body, limit)
+	dec := json.NewDecoder(r.Body)
+	dec.DisallowUnknownFields()
+	if err := dec.Decode(dst); err != nil {
+		var tooLarge *http.MaxBytesError
+		if errors.As(err, &tooLarge) {
+			return bodyDecodeTooLarge
+		}
+		return bodyDecodeMalformed
+	}
+	// Exactly one JSON value, same discipline as every other request body.
+	if err := dec.Decode(&struct{}{}); !errors.Is(err, io.EOF) {
+		var tooLarge *http.MaxBytesError
+		if errors.As(err, &tooLarge) {
+			return bodyDecodeTooLarge
+		}
+		return bodyDecodeMalformed
+	}
+	return bodyDecodeOK
 }
 
 // ResourceServer implements the generated openapi.ServerInterface methods
@@ -96,6 +151,8 @@ type resourceServerMethods interface {
 	GetTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	UpdateTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
 	DeleteTransaction(w http.ResponseWriter, r *http.Request, id openapi.ResourceId)
+	BulkCreateTransactions(w http.ResponseWriter, r *http.Request)
+	BulkDeleteTransactions(w http.ResponseWriter, r *http.Request)
 }
 
 var _ resourceServerMethods = (*ResourceServer)(nil)
