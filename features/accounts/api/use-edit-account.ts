@@ -1,32 +1,27 @@
-import { InferRequestType, InferResponseType } from 'hono';
 import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { ApiError, createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
+import { apiClient, unwrap } from '@/lib/api/client';
+import type { components } from '@/lib/api/generated/schema';
 
-type ResponseType = InferResponseType<
-  (typeof client.api.accounts)[':id']['$patch']
->;
-type RequestType = InferRequestType<
-  (typeof client.api.accounts)[':id']['$patch']
->['json'];
+import { accountMutationErrorMessage } from './account-mutation-error';
+import { accountPathParams } from './account-path-params';
+
+type ResponseType = components['schemas']['AccountResponse'];
+type RequestType = components['schemas']['AccountInput'];
 
 export const useEditAccount = (id?: string) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.accounts[':id']['$patch']({
-        param: { id: id },
-        json,
+      const result = await apiClient.PATCH('/accounts/{id}', {
+        params: accountPathParams(id),
+        body: json,
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'edit account ');
-      }
-      return await response.json();
+      return unwrap(result, 'edit account ');
     },
     onSuccess: () => {
       toast.success('Account edited successfully');
@@ -36,13 +31,7 @@ export const useEditAccount = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ['summary'] }); //jic
     },
     onError: (error) => {
-      const apiMessage =
-        error instanceof ApiError
-          ? (error.details.errorData as { error?: { message?: string } } | null)
-              ?.error?.message
-          : null;
-
-      toast.error(apiMessage ?? 'Error editing account');
+      toast.error(accountMutationErrorMessage(error, 'Error editing account'));
     },
   });
   return mutation;
