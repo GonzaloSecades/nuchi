@@ -571,5 +571,11 @@
   "569": "EmailNotVerifiedErrorJSONResponse",
   "570": "RequiredHeaderError",
   "571": "BulkDeleteAccounts200JSONResponse",
-  "572": "CreateCategory200JSONResponse"
+  "572": "CreateCategory200JSONResponse",
+  "573": "ServerInterface",
+  "574": "amount-input.tsx",
+  "575": "InvalidRefreshTokenErrorJSONResponse",
+  "576": "GetAccount200JSONResponse",
+  "577": "GetCategory200JSONResponse",
+  "578": "VerifyEmail200JSONResponse"
 }
