@@ -25,6 +25,10 @@ Writes are unaffected: the contract's `DateString` (`format: date`, pattern
 `^\d{4}-\d{2}-\d{2}$`) is parsed to a naive `time.Time` and stored as midnight.
 Only the response side is at issue here.
 
+That midnight is a property of the current write path, not of the table. The
+column carries no `CHECK`, and the legacy path stored arbitrary instants — which
+is why the proposed fix below begins with an audit rather than an `ALTER TABLE`.
+
 ## Why it was done this way
 
 Parity froze the column type. Entry 0001 records why the `timestamp` survived
@@ -96,22 +100,65 @@ should land together rather than being patched at separate layers.
 If a transaction's date is a **calendar date**, which the product and the write
 contract both say it is:
 
-1. Migrate the column, which is data-preserving since every stored value is
-   already midnight:
+1. **Audit the existing rows first.** Midnight is a property of the _current Go
+   write path_, not an invariant of the data:
+
+   ```sql
+   SELECT id, date
+   FROM transactions
+   WHERE date <> date_trunc('day', date);
+   ```
+
+   Nothing has ever enforced midnight. The column is a plain
+   `date timestamp NOT NULL` with no `CHECK`, and the legacy write path
+   accepted arbitrary instants: `InsertTransactionSchema` overrides the field
+   with `z.coerce.date()` (`db/schema.ts`), and the Hono create handler spreads
+   the validated values straight into the insert, so a body carrying
+   `2026-08-07T15:45:00Z` was stored with its time intact.
+
+2. **Decide a normalization policy for whatever the audit finds**, and apply it
+   explicitly before converting. This is the step that cannot be skipped,
+   because a non-midnight legacy row does not merely carry noise in its time
+   component — the time component may be the only thing identifying the right
+   calendar day.
+
+   node-postgres serializes a JS `Date` into a `timestamp without time zone`
+   using the _Node process's local wall clock_ (`dateToString` in `pg/lib/utils.js`
+   reads `getFullYear`/`getTimezoneOffset`, and Postgres then discards the
+   offset for a zone-less column). So the stored wall time is the chosen
+   instant rendered in the **legacy host's** zone, and the day it lands on
+   depends on the gap between that zone and the user's:
+
+   | user picks | user zone | legacy host | stored                | `date::date`  |
+   | ---------- | --------- | ----------- | --------------------- | ------------- |
+   | 2026-08-07 | UTC−3     | UTC−3       | `2026-08-07 00:00:00` | 2026-08-07 ✅ |
+   | 2026-08-07 | UTC−3     | UTC         | `2026-08-07 03:00:00` | 2026-08-07 ✅ |
+   | 2026-08-07 | UTC+9     | UTC         | `2026-08-06 15:00:00` | 2026-08-06 ❌ |
+
+   Truncating the third row silently files the transaction a day early and
+   permanently — the evidence is destroyed by the same statement. Decide which
+   zone the legacy values are to be read in, confirm it against the deployment
+   history rather than assuming, and normalize those rows as their own
+   reviewed migration step.
+
+3. **Then** convert the column, once the audit returns nothing outstanding:
 
    ```sql
    ALTER TABLE transactions ALTER COLUMN date TYPE date USING date::date;
    ```
 
-2. Change the response schema from `format: date-time` to `DateString`, so read
+   With every row already normalized to midnight this is lossless. Run it only
+   in that state; as a first step it is a silent, irreversible data change.
+
+4. Change the response schema from `format: date-time` to `DateString`, so read
    and write agree on the type. Filtering then needs no timezone reasoning at
    all and the whole class of day-boundary ambiguity disappears, including
    0014's.
-3. Regenerate both sides from the contract and re-cut the affected fixtures —
+5. Regenerate both sides from the contract and re-cut the affected fixtures —
    the serialized shape changes, which is exactly why this could not be done
    during the migration.
 
-Step 2 is a **breaking response change** for any client parsing `date` as an
+Step 4 is a **breaking response change** for any client parsing `date` as an
 instant. The current frontend is not one: `calendarDateFromApi` already passes a
 plain `yyyy-MM-dd` through unchanged, so it keeps working across the switch
 without modification. That is worth confirming rather than assuming when the
