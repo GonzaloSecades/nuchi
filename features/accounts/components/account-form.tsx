@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { InsertAccountSchema } from '@/db/schema';
 import {
   Form,
   FormControl,
@@ -14,15 +13,18 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import type { components } from '@/lib/api/generated/schema';
 
-const formSchema = InsertAccountSchema.pick({ name: true });
+export type AccountFormValues = components['schemas']['AccountInput'];
 
-type FormValues = z.input<typeof formSchema>;
+const formSchema = z.object({
+  name: z.string().min(1),
+}) satisfies z.ZodType<AccountFormValues>;
 
 type Props = {
   id?: string;
-  defaultValues?: FormValues;
-  onSubmit: (values: FormValues) => void;
+  defaultValues?: AccountFormValues;
+  onSubmit: (values: AccountFormValues) => void;
   onDelete?: () => void;
   disabled?: boolean;
 };
@@ -34,12 +36,12 @@ export const AccountForm = ({
   onDelete,
   disabled,
 }: Props) => {
-  const form = useForm<FormValues>({
+  const form = useForm<AccountFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = (values: AccountFormValues) => {
     onSubmit(values);
   };
 

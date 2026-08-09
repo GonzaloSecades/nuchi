@@ -1,8 +1,9 @@
 'use client';
 
-import { InsertCategorySchema } from '@/db/schema';
-import { CategoryForm } from '@/features/categories/components/category-form';
-import { z } from 'zod';
+import {
+  CategoryForm,
+  type CategoryFormValues,
+} from '@/features/categories/components/category-form';
 
 import {
   Sheet,
@@ -14,14 +15,12 @@ import {
 import { useCreateCategory } from '@/features/categories/api/use-create-category';
 import { useNewCategory } from '@/features/categories/hooks/use-new-category';
 
-type FormValues = Pick<z.infer<typeof InsertCategorySchema>, 'name'>;
-
 export const NewCategorySheet = () => {
   const { isOpen, onClose } = useNewCategory();
 
   const mutation = useCreateCategory();
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: CategoryFormValues) => {
     mutation.mutate(values, {
       onSuccess: () => {
         onClose();

@@ -10,19 +10,17 @@ export type TransactionInput = components['schemas']['TransactionInput'];
 /**
  * What the transaction form hands a mutation hook.
  *
- * Derived from the Drizzle insert schema rather than the contract, because
- * that is what the form and both sheets already produce. Keeping the hooks'
- * public input at this shape is what lets #50 migrate the transport without
- * touching a single component.
+ * Derived from the contract while preserving the UI boundary: the form holds
+ * a local `Date`, and optional nullable fields may be omitted. The adapter
+ * below supplies the wire-format calendar date and required currency.
  */
-export type TransactionFormValues = {
+export type TransactionFormValues = Omit<
+  TransactionInput,
+  'date' | 'currency' | 'categoryId' | 'notes'
+> & {
   date: Date;
-  accountId: string;
-  categoryId?: string | null;
-  payee: string;
-  /** Signed integer milliunits, already converted by the form. */
-  amount: number;
-  notes?: string | null;
+  categoryId?: TransactionInput['categoryId'];
+  notes?: TransactionInput['notes'];
 };
 
 /**

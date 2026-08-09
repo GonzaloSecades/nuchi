@@ -1,13 +1,14 @@
 'use client';
 
-import { InsertAccountSchema } from '@/db/schema';
 import { useDeleteAccount } from '@/features/accounts/api/use-delete-account';
 import { useEditAccount } from '@/features/accounts/api/use-edit-account';
 import { useGetAccount } from '@/features/accounts/api/use-get-account';
-import { AccountForm } from '@/features/accounts/components/account-form';
+import {
+  AccountForm,
+  type AccountFormValues,
+} from '@/features/accounts/components/account-form';
 import { useOpenAccount } from '@/features/accounts/hooks/use-open-account';
 import { useConfirm } from '@/hooks/use-confirm';
-import { z } from 'zod';
 
 import {
   Sheet,
@@ -17,8 +18,6 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { Loader2 } from 'lucide-react';
-
-type FormValues = Pick<z.infer<typeof InsertAccountSchema>, 'name'>;
 
 export const EditAccountSheet = () => {
   const { isOpen, onClose, id } = useOpenAccount();
@@ -36,7 +35,7 @@ export const EditAccountSheet = () => {
 
   const isLoading = accountQuery.isLoading;
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: AccountFormValues) => {
     editMutation.mutate(values, {
       onSuccess: () => {
         onClose();

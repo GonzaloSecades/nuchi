@@ -17,17 +17,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { InsertTransactionSchema } from '@/db/schema';
+import type { TransactionFormValues } from '@/features/transactions/api/transaction-payload';
 import {
   convertAmountToMiliunits,
   isSafeMiliunitAmount,
 } from '@/lib/utils';
 
+type TransactionFormInput = Omit<TransactionFormValues, 'amount'> & {
+  amount: string;
+};
+
 const formSchema = z.object({
   date: z.date(),
-  accountId: z.string(),
+  accountId: z.string().min(1),
   categoryId: z.string().nullable().optional(),
-  payee: z.string(),
+  payee: z.string().min(1),
   // Bounded to the safe-integer range the API accepts: transactions.amount is
   // a bigint, but anything past Number.MAX_SAFE_INTEGER milliunits cannot be
   // represented exactly in the browser, so it is rejected here with a field
@@ -43,15 +47,14 @@ const formSchema = z.object({
     { message: 'Amount is too large.' }
   ),
   notes: z.string().nullable().optional(),
-});
+}) satisfies z.ZodType<TransactionFormInput>;
 
 type FormValues = z.input<typeof formSchema>;
-type ApiFormValues = Omit<z.infer<typeof InsertTransactionSchema>, 'id'>;
 
 type Props = {
   id?: string;
   defaultValues?: FormValues;
-  onSubmit: (values: ApiFormValues) => void;
+  onSubmit: (values: TransactionFormValues) => void;
   onDelete?: () => void;
   disabled?: boolean;
   accountOptions: { label: string; value: string }[];
