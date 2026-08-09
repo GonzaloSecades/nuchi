@@ -44,11 +44,11 @@ const DEFAULT_CURRENCY = 'ARS' as const;
  * rather than the components being changed:
  *
  * **`date` is a calendar date, not an instant.** The contract's `DateString`
- * is `yyyy-MM-dd`; the form holds a `Date`. Formatting goes through date-fns,
- * which reads *local* calendar parts. `toISOString().slice(0, 10)` would
- * convert to UTC first and hand back the previous day for any user east of
- * Greenwich — a transaction picked as the 9th filed as the 8th, silently, and
- * only for some users.
+ * is `yyyy-MM-dd`; the form holds a `Date`. The conversion goes through
+ * `transaction-date.ts`, which reads *local* calendar parts.
+ * `toISOString().slice(0, 10)` would convert to UTC first and hand back the
+ * previous day for any user east of Greenwich — a transaction picked as the 9th
+ * filed as the 8th, silently, and only for some users.
  *
  * **`currency` is required.** See `DEFAULT_CURRENCY`.
  */
@@ -61,9 +61,19 @@ export function toTransactionInput(
     notes: values.notes ?? null,
     date: calendarDateFromLocalDate(values.date),
     accountId: values.accountId,
-    categoryId: values.categoryId ?? null,
+    // `''` normalizes to null alongside undefined. The contract's `ResourceId`
+    // sets `minLength: 1`, so an empty string is rejected outright — and an
+    // empty string is exactly what an unselected `<select>` or a cleared form
+    // field produces. Absorbing it here keeps that from reaching the API as a
+    // guaranteed 400.
+    categoryId: emptyToNull(values.categoryId),
     currency: DEFAULT_CURRENCY,
   };
+}
+
+/** Treats an unset, null or blank optional id as absent. */
+function emptyToNull(value: string | null | undefined): string | null {
+  return value === undefined || value === null || value === '' ? null : value;
 }
 
 /**
@@ -97,7 +107,7 @@ export function toBulkTransactionInput(
     amount: row.amount,
     payee: row.payee,
     notes: row.notes ?? null,
-    categoryId: row.categoryId ?? null,
+    categoryId: emptyToNull(row.categoryId),
     date: row.date,
     accountId: row.accountId,
     currency: DEFAULT_CURRENCY,

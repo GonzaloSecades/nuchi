@@ -9,13 +9,17 @@ import { fileURLToPath } from 'node:url';
  * different timezone.
  *
  * A process fixes its timezone at startup, so this spawns the probe under
- * several `TZ` values rather than trying to change it in-process. POSIX-style
- * offsets (`GMT+9`) are used instead of IANA names (`Asia/Tokyo`) because Bun
- * on Windows silently ignores IANA names and falls back to the host zone —
- * which would make these tests pass without testing anything.
+ * several `TZ` values rather than trying to change it in-process. Offsets of
+ * the form `GMT+9` are used instead of IANA names (`Asia/Tokyo`) because Bun on
+ * Windows silently ignores IANA names and falls back to the host zone — which
+ * would make these tests pass without testing anything.
  *
- * Note POSIX sign convention is inverted from the usual one: `GMT+9` is UTC+9
- * here, reported by `getTimezoneOffset()` as -540.
+ * On this runtime `GMT+9` resolves to UTC+9 and `GMT-3` to UTC-3, i.e. the sign
+ * reads the intuitive way. That is worth stating because strict POSIX defines
+ * it the other way round, where `GMT+9` would mean UTC-9. Each case asserts the
+ * offset it actually observed before asserting anything else, so a runtime that
+ * followed the POSIX reading would fail loudly here rather than quietly test a
+ * zone nobody intended.
  */
 
 // `fileURLToPath` rather than `URL.pathname`: on Windows the latter yields a

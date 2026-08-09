@@ -85,6 +85,23 @@ describe('toTransactionInput', () => {
   it('preserves the sign of an expense', () => {
     expect(toTransactionInput({ ...baseValues, amount: -1 }).amount).toBe(-1);
   });
+
+  /**
+   * An unselected `<select>` or a cleared field yields `''`, and the contract's
+   * `ResourceId` sets `minLength: 1` — so passing it through is a guaranteed
+   * 400 rather than the "no category" the user meant.
+   */
+  it('treats an empty categoryId as no category', () => {
+    expect(
+      toTransactionInput({ ...baseValues, categoryId: '' }).categoryId
+    ).toBeNull();
+  });
+
+  it('keeps a real categoryId', () => {
+    expect(
+      toTransactionInput({ ...baseValues, categoryId: 'category-1' }).categoryId
+    ).toBe('category-1');
+  });
 });
 
 describe('toBulkTransactionInput', () => {
@@ -159,6 +176,20 @@ describe('toBulkTransactionInput', () => {
 
     expect(onlyNotes).toMatchObject({ notes: 'kept', categoryId: null });
     expect(onlyCategory).toMatchObject({ notes: null, categoryId: 'c1' });
+  });
+
+  it('treats an empty categoryId as no category on bulk rows too', () => {
+    const [row] = toBulkTransactionInput([
+      {
+        amount: 1,
+        date: '2026-08-09',
+        payee: 'A',
+        accountId: 'a1',
+        categoryId: '',
+      },
+    ]);
+
+    expect(row.categoryId).toBeNull();
   });
 
   it('normalizes an explicit null the same as an omitted value', () => {
