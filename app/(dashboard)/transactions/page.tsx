@@ -11,6 +11,10 @@ import { Loader2, Plus } from 'lucide-react';
 import { DataTable } from '@/components/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSelectAccount } from '@/features/accounts/hooks/use-select-account';
+import {
+  bulkFieldErrors,
+  formatBulkErrorSummary,
+} from '@/features/transactions/api/bulk-errors';
 import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions';
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
 import { chunkItems } from '@/lib/chunk-items';
@@ -70,15 +74,27 @@ const TransactionsPage = () => {
       accountId: accountId as string,
     }));
 
+    // Tracks how many rows have already been accepted, so a failure in a later
+    // chunk is reported at its row number in the user's file rather than its
+    // index within the chunk. Without it, a bad row 504 is reported as row 4.
+    let submitted = 0;
+
     try {
       for (const chunk of chunkItems(data, MAX_BULK_CREATE_TRANSACTIONS)) {
         await createTransactions.mutateAsync(chunk);
+        submitted += chunk.length;
       }
 
       onCancelImport();
       toast.success('Transactions imported successfully');
-    } catch {
-      toast.error('Failed to import transactions');
+    } catch (error) {
+      // The API reports every failing row at once with an indexed path, so the
+      // user can fix a large file in one pass instead of rediscovering the next
+      // bad row on each attempt.
+      const summary = formatBulkErrorSummary(bulkFieldErrors(error), {
+        rowOffset: submitted,
+      });
+      toast.error(summary ?? 'Failed to import transactions');
     }
   };
 

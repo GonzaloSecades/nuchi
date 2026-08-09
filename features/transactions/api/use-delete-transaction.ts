@@ -1,28 +1,21 @@
-import { InferResponseType } from 'hono';
 import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
-
-type ResponseType = InferResponseType<
-  (typeof client.api.transactions)[':id']['$delete']
->;
+import { apiClient, unwrap } from '@/lib/api/client';
 
 export const useDeleteTransaction = (id?: string) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, Error>({
+  const mutation = useMutation({
     mutationFn: async () => {
-      const response = await client.api.transactions[':id']['$delete']({
-        param: { id: id },
+      const result = await apiClient.DELETE('/transactions/{id}', {
+        // The sheet and the row action only mount this with an id; the
+        // generated path type requires a string.
+        params: { path: { id: id as string } },
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'delete transaction');
-      }
-      return await response.json();
+      return unwrap(result, 'delete transaction');
     },
     onSuccess: () => {
       toast.success('Transaction deleted successfully');
