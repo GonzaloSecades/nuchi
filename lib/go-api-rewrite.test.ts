@@ -82,7 +82,7 @@ describe('goApiRewrites', () => {
     const rewrites = goApiRewrites({});
     if (Array.isArray(rewrites)) throw new Error('expected phased rewrites');
 
-    expect(rewrites.beforeFiles[0].destination).toBe(
+    expect(rewrites.beforeFiles?.[0]?.destination).toBe(
       `${DEFAULT_GO_API_URL}/api/:path*`
     );
   });
@@ -126,7 +126,7 @@ describe('goApiRewrites', () => {
     const rewrites = goApiRewrites({ USE_GO_API: 'true' });
     if (Array.isArray(rewrites)) throw new Error('expected phased rewrites');
 
-    expect(rewrites.beforeFiles[0].destination).toBe(
+    expect(rewrites.beforeFiles?.[0]?.destination).toBe(
       `${DEFAULT_GO_API_URL}/api/:path*`
     );
   });

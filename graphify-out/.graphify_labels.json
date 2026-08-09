@@ -34,7 +34,6 @@
   "32": "Current API Parity Fixtures",
   "33": "Dev Dependencies",
   "34": "Nuchi Roadmap Features List",
-  "35": "Seed Ts",
   "36": "Account Id",
   "37": "Nuchi Application",
   "38": "Use Confirm Tsx",
@@ -531,7 +530,6 @@
   "529": "Security Standard",
   "530": "graphify reference: incremental update and cluster-only",
   "531": "Performance and Query Engineering",
-  "532": "InvalidParamFormatError",
   "533": "Robustness and Transaction Semantics",
   "534": "RequiredHeaderError",
   "535": "GetAccount200JSONResponse",
@@ -553,7 +551,6 @@
   "551": "UpdateCategory200JSONResponse",
   "552": "VerifyEmail200JSONResponse",
   "553": "Q: Should Nuchi create shared Claude and Codex skills around Graphify and CodeGraph after the Go migration?",
-  "554": "UpdateAccount200JSONResponse",
   "555": "UpdateTransaction404JSONResponse",
   "556": "api-base-url.ts",
   "557": "BulkDeleteTransactions200JSONResponse",
@@ -569,7 +566,6 @@
   "567": "UnmarshalingParamError",
   "568": "Q: last comment address if you have anything more to say label it for a future improvement post migration and name it Codex-{title}",
   "569": "EmailNotVerifiedErrorJSONResponse",
-  "570": "RequiredHeaderError",
   "571": "Categories API — Technical Reference",
   "572": "CreateCategory200JSONResponse",
   "573": "ServerInterface",
@@ -578,9 +574,5 @@
   "576": "InvalidRefreshTokenErrorJSONResponse",
   "577": "Codex Backend Improvements",
   "578": "UnescapedCookieParamError",
-  "579": "layout.tsx",
-  "580": "BulkCreateTransactions200JSONResponse",
-  "581": "BulkDeleteCategories200JSONResponse",
-  "582": "CreateCategory200JSONResponse",
-  "583": "ListTransactions400JSONResponse"
+  "579": "layout.tsx"
 }
