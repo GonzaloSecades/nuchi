@@ -7,6 +7,7 @@ import {
   type MessageResponse,
   type SessionResponse,
 } from '@/lib/auth/session-requests';
+import { ApiError } from '@/lib/api-error';
 
 const user = { id: 'user-1', email: 'user@example.com', emailVerified: true };
 
@@ -171,6 +172,15 @@ describe('createSessionBootstrap', () => {
 
 describe('createEmailVerifier', () => {
   const verified: MessageResponse = { ok: true, message: 'Email verified.' };
+  const apiError = (status: number, code: string) =>
+    new ApiError(code, {
+      status,
+      statusText: status >= 500 ? 'Server Error' : 'Unauthorized',
+      url: '/api/auth/verify-email',
+      resource: 'email verification',
+      timestamp: '2026-08-09T00:00:00.000Z',
+      errorData: { error: { code } },
+    });
 
   it('verifies a token', async () => {
     const verify = createEmailVerifier({ verify: async () => verified });
@@ -248,12 +258,16 @@ describe('createEmailVerifier', () => {
   });
 
   it('reports a rejected token as failed with the API error', async () => {
-    const apiError = new Error('INVALID_TOKEN');
+    const error = apiError(401, 'INVALID_TOKEN');
     const verify = createEmailVerifier({
-      verify: async () => ({ ok: false, message: null, error: apiError }),
+      verify: async () => ({ ok: false, message: null, error }),
     });
 
-    expect(await verify('bad')).toEqual({ status: 'failed', error: apiError });
+    expect(await verify('bad')).toEqual({
+      status: 'failed',
+      error,
+      retryable: false,
+    });
   });
 
   it('reports a thrown request as failed', async () => {
@@ -264,7 +278,56 @@ describe('createEmailVerifier', () => {
       },
     });
 
-    expect(await verify('token-a')).toEqual({ status: 'failed', error: boom });
+    expect(await verify('token-a')).toEqual({
+      status: 'failed',
+      error: boom,
+      retryable: true,
+    });
+  });
+
+  it('retries after a transient failure without retrying in flight', async () => {
+    let calls = 0;
+    const verify = createEmailVerifier({
+      verify: async () => {
+        calls += 1;
+        if (calls === 1) {
+          return {
+            ok: false,
+            message: null,
+            error: apiError(503, 'SERVICE_UNAVAILABLE'),
+          };
+        }
+        return verified;
+      },
+    });
+
+    const first = verify('token-a');
+    const shared = verify('token-a');
+    expect(await first).toMatchObject({ status: 'failed', retryable: true });
+    expect(await shared).toEqual(await first);
+    expect(calls).toBe(1);
+
+    expect(await verify('token-a')).toEqual({
+      status: 'verified',
+      message: 'Email verified.',
+    });
+    expect(calls).toBe(2);
+  });
+
+  it('keeps a terminal failure cached for the single-use token', async () => {
+    let calls = 0;
+    const error = apiError(401, 'INVALID_TOKEN');
+    const verify = createEmailVerifier({
+      verify: async () => {
+        calls += 1;
+        return { ok: false, message: null, error };
+      },
+    });
+
+    await verify('token-a');
+    await verify('token-a');
+
+    expect(calls).toBe(1);
   });
 
   it('falls back to a message when the API omits one', async () => {

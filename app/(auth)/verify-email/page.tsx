@@ -13,7 +13,7 @@ import { verifyEmailToken } from '@/lib/auth/session-requests';
 type Outcome =
   | { state: 'verifying' }
   | { state: 'verified'; message: string }
-  | { state: 'failed'; message: string };
+  | { state: 'failed'; message: string; retryable: boolean };
 
 /**
  * Consumes the `?token=` an emailed verification link carries.
@@ -27,6 +27,7 @@ type Outcome =
 const VerifyEmail = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
+  const [attempt, setAttempt] = useState(0);
   /**
    * The settled outcome, tagged with the token it belongs to.
    *
@@ -84,6 +85,7 @@ const VerifyEmail = () => {
             ? { state: 'verified', message: result.message }
             : {
                 state: 'failed',
+                retryable: result.retryable,
                 message: authErrorMessage(result.error, {
                   INVALID_TOKEN:
                     'This verification link is invalid or has expired. Sign up again with the same email to get a new one.',
@@ -95,7 +97,7 @@ const VerifyEmail = () => {
     return () => {
       active = false;
     };
-  }, [token]);
+  }, [attempt, token]);
 
   if (!token) {
     return (
@@ -137,11 +139,23 @@ const VerifyEmail = () => {
         title={verified ? 'Email verified' : 'Verification failed'}
         description={outcome.message}
       />
-      <Button asChild className="w-full">
-        <Link href={verified ? '/sign-in' : '/sign-up'}>
-          {verified ? 'Continue to sign in' : 'Back to sign up'}
-        </Link>
-      </Button>
+      {!verified && outcome.state === 'failed' && outcome.retryable ? (
+        <Button
+          className="w-full"
+          onClick={() => {
+            setSettled(null);
+            setAttempt((value) => value + 1);
+          }}
+        >
+          Try again
+        </Button>
+      ) : (
+        <Button asChild className="w-full">
+          <Link href={verified ? '/sign-in' : '/sign-up'}>
+            {verified ? 'Continue to sign in' : 'Back to sign up'}
+          </Link>
+        </Button>
+      )}
     </div>
   );
 };

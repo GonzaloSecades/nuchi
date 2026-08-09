@@ -1,5 +1,6 @@
 import { apiClient, toApiError } from '@/lib/api/client';
 import type { components } from '@/lib/api/generated/schema';
+import { ApiError } from '@/lib/api-error';
 
 export type AuthUser = components['schemas']['AuthUser'];
 
@@ -93,10 +94,21 @@ export function createSessionBootstrap(deps: {
 
 export type VerifyResult =
   | { status: 'verified'; message: string }
-  | { status: 'failed'; error: unknown };
+  | { status: 'failed'; error: unknown; retryable: boolean };
+
+/** Whether retrying can succeed without asking the user for a new link. */
+function isRetryableVerificationError(error: unknown): boolean {
+  if (!(error instanceof ApiError)) {
+    // Fetch/network failures do not consume the token.
+    return true;
+  }
+
+  const status = error.details.status;
+  return status === 408 || status === 429 || status >= 500;
+}
 
 /**
- * Builds the email verifier, memoized per token.
+ * Builds the email verifier, memoized per token for definitive outcomes.
  *
  * Deliberately different from the bootstrap above: the settled promise is
  * **kept**, not released. An email verification token is single-use, so if the
@@ -105,10 +117,15 @@ export type VerifyResult =
  * verification into `INVALID_TOKEN` on screen. Replaying the first result is
  * the only correct answer.
  *
- * The cache holds one entry, keyed by token, rather than a growing map. That is
- * what lets `?token=A` → `?token=B` issue a real second request: Next keeps
- * client state when only the search parameter changes, so a plain boolean
- * "already submitted" flag would strand the second link on "Verifying" forever.
+ * Transient network/5xx/429 failures are different: they do not consume the
+ * token, so their cache entry is released after the shared in-flight request
+ * settles. The page can then offer a real retry without double-submitting the
+ * original request under Strict Mode.
+ *
+ * The cache holds one entry, keyed by token, rather than a growing map. That
+ * lets `?token=A` → `?token=B` issue a real second request: Next keeps client
+ * state when only the search parameter changes, so a plain boolean "already
+ * submitted" flag would strand the second link on "Verifying" forever.
  */
 export function createEmailVerifier(deps: {
   verify: (token: string) => Promise<MessageResponse>;
@@ -120,11 +137,15 @@ export function createEmailVerifier(deps: {
     try {
       response = await deps.verify(token);
     } catch (error) {
-      return { status: 'failed', error };
+      return { status: 'failed', error, retryable: true };
     }
 
     if (!response.ok) {
-      return { status: 'failed', error: response.error };
+      return {
+        status: 'failed',
+        error: response.error,
+        retryable: isRetryableVerificationError(response.error),
+      };
     }
 
     return {
@@ -139,6 +160,17 @@ export function createEmailVerifier(deps: {
     }
     const promise = run(token);
     cache = { token, promise };
+
+    void promise.then((result) => {
+      if (
+        result.status === 'failed' &&
+        result.retryable &&
+        cache?.promise === promise
+      ) {
+        cache = null;
+      }
+    });
+
     return promise;
   };
 }
