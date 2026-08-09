@@ -1,12 +1,10 @@
 'use client';
 
-import { z } from 'zod';
-
-import { InsertTransactionSchema } from '@/db/schema';
 import { useCreateAccount } from '@/features/accounts/api/use-create-account';
 import { useGetAccounts } from '@/features/accounts/api/use-get-accounts';
 import { useCreateCategory } from '@/features/categories/api/use-create-category';
 import { useGetCategories } from '@/features/categories/api/use-get-categories';
+import type { TransactionFormValues } from '@/features/transactions/api/transaction-payload';
 import { useCreateTransaction } from '@/features/transactions/api/use-create-transaction';
 import { TransactionForm } from '@/features/transactions/components/transaction-form';
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction';
@@ -19,8 +17,6 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { Loader2 } from 'lucide-react';
-
-type FormValues = Omit<z.infer<typeof InsertTransactionSchema>, 'id'>;
 
 export const NewTransactionSheet = () => {
   //Modalsheet
@@ -59,7 +55,7 @@ export const NewTransactionSheet = () => {
     value: account.id,
   }));
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: TransactionFormValues) => {
     createMutation.mutate(values, {
       onSuccess: () => {
         onClose();

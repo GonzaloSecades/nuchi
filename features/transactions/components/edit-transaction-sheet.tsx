@@ -1,14 +1,13 @@
 'use client';
 
-import { InsertTransactionSchema } from '@/db/schema';
 import { localDateFromCalendarDate } from '@/features/transactions/api/transaction-date';
+import type { TransactionFormValues } from '@/features/transactions/api/transaction-payload';
 import { useDeleteTransaction } from '@/features/transactions/api/use-delete-transaction';
 import { useEditTransaction } from '@/features/transactions/api/use-edit-transaction';
 import { useGetTransaction } from '@/features/transactions/api/use-get-transaction';
 import { TransactionForm } from '@/features/transactions/components/transaction-form';
 import { useOpenTransaction } from '@/features/transactions/hooks/use-open-transaction';
 import { useConfirm } from '@/hooks/use-confirm';
-import { z } from 'zod';
 
 import {
   Sheet,
@@ -22,8 +21,6 @@ import { useGetAccounts } from '@/features/accounts/api/use-get-accounts';
 import { useCreateCategory } from '@/features/categories/api/use-create-category';
 import { useGetCategories } from '@/features/categories/api/use-get-categories';
 import { Loader2 } from 'lucide-react';
-
-type FormValues = Omit<z.infer<typeof InsertTransactionSchema>, 'id'>;
 
 export const EditTransactionSheet = () => {
   const { isOpen, onClose, id } = useOpenTransaction();
@@ -80,7 +77,7 @@ export const EditTransactionSheet = () => {
     categoryQuery.isLoading ||
     accountQuery.isLoading;
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: TransactionFormValues) => {
     editMutation.mutate(values, {
       onSuccess: () => {
         onClose();

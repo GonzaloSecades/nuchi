@@ -1,9 +1,10 @@
 'use client';
 
-import { z } from 'zod';
 import { useNewAccount } from '@/features/accounts/hooks/use-new-account';
-import { InsertAccountSchema } from '@/db/schema';
-import { AccountForm } from '@/features/accounts/components/account-form';
+import {
+  AccountForm,
+  type AccountFormValues,
+} from '@/features/accounts/components/account-form';
 import { useCreateAccount } from '@/features/accounts/api/use-create-account';
 
 import {
@@ -14,14 +15,12 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 
-type FormValues = Pick<z.infer<typeof InsertAccountSchema>, 'name'>;
-
 export const NewAccountSheet = () => {
   const { isOpen, onClose } = useNewAccount();
 
   const mutation = useCreateAccount();
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: AccountFormValues) => {
     mutation.mutate(values, {
       onSuccess: () => {
         onClose();

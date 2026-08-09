@@ -13,16 +13,20 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { InsertCategorySchema } from '@/db/schema';
+import type { components } from '@/lib/api/generated/schema';
 
-const formSchema = InsertCategorySchema.pick({ name: true });
+export type CategoryFormValues = components['schemas']['CategoryInput'];
 
-type FormValues = z.input<typeof formSchema>;
+// Mirrors CategoryInput in the contract, including its `minLength: 1`, which
+// is stricter than the drizzle-zod schema this replaced for an empty name.
+const formSchema = z.object({
+  name: z.string().min(1),
+}) satisfies z.ZodType<CategoryFormValues>;
 
 type Props = {
   id?: string;
-  defaultValues?: FormValues;
-  onSubmit: (values: FormValues) => void;
+  defaultValues?: CategoryFormValues;
+  onSubmit: (values: CategoryFormValues) => void;
   onDelete?: () => void;
   disabled?: boolean;
 };
@@ -34,12 +38,12 @@ export const CategoryForm = ({
   onDelete,
   disabled,
 }: Props) => {
-  const form = useForm<FormValues>({
+  const form = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = (values: CategoryFormValues) => {
     onSubmit(values);
   };
 

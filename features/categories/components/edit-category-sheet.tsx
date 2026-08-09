@@ -1,14 +1,14 @@
 'use client';
 
-import { InsertCategorySchema } from '@/db/schema';
-
 import { useDeleteCategory } from '@/features/categories/api/use-delete-category';
 import { useEditCategory } from '@/features/categories/api/use-edit-category';
 import { useGetCategory } from '@/features/categories/api/use-get-category';
-import { CategoryForm } from '@/features/categories/components/category-form';
+import {
+  CategoryForm,
+  type CategoryFormValues,
+} from '@/features/categories/components/category-form';
 import { useOpenCategory } from '@/features/categories/hooks/use-open-category';
 import { useConfirm } from '@/hooks/use-confirm';
-import { z } from 'zod';
 
 import {
   Sheet,
@@ -18,8 +18,6 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { Loader2 } from 'lucide-react';
-
-type FormValues = Pick<z.infer<typeof InsertCategorySchema>, 'name'>;
 
 export const EditCategorySheet = () => {
   const { isOpen, onClose, id } = useOpenCategory();
@@ -37,7 +35,7 @@ export const EditCategorySheet = () => {
 
   const isLoading = categoryQuery.isLoading;
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: CategoryFormValues) => {
     editMutation.mutate(values, {
       onSuccess: () => {
         onClose();
