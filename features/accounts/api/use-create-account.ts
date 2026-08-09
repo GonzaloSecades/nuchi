@@ -1,38 +1,30 @@
-import { InferRequestType, InferResponseType } from 'hono';
 import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { ApiError, createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
+import { apiClient, unwrap } from '@/lib/api/client';
+import type { components } from '@/lib/api/generated/schema';
 
-type ResponseType = InferResponseType<typeof client.api.accounts.$post>;
-type RequestType = InferRequestType<typeof client.api.accounts.$post>['json'];
+import { accountMutationErrorMessage } from './account-mutation-error';
+
+type ResponseType = components['schemas']['AccountResponse'];
+type RequestType = components['schemas']['AccountInput'];
 
 export const useCreateAccount = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.accounts.$post({ json });
+      const result = await apiClient.POST('/accounts', { body: json });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'accounts');
-      }
-      return await response.json();
+      return unwrap(result, 'accounts');
     },
     onSuccess: () => {
       toast.success('Account created successfully');
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
     },
     onError: (error) => {
-      const apiMessage =
-        error instanceof ApiError
-          ? (error.details.errorData as { error?: { message?: string } } | null)
-              ?.error?.message
-          : null;
-
-      toast.error(apiMessage ?? 'Error creating account');
+      toast.error(accountMutationErrorMessage(error, 'Error creating account'));
     },
   });
   return mutation;

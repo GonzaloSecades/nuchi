@@ -2,23 +2,20 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
+import { apiClient, unwrap } from '@/lib/api/client';
+
+import { accountPathParams } from './account-path-params';
 
 export const useGetAccount = (id?: string) => {
   const query = useQuery({
     enabled: !!id,
     queryKey: ['accounts', { id }],
     queryFn: async () => {
-      const response = await client.api.accounts[':id'].$get({
-        param: { id },
+      const result = await apiClient.GET('/accounts/{id}', {
+        params: accountPathParams(id),
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'getSingleAccount');
-      }
-
-      const { data } = await response.json();
+      const { data } = unwrap(result, 'getSingleAccount');
       return data;
     },
   });
