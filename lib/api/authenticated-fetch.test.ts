@@ -19,6 +19,24 @@ const unauthorized = () =>
     error: { code: 'UNAUTHORIZED', message: 'Authentication required.' },
   });
 
+/**
+ * A successful `/auth/refresh` body, in the contract's real shape.
+ *
+ * Un-enveloped on purpose: `AuthSessionResponse` puts `accessToken` at the top
+ * level, and the contract states that auth endpoints do not use the app
+ * resource `{ data: ... }` envelope. These mocks previously wrapped the token
+ * in `data`, which agreed with the implementation's own mistaken read and so
+ * kept the suite green while no real refresh could ever succeed. Building the
+ * body here rather than inline keeps that shape stated once.
+ */
+const refreshed = (accessToken: string) =>
+  jsonResponse(200, {
+    accessToken,
+    expiresIn: 1800,
+    tokenType: 'Bearer',
+    user: { id: 'user-1', email: 'user@example.com', emailVerified: true },
+  });
+
 /** Records every call so tests can assert what was sent, and in what order. */
 function recordingFetch(responses: Array<() => Response>) {
   const calls: Array<{ url: string; init?: RequestInit }> = [];
@@ -76,7 +94,7 @@ describe('createAuthenticatedFetch', () => {
     token = null;
     const { fetchImpl, calls } = recordingFetch([
       unauthorized,
-      () => jsonResponse(200, { data: { accessToken: 'bootstrapped-token' } }),
+      () => refreshed('bootstrapped-token'),
       () => jsonResponse(200, { data: [] }),
     ]);
     const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
@@ -143,7 +161,7 @@ describe('createAuthenticatedFetch', () => {
   it('refreshes and retries once when the token has expired', async () => {
     const { fetchImpl, calls } = recordingFetch([
       expired,
-      () => jsonResponse(200, { data: { accessToken: 'fresh-token' } }),
+      () => refreshed('fresh-token'),
       () => jsonResponse(200, { data: [] }),
     ]);
     const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
@@ -169,7 +187,7 @@ describe('createAuthenticatedFetch', () => {
     const fetchImpl = (async (input: RequestInfo | URL) => {
       const url = input instanceof Request ? input.url : String(input);
       if (url.endsWith('/api/auth/refresh')) {
-        return jsonResponse(200, { data: { accessToken: 'fresh-token' } });
+        return refreshed('fresh-token');
       }
       if (!(input instanceof Request)) {
         throw new Error('expected openapi-fetch to supply a Request');
@@ -240,7 +258,23 @@ describe('createAuthenticatedFetch', () => {
   it('clears the token when the refresh returns no usable token', async () => {
     const { fetchImpl } = recordingFetch([
       expired,
-      () => jsonResponse(200, { data: {} }),
+      () => jsonResponse(200, {}),
+    ]);
+    const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
+
+    await authed('/api/accounts');
+
+    expect(token).toBeNull();
+  });
+
+  // Regression guard. The token was read from `data.accessToken` for an entire
+  // release, which no auth response has ever carried, so every refresh silently
+  // failed while this suite stayed green — the mocks wrapped the token the same
+  // wrong way. Reading an enveloped body as a success again would revive that.
+  it('does not accept a token wrapped in the resource envelope', async () => {
+    const { fetchImpl } = recordingFetch([
+      expired,
+      () => jsonResponse(200, { data: { accessToken: 'enveloped-token' } }),
     ]);
     const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
 
@@ -261,9 +295,11 @@ describe('createAuthenticatedFetch', () => {
         refreshCalls += 1;
         // Resolve on a later tick so the other callers are genuinely in flight.
         await new Promise((resolve) => setTimeout(resolve, 5));
-        return jsonResponse(200, { data: { accessToken: 'fresh-token' } });
+        return refreshed('fresh-token');
       }
-      return token === 'fresh-token' ? jsonResponse(200, { data: [] }) : expired();
+      return token === 'fresh-token'
+        ? jsonResponse(200, { data: [] })
+        : expired();
     }) as unknown as typeof globalThis.fetch;
 
     const authed = createAuthenticatedFetch({ fetch: fetchImpl, ...store() });
@@ -292,9 +328,7 @@ describe('createAuthenticatedFetch', () => {
     const fetchImpl = (async (input: RequestInfo | URL) => {
       if (String(input).endsWith('/api/auth/refresh')) {
         refreshCalls += 1;
-        return jsonResponse(200, {
-          data: { accessToken: `token-${refreshCalls}` },
-        });
+        return refreshed(`token-${refreshCalls}`);
       }
       resourceAttempts += 1;
       // Attempts 1 and 3 are the first try of each authed() call and expire;
@@ -325,7 +359,7 @@ describe('createAuthenticatedFetch', () => {
   it('prefixes the refresh call with the configured base URL', async () => {
     const { fetchImpl, calls } = recordingFetch([
       expired,
-      () => jsonResponse(200, { data: { accessToken: 'fresh' } }),
+      () => refreshed('fresh'),
       () => jsonResponse(200, {}),
     ]);
     const authed = createAuthenticatedFetch({
@@ -365,7 +399,10 @@ describe('createAuthenticatedFetch resilience', () => {
         throw new TypeError('network error');
       }
       return jsonResponse(401, {
-        error: { code: 'ACCESS_TOKEN_EXPIRED', message: 'Access token expired.' },
+        error: {
+          code: 'ACCESS_TOKEN_EXPIRED',
+          message: 'Access token expired.',
+        },
       });
     }) as unknown as typeof globalThis.fetch;
 
@@ -388,7 +425,7 @@ describe('createAuthenticatedFetch resilience', () => {
       if (String(input).endsWith('/api/auth/refresh')) {
         refreshAttempts += 1;
         if (refreshAttempts === 1) throw new TypeError('network error');
-        return jsonResponse(200, { data: { accessToken: 'recovered' } });
+        return refreshed('recovered');
       }
       resourceAttempts += 1;
       return resourceAttempts >= 3

@@ -97,8 +97,14 @@ export function createAuthenticatedFetch({
       return false;
     }
 
+    // Auth responses are deliberately un-enveloped: the contract's
+    // AuthSessionResponse is `{ accessToken, expiresIn, tokenType, user }` at
+    // the top level, and says so — only the app *resource* operations use
+    // `{ data: ... }`. Reading `body.data.accessToken` here found undefined on
+    // every real refresh, so the token was cleared and the session dropped at
+    // the first expiry, with the page-reload bootstrap never resuming at all.
     const body = await response.json().catch(() => null);
-    const token = body?.data?.accessToken;
+    const token = body?.accessToken;
     if (typeof token !== 'string' || token === '') {
       clearToken();
       return false;

@@ -1,3 +1,4 @@
+import { SessionGuard } from '@/components/auth/session-guard';
 import { Header } from '@/components/header';
 
 type Props = {
@@ -6,10 +7,10 @@ type Props = {
 
 const DashboardLayout = ({ children }: Props) => {
   return (
-    <>
+    <SessionGuard>
       <Header />
       <main className="px-3 lg:px-14">{children}</main>
-    </>
+    </SessionGuard>
   );
 };
 
