@@ -500,9 +500,9 @@
     "semantic_hash": "637181a5a2a3b22a9bedbc518f5da57b"
   },
   "eslint.config.mjs": {
-    "mtime": 1783698026.7367315,
-    "ast_hash": "340888b6e27069429228a613a145a858",
-    "semantic_hash": "340888b6e27069429228a613a145a858"
+    "mtime": 1786307245.8467102,
+    "ast_hash": "4dcb2bcb24ec2479d78d7b00974efdce",
+    "semantic_hash": ""
   },
   "features/accounts/api/use-bulk-delete-accounts.ts": {
     "mtime": 1786282863.526067,
@@ -765,8 +765,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1784742043.7327802,
-    "ast_hash": "b12ce8a02f9c31286cdd3a4ba807424a",
+    "mtime": 1786307245.8546703,
+    "ast_hash": "d4be55338a47b7d21a001db3758e2050",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -1025,8 +1025,8 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "mtime": 1784748314.222078,
-    "ast_hash": "2d4aa10d182684983fb4909f4aece8f5",
+    "mtime": 1786307245.837967,
+    "ast_hash": "8fd17956d2e0326a14a67c093727f2a9",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
@@ -1120,8 +1120,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/README.md": {
-    "mtime": 1786234292.4367404,
-    "ast_hash": "e0ff967379a595df91d1663ba241dc58",
+    "mtime": 1786307542.343477,
+    "ast_hash": "06b410c75970eb524be896196ae9200e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
@@ -1575,8 +1575,8 @@
     "semantic_hash": ""
   },
   "docs/api/transactions.md": {
-    "mtime": 1786214780.7580774,
-    "ast_hash": "4eba0955b18b868f7c1b3508080ea8a6",
+    "mtime": 1786307542.3322532,
+    "ast_hash": "460c40dd8f75837f015a943423d0321c",
     "semantic_hash": ""
   },
   "docs/product/transactions.md": {
@@ -1665,8 +1665,8 @@
     "semantic_hash": ""
   },
   "lib/go-api-rewrite.test.ts": {
-    "mtime": 1786282863.5790665,
-    "ast_hash": "e6e4bdad21a831edd96ebbca0dd22306",
+    "mtime": 1786307245.8527603,
+    "ast_hash": "e411766c6828bac15e8617a8ab1c6375",
     "semantic_hash": ""
   },
   "lib/go-api-rewrite.ts": {
@@ -1680,8 +1680,8 @@
     "semantic_hash": ""
   },
   "lib/api/authenticated-fetch.ts": {
-    "mtime": 1786282863.5700657,
-    "ast_hash": "7feb8d994dde5b6938137212f55ab345",
+    "mtime": 1786307245.850739,
+    "ast_hash": "cf9fa73876acf10e5325ad7489e302c4",
     "semantic_hash": ""
   },
   "lib/api/client.test.ts": {
@@ -1825,8 +1825,8 @@
     "semantic_hash": ""
   },
   "features/transactions/api/transaction-date.timezone.test.ts": {
-    "mtime": 1786282863.548073,
-    "ast_hash": "56d64cbdf74371f2be6de4e8a33a1c0c",
+    "mtime": 1786307245.848725,
+    "ast_hash": "39991f63514b746b012da295ed44f3ef",
     "semantic_hash": ""
   },
   "features/transactions/api/transaction-date.ts": {
@@ -1952,6 +1952,11 @@
   "tests/parity/README.md": {
     "mtime": 1786282863.5840614,
     "ast_hash": "897fe5efd7de8528b0377d5c6182a52a",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0018-date-response-serialized-as-utc.md": {
+    "mtime": 1786307542.343477,
+    "ast_hash": "baf4274f94774ad4fc306ba20203020f",
     "semantic_hash": ""
   }
 }

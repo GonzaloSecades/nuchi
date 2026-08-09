@@ -363,6 +363,7 @@ Recorded in `post-migration-improvements/claude-backend-improvements/`:
 | 0014 | Date filters parsed in UTC rather than the host timezone |
 | 0015 | Out-of-range amount returns 400 rather than legacy's 500 |
 | 0016 | Bulk byte limits enforced against the stream, not just `Content-Length` |
+| 0018 | `date` responses serialize the naive timestamp as UTC; legacy's driver read it as host-local |
 
 Also intentional, driven by the contract rather than parity: `currency` required
 (legacy has no such field), empty query parameters rejected, empty `categoryId`
