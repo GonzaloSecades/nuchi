@@ -1,6 +1,15 @@
 /** Where a signed-in user lands when no specific destination was requested. */
 export const DEFAULT_SIGNED_IN_PATH = '/';
 
+/** Builds the exact in-app location the session guard should restore. */
+export function redirectTargetFromLocation(location: {
+  pathname: string;
+  search: string;
+  hash: string;
+}): string {
+  return `${location.pathname}${location.search}${location.hash}`;
+}
+
 /**
  * Validates a post-sign-in destination taken from the URL.
  *

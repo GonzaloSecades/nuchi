@@ -3,8 +3,31 @@ import { describe, expect, it } from 'bun:test';
 import {
   DEFAULT_SIGNED_IN_PATH,
   isAuthPath,
+  redirectTargetFromLocation,
   safeRedirectTarget,
 } from '@/lib/auth/redirect';
+
+describe('redirectTargetFromLocation', () => {
+  it('preserves the path, query, and in-page fragment', () => {
+    expect(
+      redirectTargetFromLocation({
+        pathname: '/transactions',
+        search: '?accountId=abc',
+        hash: '#row-3',
+      })
+    ).toBe('/transactions?accountId=abc#row-3');
+  });
+
+  it('does not add punctuation when query and hash are absent', () => {
+    expect(
+      redirectTargetFromLocation({
+        pathname: '/accounts',
+        search: '',
+        hash: '',
+      })
+    ).toBe('/accounts');
+  });
+});
 
 describe('safeRedirectTarget', () => {
   it('keeps a same-origin path', () => {

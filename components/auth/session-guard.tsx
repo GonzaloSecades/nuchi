@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
 
+import { redirectTargetFromLocation } from '@/lib/auth/redirect';
 import { useSession } from '@/lib/auth/session';
 
 /**
@@ -34,7 +35,7 @@ export const SessionGuard = ({ children }: { children: React.ReactNode }) => {
     // Read the location here rather than through useSearchParams: the redirect
     // only ever runs in the browser, and taking the hook would opt every
     // dashboard page into a Suspense boundary it otherwise does not need.
-    const target = `${window.location.pathname}${window.location.search}`;
+    const target = redirectTargetFromLocation(window.location);
     router.replace(`/sign-in?redirect=${encodeURIComponent(target)}`);
   }, [status, router]);
 
