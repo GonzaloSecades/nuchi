@@ -40,8 +40,9 @@ case-insensitive duplicate produces:
 Another user may use the same name—the rule is per person, not global.
 
 Names are not trimmed or otherwise normalized. Leading and trailing spaces are
-significant, so `Cash` and `Cash` are currently different names. The UI should
-not rely on whitespace to create distinctions people cannot see easily.
+significant, so `Cash` and `␠Cash␠` are currently different names (`␠` marks a
+space). The UI should not rely on whitespace to create distinctions people
+cannot see easily.
 
 ## Deleting an account deletes its transaction history
 

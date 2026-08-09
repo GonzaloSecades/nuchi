@@ -37,8 +37,8 @@ a case-insensitive duplicate produces:
 > You already have a category with this name.
 
 The same name is allowed for different users. Names are stored as submitted and
-are not trimmed, so leading or trailing spaces can still make two names
-different even though case cannot.
+are not trimmed, so `Groceries` and `␠Groceries␠` are different names (`␠`
+marks a space) even though case cannot make them different.
 
 ## Deleting a category keeps the transactions
 
