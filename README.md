@@ -90,7 +90,14 @@ bun install
 
 ### Environment
 
-Copy `.env.example` to `.env.local` and fill local values:
+Copy `.env.example` to `.env.local` and fill local values.
+
+**`.env.local` is read by the Next process only.** Bun loads it; the Go API does
+not — `backend/internal/config/config.go` reads `os.Getenv` and nothing else, so
+the backend variables below are documented here for reference and must be
+*exported* in the shell that runs the API. In practice only `AUTH_JWT_SECRET`
+needs exporting, because it is the sole value with no default; see
+[Running Next and Go Together](#running-next-and-go-together).
 
 ```bash
 DATABASE_URL=postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
@@ -213,18 +220,32 @@ unmigrated database it exits immediately rather than starting.
 ```bash
 cd backend
 go install github.com/pressly/goose/v3/cmd/goose@v3.27.2   # once
-goose -dir migrations postgres "$DATABASE_URL" up
+goose -dir migrations postgres 'postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable' up
 ```
+
+The connection string is spelled out rather than `"$DATABASE_URL"` because
+**nothing exports it for you.** `.env.local` is loaded by Bun for the Next
+process; the Go side never reads it — `backend/internal/config/config.go` uses
+`os.Getenv` and nothing else. An unset `$DATABASE_URL` makes goose fall back to
+libpq defaults and fail against your OS username rather than the app role.
 
 Then the two long-running processes, one terminal each:
 
 ```bash
-cd backend && go run ./cmd/api
+cd backend
+export AUTH_JWT_SECRET="$(openssl rand -base64 48)"
+go run ./cmd/api
 ```
 
 ```bash
 bun dev
 ```
+
+`AUTH_JWT_SECRET` is the one value with no default: the API exits at startup
+unless it is set and at least 32 bytes. Everything else the API needs —
+including `DATABASE_URL`, `SMTP_ADDR`, `MAIL_FROM` and `APP_BASE_URL` — already
+defaults to the local values above, so this is the whole of it. See
+[`backend/README.md`](backend/README.md) for the full table.
 
 `bun dev` deliberately does not run migrations. Schema ownership belongs to the
 backend, and the frontend does not connect to Postgres at all.

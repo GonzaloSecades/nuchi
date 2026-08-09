@@ -19,9 +19,20 @@
 
 ## Env
 
-The frontend build needs **no** environment variables. Everything below is read
-by the Go API, except `GO_API_URL`, which Next reads to build the `/api/*`
-rewrite.
+`bun run build` and `bun dev` need no environment variables at all. The list
+splits by which process reads them, and **nothing bridges the two**:
+`.env.local` is loaded by Bun for the Next process, while the Go API reads
+`os.Getenv` only, so its values must be exported in the shell that starts it.
+
+Read by **Next**:
+
+- `GO_API_URL` — where `/api/*` is proxied. Origin-only, validated at build
+  time. Server-side only; the browser always calls the Next origin.
+- `NEXT_PUBLIC_API_URL` — optional origin for the API client. Read only on the
+  server (`lib/api-base-url.ts`); in the browser the base is always relative so
+  requests stay same-origin. Leaving it unset is correct behind the proxy.
+
+Read by the **Go API**:
 
 - `AUTH_JWT_SECRET` — required, no default. The API exits at startup if it is
   unset or shorter than 32 bytes. Generate with `openssl rand -base64 48`;
@@ -33,10 +44,11 @@ rewrite.
 - `APP_BASE_URL` — origin used to build links in verification and reset mail;
   origin-only and validated at backend startup.
 - `SMTP_ADDR`, `MAIL_FROM` — outgoing mail. `SMTP_ADDR` is one `host:port`.
-- `GO_API_URL` — where Next proxies `/api/*`. Origin-only, validated at build
-  time. Server-side only; the browser always calls the Next origin.
-- Reference: [`.env.example`](.env.example), and the full backend table in
-  [`backend/README.md`](backend/README.md).
+
+`AUTH_JWT_SECRET` is the only one with no default, so it is the only one that
+must be exported for `go run ./cmd/api`. Reference:
+[`.env.example`](.env.example), and the full backend table in
+[`backend/README.md`](backend/README.md).
 
 ## Repo Rules
 
