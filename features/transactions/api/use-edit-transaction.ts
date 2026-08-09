@@ -6,8 +6,8 @@ import {
   toTransactionInput,
   type TransactionFormValues,
 } from '@/features/transactions/api/transaction-payload';
+import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
 import { apiClient, unwrap } from '@/lib/api/client';
-import { ApiError } from '@/lib/api-error';
 
 export const useEditTransaction = (id?: string) => {
   const queryClient = useQueryClient();
@@ -31,7 +31,7 @@ export const useEditTransaction = (id?: string) => {
     },
     onError: (error) => {
       toast.error(
-        error instanceof ApiError ? error.message : 'Error editing transaction'
+        transactionMutationErrorMessage(error, 'Error editing transaction')
       );
     },
   });

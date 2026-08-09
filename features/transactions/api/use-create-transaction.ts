@@ -6,8 +6,8 @@ import {
   toTransactionInput,
   type TransactionFormValues,
 } from '@/features/transactions/api/transaction-payload';
+import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
 import { apiClient, unwrap } from '@/lib/api/client';
-import { ApiError } from '@/lib/api-error';
 
 export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
@@ -26,11 +26,8 @@ export const useCreateTransaction = () => {
       queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
     onError: (error) => {
-      // `toApiError` already prefers the API's own message, so this reads it
-      // straight off the error rather than digging into `errorData` as the
-      // Hono version had to.
       toast.error(
-        error instanceof ApiError ? error.message : 'Error creating transaction'
+        transactionMutationErrorMessage(error, 'Error creating transaction')
       );
     },
   });
