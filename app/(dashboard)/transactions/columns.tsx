@@ -1,24 +1,44 @@
 'use client';
 
-import { InferResponseType } from 'hono';
-
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { client } from '@/lib/hono';
+import type { components } from '@/lib/api/generated/schema';
 import { formatCurrency } from '@/lib/utils';
 import { format } from 'date-fns';
+
+import {
+  localDateFromCalendarDate,
+  type CalendarDate,
+} from '@/features/transactions/api/transaction-date';
 import { AccountColumn } from './account-column';
 import { Actions } from './actions';
 import { CategoryColumn } from './category-column';
 
-export type ResponseType = InferResponseType<
-  typeof client.api.transactions.$get,
-  200
->['data'][0];
+/**
+ * A row as the table receives it from `useGetTransactions`.
+ *
+ * Taken from the contract rather than inferred from the Hono client. That
+ * import was a runtime one — `client` is a value, and only `import type` is
+ * stripped — so deriving a type from it kept the legacy Hono client in the
+ * dashboard bundle after the hooks had already moved off it. It was also a
+ * quiet lie: the data comes from the generated client now, so the two shapes
+ * were free to drift.
+ *
+ * `amount` is overridden because the hook converts milliunits to a display
+ * number, and `date` because the hook normalizes the API instant to a
+ * `yyyy-MM-dd` calendar date.
+ */
+export type ResponseType = Omit<
+  components['schemas']['TransactionListItem'],
+  'amount' | 'date'
+> & {
+  amount: number;
+  date: CalendarDate;
+};
 
 export const columns: ColumnDef<ResponseType>[] = [
   {
@@ -57,8 +77,14 @@ export const columns: ColumnDef<ResponseType>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = row.getValue('date') as Date;
-      return <span>{format(date, 'dd MMMM, yyyy')}</span>;
+      // The hook normalizes this to `yyyy-MM-dd`. Rendering it through the
+      // calendar-date helper keeps the displayed day the stored one; handing
+      // the raw value to `format` re-reads it as an instant and shows the
+      // previous day for any viewer west of Greenwich.
+      const date = row.getValue('date') as string;
+      return (
+        <span>{format(localDateFromCalendarDate(date), 'dd MMMM, yyyy')}</span>
+      );
     },
   },
   {

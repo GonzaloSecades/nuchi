@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 
-import { createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
+import { apiClient, unwrap } from '@/lib/api/client';
 import { omitEmptyQueryParams } from '@/lib/query-params';
 import { convertAmountFromMiliunits } from '@/lib/utils';
 
@@ -16,19 +15,17 @@ export const useGetSummary = () => {
   const query = useQuery({
     queryKey: ['summary', { from, to, accountId }],
     queryFn: async () => {
-      const response = await client.api.summary.$get({
-        // Unset filters are omitted, not sent as empty strings: an explicitly
-        // empty `from`/`to`/`accountId` is malformed per the API contract and
-        // is rejected with 400 INVALID_QUERY, while omission selects the
-        // default range.
-        query: omitEmptyQueryParams({ from, to, accountId }),
+      const result = await apiClient.GET('/summary', {
+        params: {
+          // Unset filters are omitted, not sent as empty strings: an
+          // explicitly empty `from`/`to`/`accountId` is malformed per the API
+          // contract and is rejected with 400 INVALID_QUERY, while omission
+          // selects the default range.
+          query: omitEmptyQueryParams({ from, to, accountId }),
+        },
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'summary');
-      }
-
-      const { data } = await response.json();
+      const { data } = unwrap(result, 'summary');
       return {
         ...data,
         incomeAmount: convertAmountFromMiliunits(data.incomeAmount),
