@@ -4,8 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { apiClient, unwrap } from '@/lib/api/client';
 import type { components } from '@/lib/api/generated/schema';
-
-import { accountPathParams } from './account-path-params';
+import { requiredPathParams } from '@/lib/api/path-params';
 
 type ResponseType = components['schemas']['DeletedResourceResponse'];
 
@@ -15,7 +14,7 @@ export const useDeleteAccount = (id?: string) => {
   const mutation = useMutation<ResponseType, Error>({
     mutationFn: async () => {
       const result = await apiClient.DELETE('/accounts/{id}', {
-        params: accountPathParams(id),
+        params: requiredPathParams('Account', id),
       });
 
       return unwrap(result, 'delete account');

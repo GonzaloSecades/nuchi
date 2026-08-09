@@ -6,8 +6,8 @@ import {
   toTransactionInput,
   type TransactionFormValues,
 } from '@/features/transactions/api/transaction-payload';
-import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
 import { apiClient, unwrap } from '@/lib/api/client';
+import { mutationErrorMessage } from '@/lib/api/mutation-error';
 
 export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
@@ -26,9 +26,7 @@ export const useCreateTransaction = () => {
       queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
     onError: (error) => {
-      toast.error(
-        transactionMutationErrorMessage(error, 'Error creating transaction')
-      );
+      toast.error(mutationErrorMessage(error, 'Error creating transaction'));
     },
   });
   return mutation;

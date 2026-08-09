@@ -4,8 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { apiClient, unwrap } from '@/lib/api/client';
 import type { components } from '@/lib/api/generated/schema';
-
-import { categoryMutationErrorMessage } from './category-mutation-error';
+import { mutationErrorMessage } from '@/lib/api/mutation-error';
 
 type ResponseType = components['schemas']['CategoryResponse'];
 type RequestType = components['schemas']['CategoryInput'];
@@ -24,9 +23,7 @@ export const useCreateCategory = () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
     onError: (error) => {
-      toast.error(
-        categoryMutationErrorMessage(error, 'Error creating category')
-      );
+      toast.error(mutationErrorMessage(error, 'Error creating category'));
     },
   });
   return mutation;

@@ -3,8 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient, unwrap } from '@/lib/api/client';
-
-import { accountPathParams } from './account-path-params';
+import { requiredPathParams } from '@/lib/api/path-params';
 
 export const useGetAccount = (id?: string) => {
   const query = useQuery({
@@ -12,7 +11,7 @@ export const useGetAccount = (id?: string) => {
     queryKey: ['accounts', { id }],
     queryFn: async () => {
       const result = await apiClient.GET('/accounts/{id}', {
-        params: accountPathParams(id),
+        params: requiredPathParams('Account', id),
       });
 
       const { data } = unwrap(result, 'getSingleAccount');

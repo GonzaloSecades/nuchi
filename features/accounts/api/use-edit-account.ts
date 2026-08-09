@@ -4,9 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { apiClient, unwrap } from '@/lib/api/client';
 import type { components } from '@/lib/api/generated/schema';
-
-import { accountMutationErrorMessage } from './account-mutation-error';
-import { accountPathParams } from './account-path-params';
+import { mutationErrorMessage } from '@/lib/api/mutation-error';
+import { requiredPathParams } from '@/lib/api/path-params';
 
 type ResponseType = components['schemas']['AccountResponse'];
 type RequestType = components['schemas']['AccountInput'];
@@ -17,7 +16,7 @@ export const useEditAccount = (id?: string) => {
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
       const result = await apiClient.PATCH('/accounts/{id}', {
-        params: accountPathParams(id),
+        params: requiredPathParams('Account', id),
         body: json,
       });
 
@@ -31,7 +30,7 @@ export const useEditAccount = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ['summary'] }); //jic
     },
     onError: (error) => {
-      toast.error(accountMutationErrorMessage(error, 'Error editing account'));
+      toast.error(mutationErrorMessage(error, 'Error editing account'));
     },
   });
   return mutation;

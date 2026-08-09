@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient, unwrap } from '@/lib/api/client';
-
-import { categoryPathParams } from './category-path-params';
+import { requiredPathParams } from '@/lib/api/path-params';
 
 export const useGetCategory = (id?: string) => {
   const query = useQuery({
@@ -10,7 +9,7 @@ export const useGetCategory = (id?: string) => {
     queryKey: ['category', { id }],
     queryFn: async () => {
       const result = await apiClient.GET('/categories/{id}', {
-        params: categoryPathParams(id),
+        params: requiredPathParams('Category', id),
       });
 
       const { data } = unwrap(result, 'getSingleCategory');
