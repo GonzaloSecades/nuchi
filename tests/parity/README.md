@@ -22,11 +22,32 @@ gap between them, invisible to either, until `USE_GO_API` flips and it becomes a
 production bug on cutover day.
 
 That is not hypothetical: the first thing this harness was pointed at, it found
-one. See "Date serialization" below.
+one. See [Date serialization](#date-serialization) below.
 
 ## Running it
 
-Needs Postgres and a Go API. From the repo root:
+### `TZ` is not optional
+
+**`bun test` runs at UTC regardless of the host timezone.** At UTC the two
+stacks serialize a naive timestamp identically, so there is no difference to
+observe and the comparison **skips**. Running the harness without setting `TZ`
+therefore exercises everything _except_ the finding it exists to report.
+
+Set a non-UTC zone. Use POSIX-style offsets rather than IANA names — Bun on
+Windows silently ignores `Asia/Tokyo` and falls back to the host zone, which
+would make a run look meaningful when it is not. Note the POSIX sign is
+inverted: `GMT-3` is UTC−3.
+
+### Services
+
+Postgres, from the repo root — the standard path is Docker Compose:
+
+```bash
+docker compose up -d postgres
+```
+
+If Docker is unavailable, a native server works just as well; on this machine
+Postgres runs under WSL:
 
 ```bash
 wsl -d Ubuntu-20.04 -u root -e sh -c "service postgresql start; sleep 7200"
@@ -41,17 +62,25 @@ DATABASE_URL='postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable' AUTH_
 Then the harness:
 
 ```bash
-ADMIN_DATABASE_URL='postgres://postgres:postgres@localhost:5432/nuchi?sslmode=disable' bun test tests/parity/
+TZ=GMT-3 ADMIN_DATABASE_URL='postgres://postgres:postgres@localhost:5432/nuchi?sslmode=disable' bun test tests/parity/
 ```
 
-Without those variables every test **skips** rather than passes. A differential
-test that silently passes because it could not reach either stack is worse than
-no test at all — it looks like evidence. Check for `skip` in the output before
-believing a green run.
+### Reading the result
+
+Every test **skips** rather than passes when it cannot reach both stacks, and
+the timezone-dependent comparison skips when the runner is at UTC. A
+differential test that silently passes because it compared nothing is worse than
+no test at all — it looks like evidence. **Check the skip count before believing
+a green run.** For reference, a complete local run reports 13 passing and 0
+skipped; a run with no services reports 8 passing (the registry rules, which
+need nothing) and 8 skipped.
 
 `ADMIN_DATABASE_URL` is the admin role deliberately: the harness seeds and reads
 across users, and the app role is subject to RLS, which would return zero rows
 and make every comparison trivially equal.
+
+`GO_API_URL` is the API **origin** — scheme and host, no path. The `/api` prefix
+is added by the harness, so a value that already includes it yields `/api/api/…`.
 
 ## How each side is represented
 
@@ -79,15 +108,26 @@ at, and it is the reason the support layer is a separate module.
 
 ## Known divergences
 
-`divergences.ts` lists the deliberate ones as data, each pointing at where it is
-argued — a numbered entry in
+`divergences.ts` holds the deliberate divergences as data, each pointing at
+where it is argued — a numbered entry in
 `post-migration-improvements/claude-backend-improvements/`, or a "Divergences"
 section under `docs/api/`.
 
-Keeping that list is what makes the harness usable. Without it a run is a wall
-of red that has to be re-triaged by hand every time, and the one real regression
-hides among the decisions we already made on purpose. **Anything reported that
-is not on the list is a finding.**
+The registry is **consulted, not decorative**. `classifyDivergence(key)` returns
+`expected` for a recorded decision, `open` for a recorded defect, and `unknown`
+for anything not written down — and `unknown` is the important one, because a
+difference nobody has recorded is precisely the regression this exists to catch
+and must not be filed quietly with the decisions. `divergences.test.ts` covers
+those rules and runs with no database and no API, so the classification stays
+verified even when a full parity run skips.
+
+Keeping the list is what makes the harness usable at scale. Without it a run is
+a wall of red that has to be re-triaged by hand every time, and the one real
+regression hides among the decisions we already made on purpose.
+
+Today the registry classifies; it does not yet suppress, because there is one
+open divergence and one test. Wiring suppression into a broader comparison is
+worth doing when there are enough comparisons to need it.
 
 ## Date serialization
 
@@ -113,8 +153,11 @@ not appear to be recorded anywhere.
 
 It is deliberately **not** marked as an expected divergence. It is a regression
 against Hono rather than a decision, and marking it expected would retire the
-only test that reports it. The test asserts the difference _is present_ rather
-than asserting the two agree: an assertion that fails today, inside a parity
-freeze that forbids fixing it, gets ignored and then deleted. Written this way
-it documents the defect, proves it is still there, and fails loudly the day
-someone changes either side — which is exactly when someone should look.
+only test that reports it — so the test asserts that classification, and
+reclassifying it fails the suite instead of quietly silencing it.
+
+The comparison asserts the difference _is present_ rather than asserting the two
+agree. An assertion that fails today, inside a parity freeze that forbids fixing
+it, gets ignored and then deleted. Written this way it documents the defect,
+proves it is still there, and fails loudly the day someone changes either side —
+which is exactly when someone should look.
