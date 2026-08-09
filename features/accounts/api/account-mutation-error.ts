@@ -5,7 +5,15 @@ export const accountMutationErrorMessage = (
   fallback: string
 ): string => {
   if (error instanceof ApiError) {
-    return error.message;
+    const apiMessage = (
+      error.details.errorData as {
+        error?: { message?: unknown };
+      } | null
+    )?.error?.message;
+
+    if (typeof apiMessage === 'string' && apiMessage !== '') {
+      return apiMessage;
+    }
   }
 
   return fallback;

@@ -35,6 +35,21 @@ describe('accountMutationErrorMessage', () => {
     );
   });
 
+  it('uses the existing fallback when the API error has no message', () => {
+    const error = new ApiError('Failed to fetch accounts: 500', {
+      status: 500,
+      statusText: 'Internal Server Error',
+      url: '/api/accounts',
+      resource: 'accounts',
+      timestamp: '2026-08-08T00:00:00.000Z',
+      errorData: null,
+    });
+
+    expect(accountMutationErrorMessage(error, 'Error creating account')).toBe(
+      'Error creating account'
+    );
+  });
+
   it('uses the existing fallback for non-API errors', () => {
     expect(
       accountMutationErrorMessage(new Error('boom'), 'Error creating account')
