@@ -4,8 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { apiClient, unwrap } from '@/lib/api/client';
 import type { components } from '@/lib/api/generated/schema';
-
-import { categoryPathParams } from './category-path-params';
+import { requiredPathParams } from '@/lib/api/path-params';
 
 type ResponseType = components['schemas']['CategoryResponse'];
 type RequestType = components['schemas']['CategoryInput'];
@@ -16,7 +15,7 @@ export const useEditCategory = (id?: string) => {
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
       const result = await apiClient.PATCH('/categories/{id}', {
-        params: categoryPathParams(id),
+        params: requiredPathParams('Category', id),
         body: json,
       });
 

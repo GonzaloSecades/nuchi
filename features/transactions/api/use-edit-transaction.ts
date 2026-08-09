@@ -6,9 +6,9 @@ import {
   toTransactionInput,
   type TransactionFormValues,
 } from '@/features/transactions/api/transaction-payload';
-import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
-import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
 import { apiClient, unwrap } from '@/lib/api/client';
+import { mutationErrorMessage } from '@/lib/api/mutation-error';
+import { requiredPathParams } from '@/lib/api/path-params';
 
 export const useEditTransaction = (id?: string) => {
   const queryClient = useQueryClient();
@@ -16,7 +16,7 @@ export const useEditTransaction = (id?: string) => {
   const mutation = useMutation({
     mutationFn: async (values: TransactionFormValues) => {
       const result = await apiClient.PATCH('/transactions/{id}', {
-        params: transactionPathParams(id),
+        params: requiredPathParams('Transaction', id),
         body: toTransactionInput(values),
       });
 
@@ -29,9 +29,7 @@ export const useEditTransaction = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
     onError: (error) => {
-      toast.error(
-        transactionMutationErrorMessage(error, 'Error editing transaction')
-      );
+      toast.error(mutationErrorMessage(error, 'Error editing transaction'));
     },
   });
   return mutation;

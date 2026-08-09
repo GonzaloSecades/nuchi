@@ -4,8 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { apiClient, unwrap } from '@/lib/api/client';
 import type { components } from '@/lib/api/generated/schema';
-
-import { accountMutationErrorMessage } from './account-mutation-error';
+import { mutationErrorMessage } from '@/lib/api/mutation-error';
 
 type ResponseType = components['schemas']['AccountResponse'];
 type RequestType = components['schemas']['AccountInput'];
@@ -24,7 +23,7 @@ export const useCreateAccount = () => {
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
     },
     onError: (error) => {
-      toast.error(accountMutationErrorMessage(error, 'Error creating account'));
+      toast.error(mutationErrorMessage(error, 'Error creating account'));
     },
   });
   return mutation;

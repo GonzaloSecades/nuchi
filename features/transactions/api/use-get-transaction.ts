@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { calendarDateFromApi } from '@/features/transactions/api/transaction-date';
-import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
 import { apiClient, unwrap } from '@/lib/api/client';
+import { requiredPathParams } from '@/lib/api/path-params';
 import { convertAmountFromMiliunits } from '@/lib/utils';
 
 export const useGetTransaction = (id?: string) => {
@@ -11,7 +11,7 @@ export const useGetTransaction = (id?: string) => {
     queryKey: ['transaction', { id }],
     queryFn: async () => {
       const result = await apiClient.GET('/transactions/{id}', {
-        params: transactionPathParams(id),
+        params: requiredPathParams('Transaction', id),
       });
 
       const { data } = unwrap(result, 'getSingleTransaction');

@@ -2,8 +2,8 @@ import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
 import { apiClient, unwrap } from '@/lib/api/client';
+import { requiredPathParams } from '@/lib/api/path-params';
 
 export const useDeleteTransaction = (id?: string) => {
   const queryClient = useQueryClient();
@@ -11,7 +11,7 @@ export const useDeleteTransaction = (id?: string) => {
   const mutation = useMutation({
     mutationFn: async () => {
       const result = await apiClient.DELETE('/transactions/{id}', {
-        params: transactionPathParams(id),
+        params: requiredPathParams('Transaction', id),
       });
 
       return unwrap(result, 'delete transaction');
