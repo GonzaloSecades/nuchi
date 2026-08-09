@@ -2,7 +2,6 @@ import { ApiError } from '@/lib/api-error';
 
 type ApiErrorEnvelope = {
   error?: {
-    code?: unknown;
     message?: unknown;
   };
 };
@@ -18,17 +17,10 @@ type ApiErrorEnvelope = {
  */
 export function mutationErrorMessage(
   error: unknown,
-  fallback: string,
-  overrides: Record<string, string> = {}
+  fallback: string
 ): string {
   if (error instanceof ApiError) {
     const envelope = error.details.errorData as ApiErrorEnvelope | null;
-    const code = envelope?.error?.code;
-
-    if (typeof code === 'string' && Object.hasOwn(overrides, code)) {
-      return overrides[code];
-    }
-
     const apiMessage = envelope?.error?.message;
     if (typeof apiMessage === 'string' && apiMessage !== '') {
       return apiMessage;

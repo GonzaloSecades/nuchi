@@ -27,18 +27,6 @@ describe('mutationErrorMessage', () => {
     );
   });
 
-  it('prefers a caller override for a matching API code', () => {
-    const error = apiError({
-      error: { code: 'RESOURCE_CONFLICT', message: 'Server wording.' },
-    });
-
-    expect(
-      mutationErrorMessage(error, 'Error creating resource', {
-        RESOURCE_CONFLICT: 'Caller wording.',
-      })
-    ).toBe('Caller wording.');
-  });
-
   it('falls back rather than surfacing a generic technical message', () => {
     const error = new ApiError(
       'Failed to fetch resources: 500 Internal Server Error',
@@ -83,29 +71,4 @@ describe('mutationErrorMessage', () => {
     ).toBe('Error creating resource');
   });
 
-  for (const inherited of ['toString', 'constructor', 'hasOwnProperty']) {
-    it(`does not treat the inherited property ${inherited} as an override`, () => {
-      const error = apiError({
-        error: { code: inherited, message: 'Server wording.' },
-      });
-
-      expect(
-        mutationErrorMessage(error, 'Error creating resource', {
-          SOMETHING_ELSE: 'unused',
-        })
-      ).toBe('Server wording.');
-    });
-  }
-
-  it('honours an override deliberately named after an Object member', () => {
-    const error = apiError({
-      error: { code: 'toString', message: 'Server wording.' },
-    });
-
-    expect(
-      mutationErrorMessage(error, 'Error creating resource', {
-        toString: 'Caller wording.',
-      })
-    ).toBe('Caller wording.');
-  });
 });
