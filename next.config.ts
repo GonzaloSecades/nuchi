@@ -8,9 +8,9 @@ const nextConfig: NextConfig = {
   /**
    * Same-origin `/api/*` proxying to the Go backend.
    *
-   * Off unless USE_GO_API is "true", so the legacy Hono routes keep serving
-   * `/api/*` today. See lib/go-api-rewrite.ts for why enabling it is
-   * all-or-nothing and why the rewrite must live in beforeFiles.
+   * On by default after the generated-client/auth cutover. See
+   * lib/go-api-rewrite.ts for the explicit diagnostic escape hatch, why the
+   * rewrite is all-or-nothing, and why it must live in beforeFiles.
    */
   async rewrites() {
     return goApiRewrites();

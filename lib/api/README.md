@@ -6,12 +6,12 @@ in [#50](https://github.com/GonzaloSecades/nuchi/issues/50).
 
 ## Files
 
-| File | Role |
-| --- | --- |
-| `generated/schema.d.ts` | Generated from the contract. **Never edited by hand.** |
-| `client.ts` | The configured client, error mapping, `unwrap` |
-| `authenticated-fetch.ts` | Bearer attachment, refresh-and-retry |
-| `token-store.ts` | In-memory access token |
+| File                     | Role                                                   |
+| ------------------------ | ------------------------------------------------------ |
+| `generated/schema.d.ts`  | Generated from the contract. **Never edited by hand.** |
+| `client.ts`              | The configured client, error mapping, `unwrap`         |
+| `authenticated-fetch.ts` | Bearer attachment, refresh-and-retry                   |
+| `token-store.ts`         | In-memory access token                                 |
 
 ## Using it
 
@@ -79,10 +79,16 @@ Three rules worth knowing before changing this:
   it settles, so a later expiry can refresh again.
 - **The retry is not a loop.** If the retried request still 401s, that response
   is returned. A genuinely rejected session surfaces instead of spinning.
+- **Auth responses carry no `{ data }` envelope.** `AuthSessionResponse` puts
+  `accessToken` at the top level, and the contract says so explicitly — only the
+  app _resource_ operations are enveloped. Reading the refreshed token from
+  `data.accessToken` shipped in #49 and broke every refresh silently, since the
+  unit tests wrapped their mocks the same wrong way; fixed in #51.
 
 When a refresh fails, the token is cleared. `subscribeToAccessToken` exists so
-the UI can react to that and send the user to sign-in; the auth pages that
-consume it arrive in #51.
+the UI can react to that and send the user to sign-in. `SessionProvider`
+(`lib/auth/session.tsx`) is the consumer: it subscribes, and treats a clear as
+the session ending.
 
 ## Errors
 
@@ -95,8 +101,8 @@ the body off a `Response`, and openapi-fetch has already parsed it by the time a
 caller sees the result — a response stream cannot be read twice.
 
 The gain is that `message` now comes from the API's own structured error when
-there is one: *"You already have an account with this name."* instead of
-*"Failed to fetch accounts: 409 Conflict"*. The generic form remains the
+there is one: _"You already have an account with this name."_ instead of
+_"Failed to fetch accounts: 409 Conflict"_. The generic form remains the
 fallback.
 
 Branch on `apiErrorCode(error)` rather than on the message — codes are stable,

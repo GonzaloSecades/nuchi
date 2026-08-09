@@ -75,14 +75,19 @@ describe('normalizeGoApiUrl', () => {
 });
 
 describe('goApiRewrites', () => {
-  // The default matters more than the enabled path: the frontend still calls
-  // Hono until #49/#50, so a rewrite that fired by accident would take over
-  // /api/* and break the running app.
-  it('produces no rewrites by default', () => {
-    expect(goApiRewrites({})).toEqual([]);
+  // #49/#50/#51 have moved the frontend and auth to Go, so leaving the
+  // variable unset must produce a usable app rather than silently selecting
+  // the legacy Clerk/Hono stack.
+  it('rewrites to Go by default after the cutover', () => {
+    const rewrites = goApiRewrites({});
+    if (Array.isArray(rewrites)) throw new Error('expected phased rewrites');
+
+    expect(rewrites.beforeFiles[0].destination).toBe(
+      `${DEFAULT_GO_API_URL}/api/:path*`
+    );
   });
 
-  it('stays off for any value other than the exact string "true"', () => {
+  it('allows an explicit non-true value to disable the rewrite', () => {
     for (const USE_GO_API of ['false', 'TRUE', '1', 'yes', '']) {
       expect(goApiRewrites({ USE_GO_API })).toEqual([]);
     }
@@ -98,7 +103,10 @@ describe('goApiRewrites', () => {
     if (Array.isArray(rewrites)) return;
 
     expect(rewrites.beforeFiles).toEqual([
-      { source: '/api/:path*', destination: 'http://localhost:9999/api/:path*' },
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:9999/api/:path*',
+      },
     ]);
   });
 
