@@ -12,7 +12,6 @@ export const DEFAULT_GO_API_URL = 'http://localhost:8080';
  */
 type RewriteEnv = {
   GO_API_URL?: string;
-  USE_GO_API?: string;
   [key: string]: string | undefined;
 };
 
@@ -59,30 +58,22 @@ export function normalizeGoApiUrl(url: string): string {
 /**
  * Builds the `/api/*` rewrite set for the given environment.
  *
- * Routes to Go by default now that the generated-client and owned-auth cutover
- * is complete. An explicitly configured value other than `"true"` disables
- * the rewrite for narrow legacy diagnostics; it is not a functional whole-app
- * rollback because the active frontend authenticates with the owned JWT.
+ * The Go API is the only backend, so the rewrite is unconditional: every
+ * `/api/*` request is proxied to it. Only its origin is configurable.
  *
- * When enabled the rewrite goes in `beforeFiles`, because that is the only
- * phase where it has any effect: `afterFiles` runs solely when no filesystem
- * route matched, and `app/api/[[...route]]` matches everything under `/api`, so
- * an `afterFiles` entry would never fire. The consequence is that enabling this
- * takes over `/api/*` completely — there is no partial or per-route mixing, and
- * mixing would be incoherent anyway because the two stacks authenticate
- * differently (Clerk vs. the owned JWT).
+ * The rewrite stays in `beforeFiles` after the removal of
+ * `app/api/[[...route]]` in #84. `afterFiles` would also fire now that no
+ * filesystem route matches `/api/*`, but `beforeFiles` keeps the proxy
+ * authoritative: any future Next route added under `app/api/` would silently
+ * shadow the backend from `afterFiles`, whereas from `beforeFiles` the proxy
+ * still wins. Verified by running the app with the legacy route deleted.
  *
- * The browser keeps calling same-origin `/api/*` either way, so cookies, CSRF
- * assumptions and CORS are unchanged and the backend is reachable only through
- * this hop.
+ * The browser keeps calling same-origin `/api/*`, so cookies, CSRF assumptions
+ * and CORS are unchanged and the backend is reachable only through this hop.
  */
 export function goApiRewrites(
   env: RewriteEnv = process.env
 ): NonNullable<Awaited<ReturnType<NonNullable<NextConfig['rewrites']>>>> {
-  if (env.USE_GO_API !== undefined && env.USE_GO_API !== 'true') {
-    return [];
-  }
-
   const origin = normalizeGoApiUrl(env.GO_API_URL ?? DEFAULT_GO_API_URL);
 
   return {

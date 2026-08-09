@@ -2,7 +2,7 @@
 
 Nuchi is a personal finance app for tracking accounts, categories, transactions, CSV imports, and dashboard analytics.
 
-The app is currently a full-stack Next.js application with Clerk authentication, Hono API routes, Drizzle ORM, TanStack Query, and PostgreSQL. The project is also in the middle of the Go backend replacement tracked by [issue #18](https://github.com/GonzaloSecades/nuchi/issues/18): the Go service, Docker Compose services, OpenAPI scaffold, API parity fixtures, replacement spec, and shared API auth/error contract are in place, but the production app still depends on the existing Next/Hono/Drizzle/Clerk path until Go parity is implemented.
+The app is a Next.js frontend with TanStack Query, served by a separate Go API over PostgreSQL. The Go backend replacement tracked by [issue #18](https://github.com/GonzaloSecades/nuchi/issues/18) has reached parity: the Go service, owned JWT auth, the generated OpenAPI client, and the frontend cutover are all in place, and the legacy Hono API has been removed. The remaining Drizzle and Clerk packages are unused and are removed in [#85](https://github.com/GonzaloSecades/nuchi/issues/85).
 
 ## Migration Status
 
@@ -19,17 +19,15 @@ Completed migration issues:
 
 Next migration issue: [#29 Backend Migration 03: Define full OpenAPI contract](https://github.com/GonzaloSecades/nuchi/issues/29). Work must continue strictly in sequence: a ticket should be merged before the next starts, only the next unblocked low-risk ticket may be marked agent-ready, and high-risk migration tickets remain attended work.
 
-Do not remove the Hono routes, Drizzle schema, Clerk auth, or typed Hono client yet. They are still the current app backend and the parity reference for the Go migration.
+The Hono API and its typed client were removed in [#84](https://github.com/GonzaloSecades/nuchi/issues/84). The Drizzle schema and Clerk packages are no longer used by any code path and are removed in [#85](https://github.com/GonzaloSecades/nuchi/issues/85).
 
 ## Stack
 
 - Next.js App Router, React, and TypeScript.
-- Clerk authentication in the current frontend/app runtime.
-- Hono API mounted in `app/api/[[...route]]` as the current backend and legacy parity reference.
-- Drizzle ORM with PostgreSQL. Local development uses Docker Compose Postgres; existing production-oriented configuration still supports Neon/Postgres-style URLs.
-- TanStack Query for server-state hooks.
+- Owned email/password auth with JWT access tokens and HttpOnly refresh cookies, served by the Go API.
+- TanStack Query for server-state hooks, over the generated OpenAPI client in `lib/api/`.
 - Bun package manager and runtime scripts.
-- Go backend scaffold under `backend/`, currently exposing `/api/health`.
+- Go API under `backend/` (chi, pgxpool, sqlc, goose) serving all of `/api/*` over PostgreSQL.
 - Docker Compose services for Postgres and Mailpit.
 - OpenAPI source under `openapi/`.
 - Graphify knowledge graph under `graphify-out/`.
@@ -48,11 +46,11 @@ Do not remove the Hono routes, Drizzle schema, Clerk auth, or typed Hono client 
 
 ### Current App Shape
 
-- `app/` contains App Router pages, layouts, and the Hono API entrypoint.
-- `app/api/[[...route]]` contains the current JSON API for accounts, categories, transactions, and summary.
+- `app/` contains App Router pages and layouts. There is no longer a Next API route; `/api/*` is proxied to the Go API.
+- `backend/` contains the Go API for accounts, categories, transactions, summary, and auth.
 - `features/<domain>/` contains UI, hooks, and domain-specific client logic.
-- `lib/hono.ts` exposes the typed Hono client used by TanStack Query hooks.
-- `db/schema.ts` is the current database source of truth, with generated Drizzle migrations in `drizzle/`.
+- `lib/api/` exposes the generated OpenAPI client used by TanStack Query hooks.
+- `backend/migrations/` holds the goose migrations that own the database schema.
 - Auth-sensitive reads and writes are scoped by `auth.userId`.
 - Transaction amounts are stored as signed integer milliunits.
 
@@ -71,7 +69,7 @@ The target architecture keeps Next.js serving the frontend while a separate Go A
 
 ### Legacy And Reference Code
 
-The current Hono routes, Drizzle schema, Clerk usage, and `lib/hono.ts` must remain until the Go backend reaches verified parity. They define behavior that the Go API must preserve unless the replacement spec names an intentional product change. The current parity fixtures live in `docs/specs/18-go-backend-replacement/api-parity-fixtures.md`.
+The Hono routes and `lib/hono.ts` are gone; git history is their reference. The behavior they defined is frozen in `docs/specs/18-go-backend-replacement/api-parity-fixtures.md`, which the Go API was ported against and which stays as the migration's historical record.
 
 ## Local Setup
 
@@ -216,23 +214,18 @@ bun dev
 
 ### Go API proxy configuration
 
-The proxy is **on by default** after the generated-client and owned-auth
-cutover. Configure its origin in `.env.local` when it is not the local default:
+The proxy is **unconditional** — the Go API is the only backend, so there is no
+flag to turn it off. Configure its origin in `.env.local` when it is not the
+local default:
 
 ```bash
-USE_GO_API=true
 GO_API_URL=http://localhost:8080
 ```
 
-Two things to know:
-
-- **It is all-or-nothing.** The rewrite runs in Next's `beforeFiles` phase,
-  which is the only phase that can override `app/api/[[...route]]` — an
-  `afterFiles` rewrite would never fire, because that route matches everything
-  under `/api`. So there is no per-route mixing.
-- **`USE_GO_API=false` is diagnostic only.** It exposes the retained legacy
-  routes while #27 prepares their removal, but the active UI uses Go JWT auth,
-  so disabling the proxy is not a functional whole-app rollback.
+One thing to know: the rewrite runs in Next's `beforeFiles` phase. Nothing
+under `app/api/` competes with it any more, but `beforeFiles` keeps the proxy
+authoritative — a Next route added there later would shadow the backend from
+`afterFiles`, and would not from `beforeFiles`.
 
 `GO_API_URL` must be origin-only (no credentials, path, query, or fragment).
 The matched request path is appended to it, so a trailing path would produce
@@ -360,7 +353,7 @@ Graphify may warn about local cache files, graph health, or changed artifacts af
 ## Contributing And Workflow
 
 - Keep feature code in `features/<domain>/`.
-- Prefer extending typed Hono routes over ad hoc `fetch` while Hono remains current.
+- Call the API through the generated OpenAPI client in `lib/api/` rather than ad hoc `fetch`.
 - Keep server-state logic in TanStack Query hooks.
 - Preserve auth-sensitive ownership scoping on every read and write.
 - Store transaction amounts in milliunits.
@@ -376,7 +369,7 @@ Graphify may warn about local cache files, graph health, or changed artifacts af
 - `AGENTS.md`: repo rules, verification expectations, and PR rules.
 - `docs/CODEX_CONTEXT.md`: current architecture and feature guide.
 - `docs/specs/18-go-backend-replacement/spec.md`: Go backend replacement plan.
-- `docs/specs/18-go-backend-replacement/api-parity-fixtures.md`: current Hono API behavior reference.
+- `docs/specs/18-go-backend-replacement/api-parity-fixtures.md`: the legacy Hono behavior the Go API was ported against. Historical record.
 - `backend/README.md`: Go backend scaffold details.
 - `openapi/README.md`: OpenAPI layout, validation, generation, and shared contract notes.
 - `PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`: active debt tracker.

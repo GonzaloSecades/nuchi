@@ -75,29 +75,8 @@ describe('normalizeGoApiUrl', () => {
 });
 
 describe('goApiRewrites', () => {
-  // #49/#50/#51 have moved the frontend and auth to Go, so leaving the
-  // variable unset must produce a usable app rather than silently selecting
-  // the legacy Clerk/Hono stack.
-  it('rewrites to Go by default after the cutover', () => {
-    const rewrites = goApiRewrites({});
-    if (Array.isArray(rewrites)) throw new Error('expected phased rewrites');
-
-    expect(rewrites.beforeFiles?.[0]?.destination).toBe(
-      `${DEFAULT_GO_API_URL}/api/:path*`
-    );
-  });
-
-  it('allows an explicit non-true value to disable the rewrite', () => {
-    for (const USE_GO_API of ['false', 'TRUE', '1', 'yes', '']) {
-      expect(goApiRewrites({ USE_GO_API })).toEqual([]);
-    }
-  });
-
-  it('rewrites /api/* to the backend when enabled', () => {
-    const rewrites = goApiRewrites({
-      USE_GO_API: 'true',
-      GO_API_URL: 'http://localhost:9999',
-    });
+  it('rewrites /api/* to the configured backend', () => {
+    const rewrites = goApiRewrites({ GO_API_URL: 'http://localhost:9999' });
 
     expect(Array.isArray(rewrites)).toBe(false);
     if (Array.isArray(rewrites)) return;
@@ -110,11 +89,19 @@ describe('goApiRewrites', () => {
     ]);
   });
 
-  // beforeFiles is the only phase that works here: afterFiles runs solely when
-  // no filesystem route matched, and app/api/[[...route]] matches everything
-  // under /api, so an afterFiles entry would never fire.
+  // The Go API is the only backend after #84, so there is no environment in
+  // which the proxy is off. An empty environment must still produce it.
+  it('rewrites unconditionally, with no flag to disable it', () => {
+    const rewrites = goApiRewrites({});
+    if (Array.isArray(rewrites)) throw new Error('expected phased rewrites');
+
+    expect(rewrites.beforeFiles).toHaveLength(1);
+  });
+
+  // beforeFiles keeps the proxy authoritative: a Next route added under
+  // app/api/ later would shadow the backend from afterFiles, but not from here.
   it('places the rewrite in beforeFiles, not afterFiles', () => {
-    const rewrites = goApiRewrites({ USE_GO_API: 'true' });
+    const rewrites = goApiRewrites({});
     if (Array.isArray(rewrites)) throw new Error('expected phased rewrites');
 
     expect(rewrites.beforeFiles).toHaveLength(1);
@@ -123,7 +110,7 @@ describe('goApiRewrites', () => {
   });
 
   it('falls back to the documented default backend URL', () => {
-    const rewrites = goApiRewrites({ USE_GO_API: 'true' });
+    const rewrites = goApiRewrites({});
     if (Array.isArray(rewrites)) throw new Error('expected phased rewrites');
 
     expect(rewrites.beforeFiles?.[0]?.destination).toBe(
@@ -132,8 +119,8 @@ describe('goApiRewrites', () => {
   });
 
   it('surfaces a bad backend URL at build time rather than as a 404 later', () => {
-    expect(() =>
-      goApiRewrites({ USE_GO_API: 'true', GO_API_URL: 'http://x/base' })
-    ).toThrow(/origin-only/);
+    expect(() => goApiRewrites({ GO_API_URL: 'http://x/base' })).toThrow(
+      /origin-only/
+    );
   });
 });
