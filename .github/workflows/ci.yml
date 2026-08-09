@@ -115,4 +115,11 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: bun run lint
+      # Until #83 this job ran only lint and build, so the frontend test suite
+      # gated nothing: the refresh-envelope defect fixed in #80 went through CI
+      # green because no job executed a test. Typecheck runs before the tests
+      # and the build because it is the cheapest of the three and localizes a
+      # whole class of failure that `next build` reports one file at a time.
+      - run: bunx tsc --noEmit
+      - run: bun test
       - run: bun run build
