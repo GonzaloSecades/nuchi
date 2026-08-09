@@ -1,28 +1,24 @@
-import { InferResponseType } from 'hono';
 import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
+import { apiClient, unwrap } from '@/lib/api/client';
+import type { components } from '@/lib/api/generated/schema';
 
-type ResponseType = InferResponseType<
-  (typeof client.api.categories)[':id']['$delete']
->;
+import { categoryPathParams } from './category-path-params';
+
+type ResponseType = components['schemas']['DeletedResourceResponse'];
 
 export const useDeleteCategory = (id?: string) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error>({
     mutationFn: async () => {
-      const response = await client.api.categories[':id']['$delete']({
-        param: { id: id },
+      const result = await apiClient.DELETE('/categories/{id}', {
+        params: categoryPathParams(id),
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'delete category ');
-      }
-      return await response.json();
+      return unwrap(result, 'delete category');
     },
     onSuccess: () => {
       toast.success('Category deleted successfully');

@@ -1,39 +1,38 @@
-import { InferRequestType, InferResponseType } from 'hono';
 import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
-
-type ResponseType = InferResponseType<
-  (typeof client.api.transactions)['bulk-delete']['$post']
->;
-type RequestType = InferRequestType<
-  (typeof client.api.transactions)['bulk-delete']['$post']
->['json'];
+import {
+  bulkFieldErrors,
+  formatBulkErrorSummary,
+} from '@/features/transactions/api/bulk-errors';
+import { apiClient, unwrap } from '@/lib/api/client';
 
 export const useBulkDeleteTransactions = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async (json) => {
-      const response = await client.api.transactions['bulk-delete']['$post']({
-        json,
+  const mutation = useMutation({
+    mutationFn: async (body: { ids: string[] }) => {
+      const result = await apiClient.POST('/transactions/bulk-delete', {
+        body,
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'transactions');
-      }
-      return await response.json();
+      return unwrap(result, 'transactions');
     },
     onSuccess: () => {
       toast.success('Transactions deleted successfully');
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
-    onError: () => {
-      toast.error(`Error deleting transactions`);
+    onError: (error) => {
+      // Selection-driven, so the user has no row numbers in front of them and
+      // an indexed message would mean little. The array-level message is the
+      // useful one — notably the 500-id cap, which transactions enforce and
+      // accounts and categories deliberately do not.
+      const summary = formatBulkErrorSummary(
+        bulkFieldErrors(error).filter((field) => field.index === null)
+      );
+      toast.error(summary ?? 'Error deleting transactions');
     },
   });
   return mutation;

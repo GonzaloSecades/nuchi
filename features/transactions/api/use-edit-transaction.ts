@@ -1,32 +1,26 @@
-import { InferRequestType, InferResponseType } from 'hono';
 import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { ApiError, createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
-
-type ResponseType = InferResponseType<
-  (typeof client.api.transactions)[':id']['$patch']
->;
-type RequestType = InferRequestType<
-  (typeof client.api.transactions)[':id']['$patch']
->['json'];
+import {
+  toTransactionInput,
+  type TransactionFormValues,
+} from '@/features/transactions/api/transaction-payload';
+import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
+import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
+import { apiClient, unwrap } from '@/lib/api/client';
 
 export const useEditTransaction = (id?: string) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async (json) => {
-      const response = await client.api.transactions[':id']['$patch']({
-        param: { id: id },
-        json,
+  const mutation = useMutation({
+    mutationFn: async (values: TransactionFormValues) => {
+      const result = await apiClient.PATCH('/transactions/{id}', {
+        params: transactionPathParams(id),
+        body: toTransactionInput(values),
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'edit transaction ');
-      }
-      return await response.json();
+      return unwrap(result, 'edit transaction');
     },
     onSuccess: () => {
       toast.success('Transaction edited successfully');
@@ -35,13 +29,9 @@ export const useEditTransaction = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
     onError: (error) => {
-      const apiMessage =
-        error instanceof ApiError
-          ? (error.details.errorData as { error?: { message?: string } } | null)
-              ?.error?.message
-          : null;
-
-      toast.error(apiMessage ?? 'Error editing transaction');
+      toast.error(
+        transactionMutationErrorMessage(error, 'Error editing transaction')
+      );
     },
   });
   return mutation;

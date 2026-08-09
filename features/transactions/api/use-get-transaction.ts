@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
+import { calendarDateFromApi } from '@/features/transactions/api/transaction-date';
+import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
+import { apiClient, unwrap } from '@/lib/api/client';
 import { convertAmountFromMiliunits } from '@/lib/utils';
 
 export const useGetTransaction = (id?: string) => {
@@ -9,18 +10,17 @@ export const useGetTransaction = (id?: string) => {
     enabled: !!id,
     queryKey: ['transaction', { id }],
     queryFn: async () => {
-      const response = await client.api.transactions[':id'].$get({
-        param: { id },
+      const result = await apiClient.GET('/transactions/{id}', {
+        params: transactionPathParams(id),
       });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'getSingleTransaction');
-      }
-
-      const { data } = await response.json();
+      const { data } = unwrap(result, 'getSingleTransaction');
       return {
         ...data,
         amount: convertAmountFromMiliunits(data.amount),
+        // See use-get-transactions: the edit sheet builds its picker value from
+        // this, and an instant here walks the date back a day on every save.
+        date: calendarDateFromApi(data.date),
       };
     },
   });

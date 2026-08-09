@@ -1,27 +1,24 @@
-import { InferRequestType, InferResponseType } from 'hono';
 import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { ApiError, createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
-
-type ResponseType = InferResponseType<typeof client.api.transactions.$post>;
-type RequestType = InferRequestType<
-  typeof client.api.transactions.$post
->['json'];
+import {
+  toTransactionInput,
+  type TransactionFormValues,
+} from '@/features/transactions/api/transaction-payload';
+import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
+import { apiClient, unwrap } from '@/lib/api/client';
 
 export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async (json) => {
-      const response = await client.api.transactions.$post({ json });
+  const mutation = useMutation({
+    mutationFn: async (values: TransactionFormValues) => {
+      const result = await apiClient.POST('/transactions', {
+        body: toTransactionInput(values),
+      });
 
-      if (!response.ok) {
-        throw await createApiError(response, 'transactions');
-      }
-      return await response.json();
+      return unwrap(result, 'transactions');
     },
     onSuccess: () => {
       toast.success('Transaction created successfully');
@@ -29,13 +26,9 @@ export const useCreateTransaction = () => {
       queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
     onError: (error) => {
-      const apiMessage =
-        error instanceof ApiError
-          ? (error.details.errorData as { error?: { message?: string } } | null)
-              ?.error?.message
-          : null;
-
-      toast.error(apiMessage ?? 'Error creating transaction');
+      toast.error(
+        transactionMutationErrorMessage(error, 'Error creating transaction')
+      );
     },
   });
   return mutation;
