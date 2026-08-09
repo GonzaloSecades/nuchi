@@ -1933,5 +1933,20 @@
     "mtime": 1786307893.2484295,
     "ast_hash": "5aef86181e7fb74e1de41891fac32949",
     "semantic_hash": ""
+  },
+  "docs/api/auth.md": {
+    "mtime": 1786307974.838836,
+    "ast_hash": "a17399fa0bb53523637779ed37ecf12c",
+    "semantic_hash": ""
+  },
+  "docs/api/import.md": {
+    "mtime": 1786307974.8398352,
+    "ast_hash": "94dc5ef106bddd6cafeb696e0a15b75b",
+    "semantic_hash": ""
+  },
+  "docs/product/import.md": {
+    "mtime": 1786307974.8408341,
+    "ast_hash": "85953c5f32ec52523f33f1ea40064f36",
+    "semantic_hash": ""
   }
 }
