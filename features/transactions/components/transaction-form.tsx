@@ -27,6 +27,8 @@ type TransactionFormInput = Omit<TransactionFormValues, 'amount'> & {
   amount: string;
 };
 
+// Mirrors TransactionInput in the contract, tightening `payee` and `accountId`
+// to their `minLength: 1` constraints compared with the prior drizzle-zod schema.
 const formSchema = z.object({
   date: z.date(),
   accountId: z.string().min(1),

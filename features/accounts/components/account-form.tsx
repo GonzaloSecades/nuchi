@@ -17,6 +17,8 @@ import type { components } from '@/lib/api/generated/schema';
 
 export type AccountFormValues = components['schemas']['AccountInput'];
 
+// Mirrors AccountInput in the contract, including its `minLength: 1`, which is
+// stricter than the drizzle-zod schema this replaced for an empty name.
 const formSchema = z.object({
   name: z.string().min(1),
 }) satisfies z.ZodType<AccountFormValues>;
