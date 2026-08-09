@@ -33,10 +33,11 @@ stacks serialize a naive timestamp identically, so there is no difference to
 observe and the comparison **skips**. Running the harness without setting `TZ`
 therefore exercises everything _except_ the finding it exists to report.
 
-Set a non-UTC zone. Use POSIX-style offsets rather than IANA names — Bun on
-Windows silently ignores `Asia/Tokyo` and falls back to the host zone, which
-would make a run look meaningful when it is not. Note the POSIX sign is
-inverted: `GMT-3` is UTC−3.
+Set a non-UTC zone. Use offsets of the form `GMT-3` rather than IANA names —
+Bun on Windows silently ignores `Asia/Tokyo` and falls back to the host zone,
+which would make a run look meaningful when it is not. On this runtime the sign
+reads the intuitive way, so `GMT-3` is UTC−3; worth knowing because strict POSIX
+defines it the other way round.
 
 ### Services
 

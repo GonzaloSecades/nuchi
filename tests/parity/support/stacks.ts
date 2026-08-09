@@ -70,14 +70,41 @@ export async function parityPrerequisites(): Promise<Prerequisites> {
     await probe?.end().catch(() => {});
   }
 
+  /**
+   * Identifies the service, rather than settling for any HTTP answer.
+   *
+   * A dev server, a proxy or an unrelated app on the port would all respond,
+   * and the harness would report itself ready and then fail deep inside a
+   * comparison. Sending no refresh cookie has exactly one correct answer from
+   * the Go API — `401 INVALID_REFRESH_TOKEN` in the contract's error envelope —
+   * so checking for it is both a liveness and an identity check.
+   */
+  let refreshResponse: Response;
   try {
-    // Any HTTP answer proves the API is up; 401 is the expected one here, since
-    // this deliberately sends no refresh cookie.
-    await fetch(`${GO_API_URL}/api/auth/refresh`, { method: 'POST' });
+    refreshResponse = await fetch(`${GO_API_URL}/api/auth/refresh`, {
+      method: 'POST',
+    });
   } catch (error) {
     return {
       ok: false,
       reason: `No Go API reachable at ${GO_API_URL} (${describe(error)}). Start it first — see tests/parity/README.md.`,
+    };
+  }
+
+  if (refreshResponse.status !== 401) {
+    return {
+      ok: false,
+      reason: `${GO_API_URL} answered POST /api/auth/refresh with ${refreshResponse.status}, expected 401. Is that the Go API, or something else on the port?`,
+    };
+  }
+
+  const envelope = (await refreshResponse.json().catch(() => null)) as {
+    error?: { code?: unknown };
+  } | null;
+  if (envelope?.error?.code !== 'INVALID_REFRESH_TOKEN') {
+    return {
+      ok: false,
+      reason: `${GO_API_URL} did not answer with the contract's INVALID_REFRESH_TOKEN envelope. Is that the Go API, or something else on the port?`,
     };
   }
 
