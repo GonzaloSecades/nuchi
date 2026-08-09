@@ -1120,8 +1120,8 @@
     "semantic_hash": ""
   },
   "post-migration-improvements/README.md": {
-    "mtime": 1786234292.4367404,
-    "ast_hash": "e0ff967379a595df91d1663ba241dc58",
+    "mtime": 1786307542.343477,
+    "ast_hash": "06b410c75970eb524be896196ae9200e",
     "semantic_hash": ""
   },
   "backend/internal/db/gen/accounts.sql.go": {
@@ -1575,8 +1575,8 @@
     "semantic_hash": ""
   },
   "docs/api/transactions.md": {
-    "mtime": 1786214780.7580774,
-    "ast_hash": "4eba0955b18b868f7c1b3508080ea8a6",
+    "mtime": 1786307542.3322532,
+    "ast_hash": "460c40dd8f75837f015a943423d0321c",
     "semantic_hash": ""
   },
   "docs/product/transactions.md": {
@@ -1952,6 +1952,11 @@
   "tests/parity/README.md": {
     "mtime": 1786282863.5840614,
     "ast_hash": "897fe5efd7de8528b0377d5c6182a52a",
+    "semantic_hash": ""
+  },
+  "post-migration-improvements/claude-backend-improvements/0018-date-response-serialized-as-utc.md": {
+    "mtime": 1786307542.343477,
+    "ast_hash": "baf4274f94774ad4fc306ba20203020f",
     "semantic_hash": ""
   }
 }
