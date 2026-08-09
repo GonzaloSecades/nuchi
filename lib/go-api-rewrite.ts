@@ -59,8 +59,10 @@ export function normalizeGoApiUrl(url: string): string {
 /**
  * Builds the `/api/*` rewrite set for the given environment.
  *
- * Returns no rewrites unless `USE_GO_API` is exactly `"true"`, so the legacy
- * Hono routes keep serving `/api/*` by default.
+ * Routes to Go by default now that the generated-client and owned-auth cutover
+ * is complete. An explicitly configured value other than `"true"` disables
+ * the rewrite for narrow legacy diagnostics; it is not a functional whole-app
+ * rollback because the active frontend authenticates with the owned JWT.
  *
  * When enabled the rewrite goes in `beforeFiles`, because that is the only
  * phase where it has any effect: `afterFiles` runs solely when no filesystem
@@ -77,7 +79,7 @@ export function normalizeGoApiUrl(url: string): string {
 export function goApiRewrites(
   env: RewriteEnv = process.env
 ): NonNullable<Awaited<ReturnType<NonNullable<NextConfig['rewrites']>>>> {
-  if (env.USE_GO_API !== 'true') {
+  if (env.USE_GO_API !== undefined && env.USE_GO_API !== 'true') {
     return [];
   }
 

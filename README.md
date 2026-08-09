@@ -196,16 +196,9 @@ The Go API listens on `0.0.0.0:8080` by default.
 
 ## Running Next and Go Together
 
-The two run as separate processes: Next serves the UI, Go serves the API.
-
-**By default `/api/*` is still served by the legacy Hono routes**, not by Go.
-The proxy to the Go backend exists but is off until `USE_GO_API=true` — see the
-next section. Running the Go API alongside Next is still useful without the
-flag, since that is how the backend is exercised directly (`curl
-http://localhost:8080/api/health`) and how its tests run.
-
-Once the flag is on, the browser only ever talks to the Next origin and Next
-proxies `/api/*` to Go, so there is no CORS setup and cookies stay same-origin.
+The two run as separate processes: Next serves the UI, Go serves the API. Next
+proxies `/api/*` to Go by default, so the browser only talks to the Next origin,
+cookies stay same-origin, and no CORS setup is required.
 
 Three terminals:
 
@@ -221,30 +214,25 @@ cd backend && go run ./cmd/api
 bun dev
 ```
 
-### Switching `/api/*` to the Go backend
+### Go API proxy configuration
 
-The proxy is **off by default**. With `USE_GO_API` unset, `/api/*` is still
-served by the legacy Hono routes in `app/api/[[...route]]`, which is what the
-current frontend hooks call.
-
-To route `/api/*` at Go instead, set both in `.env.local`:
+The proxy is **on by default** after the generated-client and owned-auth
+cutover. Configure its origin in `.env.local` when it is not the local default:
 
 ```bash
 USE_GO_API=true
 GO_API_URL=http://localhost:8080
 ```
 
-Two things to know before flipping it:
+Two things to know:
 
 - **It is all-or-nothing.** The rewrite runs in Next's `beforeFiles` phase,
   which is the only phase that can override `app/api/[[...route]]` — an
   `afterFiles` rewrite would never fire, because that route matches everything
   under `/api`. So there is no per-route mixing.
-- **The frontend is not ready for it yet.** The hooks still authenticate with
-  Clerk and call the Hono shapes; the Go API uses its own JWT auth. Moving the
-  client over is #49 and #50. Until those land, enabling this will break the
-  running app — the switch exists so the shape is testable, not because it is
-  ready to use.
+- **`USE_GO_API=false` is diagnostic only.** It exposes the retained legacy
+  routes while #27 prepares their removal, but the active UI uses Go JWT auth,
+  so disabling the proxy is not a functional whole-app rollback.
 
 `GO_API_URL` must be origin-only (no credentials, path, query, or fragment).
 The matched request path is appended to it, so a trailing path would produce
@@ -268,7 +256,9 @@ Expected shape:
 }
 ```
 
-The backend currently exposes only the health endpoint. Database access, auth, migrations, resource handlers, and frontend integration remain future migration issues.
+The backend exposes health, owned authentication/session flows, accounts,
+categories, transactions (including bulk operations), and summary analytics.
+`openapi/nuchi.openapi.json` is the authoritative HTTP contract.
 
 ## OpenAPI
 
