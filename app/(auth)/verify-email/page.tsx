@@ -53,6 +53,18 @@ const VerifyEmail = () => {
       return;
     }
 
+    /**
+     * Set when this effect is superseded, so a slow request cannot write state
+     * on the way out.
+     *
+     * The token tag alone is not enough. It stops a stale outcome being
+     * *rendered*, but not from being *stored*: if the user moves from token A
+     * to token B, B settles first and A arrives late, the late write replaces
+     * B's result with A's, no tag matches the current token any more, and the
+     * page falls back to "Verifying" and stays there.
+     */
+    let active = true;
+
     // Memoized per token. A repeated effect for the *same* token replays the
     // first result instead of resubmitting — the token is single-use, so a
     // second submission would report INVALID_TOKEN for a verification that had
@@ -61,6 +73,10 @@ const VerifyEmail = () => {
     // when only the search parameter changes, so the second link would sit on
     // "Verifying" forever.
     verifyEmailToken(token).then((result) => {
+      if (!active) {
+        return;
+      }
+
       setSettled({
         token,
         outcome:
@@ -75,6 +91,10 @@ const VerifyEmail = () => {
               },
       });
     });
+
+    return () => {
+      active = false;
+    };
   }, [token]);
 
   if (!token) {

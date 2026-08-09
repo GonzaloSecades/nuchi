@@ -20,7 +20,11 @@ export function authErrorMessage(
 ): string {
   const code = apiErrorCode(error);
 
-  if (code !== null && code in overrides) {
+  // `Object.hasOwn` rather than `in`: `in` walks the prototype chain, so an API
+  // error code that happens to collide with an Object member — `toString`,
+  // `constructor` — would match an override nobody wrote and return a function
+  // where a message belongs.
+  if (code !== null && Object.hasOwn(overrides, code)) {
     return overrides[code];
   }
 
