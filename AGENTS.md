@@ -2,12 +2,14 @@
 
 ## Stack
 
-- Next.js App Router
-- Clerk auth
-- Hono API in `app/api/[[...route]]`
-- Drizzle ORM + Neon/Postgres
-- TanStack Query + typed Hono client in `lib/hono.ts`
+- Next.js App Router (frontend only — there is no Next API layer)
+- Go API (chi, pgxpool, sqlc, goose) over PostgreSQL, reached same-origin
+  through the `/api/*` rewrite in `next.config.ts`
+- Owned JWT auth (`lib/auth/`), not Clerk
+- TanStack Query + the generated OpenAPI client in `lib/api/`
 - Bun package manager
+- Drizzle ORM and the `@clerk/*` packages are still installed but unused by any
+  code path; they are removed in #85
 
 ## Commands
 
@@ -28,7 +30,9 @@
 ## Repo Rules
 
 - Keep feature code in `features/<domain>/`.
-- Prefer extending typed Hono routes over ad hoc `fetch`.
+- Call the API through the generated client in `lib/api/`, never ad hoc `fetch`.
+  Server behavior lives in the Go API; contract changes land in
+  `openapi/nuchi.openapi.json` first, then both sides regenerate.
 - Keep server-state logic in TanStack Query hooks.
 - Use `db/schema.ts` as the DB source of truth; keep migrations in sync.
 - Scope all auth-sensitive reads and writes by `auth.userId`.
@@ -39,17 +43,27 @@
 
 ## Current Risk Areas
 
-- Validate ownership in transaction create and bulk-create flows.
+These described the Hono implementation and were resolved by the Go migration —
+ownership predicates plus RLS, strict date and body validation, and rate
+limiting all live in the Go API now. Two frontend items remain:
+
 - Harden CSV import validation, typing, and empty-state handling.
-- Keep mutating routes protected; CSRF/rate limiting are still open debt.
-- `summary.ts` still needs strict date validation and debug-route removal.
 - Avoid adding more coupling between header filters and summary loading.
+
+Known backend limitations are tracked as numbered entries in
+`post-migration-improvements/claude-backend-improvements/`, not here.
 
 ## Verify
 
-- UI-only: `bun run lint`
-- Route/schema changes: `bun run lint` and `bun run build`
-- Schema changes: also run `bun run db:generate` or explain why not
+CI gates the frontend job on all four of these, so run all four:
+
+- `bun run lint`
+- `bunx tsc --noEmit`
+- `bun test`
+- `bun run build`
+
+Backend changes: `cd backend && go vet ./...` and `cd backend && go test ./...`.
+Schema changes: also run `bun run db:generate` or explain why not.
 
 ## Pull Requests Hard Rules
 
