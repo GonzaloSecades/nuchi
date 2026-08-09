@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 
+import { calendarDateFromApi } from '@/features/transactions/api/transaction-date';
 import { apiClient, unwrap } from '@/lib/api/client';
 import { omitEmptyQueryParams } from '@/lib/query-params';
 import { convertAmountFromMiliunits } from '@/lib/utils';
@@ -29,6 +30,10 @@ export const useGetTransactions = () => {
       return data.map((transaction) => ({
         ...transaction,
         amount: convertAmountFromMiliunits(transaction.amount),
+        // Normalized here so every consumer sees the calendar date the row
+        // actually holds, rather than re-deriving an instant in its own
+        // timezone and landing a day earlier.
+        date: calendarDateFromApi(transaction.date),
       }));
     },
   });

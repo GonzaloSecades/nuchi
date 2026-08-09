@@ -115,4 +115,76 @@ describe('toBulkTransactionInput', () => {
   it('returns an empty array unchanged', () => {
     expect(toBulkTransactionInput([])).toEqual([]);
   });
+
+  /**
+   * The legacy bulk hook accepted the full transaction insert shape, so
+   * hardcoding these to null silently discarded whatever a caller passed —
+   * a payload accepted and then quietly altered.
+   */
+  it('preserves notes and categoryId when supplied', () => {
+    const [row] = toBulkTransactionInput([
+      {
+        amount: -5000,
+        date: '2026-08-09',
+        payee: 'Market',
+        accountId: 'a1',
+        notes: 'weekly shop',
+        categoryId: 'c1',
+      },
+    ]);
+
+    expect(row.notes).toBe('weekly shop');
+    expect(row.categoryId).toBe('c1');
+  });
+
+  it('preserves them independently of one another', () => {
+    const [onlyNotes] = toBulkTransactionInput([
+      {
+        amount: 1,
+        date: '2026-08-09',
+        payee: 'A',
+        accountId: 'a1',
+        notes: 'kept',
+      },
+    ]);
+    const [onlyCategory] = toBulkTransactionInput([
+      {
+        amount: 1,
+        date: '2026-08-09',
+        payee: 'A',
+        accountId: 'a1',
+        categoryId: 'c1',
+      },
+    ]);
+
+    expect(onlyNotes).toMatchObject({ notes: 'kept', categoryId: null });
+    expect(onlyCategory).toMatchObject({ notes: null, categoryId: 'c1' });
+  });
+
+  it('normalizes an explicit null the same as an omitted value', () => {
+    const [row] = toBulkTransactionInput([
+      {
+        amount: 1,
+        date: '2026-08-09',
+        payee: 'A',
+        accountId: 'a1',
+        notes: null,
+        categoryId: null,
+      },
+    ]);
+
+    expect(row.notes).toBeNull();
+    expect(row.categoryId).toBeNull();
+  });
+
+  // The CSV importer supplies neither, and must keep working untouched.
+  it('still normalizes omitted fields for the CSV path', () => {
+    const [row] = toBulkTransactionInput([
+      { amount: 1, date: '2026-08-09', payee: 'A', accountId: 'a1' },
+    ]);
+
+    expect(row.notes).toBeNull();
+    expect(row.categoryId).toBeNull();
+    expect(row.currency).toBe('ARS');
+  });
 });

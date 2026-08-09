@@ -1,6 +1,7 @@
 'use client';
 
 import { InsertTransactionSchema } from '@/db/schema';
+import { localDateFromCalendarDate } from '@/features/transactions/api/transaction-date';
 import { useDeleteTransaction } from '@/features/transactions/api/use-delete-transaction';
 import { useEditTransaction } from '@/features/transactions/api/use-edit-transaction';
 import { useGetTransaction } from '@/features/transactions/api/use-get-transaction';
@@ -104,8 +105,11 @@ export const EditTransactionSheet = () => {
         accountId: transactionQuery.data.accountId,
         categoryId: transactionQuery.data.categoryId,
         amount: transactionQuery.data.amount.toString(),
+        // The hook already normalized this to a calendar date; building the
+        // picker value from parts keeps it on that day in every timezone.
+        // `new Date(...)` here is what walked the date back one day per save.
         date: transactionQuery.data.date
-          ? new Date(transactionQuery.data.date)
+          ? localDateFromCalendarDate(transactionQuery.data.date)
           : new Date(),
         payee: transactionQuery.data.payee,
         notes: transactionQuery.data.notes || '',

@@ -1,6 +1,8 @@
-import { format } from 'date-fns';
-
 import type { components } from '@/lib/api/generated/schema';
+import {
+  calendarDateFromLocalDate,
+  type CalendarDate,
+} from '@/features/transactions/api/transaction-date';
 
 /** The contract's write shape for a transaction. */
 export type TransactionInput = components['schemas']['TransactionInput'];
@@ -57,7 +59,7 @@ export function toTransactionInput(
     amount: values.amount,
     payee: values.payee,
     notes: values.notes ?? null,
-    date: format(values.date, 'yyyy-MM-dd'),
+    date: calendarDateFromLocalDate(values.date),
     accountId: values.accountId,
     categoryId: values.categoryId ?? null,
     currency: DEFAULT_CURRENCY,
@@ -65,30 +67,37 @@ export function toTransactionInput(
 }
 
 /**
- * One CSV row, as the import screen produces it.
+ * One row submitted to bulk create.
  *
- * `date` is already a `yyyy-MM-dd` string here rather than a `Date` —
- * `parseImportedTransactionRows` formats it on the way out — so this shape
- * needs no date conversion, only the currency the contract requires.
+ * `date` is a `yyyy-MM-dd` string rather than a `Date` because the CSV parser
+ * (`parseImportedTransactionRows`) already formats it that way, so that path
+ * needs no date conversion.
+ *
+ * `notes` and `categoryId` are optional but **not** ignored. The legacy hook
+ * took the full transaction insert shape, so narrowing the type and hardcoding
+ * both to `null` would silently discard whatever a caller passed — a payload
+ * accepted and then quietly altered, which is worse than a type error. The CSV
+ * importer supplies neither today; the contract still requires both keys to be
+ * present, so omitted values normalize to `null`.
  */
 export type ImportedTransactionInput = {
   amount: number;
-  date: string;
+  date: CalendarDate;
   payee: string;
   accountId: string;
+  notes?: string | null;
+  categoryId?: string | null;
 };
 
-/** Converts imported CSV rows into the contract's bulk-create body. */
+/** Converts bulk-create rows into the contract's bare-array body. */
 export function toBulkTransactionInput(
   rows: ImportedTransactionInput[]
 ): TransactionInput[] {
   return rows.map((row) => ({
     amount: row.amount,
     payee: row.payee,
-    // A CSV import carries neither, and the generated type requires both to be
-    // present even though the contract gives them a null default.
-    notes: null,
-    categoryId: null,
+    notes: row.notes ?? null,
+    categoryId: row.categoryId ?? null,
     date: row.date,
     accountId: row.accountId,
     currency: DEFAULT_CURRENCY,

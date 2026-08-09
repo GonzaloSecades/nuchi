@@ -11,6 +11,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { client } from '@/lib/hono';
 import { formatCurrency } from '@/lib/utils';
 import { format } from 'date-fns';
+
+import { localDateFromCalendarDate } from '@/features/transactions/api/transaction-date';
 import { AccountColumn } from './account-column';
 import { Actions } from './actions';
 import { CategoryColumn } from './category-column';
@@ -57,8 +59,14 @@ export const columns: ColumnDef<ResponseType>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = row.getValue('date') as Date;
-      return <span>{format(date, 'dd MMMM, yyyy')}</span>;
+      // The hook normalizes this to `yyyy-MM-dd`. Rendering it through the
+      // calendar-date helper keeps the displayed day the stored one; handing
+      // the raw value to `format` re-reads it as an instant and shows the
+      // previous day for any viewer west of Greenwich.
+      const date = row.getValue('date') as string;
+      return (
+        <span>{format(localDateFromCalendarDate(date), 'dd MMMM, yyyy')}</span>
+      );
     },
   },
   {

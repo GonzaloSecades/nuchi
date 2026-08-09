@@ -18,10 +18,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { InsertTransactionSchema } from '@/db/schema';
-import {
-  convertAmountToMiliunits,
-  isSafeMiliunitAmount,
-} from '@/lib/utils';
+import { convertAmountToMiliunits, isSafeMiliunitAmount } from '@/lib/utils';
 
 const formSchema = z.object({
   date: z.date(),
