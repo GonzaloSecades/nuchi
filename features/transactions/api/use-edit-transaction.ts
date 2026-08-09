@@ -7,6 +7,7 @@ import {
   type TransactionFormValues,
 } from '@/features/transactions/api/transaction-payload';
 import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
+import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
 import { apiClient, unwrap } from '@/lib/api/client';
 
 export const useEditTransaction = (id?: string) => {
@@ -15,9 +16,7 @@ export const useEditTransaction = (id?: string) => {
   const mutation = useMutation({
     mutationFn: async (values: TransactionFormValues) => {
       const result = await apiClient.PATCH('/transactions/{id}', {
-        // The sheet only mounts this with an id; the generated path type
-        // requires a string.
-        params: { path: { id: id as string } },
+        params: transactionPathParams(id),
         body: toTransactionInput(values),
       });
 

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 
 import { transactionMutationErrorMessage } from '@/features/transactions/api/transaction-mutation-error';
+import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
 import { ApiError } from '@/lib/api-error';
 
 const apiError = (errorData: unknown, status = 409) =>
@@ -73,5 +74,20 @@ describe('transactionMutationErrorMessage', () => {
         'Error creating transaction'
       )
     ).toBe('Error creating transaction');
+  });
+});
+
+describe('transactionPathParams', () => {
+  it('builds the generated client path parameters', () => {
+    expect(transactionPathParams('txn-1')).toEqual({ path: { id: 'txn-1' } });
+  });
+
+  // openapi-fetch leaves `{id}` in the URL when the value is missing, so
+  // without this the request goes out as `/api/transactions/%7Bid%7D`.
+  it('rejects an absent id before a request can keep the placeholder', () => {
+    expect(() => transactionPathParams()).toThrow('Transaction id is required');
+    expect(() => transactionPathParams('')).toThrow(
+      'Transaction id is required'
+    );
   });
 });

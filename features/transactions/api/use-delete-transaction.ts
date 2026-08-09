@@ -2,6 +2,7 @@ import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { transactionPathParams } from '@/features/transactions/api/transaction-path-params';
 import { apiClient, unwrap } from '@/lib/api/client';
 
 export const useDeleteTransaction = (id?: string) => {
@@ -10,9 +11,7 @@ export const useDeleteTransaction = (id?: string) => {
   const mutation = useMutation({
     mutationFn: async () => {
       const result = await apiClient.DELETE('/transactions/{id}', {
-        // The sheet and the row action only mount this with an id; the
-        // generated path type requires a string.
-        params: { path: { id: id as string } },
+        params: transactionPathParams(id),
       });
 
       return unwrap(result, 'delete transaction');
