@@ -108,3 +108,4 @@ gates. Numbering stays global and sequential within
 | 0015 | [Out-of-range amounts return 400, where legacy returned 500](claude-backend-improvements/0015-out-of-range-amount-returns-400.md) | api | low |
 | 0016 | [Bulk body limits are enforced against the stream, not just Content-Length](claude-backend-improvements/0016-bulk-body-limit-enforced-against-the-stream.md) | http | low |
 | 0017 | [The summary category chart silently excludes uncategorized spending](claude-backend-improvements/0017-summary-category-chart-excludes-uncategorized.md) | api/product | medium |
+| 0018 | [A transaction's date is serialized as a UTC instant, not a calendar date](claude-backend-improvements/0018-date-response-serialized-as-utc.md) | api/schema | medium |
