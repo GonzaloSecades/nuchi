@@ -69,3 +69,16 @@ pnpm-lock.yaml text eol=lf
 *.mp3 binary
 *.mp4 binary
 *.webm binary
+
+# Knowledge graph output (graphify) — generated, ~40MB across 22 files.
+#
+# `-merge` stops git attempting a line-by-line content merge on regenerated
+# JSON. Every feature branch that refreshed the graph would otherwise conflict
+# with every other one the moment any of them merged, producing megabytes of
+# conflict markers in files nobody reads. With this set, git reports the
+# conflict and the resolution is simply to regenerate.
+#
+# linguist-generated keeps the files collapsed in PR diffs, so a 40MB
+# regeneration does not bury the reviewable change.
+graphify-out/** -merge
+graphify-out/** linguist-generated=true

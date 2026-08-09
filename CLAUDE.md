@@ -91,8 +91,22 @@ Branch/PR hard rules (unchanged):
 `graphify-out/` is the repo knowledge graph. For codebase questions run
 `graphify query "<question>"` first; use `graphify path`/`explain` for
 relationships and concepts. Dirty `graphify-out/` files are expected and not a
-reason to skip it. Refresh with `graphify update .` after code changes and
-before handing in a ticket. Full rules: `AGENTS.md` (graphify section).
+reason to skip it. Full rules: `AGENTS.md` (graphify section).
+
+**Do not commit `graphify-out/` in a feature branch** (changed 2026-08-09).
+The graph is regenerated wholesale, so every branch that refreshed it conflicted
+with every other one as soon as any of them merged — with several streams open
+at once that is a conflict per branch per merge, in generated JSON nobody reads.
+Refresh it **on `master` after a merge** instead, as its own commit:
+
+```
+git checkout master && git pull --ff-only
+graphify update .
+git add graphify-out/ && git commit -m "Refresh graphify artifacts after #NN merge"
+```
+
+Reading the graph is unchanged and still expected. This is only about who
+commits the regenerated output.
 
 ## Legacy Code
 

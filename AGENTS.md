@@ -72,4 +72,4 @@ Rules:
 - Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
-- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost) — but **do not commit `graphify-out/` from a feature branch**. The graph is regenerated wholesale across 22 files, so a committed refresh conflicts with every other open branch the moment any one of them merges. Refresh and commit it on `master` after a merge instead. `.gitattributes` marks the directory `-merge` and `linguist-generated` so those conflicts are trivial to resolve and stay collapsed in PR diffs.
