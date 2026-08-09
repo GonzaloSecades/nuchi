@@ -1,5 +1,3 @@
-import { toast } from 'sonner';
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import {
@@ -22,13 +20,14 @@ export const useBulkCreateTransactions = () => {
       return unwrap(result, 'transactions');
     },
     onSuccess: () => {
-      toast.success('Transactions created successfully');
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       queryClient.invalidateQueries({ queryKey: ['summary'] });
     },
-    // Deliberately no toast here. The import screen catches this to report
-    // which row failed, and it is the only caller; a generic toast from the
-    // hook would fire alongside that and bury the useful message.
+    // Deliberately no toast in this hook. The import screen is its only caller
+    // and submits in 500-row chunks, so hook-level success messages would fire
+    // once per chunk before the page's single completion toast. The page also
+    // catches failures to identify the exact row without a competing generic
+    // error message.
   });
   return mutation;
 };
