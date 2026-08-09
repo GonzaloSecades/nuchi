@@ -1,16 +1,16 @@
 # Graph Report - nuchi  (2026-08-09)
 
 ## Corpus Check
-- 369 files · ~205,173 words
+- 363 files · ~201,790 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3363 nodes · 6097 edges · 586 communities (190 shown, 396 thin omitted)
+- 3335 nodes · 6026 edges · 595 communities (187 shown, 408 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 474 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c32d8653`
+- Built from commit: `3401e3b7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -582,6 +582,15 @@
 - [[_COMMUNITY_BulkCreateTransactions200JSONResponse|BulkCreateTransactions200JSONResponse]]
 - [[_COMMUNITY_BulkDeleteCategories200JSONResponse|BulkDeleteCategories200JSONResponse]]
 - [[_COMMUNITY_BulkCreateTransactions404JSONResponse|BulkCreateTransactions404JSONResponse]]
+- [[_COMMUNITY_GetAccount200JSONResponse|GetAccount200JSONResponse]]
+- [[_COMMUNITY_GetSummary200JSONResponse|GetSummary200JSONResponse]]
+- [[_COMMUNITY_ListAccounts200JSONResponse|ListAccounts200JSONResponse]]
+- [[_COMMUNITY_ListCategories200JSONResponse|ListCategories200JSONResponse]]
+- [[_COMMUNITY_ListTransactions400JSONResponse|ListTransactions400JSONResponse]]
+- [[_COMMUNITY_RegisterUser201JSONResponse|RegisterUser201JSONResponse]]
+- [[_COMMUNITY_UpdateAccount200JSONResponse|UpdateAccount200JSONResponse]]
+- [[_COMMUNITY_UpdateTransaction200JSONResponse|UpdateTransaction200JSONResponse]]
+- [[_COMMUNITY_VerifyEmail200JSONResponse|VerifyEmail200JSONResponse]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 95 edges
@@ -598,19 +607,19 @@
 ## Surprising Connections (you probably didn't know these)
 - `Generated Go Output` --semantically_similar_to--> `generated.gen.go`  [INFERRED] [semantically similar]
   openapi/oapi-codegen.yaml → backend/internal/openapi/README.md
-- `DialogOverlay()` --calls--> `cn()`  [EXTRACTED]
-  components/ui/dialog.tsx → lib/utils.ts
 - `DropdownMenuCheckboxItem()` --calls--> `cn()`  [EXTRACTED]
   components/ui/dropdown-menu.tsx → lib/utils.ts
 - `DropdownMenuRadioItem()` --calls--> `cn()`  [EXTRACTED]
   components/ui/dropdown-menu.tsx → lib/utils.ts
 - `DropdownMenuShortcut()` --calls--> `cn()`  [EXTRACTED]
   components/ui/dropdown-menu.tsx → lib/utils.ts
+- `DropdownMenuSubTrigger()` --calls--> `cn()`  [EXTRACTED]
+  components/ui/dropdown-menu.tsx → lib/utils.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (586 total, 396 thin omitted)
+## Communities (595 total, 408 thin omitted)
 
 ### Community 0 - "Transaction Form Tsx"
 Cohesion: 0.12
@@ -618,11 +627,11 @@ Nodes (17): API Contract, Auth And Sessions, Child Issue Plan, Currency And Mone
 
 ### Community 1 - "Dependencies Class Variance Authority"
 Cohesion: 0.05
-Nodes (42): dependencies, class-variance-authority, @clerk/backend, @clerk/nextjs, clsx, date-fns, drizzle-orm, drizzle-zod (+34 more)
+Nodes (40): dependencies, class-variance-authority, @clerk/backend, @clerk/nextjs, clsx, date-fns, drizzle-orm, drizzle-zod (+32 more)
 
 ### Community 2 - "Cn Button Tsx"
-Cohesion: 0.17
-Nodes (13): columns, INITIAL_IMPORT_RESULTS, TransactionsPage(), VARIANTS, CSVReaderRenderProps, CSVUploadResults, Props, UploadButton() (+5 more)
+Cohesion: 0.14
+Nodes (16): columns, INITIAL_IMPORT_RESULTS, TransactionsPage(), VARIANTS, CSVReaderRenderProps, CSVUploadResults, Props, UploadButton() (+8 more)
 
 ### Community 3 - "Page Tsx"
 Cohesion: 0.14
@@ -653,28 +662,32 @@ Cohesion: 0.17
 Nodes (20): Duration, Mutex, Time, New(), Duration, Mutex, T, Time (+12 more)
 
 ### Community 14 - "0002 Snapshot Json"
-Cohesion: 0.09
-Nodes (28): Actions(), Props, Actions(), Props, AccountColumn(), Props, Actions(), Props (+20 more)
+Cohesion: 0.08
+Nodes (32): Actions(), Props, Actions(), Props, AccountColumn(), Props, Actions(), Props (+24 more)
 
 ### Community 16 - "Project Polish Pr Summary"
 Cohesion: 0.20
 Nodes (9): Follow-Up Memory, Implemented Scope, Last Verified, Local Database, Memory Index, ProjectPolish Context, Restart Point, Safety Rules (+1 more)
 
 ### Community 17 - "Transactions Ts"
-Cohesion: 0.01
-Nodes (145): ResourceId, Time, UUID, BulkCreateTransactionsJSONRequestBody, BulkDeleteAccountsJSONRequestBody, BulkDeleteCategoriesJSONRequestBody, BulkDeleteTransactionsJSONRequestBody, ConfirmPasswordResetJSONRequestBody (+137 more)
+Cohesion: 0.02
+Nodes (133): ResourceId, Time, UUID, BulkCreateTransactionsJSONRequestBody, BulkDeleteAccountsJSONRequestBody, BulkDeleteCategoriesJSONRequestBody, BulkDeleteTransactionsJSONRequestBody, ConfirmPasswordResetJSONRequestBody (+125 more)
 
 ### Community 18 - "0001 Snapshot Json"
 Cohesion: 0.14
 Nodes (15): SignInForm(), Props, AccountFilter(), SessionGuard(), UserButton(), DateFilter(), Filters(), Header() (+7 more)
+
+### Community 19 - "Json Editor Code Actions"
+Cohesion: 0.27
+Nodes (12): Handler(), HandlerFromMux(), HandlerFromMuxWithBaseURL(), HandlerWithOptions(), NewStrictHandler(), NewStrictHandlerWithOptions(), ChiServerOptions, MiddlewareFunc (+4 more)
 
 ### Community 20 - "0000 Snapshot Json"
 Cohesion: 0.21
 Nodes (16): accountNotFoundError(), constraintName(), duplicateAccountNameError(), Account, ResourceServer, Request, ResourceId, ResponseWriter (+8 more)
 
 ### Community 23 - "Nuchi Project Context"
-Cohesion: 0.10
-Nodes (37): ForgotPasswordPage(), formSchema, FormValues, formSchema, FormValues, ResetPassword(), formSchema, FormValues (+29 more)
+Cohesion: 0.09
+Nodes (39): ForgotPasswordPage(), formSchema, FormValues, formSchema, FormValues, ResetPassword(), formSchema, FormValues (+31 more)
 
 ### Community 24 - "Transactions API"
 Cohesion: 0.08
@@ -682,7 +695,7 @@ Nodes (23): Accounts, Accounts, API Shape, Canonical Architecture, Categories, C
 
 ### Community 28 - "Components Json"
 Cohesion: 0.07
-Nodes (74): decodeAPIError(), Cookie, Duration, Handler, authTestEnv, Pool, ResponseRecorder, T (+66 more)
+Nodes (69): decodeAPIError(), Cookie, Duration, Handler, authTestEnv, Pool, ResponseRecorder, T (+61 more)
 
 ### Community 29 - "Schema Ts"
 Cohesion: 0.10
@@ -693,8 +706,8 @@ Cohesion: 0.11
 Nodes (18): aliases, components, hooks, lib, ui, utils, iconLibrary, registries (+10 more)
 
 ### Community 31 - "Scripts Build"
-Cohesion: 0.21
-Nodes (10): boxVariant, BoxVariants, DataCard(), DataCardLoading(), DataCardProps, iconVariant, IconVariants, DataGrid() (+2 more)
+Cohesion: 0.33
+Nodes (5): T, liveDatabaseURL(), T, TestForeignKeyConstraintNamesMatchTheSchema_LiveDatabase(), TestReferenceErrorFromForeignKeyViolation()
 
 ### Community 32 - "Current API Parity Fixtures"
 Cohesion: 0.30
@@ -705,12 +718,12 @@ Cohesion: 0.04
 Nodes (46): Auth, Configuration, curl examples, Database, Email verification and password reset, Health Check, JWT access tokens, Local Run (+38 more)
 
 ### Community 34 - "Nuchi Roadmap Features List"
-Cohesion: 0.11
-Nodes (18): devDependencies, dotenv, drizzle-kit, eslint, eslint-config-next, eslint-config-prettier, openapi-typescript, postcss (+10 more)
+Cohesion: 0.05
+Nodes (40): devDependencies, dotenv, drizzle-kit, eslint, eslint-config-next, eslint-config-prettier, openapi-typescript, postcss (+32 more)
 
 ### Community 35 - "custom-tooltip.tsx"
-Cohesion: 0.10
-Nodes (21): AreaVariant(), Props, BarVariant(), Props, CategoryTooltip(), CategoryTooltipPayload, CategoryTooltipProps, CustomTooltip() (+13 more)
+Cohesion: 0.09
+Nodes (22): AreaVariant(), Props, BarVariant(), Props, CategoryTooltip(), CategoryTooltipPayload, CategoryTooltipProps, CustomTooltip() (+14 more)
 
 ### Community 37 - "Nuchi Application"
 Cohesion: 0.10
@@ -732,17 +745,13 @@ Nodes (14): connect(), execUpgrade(), Context, T, gooseBinary(), insertUpgradeUs
 Cohesion: 0.08
 Nodes (95): assertAccountNotFound(), assertValidationError(), createTestAccount(), decodeAccountsAPIError(), Handler, Pool, ResponseRecorder, T (+87 more)
 
-### Community 42 - "Api Error"
-Cohesion: 0.38
-Nodes (4): AppType, resolveApiBaseUrl(), ResolveApiBaseUrlOptions, hono
-
 ### Community 43 - "Edit Account Sheet Tsx"
 Cohesion: 0.18
 Nodes (10): Commands, Current Risk Areas, Env, graphify, Nuchi Codex Guide, Pull Requests Hard Rules, Reference, Repo Rules (+2 more)
 
 ### Community 45 - "Indexes Columns"
-Cohesion: 0.38
-Nodes (5): Queries, Queries, Tx, New(), DBTX
+Cohesion: 0.22
+Nodes (11): Queries, Queries, Tx, New(), T, UUID, newPgUUID(), TestConsumeRefreshToken_Concurrent() (+3 more)
 
 ### Community 47 - "Plaid Id"
 Cohesion: 0.15
@@ -773,16 +782,16 @@ Cohesion: 0.22
 Nodes (11): Account, Context, Queries, Text, UUID, BulkDeleteAccountsParams, CreateAccountParams, DeleteAccountParams (+3 more)
 
 ### Community 54 - "Transactions Account Id Accounts"
-Cohesion: 0.14
-Nodes (21): client, goDate(), Classification, classifyDivergence(), Divergence, DivergenceKey, EXPECTED_DIVERGENCES, findDivergence() (+13 more)
+Cohesion: 0.15
+Nodes (20): goDate(), Classification, classifyDivergence(), Divergence, DivergenceKey, EXPECTED_DIVERGENCES, findDivergence(), KNOWN_DIVERGENCES (+12 more)
 
 ### Community 55 - "Nuchi Go Backend"
 Cohesion: 0.05
 Nodes (22): BulkCreateTransactions401JSONResponse, BulkDeleteAccounts401JSONResponse, BulkDeleteCategories401JSONResponse, BulkDeleteTransactions401JSONResponse, CreateAccount401JSONResponse, CreateCategory401JSONResponse, CreateTransaction401JSONResponse, DeleteAccount401JSONResponse (+14 more)
 
 ### Community 56 - "page.tsx"
-Cohesion: 0.13
-Nodes (24): Props, isImportableTransactionField(), TableHeadSelect(), DataTableProps, Badge(), badgeVariants, CardAction(), CardFooter() (+16 more)
+Cohesion: 0.10
+Nodes (29): Props, DataTableProps, Badge(), badgeVariants, CardAction(), CardFooter(), Dialog(), DialogContent() (+21 more)
 
 ### Community 58 - "Context"
 Cohesion: 0.22
@@ -825,8 +834,8 @@ Cohesion: 1.00
 Nodes (3): Nuchi Brand Identity, Application Logo, SVG Logo Graphic
 
 ### Community 80 - "Api Base Url Ts"
-Cohesion: 0.08
-Nodes (22): apiErrorCode(), ApiErrorEnvelope, apiOrigin, toApiError(), ApiError, ApiErrorDetails, AuthUser, BootstrapResult (+14 more)
+Cohesion: 0.15
+Nodes (16): AuthUser, BootstrapResult, bootstrapSession, createEmailVerifier(), createLogout(), createSessionBootstrap(), LogoutOutcome, logoutSession (+8 more)
 
 ### Community 81 - "Globe Icon"
 Cohesion: 0.67
@@ -849,12 +858,12 @@ Cohesion: 0.33
 Nodes (5): 0011 — No resend endpoint; email delivery is fire-and-forget, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
 ### Community 260 - "name"
-Cohesion: 0.12
-Nodes (26): RequestType, ResponseType, useBulkDeleteAccounts(), ResponseType, useDeleteAccount(), RequestType, ResponseType, useEditAccount() (+18 more)
+Cohesion: 0.11
+Nodes (25): AccountsPage(), CategoriesPage(), RequestType, ResponseType, useBulkDeleteAccounts(), ResponseType, useDeleteAccount(), RequestType (+17 more)
 
 ### Community 293 - "name"
 Cohesion: 0.08
-Nodes (49): argonParams, decodeHash(), DummyVerify(), HashPassword(), mustHashPassword(), T, TestDecodeHash_OperationalBounds(), TestDummyVerify_DoesNotPanicOrLeak() (+41 more)
+Nodes (50): argonParams, decodeHash(), DummyVerify(), HashPassword(), mustHashPassword(), T, TestDecodeHash_OperationalBounds(), TestDummyVerify_DoesNotPanicOrLeak() (+42 more)
 
 ### Community 301 - "name"
 Cohesion: 0.40
@@ -873,8 +882,8 @@ Cohesion: 0.15
 Nodes (22): buildLink(), URL, passwordResetEmailBody(), T, URL, mustParseURL(), startFakeSMTPServer(), TestBuildLink_EscapesTokenQueryParam() (+14 more)
 
 ### Community 316 - "name"
-Cohesion: 0.06
-Nodes (19): BulkCreateTransactions500JSONResponse, BulkDeleteAccounts500JSONResponse, BulkDeleteCategories500JSONResponse, BulkDeleteTransactions500JSONResponse, CreateAccount500JSONResponse, CreateCategory500JSONResponse, CreateTransaction500JSONResponse, DatabaseErrorJSONResponse (+11 more)
+Cohesion: 0.05
+Nodes (21): BulkCreateTransactions500JSONResponse, BulkDeleteAccounts500JSONResponse, BulkDeleteCategories500JSONResponse, BulkDeleteTransactions500JSONResponse, CreateAccount500JSONResponse, CreateCategory500JSONResponse, CreateTransaction500JSONResponse, DatabaseErrorJSONResponse (+13 more)
 
 ### Community 317 - "notNull"
 Cohesion: 0.08
@@ -885,16 +894,16 @@ Cohesion: 0.25
 Nodes (8): `DELETE /api/transactions/:id`, `GET /api/transactions`, `GET /api/transactions/:id`, `PATCH /api/transactions/:id`, `POST /api/transactions`, `POST /api/transactions/bulk-create`, `POST /api/transactions/bulk-delete`, Transactions
 
 ### Community 323 - "name"
-Cohesion: 0.31
-Nodes (7): Dialog(), DialogContent(), DialogDescription(), DialogFooter(), DialogHeader(), DialogOverlay(), DialogTitle()
+Cohesion: 0.62
+Nodes (4): useGetSummary(), useGetTransactions(), omitEmptyQueryParams(), convertAmountFromMiliunits()
 
 ### Community 332 - "Nuchi — Claude Code Guide"
 Cohesion: 0.20
 Nodes (9): Commands, Graphify, Hard Invariants, Legacy Code, Model Orchestration, Nuchi — Claude Code Guide, Post-Migration Improvements, Project (+1 more)
 
 ### Community 338 - "primaryKey"
-Cohesion: 0.06
-Nodes (22): Handler, Request, ResponseWriter, Handler(), HandlerFromMux(), HandlerFromMuxWithBaseURL(), HandlerWithOptions(), NewStrictHandler() (+14 more)
+Cohesion: 0.07
+Nodes (8): Handler, Request, ResponseWriter, GetHealth200JSONResponse, ServerInterfaceWrapper, strictHandler, StrictHTTPServerOptions, Unimplemented
 
 ### Community 347 - "name"
 Cohesion: 0.40
@@ -957,8 +966,8 @@ Cohesion: 0.22
 Nodes (9): Alternatives and tradeoffs, Codex — Atomic Multi-Chunk Transaction Imports, Contract and compatibility, Decision record, Invariants, Problem and evidence, Proposed design, Risks (+1 more)
 
 ### Community 388 - ".UpdateCategory"
-Cohesion: 0.07
-Nodes (38): app, app, app, DELETE, GET, OPTIONS, PATCH, POST (+30 more)
+Cohesion: 0.24
+Nodes (9): checkTransactionMutationRateLimit(), cleanupMutationRateLimit(), DateRangeQueryOptions, DateRangeQueryResult, isContentLengthTooLarge(), mutationRequestsByKey, parseDateRangeQuery(), parseStrictDate() (+1 more)
 
 ### Community 395 - "PR Review Cycle"
 Cohesion: 0.29
@@ -993,8 +1002,8 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: give it a last review of all the files changend in the pr the comments and all that is in place right now in the pr leave comments for medim-high and high issues mid-low and low forget it we mande 3 iterations so far. if something is too big then addres it consitently here so it so i can anlyze it, Source Nodes
 
 ### Community 432 - "GetSummary200JSONResponse"
-Cohesion: 0.19
-Nodes (13): DEFAULT_CURRENCY, emptyToNull(), ImportedTransactionInput, baseValues, toBulkTransactionInput(), toTransactionInput(), TransactionFormValues, TransactionInput (+5 more)
+Cohesion: 0.16
+Nodes (7): toTransactionInput(), TransactionFormValues, useCreateTransaction(), useEditTransaction(), ApiError, ApiErrorEnvelope, mutationErrorMessage()
 
 ### Community 435 - "name"
 Cohesion: 0.38
@@ -1005,8 +1014,8 @@ Cohesion: 0.29
 Nodes (4): AccountNotFoundErrorJSONResponse, DeleteAccount404JSONResponse, GetAccount404JSONResponse, UpdateAccount404JSONResponse
 
 ### Community 503 - "TransactionReferenceNotFoundErrorJSONResponse"
-Cohesion: 0.20
-Nodes (20): UUID, UserIDFromContext(), writeUnauthorizedError(), accountReferenceNotFoundError(), categoryReferenceNotFoundError(), ResourceServer, Queries, Request (+12 more)
+Cohesion: 0.18
+Nodes (20): UUID, UserIDFromContext(), accountReferenceNotFoundError(), categoryReferenceNotFoundError(), ResourceServer, Queries, Request, ResourceId (+12 more)
 
 ### Community 504 - "CategoryNotFoundErrorJSONResponse"
 Cohesion: 0.29
@@ -1033,8 +1042,8 @@ Cohesion: 0.22
 Nodes (8): API Client Layer, Errors, Files, Not in this layer, Refresh behavior, Same-origin, always, Tokens, Using it
 
 ### Community 510 - "data-card.tsx"
-Cohesion: 0.16
-Nodes (23): decodeBulkBody(), decodeResourceBody(), HandlerFunc, ResourceServer, ListTransactionsParams, Pool, Queries, Request (+15 more)
+Cohesion: 0.11
+Nodes (29): T, TestHealthEndpoint(), decodeBulkBody(), decodeResourceBody(), HandlerFunc, ResourceServer, ListTransactionsParams, Pool (+21 more)
 
 ### Community 511 - "BulkDeleteTransactions200JSONResponse"
 Cohesion: 0.33
@@ -1045,28 +1054,24 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Review PR #64 against post-merge PR #62 comment and issue #63, Source Nodes
 
 ### Community 513 - ".CreateCategory"
-Cohesion: 0.23
-Nodes (13): T, liveDatabaseURL(), accountProbeHandler(), createProbeTestUser(), Context, Handler, HandlerFunc, Pool (+5 more)
+Cohesion: 0.32
+Nodes (11): accountProbeHandler(), createProbeTestUser(), Context, Handler, HandlerFunc, Pool, T, UUID (+3 more)
 
 ### Community 514 - "columns.tsx"
 Cohesion: 0.33
 Nodes (9): init(), mustRandomInt(), New(), randomBase36(), randomUint64(), strconv36(), T, TestNew_IsUnique() (+1 more)
 
 ### Community 515 - "query-provider.tsx"
-Cohesion: 0.14
-Nodes (24): options, Props, Chart(), ChartEnum, ChartLoading(), Props, DataCharts(), DataTable() (+16 more)
+Cohesion: 0.09
+Nodes (36): isImportableTransactionField(), options, Props, TableHeadSelect(), Chart(), ChartEnum, ChartLoading(), Props (+28 more)
 
 ### Community 516 - "api-base-url.ts"
 Cohesion: 0.33
 Nodes (5): 0013 — Resource endpoints accept unbounded request bodies, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
-### Community 517 - "RegisterUser201JSONResponse"
-Cohesion: 0.52
-Nodes (6): T, UUID, newPgUUID(), TestConsumeRefreshToken_Concurrent(), TestSqlcQueries_LiveDatabase(), uniqueTestEmail()
-
 ### Community 518 - "graphify reference: query, path, explain"
-Cohesion: 0.12
-Nodes (29): AccountsPage(), CategoriesPage(), Sheet(), SheetContent(), SheetDescription(), SheetHeader(), SheetTitle(), RequestType (+21 more)
+Cohesion: 0.13
+Nodes (27): Sheet(), SheetContent(), SheetDescription(), SheetHeader(), SheetTitle(), RequestType, ResponseType, useCreateAccount() (+19 more)
 
 ### Community 519 - "README.md"
 Cohesion: 0.25
@@ -1125,16 +1130,12 @@ Cohesion: 0.12
 Nodes (17): Categories are optional, and must be yours, Currency, Default view, Editing replaces the whole transaction, Filtering by an account that isn't yours, Filters, Importing many at once, Messages a user can encounter (+9 more)
 
 ### Community 535 - "GetAccount200JSONResponse"
-Cohesion: 0.29
-Nodes (9): ApiError, bearerToken(), Context, Handler, ResponseWriter, RequireAuth(), writeAccessTokenExpiredError(), writeAPIError() (+1 more)
+Cohesion: 0.31
+Nodes (10): ApiError, bearerToken(), Context, Handler, ResponseWriter, RequireAuth(), writeAccessTokenExpiredError(), writeAPIError() (+2 more)
 
 ### Community 536 - "GetCategory200JSONResponse"
 Cohesion: 0.08
 Nodes (42): Context, Queries, Text, Timestamp, UUID, calendarDaysBetween(), endOfDay(), Time (+34 more)
-
-### Community 537 - "scripts"
-Cohesion: 0.12
-Nodes (17): scripts, build, db:generate, db:migrate, db:seed, db:studio, dev, dev:neon (+9 more)
 
 ### Community 538 - "pgUserID"
 Cohesion: 0.21
@@ -1161,16 +1162,16 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: address the mas comments accordingly in the prs, Source Nodes
 
 ### Community 544 - "WithUserTx"
-Cohesion: 0.29
-Nodes (11): databaseHost(), main(), connectionRoleAttributes(), Context, Pool, Queries, TxOptions, UUID (+3 more)
+Cohesion: 0.42
+Nodes (9): connectionRoleAttributes(), Context, Pool, Queries, TxOptions, UUID, VerifyRLSActive(), WithUserTx() (+1 more)
 
 ### Community 545 - "UnmarshalingParamError"
 Cohesion: 0.07
 Nodes (26): 1. Unified Import Inbox, 2. Import Review, Normalization, and Deduplication, 3. Transfers, Balances, and Net Worth, 4. Budgets and Monthly Planning, 5. Recurring Transactions and Forecasting, Current roadmap principle, Nuchi Roadmap Features List, Open banking readiness (+18 more)
 
 ### Community 546 - "NewPool"
-Cohesion: 0.22
-Nodes (10): Context, Pool, NewPool(), T, TestNewPool_InvalidURL(), TestNewPool_LiveDatabase(), TestNewPool_UnreachableServer(), T (+2 more)
+Cohesion: 0.24
+Nodes (9): databaseHost(), main(), Context, Pool, NewPool(), T, TestNewPool_InvalidURL(), TestNewPool_LiveDatabase() (+1 more)
 
 ### Community 547 - "TestFinanceBaseSchema_LiveDatabase"
 Cohesion: 0.61
@@ -1181,12 +1182,8 @@ Cohesion: 0.57
 Nodes (6): assertCascadingUserFK(), assertUniqueColumn(), Context, Pool, T, TestAuthBaseSchema_LiveDatabase()
 
 ### Community 550 - "ListTransactions200JSONResponse"
-Cohesion: 0.31
-Nodes (10): validateResourceName(), validateBulkTransactionInputs(), Text, Timestamp, parseAmount(), validateTransactionInput(), apiFieldError, transactionInput (+2 more)
-
-### Community 551 - "UpdateCategory200JSONResponse"
-Cohesion: 0.33
-Nodes (5): ignoreScripts, name, private, trustedDependencies, version
+Cohesion: 0.36
+Nodes (9): validateBulkTransactionInputs(), Text, Timestamp, parseAmount(), validateTransactionInput(), apiFieldError, transactionInput, transactionInputBody (+1 more)
 
 ### Community 552 - "VerifyEmail200JSONResponse"
 Cohesion: 0.40
@@ -1197,16 +1194,16 @@ Cohesion: 0.50
 Nodes (3): Answer, Q: Should Nuchi create shared Claude and Codex skills around Graphify and CodeGraph after the Go migration?, Source Nodes
 
 ### Community 554 - "authenticated-fetch.ts"
-Cohesion: 0.19
-Nodes (10): createAuthenticatedFetch(), Dependencies, FetchLike, readErrorCode(), expired(), jsonResponse(), refreshed(), unauthorized() (+2 more)
+Cohesion: 0.27
+Nodes (8): createAuthenticatedFetch(), Dependencies, FetchLike, readErrorCode(), expired(), jsonResponse(), refreshed(), unauthorized()
 
 ### Community 555 - "UpdateTransaction404JSONResponse"
-Cohesion: 0.11
-Nodes (25): buildPoolConfig(), createPool(), DatabasePoolCache, getDatabaseUrl(), getOrCreateCachedPool(), isLocalDatabaseUrl(), LOCAL_HOSTS, shouldAllowInsecureTls() (+17 more)
+Cohesion: 0.07
+Nodes (36): buildPoolConfig(), createPool(), DatabasePoolCache, getDatabaseUrl(), getOrCreateCachedPool(), isLocalDatabaseUrl(), LOCAL_HOSTS, shouldAllowInsecureTls() (+28 more)
 
 ### Community 556 - "api-base-url.ts"
-Cohesion: 0.13
-Nodes (16): validationError(), bulkCreateValidationError(), bulkDeleteValidationError(), ResourceServer, Queries, Request, ResponseWriter, Transaction (+8 more)
+Cohesion: 0.11
+Nodes (18): bulkCreateValidationError(), bulkDeleteValidationError(), ResourceServer, Queries, Request, ResponseWriter, Transaction, UUID (+10 more)
 
 ### Community 557 - "BulkDeleteTransactions200JSONResponse"
 Cohesion: 0.20
@@ -1229,8 +1226,8 @@ Cohesion: 0.33
 Nodes (5): 0016 — Bulk body limits are enforced against the stream, not just Content-Length, How it was migrated, Proposed improvement, The concern, Why it was done this way
 
 ### Community 562 - "UpdateTransaction200JSONResponse"
-Cohesion: 0.23
-Nodes (13): ResponseType, useGetSummary(), CalendarDate, calendarDateFromApi(), calendarDateFromLocalDate(), localDateFromApi(), localDateFromCalendarDate(), pad() (+5 more)
+Cohesion: 0.19
+Nodes (15): ResponseType, CalendarDate, calendarDateFromApi(), calendarDateFromLocalDate(), localDateFromApi(), localDateFromCalendarDate(), pad(), picker (+7 more)
 
 ### Community 563 - "VerifyEmail200JSONResponse"
 Cohesion: 0.40
@@ -1273,7 +1270,7 @@ Cohesion: 0.40
 Nodes (3): ConfirmPasswordReset401JSONResponse, InvalidTokenErrorJSONResponse, VerifyEmail401JSONResponse
 
 ### Community 576 - "InvalidRefreshTokenErrorJSONResponse"
-Cohesion: 0.50
+Cohesion: 0.40
 Nodes (3): InvalidRefreshTokenErrorJSONResponse, LogoutUser401JSONResponse, RefreshSession401JSONResponse
 
 ### Community 577 - "Codex Backend Improvements"
@@ -1281,8 +1278,8 @@ Cohesion: 0.40
 Nodes (5): Codex Backend Improvements, Decision hierarchy, Definition of done for an endpoint, How to use this set, Source set
 
 ### Community 578 - "UnescapedCookieParamError"
-Cohesion: 0.22
-Nodes (11): ImportCard(), Props, requiredOptions, SelectedColumnsState, ImportTable(), ImportableTransactionField, ImportedTransactionRow, ImportedTransactionRowError (+3 more)
+Cohesion: 0.21
+Nodes (12): ImportCard(), Props, requiredOptions, SelectedColumnsState, ImportTable(), ImportableTransactionField, ImportedTransactionRow, ImportedTransactionRowError (+4 more)
 
 ### Community 580 - "0018 — A transaction's date is serialized as a UTC instant, not a calendar date"
 Cohesion: 0.33
@@ -1297,9 +1294,9 @@ Cohesion: 0.18
 Nodes (11): CSV Import — Product Behavior, Current limitations, Errors found before upload, Errors returned while saving, How displayed row numbers work, Large files are saved in groups of 500, Messages a user can encounter, Related (+3 more)
 
 ## Knowledge Gaps
-- **1265 isolated node(s):** `formSchema`, `FormValues`, `formSchema`, `FormValues`, `formSchema` (+1260 more)
+- **1258 isolated node(s):** `formSchema`, `FormValues`, `formSchema`, `FormValues`, `formSchema` (+1253 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **396 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **408 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
@@ -1310,7 +1307,7 @@ Nodes (11): CSV Import — Product Behavior, Current limitations, Errors found b
 - `RefreshToken` (3× useful, score=1.654957579)
 - `AuthSessionResponse` (3× useful, score=1.654957579)
 - `Contract` (2× useful, score=1.566102936)
-- `transactions.ts` (2× useful, score=1.538921242)
+- `transactions.ts` (2× useful, score=1.538921242) _(code changed — re-verify)_
 - `schema.ts` (2× useful, score=1.538921242)
 - `use-create-transaction.ts` (2× useful, score=1.538921242) _(code changed — re-verify)_
 - `Architecture` (2× useful, score=1.538921242) _(code changed — re-verify)_
@@ -1319,16 +1316,16 @@ Nodes (11): CSV Import — Product Behavior, Current limitations, Errors found b
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `ApiErrorResponse` connect `Security Standard` to `New Router`, `Page Tsx`, `Components Json`, `Transactions Ts`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
-- **Why does `NewPool()` connect `NewPool` to `WithUserTx`, `Current API Parity Fixtures`, `.CreateCategory`, `TestFinanceBaseSchema_LiveDatabase`, `GetTransaction200JSONResponse`, `RegisterUser201JSONResponse`, `New Router`, `select.tsx`, `Components Json`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
-- **Why does `main()` connect `WithUserTx` to `NewPool`, `name`, `Transaction`, `name`, `Components Json`, `data-card.tsx`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **Why does `NewPool()` connect `NewPool` to `Current API Parity Fixtures`, `.CreateCategory`, `TestFinanceBaseSchema_LiveDatabase`, `GetTransaction200JSONResponse`, `New Router`, `Indexes Columns`, `select.tsx`, `Components Json`, `Scripts Build`?**
+  _High betweenness centrality (0.026) - this node is a cross-community bridge._
+- **Why does `toAuthUser()` connect `name` to `Route Ts`, `Transactions Ts`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Are the 29 inferred relationships involving `newTransactionsTestEnv()` (e.g. with `TestSummaryLive_AccountFilter()` and `TestSummaryLive_CategoryBreakdown()`) actually correct?**
   _`newTransactionsTestEnv()` has 29 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `formSchema`, `FormValues`, `formSchema` to the rest of the system?**
-  _1290 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1283 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Transaction Form Tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Dependencies Class Variance Authority` be split into smaller, more focused modules?**
-  _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05 - nodes in this community are weakly interconnected._

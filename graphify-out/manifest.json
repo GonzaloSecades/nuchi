@@ -99,31 +99,6 @@
     "ast_hash": "5e7894f75af604d220a426d1f0a8d0c8",
     "semantic_hash": "5e7894f75af604d220a426d1f0a8d0c8"
   },
-  "app/api/[[...route]]/accounts.ts": {
-    "mtime": 1783698026.6577241,
-    "ast_hash": "2afcc4966311b4727d4bf9bbd7dfb8e5",
-    "semantic_hash": "2afcc4966311b4727d4bf9bbd7dfb8e5"
-  },
-  "app/api/[[...route]]/categories.ts": {
-    "mtime": 1783698026.6577241,
-    "ast_hash": "f3f3cfd4da3d4a2e03041ffe3a024cb0",
-    "semantic_hash": "f3f3cfd4da3d4a2e03041ffe3a024cb0"
-  },
-  "app/api/[[...route]]/route.ts": {
-    "mtime": 1783698026.6587255,
-    "ast_hash": "2b8fd8e03b9195350f20f8e36c22a236",
-    "semantic_hash": "2b8fd8e03b9195350f20f8e36c22a236"
-  },
-  "app/api/[[...route]]/summary.ts": {
-    "mtime": 1783698026.6597254,
-    "ast_hash": "52c363ad2d7c4b5079404d1b1964c998",
-    "semantic_hash": "52c363ad2d7c4b5079404d1b1964c998"
-  },
-  "app/api/[[...route]]/transactions.ts": {
-    "mtime": 1783698026.6607246,
-    "ast_hash": "9a4bdd8c6c8f3a5f1909dcf1c0b8c198",
-    "semantic_hash": "9a4bdd8c6c8f3a5f1909dcf1c0b8c198"
-  },
   "app/layout.tsx": {
     "mtime": 1786282863.5110633,
     "ast_hash": "b1674b419cf65111a778fcef1dbfff6a",
@@ -714,11 +689,6 @@
     "ast_hash": "189dbe829e294fa23f8911b96b2058a2",
     "semantic_hash": "189dbe829e294fa23f8911b96b2058a2"
   },
-  "lib/hono.ts": {
-    "mtime": 1783698026.793728,
-    "ast_hash": "9d52fd96018b274dc387f48e607105c2",
-    "semantic_hash": "9d52fd96018b274dc387f48e607105c2"
-  },
   "lib/select-options.test.ts": {
     "mtime": 1783698026.793728,
     "ast_hash": "76beb3bfa1e41d1469b1cbec4e312e24",
@@ -760,13 +730,13 @@
     "semantic_hash": ""
   },
   "next.config.ts": {
-    "mtime": 1786282863.582064,
-    "ast_hash": "93c3c8c9e2c92f6e8ab0e175a93c864e",
+    "mtime": 1786312285.0132504,
+    "ast_hash": "04dac228d910d775d52363dc29e70631",
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1786307245.8546703,
-    "ast_hash": "d4be55338a47b7d21a001db3758e2050",
+    "mtime": 1786312285.0152626,
+    "ast_hash": "b2a446524dd7e04dfea0b7bbd68ffb27",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -805,8 +775,8 @@
     "semantic_hash": "02fc19ad21338c2ab820a70136310db4"
   },
   "AGENTS.md": {
-    "mtime": 1786234744.3919342,
-    "ast_hash": "51cd70345e711ed594a5a353a7e1a010",
+    "mtime": 1786312285.0001688,
+    "ast_hash": "c7c9308b8df32deb3ee4cd6da3d30a57",
     "semantic_hash": ""
   },
   "PR-Reviews/13.Upload-Transactions-Import.md": {
@@ -830,8 +800,8 @@
     "semantic_hash": "63554a20789b246c658cfbd38898b199"
   },
   "README.md": {
-    "mtime": 1786282863.493065,
-    "ast_hash": "a3f718e38eb731942dc8de0865739092",
+    "mtime": 1786312285.0021837,
+    "ast_hash": "757b635dfe026306b2216cd9d172534a",
     "semantic_hash": ""
   },
   "backend/README.md": {
@@ -850,9 +820,9 @@
     "semantic_hash": ""
   },
   "docs/CODEX_CONTEXT.md": {
-    "mtime": 1783698026.7177246,
-    "ast_hash": "9afd74a76dd596e56746c4685a6cdb40",
-    "semantic_hash": "9afd74a76dd596e56746c4685a6cdb40"
+    "mtime": 1786312285.0092232,
+    "ast_hash": "9793d8b5413712b36c5b033eaaeb9d9c",
+    "semantic_hash": ""
   },
   "docs/features-roadmap/roadmap_features_list.md": {
     "mtime": 1783698026.718733,
@@ -1030,8 +1000,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1786234744.3873453,
-    "ast_hash": "c93819aacb4eda2da0406bf34e923f5f",
+    "mtime": 1786312285.0021837,
+    "ast_hash": "dbdfcfbeb111b92fdde53c178633571d",
     "semantic_hash": ""
   },
   "backend/tools.go": {
@@ -1665,13 +1635,13 @@
     "semantic_hash": ""
   },
   "lib/go-api-rewrite.test.ts": {
-    "mtime": 1786307245.8527603,
-    "ast_hash": "e411766c6828bac15e8617a8ab1c6375",
+    "mtime": 1786312285.0112386,
+    "ast_hash": "d4242d814f07482a2edf5875f85ec06e",
     "semantic_hash": ""
   },
   "lib/go-api-rewrite.ts": {
-    "mtime": 1786282863.580066,
-    "ast_hash": "13ec6e8e9ec59338571f163e8d5ea1e9",
+    "mtime": 1786312285.0112386,
+    "ast_hash": "a0c6c3629fc92b2b2f58af4a5c87e539",
     "semantic_hash": ""
   },
   "lib/api/authenticated-fetch.test.ts": {
