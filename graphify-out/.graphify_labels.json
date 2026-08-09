@@ -577,5 +577,10 @@
   "575": "InvalidRefreshTokenErrorJSONResponse",
   "576": "GetAccount200JSONResponse",
   "577": "GetCategory200JSONResponse",
-  "578": "VerifyEmail200JSONResponse"
+  "578": "VerifyEmail200JSONResponse",
+  "579": "GetSummary200JSONResponse",
+  "580": "GetTransaction200JSONResponse",
+  "581": "ListTransactions200JSONResponse",
+  "582": "UpdateAccount200JSONResponse",
+  "583": "UpdateTransaction404JSONResponse"
 }
