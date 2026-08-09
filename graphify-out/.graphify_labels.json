@@ -584,15 +584,11 @@
   "582": "RequiredHeaderError",
   "583": "BulkCreateTransactions200JSONResponse",
   "584": "BulkDeleteCategories200JSONResponse",
-  "585": "ConfirmPasswordReset200JSONResponse",
   "586": "CreateTransaction200JSONResponse",
   "587": "DeleteTransaction200JSONResponse",
   "588": "GetAccount200JSONResponse",
   "589": "GetSummary200JSONResponse",
-  "590": "GetTransaction200JSONResponse",
   "591": "ListCategories200JSONResponse",
-  "592": "ListTransactions200JSONResponse",
   "593": "ListTransactions400JSONResponse",
-  "594": "UpdateCategory200JSONResponse",
   "595": "VerifyEmail200JSONResponse"
 }

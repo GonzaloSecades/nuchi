@@ -510,23 +510,23 @@
     "semantic_hash": ""
   },
   "features/accounts/api/use-create-account.ts": {
-    "mtime": 1786282863.527068,
-    "ast_hash": "2530a73cdf201bd760ae910a34f55485",
+    "mtime": 1786307893.2304313,
+    "ast_hash": "5a4a798c56cf7a55db4f93921a6712b6",
     "semantic_hash": ""
   },
   "features/accounts/api/use-delete-account.ts": {
-    "mtime": 1786282863.5280688,
-    "ast_hash": "1571d04bf4820c05f2ea89d76056197a",
+    "mtime": 1786307893.2314305,
+    "ast_hash": "ac2d8501fa3bf69955fbdb8a50a93334",
     "semantic_hash": ""
   },
   "features/accounts/api/use-edit-account.ts": {
-    "mtime": 1786282863.5300665,
-    "ast_hash": "b8ac4f5f276291d332229317ef5a44ab",
+    "mtime": 1786307893.2334294,
+    "ast_hash": "4217742331925a3ded9c7b9b1bf27238",
     "semantic_hash": ""
   },
   "features/accounts/api/use-get-account.ts": {
-    "mtime": 1786282863.5310667,
-    "ast_hash": "e572ba2453da3aba80cae2d5bca42a13",
+    "mtime": 1786307893.234432,
+    "ast_hash": "540d5f1fc760ddd63fe81b44f7d625e4",
     "semantic_hash": ""
   },
   "features/accounts/api/use-get-accounts.ts": {
@@ -570,18 +570,18 @@
     "semantic_hash": ""
   },
   "features/categories/api/use-create-category.ts": {
-    "mtime": 1786282863.537064,
-    "ast_hash": "75a445a0291bde7119ad86cde4775957",
+    "mtime": 1786307893.2354345,
+    "ast_hash": "f23a6d3723a252af1298d4cdd30277f3",
     "semantic_hash": ""
   },
   "features/categories/api/use-delete-category.ts": {
-    "mtime": 1786282863.5390632,
-    "ast_hash": "5341b8e0e7477cd801b8f18d42fd611c",
+    "mtime": 1786307893.2374341,
+    "ast_hash": "e5dcda02782f512b2cb6bb7085445131",
     "semantic_hash": ""
   },
   "features/categories/api/use-edit-category.ts": {
-    "mtime": 1786282863.5400672,
-    "ast_hash": "72226bb188834929c3ad06efff3cd1e9",
+    "mtime": 1786307893.2384288,
+    "ast_hash": "e55c9d8ae74e2d9be0dff911531fe835",
     "semantic_hash": ""
   },
   "features/categories/api/use-get-categories.ts": {
@@ -590,8 +590,8 @@
     "semantic_hash": ""
   },
   "features/categories/api/use-get-category.ts": {
-    "mtime": 1786282863.542064,
-    "ast_hash": "b9abb91f89dac6c68231a4a143c73449",
+    "mtime": 1786307893.2394319,
+    "ast_hash": "4fcf8a1ea3c985e69747b91d859afc7e",
     "semantic_hash": ""
   },
   "features/categories/components/category-form.tsx": {
@@ -635,23 +635,23 @@
     "semantic_hash": ""
   },
   "features/transactions/api/use-create-transaction.ts": {
-    "mtime": 1786282863.5590663,
-    "ast_hash": "bb0fcc05a0a59effda5e481fcb370705",
+    "mtime": 1786307893.2414296,
+    "ast_hash": "2b166184be5969fff0d6de6c5dedfc2d",
     "semantic_hash": ""
   },
   "features/transactions/api/use-delete-transaction.ts": {
-    "mtime": 1786282863.5600655,
-    "ast_hash": "fae167d7b487d34a7192561ed3fc24fc",
+    "mtime": 1786307893.2424364,
+    "ast_hash": "a057d631c35f0ea1037fbaaff806ef34",
     "semantic_hash": ""
   },
   "features/transactions/api/use-edit-transaction.ts": {
-    "mtime": 1786282863.5620732,
-    "ast_hash": "7f7a8f415e7c14a3fcbbc3dfbaeaaff5",
+    "mtime": 1786307893.2434297,
+    "ast_hash": "c25ebfe5c9b5022ecd5e762155c63535",
     "semantic_hash": ""
   },
   "features/transactions/api/use-get-transaction.ts": {
-    "mtime": 1786282863.5630674,
-    "ast_hash": "0e706ef2848db4835fac847b483217bb",
+    "mtime": 1786307893.244429,
+    "ast_hash": "3a971c705c2d4ffad8ccd8b5d9473b6e",
     "semantic_hash": ""
   },
   "features/transactions/api/use-get-transactions.ts": {
@@ -1774,36 +1774,6 @@
     "ast_hash": "15412e30fc865fcdd949d93adcc49eaf",
     "semantic_hash": ""
   },
-  "features/accounts/api/account-mutation-error.test.ts": {
-    "mtime": 1786282863.523066,
-    "ast_hash": "cfdc5cefa5d7e93b95972a7682c3a3e7",
-    "semantic_hash": ""
-  },
-  "features/accounts/api/account-mutation-error.ts": {
-    "mtime": 1786282863.524067,
-    "ast_hash": "d800c5295100b52bdc37abeb55d405bb",
-    "semantic_hash": ""
-  },
-  "features/accounts/api/account-path-params.ts": {
-    "mtime": 1786282863.5250678,
-    "ast_hash": "cca1efeff7a2c1268f4c0a4035f41073",
-    "semantic_hash": ""
-  },
-  "features/categories/api/category-mutation-error.ts": {
-    "mtime": 1786282863.533065,
-    "ast_hash": "23195f3a239d0c334c9fd037ec458f96",
-    "semantic_hash": ""
-  },
-  "features/categories/api/category-path-params.ts": {
-    "mtime": 1786282863.5340724,
-    "ast_hash": "80c23aa8016d80c73d98f4a3a8b0ab3e",
-    "semantic_hash": ""
-  },
-  "features/categories/api/category-transport.test.ts": {
-    "mtime": 1786282863.535064,
-    "ast_hash": "09436b4e25e22d379e7afec780e7acb5",
-    "semantic_hash": ""
-  },
   "features/transactions/api/bulk-errors.test.ts": {
     "mtime": 1786282863.5450606,
     "ast_hash": "9c7e3a00828a95beef3f0d750927464e",
@@ -1832,21 +1802,6 @@
   "features/transactions/api/transaction-date.ts": {
     "mtime": 1786282863.5490668,
     "ast_hash": "eda15f8b4299d742c28ea686587b16b6",
-    "semantic_hash": ""
-  },
-  "features/transactions/api/transaction-mutation-error.test.ts": {
-    "mtime": 1786282863.5500684,
-    "ast_hash": "f33dab7a603bd8d84ebb53a76f3c0c1b",
-    "semantic_hash": ""
-  },
-  "features/transactions/api/transaction-mutation-error.ts": {
-    "mtime": 1786282863.552067,
-    "ast_hash": "24ee4a07970a7ffdd515ead31f4b4353",
-    "semantic_hash": ""
-  },
-  "features/transactions/api/transaction-path-params.ts": {
-    "mtime": 1786282863.553068,
-    "ast_hash": "3c492ff5863afb49e8c31d0fa4644cac",
     "semantic_hash": ""
   },
   "features/transactions/api/transaction-payload.test.ts": {
@@ -1957,6 +1912,26 @@
   "post-migration-improvements/claude-backend-improvements/0018-date-response-serialized-as-utc.md": {
     "mtime": 1786307542.343477,
     "ast_hash": "baf4274f94774ad4fc306ba20203020f",
+    "semantic_hash": ""
+  },
+  "lib/api/mutation-error.test.ts": {
+    "mtime": 1786307893.2454283,
+    "ast_hash": "1cd9b6e4e2b13c21dbb1a2d7a16b0723",
+    "semantic_hash": ""
+  },
+  "lib/api/mutation-error.ts": {
+    "mtime": 1786307893.2464306,
+    "ast_hash": "5cec0bd68d303f33dd3ea18299a2bab8",
+    "semantic_hash": ""
+  },
+  "lib/api/path-params.test.ts": {
+    "mtime": 1786307893.2474296,
+    "ast_hash": "9982313076175b4a8d0a9672308709c6",
+    "semantic_hash": ""
+  },
+  "lib/api/path-params.ts": {
+    "mtime": 1786307893.2484295,
+    "ast_hash": "5aef86181e7fb74e1de41891fac32949",
     "semantic_hash": ""
   }
 }
