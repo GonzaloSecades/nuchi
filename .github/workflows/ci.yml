@@ -109,7 +109,14 @@ jobs:
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_Y2xlcmsuZXhhbXBsZS5jb20k' }}
       CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY || 'sk_test_ci_placeholder_not_a_real_key' }}
       DATABASE_URL: postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
-      NEXT_PUBLIC_API_URL: http://localhost:3000
+      # NEXT_PUBLIC_API_URL is deliberately unset. It is read in exactly one
+      # place — resolveApiBaseUrl in lib/api-base-url.ts — and only on the
+      # server; the browser always uses a relative base so requests stay
+      # same-origin and are proxied to Go. Setting it to an absolute origin made
+      # `bun test` disagree with a developer machine, where it is normally
+      # absent: lib/api/client.test.ts asserts API_BASE_URL is relative, and
+      # under bun there is no `window`, so the server branch is what runs.
+      # Unset is also what a real deployment behind the proxy looks like.
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
