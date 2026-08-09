@@ -584,6 +584,5 @@
   "582": "RequiredHeaderError",
   "583": "BulkCreateTransactions200JSONResponse",
   "584": "BulkDeleteCategories200JSONResponse",
-  "585": "BulkCreateTransactions404JSONResponse",
-  "586": "CreateTransaction200JSONResponse"
+  "585": "BulkCreateTransactions404JSONResponse"
 }
