@@ -107,3 +107,4 @@ gates. Numbering stays global and sequential within
 | 0014 | [Date filters are parsed in UTC, not the host timezone](claude-backend-improvements/0014-date-filters-parsed-in-utc.md) | api | low |
 | 0015 | [Out-of-range amounts return 400, where legacy returned 500](claude-backend-improvements/0015-out-of-range-amount-returns-400.md) | api | low |
 | 0016 | [Bulk body limits are enforced against the stream, not just Content-Length](claude-backend-improvements/0016-bulk-body-limit-enforced-against-the-stream.md) | http | low |
+| 0017 | [The summary category chart silently excludes uncategorized spending](claude-backend-improvements/0017-summary-category-chart-excludes-uncategorized.md) | api/product | medium |
