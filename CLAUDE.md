@@ -110,9 +110,17 @@ commits the regenerated output.
 
 ## Legacy Code
 
-Existing Hono routes (`app/api/[[...route]]`), Drizzle schema (`db/`), and
-Clerk usage are reference material for parity work. Do not extend them with
-new features; they are removed in #27 after Go parity.
+The Hono routes (`app/api/[[...route]]`) and the typed client (`lib/hono.ts`)
+were **deleted in #84**. Git history is the reference now — do not reintroduce
+them, and do not look for them on disk.
+
+Still present but unused by any code path: the Drizzle schema (`db/`), the
+`drizzle/` migrations, and the `@clerk/*` packages. They are removed in #85. Do
+not extend them.
+
+Historical Hono references are deliberately retained in the migration spec,
+`api-parity-fixtures.md`, the improvement registry, and `tests/parity/README.md`
+— those record what the migration ported from and should not be rewritten.
 
 ## Post-Migration Improvements
 

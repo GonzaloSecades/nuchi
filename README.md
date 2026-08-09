@@ -8,7 +8,7 @@ The app is a Next.js frontend with TanStack Query, served by a separate Go API o
 
 Current migration parent: [#18 Spec Go backend replacement for Hono/Drizzle/Neon](https://github.com/GonzaloSecades/nuchi/issues/18).
 
-Completed migration issues:
+Completed migration issues (the early tickets; the full set is on the issue tracker):
 
 - [#19](https://github.com/GonzaloSecades/nuchi/issues/19) Scaffold Go backend service and health route.
 - [#20](https://github.com/GonzaloSecades/nuchi/issues/20) Add Docker Compose Postgres and local mail catcher.
@@ -17,7 +17,7 @@ Completed migration issues:
 - [#28](https://github.com/GonzaloSecades/nuchi/issues/28) Finalize Go backend replacement spec.
 - [#36](https://github.com/GonzaloSecades/nuchi/issues/36) Define shared API error and auth contract.
 
-Next migration issue: [#29 Backend Migration 03: Define full OpenAPI contract](https://github.com/GonzaloSecades/nuchi/issues/29). Work must continue strictly in sequence: a ticket should be merged before the next starts, only the next unblocked low-risk ticket may be marked agent-ready, and high-risk migration tickets remain attended work.
+Next migration issue: [#85 Backend Migration 21b: Remove Drizzle, Neon and Clerk](https://github.com/GonzaloSecades/nuchi/issues/85), then [#90](https://github.com/GonzaloSecades/nuchi/issues/90) to retire the parity harness. Work must continue strictly in sequence: a ticket should be merged before the next starts, only the next unblocked low-risk ticket may be marked agent-ready, and high-risk migration tickets remain attended work.
 
 The Hono API and its typed client were removed in [#84](https://github.com/GonzaloSecades/nuchi/issues/84). The Drizzle schema and Clerk packages are no longer used by any code path and are removed in [#85](https://github.com/GonzaloSecades/nuchi/issues/85).
 
@@ -270,7 +270,7 @@ bun run openapi:gen:go
 bun run openapi:gen:ts
 ```
 
-Generation is intentionally deferred for normal work until #29 fills the full resource contract and generator versions/network use are pinned or explicitly approved. Generated code belongs only in generated paths:
+The contract is complete and both sides are generated from it, so regeneration is a normal part of a contract change rather than a deferred step. Generated code belongs only in generated paths:
 
 - Go server types: `backend/internal/openapi/generated.gen.go`.
 - TypeScript fetch client/types: `lib/api/generated/typescript-fetch/`.
@@ -327,8 +327,9 @@ The replacement sprint proceeds in this order:
 4. Completed: OpenAPI scaffold and generation command documentation.
 5. Completed: Go backend replacement spec.
 6. Completed: shared API error/auth contract.
-7. Next: #29 full OpenAPI contract.
-8. Later: Go database foundation, auth/finance migrations, `sqlc` queries, owned auth/session/email flows, RLS-backed DB access, resource API parity, summary parity, frontend rewrite/client/hook migration, custom auth pages, and final legacy removal.
+7. Completed: the full OpenAPI contract, Go database foundation, auth/finance migrations, `sqlc` queries, owned auth/session/email flows, RLS-backed DB access, resource and summary API parity, the frontend rewrite/client/hook migration, and custom auth pages.
+8. Completed: the legacy Hono API surface and `USE_GO_API` removed (#84).
+9. Next: #85 removes Drizzle, Neon and Clerk; #90 retires the parity harness and drops `pg`. #27 closes when both land.
 
 High-risk issues, including OpenAPI completion, database/RLS work, auth, resource parity, frontend client replacement, and legacy removal, remain attended work and should not be marked agent-ready.
 
