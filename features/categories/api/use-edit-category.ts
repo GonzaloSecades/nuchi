@@ -20,7 +20,7 @@ export const useEditCategory = (id?: string) => {
         body: json,
       });
 
-      return unwrap(result, 'edit category ');
+      return unwrap(result, 'edit category');
     },
     onSuccess: () => {
       toast.success('Category edited successfully');

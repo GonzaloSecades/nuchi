@@ -18,7 +18,7 @@ export const useDeleteAccount = (id?: string) => {
         params: accountPathParams(id),
       });
 
-      return unwrap(result, 'delete account ');
+      return unwrap(result, 'delete account');
     },
     onSuccess: () => {
       toast.success('Account deleted successfully');

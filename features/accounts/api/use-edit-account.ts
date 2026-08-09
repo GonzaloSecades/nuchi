@@ -21,7 +21,7 @@ export const useEditAccount = (id?: string) => {
         body: json,
       });
 
-      return unwrap(result, 'edit account ');
+      return unwrap(result, 'edit account');
     },
     onSuccess: () => {
       toast.success('Account edited successfully');

@@ -18,7 +18,7 @@ export const useDeleteCategory = (id?: string) => {
         params: categoryPathParams(id),
       });
 
-      return unwrap(result, 'delete category ');
+      return unwrap(result, 'delete category');
     },
     onSuccess: () => {
       toast.success('Category deleted successfully');
