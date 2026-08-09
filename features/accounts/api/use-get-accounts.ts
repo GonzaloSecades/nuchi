@@ -2,20 +2,15 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { createApiError } from '@/lib/api-error';
-import { client } from '@/lib/hono';
+import { apiClient, unwrap } from '@/lib/api/client';
 
 export const useGetAccounts = () => {
   const query = useQuery({
     queryKey: ['accounts'],
     queryFn: async () => {
-      const response = await client.api.accounts.$get();
+      const result = await apiClient.GET('/accounts');
 
-      if (!response.ok) {
-        throw await createApiError(response, 'accounts');
-      }
-
-      const { data } = await response.json();
+      const { data } = unwrap(result, 'accounts');
       return data;
     },
   });

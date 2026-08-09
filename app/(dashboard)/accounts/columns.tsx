@@ -1,19 +1,14 @@
 'use client';
 
-import { InferResponseType } from 'hono';
-
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { client } from '@/lib/hono';
+import type { components } from '@/lib/api/generated/schema';
 import { Actions } from './actions';
 
-export type ResponseType = InferResponseType<
-  typeof client.api.accounts.$get,
-  200
->['data'][0];
+export type ResponseType = components['schemas']['AccountSummary'];
 
 export const columns: ColumnDef<ResponseType>[] = [
   {
