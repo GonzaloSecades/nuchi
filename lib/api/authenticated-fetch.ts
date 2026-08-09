@@ -16,8 +16,21 @@ const REFRESH_PATH = '/api/auth/refresh';
 const EXPIRED_CODE = 'ACCESS_TOKEN_EXPIRED';
 const UNAUTHORIZED_CODE = 'UNAUTHORIZED';
 
+/**
+ * The callable surface of `fetch`, without the runtime statics that a type
+ * package may hang off `typeof globalThis.fetch` — Bun's types, pulled in for
+ * `bun:test`, declare a `fetch.preconnect`. Only the call signature is ever
+ * used here, and a plain function this module builds cannot supply statics, so
+ * annotating the result as `typeof globalThis.fetch` is both wrong and
+ * unsatisfiable.
+ */
+type FetchLike = (
+  input: RequestInfo | URL,
+  init?: RequestInit
+) => Promise<Response>;
+
 type Dependencies = {
-  fetch?: typeof globalThis.fetch;
+  fetch?: FetchLike;
   getToken?: () => string | null;
   setToken?: (token: string | null) => void;
   clearToken?: () => void;
@@ -63,7 +76,7 @@ export function createAuthenticatedFetch({
   setToken = setAccessToken,
   clearToken = clearAccessToken,
   baseUrl = '',
-}: Dependencies = {}): typeof globalThis.fetch {
+}: Dependencies = {}): FetchLike {
   let inFlightRefresh: Promise<boolean> | null = null;
 
   /**
