@@ -19,11 +19,24 @@
 
 ## Env
 
-- `DATABASE_URL`
-- `NEXT_PUBLIC_API_URL`
-- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
-- `CLERK_SECRET_KEY`
-- Reference: [`.env.example`](/home/gonzalo/projects/nuchi/.env.example)
+The frontend build needs **no** environment variables. Everything below is read
+by the Go API, except `GO_API_URL`, which Next reads to build the `/api/*`
+rewrite.
+
+- `AUTH_JWT_SECRET` — required, no default. The API exits at startup if it is
+  unset or shorter than 32 bytes. Generate with `openssl rand -base64 48`;
+  never commit a value.
+- `AUTH_COOKIE_SECURE` — `false` locally; must be `true` anywhere deployed,
+  which requires HTTPS.
+- `DATABASE_URL` — the Go API's connection string. The frontend does not connect
+  to Postgres.
+- `APP_BASE_URL` — origin used to build links in verification and reset mail;
+  origin-only and validated at backend startup.
+- `SMTP_ADDR`, `MAIL_FROM` — outgoing mail. `SMTP_ADDR` is one `host:port`.
+- `GO_API_URL` — where Next proxies `/api/*`. Origin-only, validated at build
+  time. Server-side only; the browser always calls the Next origin.
+- Reference: [`.env.example`](.env.example), and the full backend table in
+  [`backend/README.md`](backend/README.md).
 
 ## Repo Rules
 
@@ -73,7 +86,7 @@ sqlc queries, and regenerate.
 
 ## Reference
 
-- Active backlog: [`PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`](/home/gonzalo/projects/nuchi/PR_REVIEW_TECH_DEBT_CONSOLIDATED.md)
+- Active backlog: [`PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`](PR_REVIEW_TECH_DEBT_CONSOLIDATED.md)
 
 ## graphify
 

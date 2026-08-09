@@ -196,11 +196,27 @@ The two run as separate processes: Next serves the UI, Go serves the API. Next
 proxies `/api/*` to Go by default, so the browser only talks to the Next origin,
 cookies stay same-origin, and no CORS setup is required.
 
-Three terminals:
+Start Postgres:
 
 ```bash
 docker compose up -d postgres
 ```
+
+**Apply the migrations before starting the API.** This is not optional on a
+fresh checkout, and nothing does it for you: a new Compose volume runs only
+`docker/postgres/init/01-app-role.sql`, which creates the `nuchi` role and the
+`citext` extension and no tables at all. The Go API does not migrate on startup
+— it calls `VerifyRLSActive` first and refuses to serve unless row level
+security is active on `accounts`, `categories` and `transactions`, so against an
+unmigrated database it exits immediately rather than starting.
+
+```bash
+cd backend
+go install github.com/pressly/goose/v3/cmd/goose@v3.27.2   # once
+goose -dir migrations postgres "$DATABASE_URL" up
+```
+
+Then the two long-running processes, one terminal each:
 
 ```bash
 cd backend && go run ./cmd/api
@@ -209,6 +225,9 @@ cd backend && go run ./cmd/api
 ```bash
 bun dev
 ```
+
+`bun dev` deliberately does not run migrations. Schema ownership belongs to the
+backend, and the frontend does not connect to Postgres at all.
 
 ### Go API proxy configuration
 

@@ -18,7 +18,17 @@ import { spawn } from 'node:child_process';
  *
  * So this brings up the same `postgres` and `mailpit` services the Go API and
  * the backend test suite use, and leaves schema and API startup to `backend/`.
- * See backend/README.md for goose and the API's own environment.
+ *
+ * **A fresh Compose volume therefore has no tables.** The init script creates
+ * only the `nuchi` role and `citext`, and the API calls `VerifyRLSActive`
+ * before serving, so it exits rather than starting against an unmigrated
+ * database. Run the goose step from the README's "Running Next and Go Together"
+ * flow once before `go run ./cmd/api`:
+ *
+ *     cd backend && goose -dir migrations postgres "$DATABASE_URL" up
+ *
+ * That is deliberately not invoked here: it would put the backend's schema
+ * ownership, and a Go toolchain dependency, inside the frontend dev server.
  */
 const COMPOSE_SERVICES = ['postgres', 'mailpit'] as const;
 const HEALTH_RETRIES = 30;
