@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { CircleCheck, CircleX, Loader2 } from 'lucide-react';
 
 import { AuthHeader } from '@/components/auth/auth-header';
 import { Button } from '@/components/ui/button';
-import { apiClient, unwrap } from '@/lib/api/client';
 import { authErrorMessage } from '@/lib/auth/errors';
+import { verifyEmailToken } from '@/lib/auth/session-requests';
 
 type Outcome =
   | { state: 'verifying' }
@@ -27,53 +27,54 @@ type Outcome =
 const VerifyEmail = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-  const [outcome, setOutcome] = useState<Outcome>({ state: 'verifying' });
-
   /**
-   * Guards against a second submission of a single-use token.
+   * The settled outcome, tagged with the token it belongs to.
    *
-   * React runs effects twice in development Strict Mode. The token is consumed
-   * by the first call, so without this the second would consume nothing, come
-   * back `INVALID_TOKEN`, and show a failure for a verification that had in
-   * fact just succeeded.
+   * Tagging is what makes "verifying" a *derived* state rather than something
+   * an effect has to set: any token without a matching settled result is still
+   * being checked. It also discards a late response from a token the user has
+   * navigated away from, since that result no longer matches the current token
+   * and simply never renders.
    */
-  const submitted = useRef(false);
+  const [settled, setSettled] = useState<{
+    token: string;
+    outcome: Exclude<Outcome, { state: 'verifying' }>;
+  } | null>(null);
+
+  const outcome: Outcome =
+    settled !== null && settled.token === token
+      ? settled.outcome
+      : { state: 'verifying' };
 
   useEffect(() => {
     // A link with no token is decided at render time below, not here — there
     // is nothing to ask the server about.
-    if (!token || submitted.current) {
+    if (!token) {
       return;
     }
-    submitted.current = true;
 
-    let cancelled = false;
-
-    (async () => {
-      try {
-        const result = await apiClient.POST('/auth/verify-email', {
-          body: { token },
-        });
-        const { message } = unwrap(result, 'email verification');
-        if (!cancelled) {
-          setOutcome({ state: 'verified', message });
-        }
-      } catch (error) {
-        if (!cancelled) {
-          setOutcome({
-            state: 'failed',
-            message: authErrorMessage(error, {
-              INVALID_TOKEN:
-                'This verification link is invalid or has expired. Sign up again with the same email to get a new one.',
-            }),
-          });
-        }
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
+    // Memoized per token. A repeated effect for the *same* token replays the
+    // first result instead of resubmitting — the token is single-use, so a
+    // second submission would report INVALID_TOKEN for a verification that had
+    // in fact just succeeded. A *different* token issues a real request, which
+    // a boolean "already submitted" flag could not do: Next keeps client state
+    // when only the search parameter changes, so the second link would sit on
+    // "Verifying" forever.
+    verifyEmailToken(token).then((result) => {
+      setSettled({
+        token,
+        outcome:
+          result.status === 'verified'
+            ? { state: 'verified', message: result.message }
+            : {
+                state: 'failed',
+                message: authErrorMessage(result.error, {
+                  INVALID_TOKEN:
+                    'This verification link is invalid or has expired. Sign up again with the same email to get a new one.',
+                }),
+              },
+      });
+    });
   }, [token]);
 
   if (!token) {
@@ -128,7 +129,9 @@ const VerifyEmail = () => {
 export default function VerifyEmailPage() {
   return (
     <Suspense
-      fallback={<Loader2 className="text-muted-foreground mx-auto animate-spin" />}
+      fallback={
+        <Loader2 className="text-muted-foreground mx-auto animate-spin" />
+      }
     >
       <VerifyEmail />
     </Suspense>

@@ -32,13 +32,6 @@ export function safeRedirectTarget(raw: string | null | undefined): string {
     return DEFAULT_SIGNED_IN_PATH;
   }
 
-  // A backslash anywhere in the leading position is normalized to a forward
-  // slash by some browsers, so treat it as off-site regardless of position in
-  // the prefix.
-  if (raw.startsWith('\\')) {
-    return DEFAULT_SIGNED_IN_PATH;
-  }
-
   const path = raw.split(/[?#]/, 1)[0];
   if (AUTH_PATHS.some((authPath) => path === authPath)) {
     return DEFAULT_SIGNED_IN_PATH;

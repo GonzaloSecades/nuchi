@@ -44,13 +44,17 @@ export const UserButton = () => {
    */
   const onSignOut = async () => {
     setSigningOut(true);
-    try {
-      await logout();
-    } catch {
-      // `logout` clears the local session in a finally block, so reaching here
-      // means the session is already gone and only the server call failed. The
-      // guard still redirects; this only explains why the sign-out was partial.
-      toast.error('Signed out locally, but the server could not be reached.');
+    const { serverConfirmed } = await logout();
+
+    // `logout` never rejects and always clears local state, so the guard
+    // redirects either way. What differs is whether the session is actually
+    // over: without server confirmation the refresh cookie is still valid, so
+    // a reload would sign the user back in. Saying so beats claiming a clean
+    // sign-out that did not happen.
+    if (!serverConfirmed) {
+      toast.error(
+        'Signed out on this device, but the server did not confirm it. Sign out again when you are back online.'
+      );
     }
   };
 

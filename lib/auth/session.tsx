@@ -6,19 +6,23 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 
 import { apiClient, unwrap } from '@/lib/api/client';
-import type { components } from '@/lib/api/generated/schema';
 import {
   setAccessToken,
   clearAccessToken,
   subscribeToAccessToken,
 } from '@/lib/api/token-store';
+import {
+  bootstrapSession,
+  logoutSession,
+  type AuthUser,
+  type LogoutOutcome,
+} from '@/lib/auth/session-requests';
 
-export type AuthUser = components['schemas']['AuthUser'];
+export type { AuthUser };
 
 /**
  * Where the session is in its lifecycle.
@@ -36,7 +40,8 @@ type SessionContextValue = {
   status: SessionStatus;
   login: (email: string, password: string) => Promise<AuthUser>;
   register: (email: string, password: string) => Promise<string>;
-  logout: () => Promise<void>;
+  /** Resolves with whether the server confirmed the revocation. Never rejects. */
+  logout: () => Promise<LogoutOutcome>;
 };
 
 const SessionContext = createContext<SessionContextValue | null>(null);
@@ -54,17 +59,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [status, setStatus] = useState<SessionStatus>('loading');
 
-  /**
-   * Tracks the user without re-subscribing the token listener on every change.
-   *
-   * The listener below only needs to know whether a session was live at the
-   * moment the token was cleared; reading that from a ref keeps the
-   * subscription itself mounted once for the provider's lifetime instead of
-   * being torn down and rebuilt each time the user changes.
-   */
-  const userRef = useRef<AuthUser | null>(null);
-  userRef.current = user;
-
   const applySession = useCallback(
     (session: { accessToken: string; user: AuthUser }) => {
       setAccessToken(session.accessToken);
@@ -80,22 +74,26 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
    * A page load has no access token, only that cookie, so this is the one
    * request that decides whether the user is still signed in. A 401 here is
    * the ordinary signed-out case, not an error worth surfacing.
+   *
+   * `bootstrapSession` deduplicates: Strict Mode runs this setup → cleanup →
+   * setup in one commit, and two real requests would present the same
+   * single-use refresh cookie — the second would be rejected and the server
+   * would clear it, signing out a valid session on reload. It also never
+   * rejects, so `status` cannot be stranded on `loading` by a network failure.
    */
   useEffect(() => {
     let cancelled = false;
 
-    (async () => {
-      const { data, error, response } = await apiClient.POST('/auth/refresh');
-
+    bootstrapSession().then((result) => {
       if (cancelled) {
         return;
       }
-      if (error !== undefined || !response.ok || !data) {
+      if (result.status === 'unauthenticated') {
         setStatus('unauthenticated');
         return;
       }
-      applySession(data);
-    })();
+      applySession(result);
+    });
 
     return () => {
       cancelled = true;
@@ -109,13 +107,22 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
    * and that happens deep inside a query with no way to reach this state. Only
    * a clear matters here: a `set` is a login or a successful renewal, both of
    * which are already reflected above.
+   *
+   * The updates are functional so the listener needs no view of the current
+   * user. That keeps the subscription mounted once for the provider's lifetime
+   * — the alternative, mirroring `user` into a ref, meant writing that ref
+   * during render, which React forbids — and makes a clear while already
+   * signed out a genuine no-op rather than a redundant re-render.
    */
   useEffect(() => {
     return subscribeToAccessToken((token) => {
-      if (token === null && userRef.current !== null) {
-        setUser(null);
-        setStatus('unauthenticated');
+      if (token !== null) {
+        return;
       }
+      setUser((current) => (current === null ? current : null));
+      setStatus((current) =>
+        current === 'authenticated' ? 'unauthenticated' : current
+      );
     });
   }, []);
 
@@ -145,19 +152,20 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   /**
-   * Ends the session. The local state is cleared whatever the server says: a
-   * logout that 401s means the refresh token was already invalid, so the
-   * session is over either way and keeping the user "signed in" against a dead
-   * token would be worse than the alternative.
+   * Ends the session, reporting whether the server actually revoked it.
+   *
+   * The local state is cleared either way: someone who asked to leave should
+   * not stay signed in on this device because the server had a bad minute. But
+   * the two cases are not the same — an unconfirmed logout leaves a valid
+   * refresh cookie, so a reload would sign the user straight back in, and the
+   * UI needs to be able to say so rather than claim a clean sign-out.
    */
   const logout = useCallback(async () => {
-    try {
-      await apiClient.POST('/auth/logout');
-    } finally {
-      clearAccessToken();
-      setUser(null);
-      setStatus('unauthenticated');
-    }
+    const outcome = await logoutSession();
+    clearAccessToken();
+    setUser(null);
+    setStatus('unauthenticated');
+    return outcome;
   }, []);
 
   const value = useMemo(
