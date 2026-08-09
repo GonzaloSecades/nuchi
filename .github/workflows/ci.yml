@@ -102,13 +102,15 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
-    env:
-      # Build-safe dummies keep CI green when secrets are absent (fork PRs,
-      # fresh setup). Real secrets take precedence when configured; the Clerk
-      # dependency disappears with #51/#27.
-      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_Y2xlcmsuZXhhbXBsZS5jb20k' }}
-      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY || 'sk_test_ci_placeholder_not_a_real_key' }}
-      DATABASE_URL: postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
+    # No env is needed here any more. The Clerk placeholder keys are gone with
+    # the packages (#85) — that comment said the dependency would disappear
+    # with #51/#27, and this is that moment. DATABASE_URL went with them: the
+    # frontend no longer connects to Postgres at all, so a build that needed a
+    # database URL was already only satisfying dead Drizzle imports.
+    #
+    # NEXT_PUBLIC_API_URL is deliberately still unset, for the reason #83
+    # recorded: it is read only on the server, and setting it to an absolute
+    # origin makes `bun test` disagree with a developer machine.
       # NEXT_PUBLIC_API_URL is deliberately unset. It is read in exactly one
       # place — resolveApiBaseUrl in lib/api-base-url.ts — and only on the
       # server; the browser always uses a relative base so requests stay

@@ -5,19 +5,17 @@
 - Next.js App Router (frontend only — there is no Next API layer)
 - Go API (chi, pgxpool, sqlc, goose) over PostgreSQL, reached same-origin
   through the `/api/*` rewrite in `next.config.ts`
-- Owned JWT auth (`lib/auth/`), not Clerk
+- Owned JWT auth (`lib/auth/`)
 - TanStack Query + the generated OpenAPI client in `lib/api/`
 - Bun package manager
-- Drizzle ORM and the `@clerk/*` packages are still installed but unused by any
-  code path; they are removed in #85
+- No ORM and no Clerk: both were removed in #85. The Go API owns all database
+  access through sqlc, and auth is app-owned end to end.
 
 ## Commands
 
 - `bun dev`
 - `bun run lint`
 - `bun run build`
-- `bun run db:generate`
-- `bun run db:migrate`
 
 ## Env
 
@@ -34,7 +32,8 @@
   Server behavior lives in the Go API; contract changes land in
   `openapi/nuchi.openapi.json` first, then both sides regenerate.
 - Keep server-state logic in TanStack Query hooks.
-- Use `db/schema.ts` as the DB source of truth; keep migrations in sync.
+- The database schema lives in `backend/migrations/` (goose) and is reached
+  through sqlc. There is no frontend database access.
 - Scope all auth-sensitive reads and writes by `auth.userId`.
 - Transaction amounts are stored in milliunits.
 - Prefer existing `components/ui/*` primitives.
@@ -63,7 +62,8 @@ CI gates the frontend job on all four of these, so run all four:
 - `bun run build`
 
 Backend changes: `cd backend && go vet ./...` and `cd backend && go test ./...`.
-Schema changes: also run `bun run db:generate` or explain why not.
+Schema changes: add a goose migration under `backend/migrations/`, update the
+sqlc queries, and regenerate.
 
 ## Pull Requests Hard Rules
 

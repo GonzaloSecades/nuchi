@@ -2,7 +2,7 @@
 
 Nuchi is a personal finance app for tracking accounts, categories, transactions, CSV imports, and dashboard analytics.
 
-The app is a Next.js frontend with TanStack Query, served by a separate Go API over PostgreSQL. The Go backend replacement tracked by [issue #18](https://github.com/GonzaloSecades/nuchi/issues/18) has reached parity: the Go service, owned JWT auth, the generated OpenAPI client, and the frontend cutover are all in place, and the legacy Hono API has been removed. The remaining Drizzle and Clerk packages are unused and are removed in [#85](https://github.com/GonzaloSecades/nuchi/issues/85).
+The app is a Next.js frontend with TanStack Query, served by a separate Go API over PostgreSQL. The Go backend replacement tracked by [issue #18](https://github.com/GonzaloSecades/nuchi/issues/18) is complete: the Go service, owned JWT auth, the generated OpenAPI client, and the frontend cutover are all in place, and the legacy stack is gone — Hono in [#84](https://github.com/GonzaloSecades/nuchi/issues/84), Drizzle/Neon/Clerk in [#85](https://github.com/GonzaloSecades/nuchi/issues/85). Only [#90](https://github.com/GonzaloSecades/nuchi/issues/90) remains, to retire the differential parity harness.
 
 ## Migration Status
 
@@ -17,9 +17,9 @@ Completed migration issues (the early tickets; the full set is on the issue trac
 - [#28](https://github.com/GonzaloSecades/nuchi/issues/28) Finalize Go backend replacement spec.
 - [#36](https://github.com/GonzaloSecades/nuchi/issues/36) Define shared API error and auth contract.
 
-Next migration issue: [#85 Backend Migration 21b: Remove Drizzle, Neon and Clerk](https://github.com/GonzaloSecades/nuchi/issues/85), then [#90](https://github.com/GonzaloSecades/nuchi/issues/90) to retire the parity harness. Work must continue strictly in sequence: a ticket should be merged before the next starts, only the next unblocked low-risk ticket may be marked agent-ready, and high-risk migration tickets remain attended work.
+Next migration issue: [#90](https://github.com/GonzaloSecades/nuchi/issues/90), which retires the differential parity harness and drops `pg` — the last teardown ticket before [#27](https://github.com/GonzaloSecades/nuchi/issues/27) closes. Work must continue strictly in sequence: a ticket should be merged before the next starts, only the next unblocked low-risk ticket may be marked agent-ready, and high-risk migration tickets remain attended work.
 
-The Hono API and its typed client were removed in [#84](https://github.com/GonzaloSecades/nuchi/issues/84). The Drizzle schema and Clerk packages are no longer used by any code path and are removed in [#85](https://github.com/GonzaloSecades/nuchi/issues/85).
+The Hono API and its typed client were removed in [#84](https://github.com/GonzaloSecades/nuchi/issues/84); the Drizzle schema, the `drizzle/` migrations and the Clerk packages in [#85](https://github.com/GonzaloSecades/nuchi/issues/85).
 
 ## Stack
 
@@ -64,7 +64,7 @@ The target architecture keeps Next.js serving the frontend while a separate Go A
 - `goose` will own SQL migrations.
 - `sqlc` will own typed SQL access.
 - OpenAPI will be the contract source of truth for Go server types and TypeScript client/types.
-- Owned email/password auth will replace Clerk later, with JWT access tokens and HttpOnly refresh-token cookies.
+- Owned email/password auth, with JWT access tokens and HttpOnly refresh-token cookies.
 - PostgreSQL RLS will become a required ownership backstop.
 
 ### Legacy And Reference Code
@@ -95,8 +95,6 @@ Copy `.env.example` to `.env.local` and fill local values:
 ```bash
 DATABASE_URL=postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
 NEXT_PUBLIC_API_URL=http://localhost:3000
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_key_here
-CLERK_SECRET_KEY=sk_test_your_key_here
 SMTP_ADDR=localhost:1025
 MAILPIT_WEB_URL=http://localhost:8025
 MAIL_FROM=nuchi@localhost
@@ -112,7 +110,7 @@ userinfo) — it is validated at startup, because it becomes a clickable link
 inside verification and reset emails. Full backend table:
 [`backend/README.md`](backend/README.md).
 
-Do not commit `.env.local`. Real Clerk keys are required for `bun run build`; the placeholder keys in `.env.example` document shape only and are not valid credentials.
+Do not commit `.env.local`. `bun run build` needs no credentials of any kind — that requirement disappeared with Clerk in #85. `AUTH_JWT_SECRET` is required by the Go API at startup, not by the frontend build; generate one with `openssl rand -base64 48` and never commit it.
 
 ## Docker And Local Services
 
@@ -180,7 +178,7 @@ bun run build
 bun test
 ```
 
-`bun dev` runs the local development script. `bun run build` validates the Next.js production build and requires real Clerk environment variables.
+`bun dev` starts the Docker Compose `postgres` and `mailpit` services, waits for Postgres, then runs the Next dev server. It does not run migrations — goose owns those, from `backend/` — and it does not start the Go API, which you run separately with `cd backend && go run ./cmd/api`. `bun run build` validates the Next.js production build and needs no environment variables.
 
 ## Backend Commands
 
@@ -290,16 +288,9 @@ App resource success responses should preserve the existing `{ "data": ... }` en
 
 ## Database
 
-Current Drizzle commands:
+The database is owned entirely by the Go API. There is no ORM and no frontend database access; `db/`, `drizzle/` and the `db:*` scripts were removed in #85.
 
-```bash
-bun run db:generate
-bun run db:migrate
-bun run db:studio
-bun run db:seed
-```
-
-During the current app phase, keep `db/schema.ts` as the database source of truth and keep `drizzle/` migrations in sync. The Go migration will move persistence toward `goose` migrations and `sqlc` queries in later issues; do not start that conversion outside the active migration issue sequence.
+Schema changes are goose migrations under `backend/migrations/`, reached through sqlc queries in `backend/internal/db/queries/`. See [`backend/README.md`](backend/README.md) for the goose commands and the pinned version.
 
 ## Graphify
 
@@ -329,7 +320,8 @@ The replacement sprint proceeds in this order:
 6. Completed: shared API error/auth contract.
 7. Completed: the full OpenAPI contract, Go database foundation, auth/finance migrations, `sqlc` queries, owned auth/session/email flows, RLS-backed DB access, resource and summary API parity, the frontend rewrite/client/hook migration, and custom auth pages.
 8. Completed: the legacy Hono API surface and `USE_GO_API` removed (#84).
-9. Next: #85 removes Drizzle, Neon and Clerk; #90 retires the parity harness and drops `pg`. #27 closes when both land.
+9. Completed: Drizzle, Neon and Clerk removed (#85).
+10. Next: #90 retires the differential parity harness and drops `pg`. #27 closes when it lands.
 
 High-risk issues, including OpenAPI completion, database/RLS work, auth, resource parity, frontend client replacement, and legacy removal, remain attended work and should not be marked agent-ready.
 
@@ -338,10 +330,6 @@ High-risk issues, including OpenAPI completion, database/RLS work, auth, resourc
 ### Docker Engine Not Reachable
 
 If `docker compose up` or `docker compose ps` cannot connect, start Docker Desktop or the Docker Engine service and rerun the command. On Windows, make sure the shell can access the same Docker context as Docker Desktop.
-
-### Build Fails With Clerk Placeholder Keys
-
-`.env.example` contains placeholder Clerk values. `bun run build` needs real `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` values in `.env.local`.
 
 ### GitHub Project Board Requires Scope
 
