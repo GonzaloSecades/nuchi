@@ -25,9 +25,15 @@ import { spawn } from 'node:child_process';
  * database. Run the goose step from the README's "Running Next and Go Together"
  * flow once before `go run ./cmd/api`:
  *
- *     cd backend && goose -dir migrations postgres "$DATABASE_URL" up
+ *     cd backend
+ *     goose -dir migrations postgres 'postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable' up
  *
- * That is deliberately not invoked here: it would put the backend's schema
+ * The URL is literal on purpose. `$DATABASE_URL` is not exported by anything —
+ * `.env.local` is loaded by Bun for this process, not for goose or the Go API —
+ * so passing `"$DATABASE_URL"` sends goose an empty string and it falls back to
+ * libpq defaults, failing against your OS username.
+ *
+ * That step is deliberately not invoked here: it would put the backend's schema
  * ownership, and a Go toolchain dependency, inside the frontend dev server.
  */
 const COMPOSE_SERVICES = ['postgres', 'mailpit'] as const;
