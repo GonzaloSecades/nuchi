@@ -865,8 +865,8 @@
     "semantic_hash": ""
   },
   ".github/copilot-instructions.md": {
-    "mtime": 1783698026.626726,
-    "ast_hash": "9538cefd640d4ba4dc1298b8f39a7296",
+    "mtime": 1786331356.8539934,
+    "ast_hash": "c91a7451a410a9a9f4204245f25589f2",
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {

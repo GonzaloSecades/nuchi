@@ -166,6 +166,8 @@
   "164": "uniqueConstraints",
   "165": "user_id",
   "166": "dialect",
+  "167": "GetSummary200JSONResponse",
+  "168": "ListTransactions200JSONResponse",
   "226": "name",
   "229": "name",
   "259": "name",
