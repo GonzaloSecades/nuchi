@@ -625,8 +625,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1786327369.9354463,
-    "ast_hash": "b919bf54f79707f017fc88b4d4889efc",
+    "mtime": 1786330607.2663112,
+    "ast_hash": "3a212a09c229967e9ba91b25a0ba435f",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -1694,26 +1694,6 @@
     "ast_hash": "91b290dd693cfa966299842ecb74c0bf",
     "semantic_hash": ""
   },
-  "tests/parity/date-serialization.test.ts": {
-    "mtime": 1786282863.585069,
-    "ast_hash": "d904c51b67359666e5aa8e66b25c657a",
-    "semantic_hash": ""
-  },
-  "tests/parity/divergences.test.ts": {
-    "mtime": 1786282863.5860634,
-    "ast_hash": "f92dc06ae83f714564f3535e21c485b4",
-    "semantic_hash": ""
-  },
-  "tests/parity/divergences.ts": {
-    "mtime": 1786282863.587068,
-    "ast_hash": "3e1e7e7c9b5dca9ddd319db31adbc591",
-    "semantic_hash": ""
-  },
-  "tests/parity/support/stacks.ts": {
-    "mtime": 1786282863.5890632,
-    "ast_hash": "9d6d2f5dd4db9a78924afbcfe718d664",
-    "semantic_hash": ""
-  },
   "docs/api/accounts.md": {
     "mtime": 1786282863.519065,
     "ast_hash": "731c49f3773772501c57063f1baa173f",
@@ -1747,11 +1727,6 @@
   "graphify-out/memory/query_20260809_134903_orchestrate_everything_to_have_a_clean_and_smooth.md": {
     "mtime": 1786283343.9499345,
     "ast_hash": "096b42fd31c491041328abc3a48c992b",
-    "semantic_hash": ""
-  },
-  "tests/parity/README.md": {
-    "mtime": 1786282863.5840614,
-    "ast_hash": "897fe5efd7de8528b0377d5c6182a52a",
     "semantic_hash": ""
   },
   "post-migration-improvements/claude-backend-improvements/0018-date-response-serialized-as-utc.md": {
