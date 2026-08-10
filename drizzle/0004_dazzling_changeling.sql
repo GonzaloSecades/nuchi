@@ -1,1 +1,0 @@
-ALTER TABLE "accounts" ALTER COLUMN "name" SET DATA TYPE citext;

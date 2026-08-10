@@ -1,18 +1,48 @@
 import { spawn } from 'node:child_process';
 
-const LOCAL_DATABASE_URL =
-  process.env.LOCAL_DATABASE_URL ??
-  'postgres://nuchi:nuchi_dev_password@127.0.0.1:54329/nuchi_dev';
-
-const COMPOSE_FILE = 'docker-compose.dev.yml';
-const SERVICE_NAME = 'nuchi-postgres';
+/**
+ * Starts the local services the app needs, then the Next dev server.
+ *
+ * **This no longer runs migrations, and no longer provisions its own
+ * database.** Both changed with #85, which removed Drizzle:
+ *
+ * - Migrations belong to goose and run from `backend/` against the Go API's
+ *   database. Running them from here would mean the frontend owned a schema it
+ *   no longer touches — the frontend does not connect to Postgres at all now.
+ * - The old `docker-compose.dev.yml` was deleted with it. It ran a separate
+ *   `nuchi_dev` database on port 54329 whose bootstrap superuser *was* the
+ *   application role, which is precisely the layout `docker-compose.yml`
+ *   documents as unsafe: superusers bypass row level security outright, FORCE
+ *   included, so RLS policies would silently not apply. Only the deleted
+ *   Drizzle migrate script ever pointed at it.
+ *
+ * So this brings up the same `postgres` and `mailpit` services the Go API and
+ * the backend test suite use, and leaves schema and API startup to `backend/`.
+ *
+ * **A fresh Compose volume therefore has no tables.** The init script creates
+ * only the `nuchi` role and `citext`, and the API calls `VerifyRLSActive`
+ * before serving, so it exits rather than starting against an unmigrated
+ * database. Run the goose step from the README's "Running Next and Go Together"
+ * flow once before `go run ./cmd/api`:
+ *
+ *     cd backend
+ *     goose -dir migrations postgres 'postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable' up
+ *
+ * The URL is literal on purpose. `$DATABASE_URL` is not exported by anything —
+ * `.env.local` is loaded by Bun for this process, not for goose or the Go API —
+ * so passing `"$DATABASE_URL"` sends goose an empty string and it falls back to
+ * libpq defaults, failing against your OS username.
+ *
+ * That step is deliberately not invoked here: it would put the backend's schema
+ * ownership, and a Go toolchain dependency, inside the frontend dev server.
+ */
+const COMPOSE_SERVICES = ['postgres', 'mailpit'] as const;
 const HEALTH_RETRIES = 30;
 const HEALTH_DELAY_MS = 1000;
 
 const baseEnv = {
   ...process.env,
   APP_ENV: 'local',
-  DATABASE_URL: LOCAL_DATABASE_URL,
 };
 
 async function sleep(ms: number) {
@@ -38,22 +68,25 @@ async function run(
   }
 }
 
+/**
+ * `pg_isready` as the bootstrap superuser, matching the compose healthcheck.
+ * The application role `nuchi` is created by an init script, so probing as
+ * `nuchi` would fail on a first-run volume before that script completes.
+ */
 async function isPostgresReady() {
   const code = await new Promise<number | null>((resolve) => {
     const proc = spawn(
       'docker',
       [
         'compose',
-        '-f',
-        COMPOSE_FILE,
         'exec',
         '-T',
-        SERVICE_NAME,
+        'postgres',
         'pg_isready',
         '-U',
-        'nuchi',
+        'postgres',
         '-d',
-        'nuchi_dev',
+        'nuchi',
       ],
       {
         stdio: 'ignore',
@@ -80,17 +113,8 @@ async function waitForPostgres() {
 }
 
 async function main() {
-  await run([
-    'docker',
-    'compose',
-    '-f',
-    COMPOSE_FILE,
-    'up',
-    '-d',
-    SERVICE_NAME,
-  ]);
+  await run(['docker', 'compose', 'up', '-d', ...COMPOSE_SERVICES]);
   await waitForPostgres();
-  await run(['bun', './scripts/migrate.ts']);
 
   const nextBin =
     process.platform === 'win32'

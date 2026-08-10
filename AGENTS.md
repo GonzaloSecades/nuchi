@@ -5,27 +5,50 @@
 - Next.js App Router (frontend only — there is no Next API layer)
 - Go API (chi, pgxpool, sqlc, goose) over PostgreSQL, reached same-origin
   through the `/api/*` rewrite in `next.config.ts`
-- Owned JWT auth (`lib/auth/`), not Clerk
+- Owned JWT auth (`lib/auth/`)
 - TanStack Query + the generated OpenAPI client in `lib/api/`
 - Bun package manager
-- Drizzle ORM and the `@clerk/*` packages are still installed but unused by any
-  code path; they are removed in #85
+- No ORM and no Clerk: both were removed in #85. The Go API owns all database
+  access through sqlc, and auth is app-owned end to end.
 
 ## Commands
 
 - `bun dev`
 - `bun run lint`
 - `bun run build`
-- `bun run db:generate`
-- `bun run db:migrate`
 
 ## Env
 
-- `DATABASE_URL`
-- `NEXT_PUBLIC_API_URL`
-- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
-- `CLERK_SECRET_KEY`
-- Reference: [`.env.example`](/home/gonzalo/projects/nuchi/.env.example)
+`bun run build` and `bun dev` need no environment variables at all. The list
+splits by which process reads them, and **nothing bridges the two**:
+`.env.local` is loaded by Bun for the Next process, while the Go API reads
+`os.Getenv` only, so its values must be exported in the shell that starts it.
+
+Read by **Next**:
+
+- `GO_API_URL` — where `/api/*` is proxied. Origin-only, validated at build
+  time. Server-side only; the browser always calls the Next origin.
+- `NEXT_PUBLIC_API_URL` — optional origin for the API client. Read only on the
+  server (`lib/api-base-url.ts`); in the browser the base is always relative so
+  requests stay same-origin. Leaving it unset is correct behind the proxy.
+
+Read by the **Go API**:
+
+- `AUTH_JWT_SECRET` — required, no default. The API exits at startup if it is
+  unset or shorter than 32 bytes. Generate with `openssl rand -base64 48`;
+  never commit a value.
+- `AUTH_COOKIE_SECURE` — `false` locally; must be `true` anywhere deployed,
+  which requires HTTPS.
+- `DATABASE_URL` — the Go API's connection string. The frontend does not connect
+  to Postgres.
+- `APP_BASE_URL` — origin used to build links in verification and reset mail;
+  origin-only and validated at backend startup.
+- `SMTP_ADDR`, `MAIL_FROM` — outgoing mail. `SMTP_ADDR` is one `host:port`.
+
+`AUTH_JWT_SECRET` is the only one with no default, so it is the only one that
+must be exported for `go run ./cmd/api`. Reference:
+[`.env.example`](.env.example), and the full backend table in
+[`backend/README.md`](backend/README.md).
 
 ## Repo Rules
 
@@ -34,7 +57,8 @@
   Server behavior lives in the Go API; contract changes land in
   `openapi/nuchi.openapi.json` first, then both sides regenerate.
 - Keep server-state logic in TanStack Query hooks.
-- Use `db/schema.ts` as the DB source of truth; keep migrations in sync.
+- The database schema lives in `backend/migrations/` (goose) and is reached
+  through sqlc. There is no frontend database access.
 - Scope all auth-sensitive reads and writes by `auth.userId`.
 - Transaction amounts are stored in milliunits.
 - Prefer existing `components/ui/*` primitives.
@@ -63,7 +87,8 @@ CI gates the frontend job on all four of these, so run all four:
 - `bun run build`
 
 Backend changes: `cd backend && go vet ./...` and `cd backend && go test ./...`.
-Schema changes: also run `bun run db:generate` or explain why not.
+Schema changes: add a goose migration under `backend/migrations/`, update the
+sqlc queries, and regenerate.
 
 ## Pull Requests Hard Rules
 
@@ -73,7 +98,7 @@ Schema changes: also run `bun run db:generate` or explain why not.
 
 ## Reference
 
-- Active backlog: [`PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`](/home/gonzalo/projects/nuchi/PR_REVIEW_TECH_DEBT_CONSOLIDATED.md)
+- Active backlog: [`PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`](PR_REVIEW_TECH_DEBT_CONSOLIDATED.md)
 
 ## graphify
 

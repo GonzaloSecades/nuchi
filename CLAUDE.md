@@ -2,10 +2,14 @@
 
 ## Project
 
-Personal finance app mid-migration from Next.js/Hono/Drizzle/Neon/Clerk to a
-separate Go API (chi, pgxpool, sqlc, goose) with Dockerized PostgreSQL, owned
-JWT auth, and RLS. Port-not-redesign: freeze behavior via fixtures, swap the
-technology, refactor only after parity.
+Personal finance app migrated from Next.js/Hono/Drizzle/Neon/Clerk to a Next
+frontend plus a separate Go API (chi, pgxpool, sqlc, goose) over Dockerized
+PostgreSQL, with owned JWT auth and RLS. The migration was port-not-redesign:
+behavior frozen by fixtures, technology swapped, refactoring only after parity.
+
+The legacy stack is gone — Hono in #84, Drizzle/Neon/Clerk in #85. Only #90
+(retiring the differential parity harness and dropping `pg`) remains before #27
+closes.
 
 Source of truth:
 
@@ -114,9 +118,12 @@ The Hono routes (`app/api/[[...route]]`) and the typed client (`lib/hono.ts`)
 were **deleted in #84**. Git history is the reference now — do not reintroduce
 them, and do not look for them on disk.
 
-Still present but unused by any code path: the Drizzle schema (`db/`), the
-`drizzle/` migrations, and the `@clerk/*` packages. They are removed in #85. Do
-not extend them.
+The Drizzle schema (`db/`), the `drizzle/` migrations, the Clerk packages, and
+the `scripts/migrate.ts` / `scripts/seed.ts` helpers were **deleted in #85**.
+The schema lives in `backend/migrations/` under goose now.
+
+Still present: `tests/parity/**` and the `pg` dependency it needs. Both go in
+#90, which is the last teardown ticket.
 
 Historical Hono references are deliberately retained in the migration spec,
 `api-parity-fixtures.md`, the improvement registry, and `tests/parity/README.md`
