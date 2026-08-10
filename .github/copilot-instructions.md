@@ -1,8 +1,9 @@
 # Copilot Instructions — nuchi
 
-Personal finance app mid-migration from Next.js/Hono/Drizzle/Neon/Clerk to a
-separate Go API (chi, pgxpool, sqlc, goose) with Dockerized PostgreSQL, owned
-JWT auth, and PostgreSQL RLS. OpenAPI (`openapi/nuchi.openapi.json`) is the
+Personal finance app: a Next.js frontend and a separate Go API (chi, pgxpool,
+sqlc, goose) over Dockerized PostgreSQL, with owned JWT auth and PostgreSQL
+RLS. The migration from Hono/Drizzle/Neon/Clerk is complete — that stack was
+removed in #84, #85 and #90, and none of it exists on disk. OpenAPI (`openapi/nuchi.openapi.json`) is the
 contract source of truth. Behavior parity is defined by
 `docs/specs/18-go-backend-replacement/spec.md` and
 `docs/specs/18-go-backend-replacement/api-parity-fixtures.md`.
@@ -32,11 +33,12 @@ Review comments are valuable when they identify, in descending priority:
 - Speculative issues phrased as "if X were the case" without verifying X in
   the repo. Check the code before asserting a failure mode.
 - Generated code under `backend/internal/openapi/` and `lib/api/generated/`.
-- The dummy Clerk fallback keys in CI: intentional and documented; the Clerk
-  dependency is removed after Go parity (#27).
-- Legacy Hono/Drizzle code under `app/api/[[...route]]` and `db/`: reference
-  material scheduled for deletion; only flag changes that ADD new features
-  to it.
+- References to Hono, Drizzle, Neon or Clerk in `docs/specs/`, the parity
+  fixtures, `post-migration-improvements/`, and "why this differs from legacy"
+  comments. Those are the migration's historical record and are deliberately
+  kept; flagging them as stale is a false positive. Active guidance (README,
+  AGENTS.md, CLAUDE.md, this file) is a different matter — that should describe
+  the current stack.
 - Points already rebutted in a previous review round on the same PR, unless
   you have new evidence; repeating them stalls the merge protocol.
 
