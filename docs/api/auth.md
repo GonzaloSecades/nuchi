@@ -45,6 +45,13 @@ or a JavaScript-readable cookie. Memory-only storage means a page reload loses
 the access token, so `SessionProvider` starts in `loading` and bootstraps from
 the refresh cookie before deciding whether the user is authenticated.
 
+Both sides of navigation wait for that decision. `SessionGuard` keeps a
+protected route on a loading screen until bootstrap resolves, while the
+sign-in page withholds its form during the same state. If navigation has
+already reached `/sign-in` and bootstrap succeeds, the sign-in page restores
+the validated `redirect` target (or `/`), so a successful refresh cannot leave
+an authenticated user stranded on sign-in.
+
 The `client-only` marker on the store is load-bearing. Module state in a Next
 server bundle could be shared across requests and users.
 

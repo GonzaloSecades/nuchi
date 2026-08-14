@@ -68,7 +68,9 @@ attacker's session rather than leaving it running alongside the new password.
 A session survives closing the tab and reopening it, but it is re-established on
 each page load rather than simply being remembered — which is why the dashboard
 shows a brief spinner before it appears. That moment is the app asking the
-server whether the session is still good.
+server whether the session is still good. The sign-in screen waits for the same
+answer; if the session is valid, the app returns to the requested dashboard
+page instead of showing the sign-in form.
 
 Sessions end when the user signs out, when a password reset revokes them, or
 when the refresh token expires. When one ends mid-session the user is returned

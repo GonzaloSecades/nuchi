@@ -31,8 +31,9 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
     ImportedTransactionRowError[]
   >([]);
 
-  const headers = data[0];
+  const headers = data[0] ?? [];
   const body = data.slice(1);
+  const hasImportRows = headers.length > 0 && body.length > 0;
   const onTableHeadSelectChange = (
     columnIndex: number,
     value: ImportableTransactionField | null
@@ -56,6 +57,10 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
   ).length;
 
   const handleContinue = () => {
+    if (!hasImportRows) {
+      return;
+    }
+
     const activeColumns = headers.reduce<
       { index: number; header: ImportableTransactionField }[]
     >((acc, _header, index) => {
@@ -98,7 +103,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
           <Button
             className="w-full lg:w-auto"
             size="sm"
-            disabled={progress < requiredOptions.length}
+            disabled={!hasImportRows || progress < requiredOptions.length}
             onClick={handleContinue}
           >
             Continue ({progress} / {requiredOptions.length})
@@ -130,12 +135,19 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
             )}
           </div>
         )}
-        <ImportTable
-          headers={headers}
-          body={body}
-          selectedColumns={selectedColumns}
-          onTableHeadSelectChange={onTableHeadSelectChange}
-        />
+        {hasImportRows ? (
+          <ImportTable
+            headers={headers}
+            body={body}
+            selectedColumns={selectedColumns}
+            onTableHeadSelectChange={onTableHeadSelectChange}
+          />
+        ) : (
+          <div role="alert" className="rounded-md border p-4 text-sm">
+            This CSV has no transaction rows. Cancel and choose a non-empty
+            file.
+          </div>
+        )}
       </CardContent>
     </Card>
   );

@@ -50,6 +50,23 @@ export function safeRedirectTarget(raw: string | null | undefined): string {
 }
 
 /**
+ * Gives signed-in visitors to the sign-in page a safe route back into the app.
+ *
+ * The session guard normally waits for bootstrap before it can redirect. This
+ * second check is intentional recovery: if navigation has already reached
+ * sign-in while the refresh request is still resolving, a successful refresh
+ * must not leave the user stranded on a form for a session they already have.
+ */
+export function restoredSessionRedirectTarget(
+  status: 'loading' | 'authenticated' | 'unauthenticated',
+  requestedTarget: string | null | undefined
+): string | null {
+  return status === 'authenticated'
+    ? safeRedirectTarget(requestedTarget)
+    : null;
+}
+
+/**
  * The pages that exist only for signed-out users.
  *
  * Used both to reject them as redirect targets and, by the guard, to decide

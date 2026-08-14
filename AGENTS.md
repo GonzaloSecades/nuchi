@@ -69,10 +69,14 @@ must be exported for `go run ./cmd/api`. Reference:
 
 These described the Hono implementation and were resolved by the Go migration —
 ownership predicates plus RLS, strict date and body validation, and rate
-limiting all live in the Go API now. Two frontend items remain:
+limiting all live in the Go API now. The remaining frontend items are now
+regression-protected too:
 
-- Harden CSV import validation, typing, and empty-state handling.
-- Avoid adding more coupling between header filters and summary loading.
+- CSV import rejects parser errors, empty/header-only files, blank internal
+  rows, and uneven records before column mapping; row values are strictly typed
+  and validated in `lib/transaction-import.ts`.
+- Header filters own URL/account state only. A regression test prevents them
+  from depending on summary query state.
 
 Known backend limitations are tracked as numbered entries in
 `post-migration-improvements/claude-backend-improvements/`, not here.

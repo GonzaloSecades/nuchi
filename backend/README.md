@@ -313,6 +313,8 @@ Migrations live in `backend/migrations/` and are applied with
 | `00001_auth_base.sql` | `citext` extension; `users`, `email_verification_tokens`, `password_reset_tokens`, `refresh_tokens` tables |
 | `00002_finance_base.sql` | `accounts`, `categories`, `transactions` tables and their indexes |
 | `00003_finance_rls.sql` | Row level security enable/force + ownership policies on `accounts`, `categories`, `transactions` |
+| `00004_transactions_category_owner_rls.sql` | Reject cross-owner transaction/category relationships and repair pre-existing invalid references |
+| `00005_transactions_amount_bigint.sql` | Widen transaction amounts to `bigint` for the JavaScript-safe milliunit range |
 
 Install the pinned CLI version:
 
@@ -324,8 +326,13 @@ Run migrations from `backend/`:
 
 ```bash
 cd backend
-goose -dir migrations postgres "$DATABASE_URL" up
+goose -dir migrations postgres 'postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable' up
 ```
+
+The connection string is explicit because `.env.local` belongs to the Next
+process and does not export `DATABASE_URL` into the shell running goose. If you
+set a different database URL in that shell, pass that exported value here
+instead.
 
 Resetting the local database is destructive and must be explicit — never
 run `goose down`/`reset` as part of routine startup or automation.

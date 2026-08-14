@@ -4,6 +4,7 @@ import {
   DEFAULT_SIGNED_IN_PATH,
   isAuthPath,
   redirectTargetFromLocation,
+  restoredSessionRedirectTarget,
   safeRedirectTarget,
 } from '@/lib/auth/redirect';
 
@@ -99,5 +100,37 @@ describe('isAuthPath', () => {
     expect(isAuthPath('/transactions')).toBe(false);
     expect(isAuthPath('/sign-in-help')).toBe(false);
     expect(isAuthPath('/')).toBe(false);
+  });
+});
+
+describe('restoredSessionRedirectTarget', () => {
+  it('waits while the refresh-cookie bootstrap is unresolved', () => {
+    expect(
+      restoredSessionRedirectTarget('loading', '/transactions')
+    ).toBeNull();
+  });
+
+  it('does not navigate a signed-out user away from the sign-in form', () => {
+    expect(
+      restoredSessionRedirectTarget('unauthenticated', '/transactions')
+    ).toBeNull();
+  });
+
+  it('restores an authenticated user to the requested protected route', () => {
+    expect(
+      restoredSessionRedirectTarget(
+        'authenticated',
+        '/transactions?accountId=abc'
+      )
+    ).toBe('/transactions?accountId=abc');
+  });
+
+  it('applies the same open-redirect protection as an explicit sign-in', () => {
+    expect(
+      restoredSessionRedirectTarget(
+        'authenticated',
+        'https://evil.example/login'
+      )
+    ).toBe(DEFAULT_SIGNED_IN_PATH);
   });
 });

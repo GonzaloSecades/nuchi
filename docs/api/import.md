@@ -18,10 +18,12 @@ operation, not a separate server endpoint:
 
 `CSV upload → column mapping → client validation → account selection → payload adaptation → sequential 500-row requests`
 
-`react-papaparse` supplies a two-dimensional string array. The importer treats
-the first row as headers and every later row as data. Users must map exactly
-one column to each required field—`amount`, `date`, and `payee`—before the flow
-can continue. Choosing a field for a second column clears its prior mapping.
+`react-papaparse` supplies a two-dimensional string array plus parse errors and
+metadata. `prepareCSVImport` validates that complete result before import mode
+can render. The importer then treats the first row as headers and every later
+row as data. Users must map exactly one column to each required field—`amount`,
+`date`, and `payee`—before the flow can continue. Choosing a field for a second
+column clears its prior mapping.
 
 After client validation, one selected account id is attached to every row.
 `toBulkTransactionInput` adds the contract-required `ARS` currency and
@@ -29,10 +31,26 @@ normalizes absent notes/category values to `null`.
 
 ## Client validation
 
+Upload preflight fails closed before the mapping UI:
+
+- any Papa Parse error, aborted parse, or truncated parse rejects the file;
+- an empty, blank-header, or header-only file is rejected;
+- at least three columns must exist for the three required mappings;
+- every data record must have the same width as the header;
+- blank records inside the file are rejected, while conventional trailing
+  blank records produced by a final newline are removed; and
+- a UTF-8 BOM is removed from the first header cell and header whitespace is
+  trimmed.
+
+The page stores only the prepared two-dimensional data, not the unchecked
+parser result. `ImportCard` still renders a recoverable empty state if it is
+ever called without rows, rather than indexing `data[0]` and throwing.
+
 `parseImportedTransactionRows` trims all three mapped values and accumulates
 errors across the entire file.
 
-- Amount uses `Number(...)`, must be finite, is converted with
+- Amount must use plain decimal notation (not hexadecimal or exponent syntax),
+  must be finite, is converted with
   `Math.round(amount * 1000)`, and must remain a JavaScript safe integer in
   milliunits.
 - Date must round-trip exactly through date-fns using
@@ -120,6 +138,8 @@ row 504 as row 4 and send the user to the wrong record.
 
 - Column mapping and client parsing complete before account selection or any
   write.
+- Parser errors and structurally incomplete CSV files never reach column
+  mapping.
 - Amounts remain signed integer milliunits and within the browser-safe range.
 - Imported dates become calendar-date strings; never serialize the parsed
   `Date` with `toISOString()`.
@@ -158,7 +178,7 @@ row 504 as row 4 and send the user to the wrong record.
 | -------------------------------------------------------- | ----------------------------------------------------------- |
 | Upload state, sequential submission, row-offset tracking | `app/(dashboard)/transactions/page.tsx`                     |
 | Column mapping and client error display                  | `app/(dashboard)/transactions/import-card.tsx`              |
-| CSV parsing and normalization                            | `lib/transaction-import.ts`                                 |
+| CSV-result preflight, row parsing, and normalization     | `lib/transaction-import.ts`                                 |
 | 500-row splitting                                        | `lib/chunk-items.ts`                                        |
 | Shared limits                                            | `lib/transaction-limits.ts`                                 |
 | Contract payload adaptation                              | `features/transactions/api/transaction-payload.ts`          |
