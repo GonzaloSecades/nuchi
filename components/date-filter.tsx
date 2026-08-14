@@ -221,7 +221,6 @@ export const DateFilter = () => {
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button
-          disabled={false}
           size="sm"
           variant="outline"
           className="h-9 w-full rounded-md border-none bg-white/10 px-3 font-normal text-white transition outline-none hover:bg-white/20 hover:text-white focus:bg-white/30 focus:ring-transparent focus:ring-offset-0 lg:w-auto"
@@ -325,7 +324,6 @@ export const DateFilter = () => {
                 </Button>
               ) : null}
               <Calendar
-                disabled={false}
                 autoFocus
                 mode="range"
                 month={month}

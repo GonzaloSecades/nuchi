@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/form';
 import { authErrorMessage } from '@/lib/auth/errors';
 import { useSession } from '@/lib/auth/session';
-import { safeRedirectTarget } from '@/lib/auth/redirect';
+import { restoredSessionRedirectTarget } from '@/lib/auth/redirect';
 
 const formSchema = z.object({
   email: z.string().email('Enter a valid email address.'),
@@ -37,8 +37,19 @@ type FormValues = z.infer<typeof formSchema>;
 const SignInForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { login } = useSession();
+  const { login, status } = useSession();
   const [formError, setFormError] = useState<string | null>(null);
+
+  const restoredTarget = restoredSessionRedirectTarget(
+    status,
+    searchParams.get('redirect')
+  );
+
+  useEffect(() => {
+    if (restoredTarget !== null) {
+      router.replace(restoredTarget);
+    }
+  }, [restoredTarget, router]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -49,7 +60,6 @@ const SignInForm = () => {
     setFormError(null);
     try {
       await login(values.email, values.password);
-      router.replace(safeRedirectTarget(searchParams.get('redirect')));
     } catch (error) {
       setFormError(
         authErrorMessage(error, {
@@ -61,6 +71,21 @@ const SignInForm = () => {
   };
 
   const disabled = form.formState.isSubmitting;
+
+  // A fresh document has only the httpOnly refresh cookie. Do not show a
+  // sign-in form until bootstrap has decided whether that cookie restores a
+  // session; an authenticated result is redirected by the effect above.
+  if (status !== 'unauthenticated') {
+    return (
+      <div
+        role="status"
+        aria-label="Restoring session"
+        className="flex min-h-40 items-center justify-center"
+      >
+        <Loader2 className="text-muted-foreground size-5 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -117,7 +142,10 @@ const SignInForm = () => {
       </Form>
       <div className="space-y-2 text-center text-sm text-[#7E8CA0]">
         <p>
-          <Link href="/forgot-password" className="text-blue-600 hover:underline">
+          <Link
+            href="/forgot-password"
+            className="text-blue-600 hover:underline"
+          >
             Forgot your password?
           </Link>
         </p>
@@ -137,7 +165,9 @@ export default function SignInPage() {
   // Next fails the production build rather than degrading at runtime.
   return (
     <Suspense
-      fallback={<Loader2 className="text-muted-foreground mx-auto animate-spin" />}
+      fallback={
+        <Loader2 className="text-muted-foreground mx-auto animate-spin" />
+      }
     >
       <SignInForm />
     </Suspense>

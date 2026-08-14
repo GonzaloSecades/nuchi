@@ -19,38 +19,42 @@ import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
 import { chunkItems } from '@/lib/chunk-items';
 import { MAX_BULK_CREATE_TRANSACTIONS } from '@/lib/transaction-limits';
+import {
+  prepareCSVImport,
+  type CSVUploadResults,
+} from '@/lib/transaction-import';
 import { toast } from 'sonner';
 import { columns } from './columns';
 import { ImportCard } from './import-card';
 import { UploadButton } from './upload-button';
 import type { ImportedTransactionRow } from './import-card';
-import type { CSVUploadResults } from './upload-button';
 
 enum VARIANTS {
   LIST = 'LIST',
   IMPORT = 'IMPORT',
 }
 
-const INITIAL_IMPORT_RESULTS: CSVUploadResults = {
-  data: [],
-  errors: [],
-  meta: {},
-};
-
 const TransactionsPage = () => {
   const [AccountDialog, confirm] = useSelectAccount();
 
   const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
 
-  const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
+  const [importData, setImportData] = useState<string[][]>([]);
 
   const onUpload = (results: CSVUploadResults) => {
-    setImportResults(results);
+    const prepared = prepareCSVImport(results);
+    if (!prepared.ok) {
+      setImportData([]);
+      toast.error(prepared.message);
+      return;
+    }
+
+    setImportData(prepared.data);
     setVariant(VARIANTS.IMPORT);
   };
 
   const onCancelImport = () => {
-    setImportResults(INITIAL_IMPORT_RESULTS);
+    setImportData([]);
     setVariant(VARIANTS.LIST);
   };
 
@@ -118,7 +122,7 @@ const TransactionsPage = () => {
       <>
         <AccountDialog />
         <ImportCard
-          data={importResults.data}
+          data={importData}
           onCancel={onCancelImport}
           onSubmit={onSubmitImport}
         />

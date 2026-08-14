@@ -20,6 +20,12 @@ mapped. After the file passes validation, the user chooses one account; every
 transaction from that import is assigned to it. CSV import does not set notes
 or categories, and imported transactions use ARS.
 
+Before the mapping screen opens, the file itself must be usable. Empty and
+header-only files are rejected, parser errors stop the flow, and every data row
+must contain the same number of columns as the header. A blank line inside the
+data is treated as an error; harmless blank records at the very end of the file
+are ignored.
+
 ## The accepted date format is exact
 
 Dates must use:
@@ -32,9 +38,11 @@ For example, `2026-04-17 13:45:00` is accepted. `17/04/2026`,
 The time is accepted only as part of the CSV format. The saved transaction is
 for the calendar day, so the example above is stored as `2026-04-17`.
 
-Amounts must be valid finite numbers. They are converted to thousandths of a
-peso, so `12.34` becomes `12340` milliunits. Payees cannot be blank. Leading
-and trailing spaces are removed from all three mapped values.
+Amounts must be valid finite numbers written in ordinary decimal notation.
+Hexadecimal (`0x10`) and exponent (`1e3`) forms are rejected rather than
+silently coerced. Amounts are converted to thousandths of a peso, so `12.34`
+becomes `12340` milliunits. Payees cannot be blank. Leading and trailing spaces
+are removed from all three mapped values.
 
 ## Validation happens before anything is saved
 
@@ -92,6 +100,7 @@ save-error toast.
 
 | Situation                                                  | What they see / what it means                                          |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Empty, header-only, malformed, or uneven CSV               | Upload-error toast; the mapping screen does not open                   |
 | Missing or invalid amount                                  | Row-level amount message; no upload starts                             |
 | Date not in the exact format                               | Row-level date message showing `yyyy-MM-dd HH:mm:ss`; no upload starts |
 | Blank payee                                                | Row-level payee message; no upload starts                              |
