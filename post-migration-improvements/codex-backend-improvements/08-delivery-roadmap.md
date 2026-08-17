@@ -74,6 +74,13 @@ Evaluate the parent registry using measured priority:
 Each becomes its own OpenAPI/schema proposal with data migration, compatibility,
 rollout, and rollback. Do not bundle unrelated schema changes.
 
+For #111, overlapping registry implementations are owned by their named Claude
+tickets. Codex's remaining deliverables are only the
+[summary aggregate-range proposal](Codex-summary-aggregate-contract-range.md)
+and the [0005-pattern verification](0005-pattern-verification.md); this phase
+does not duplicate date, ID, rate-limit, bulk-delete, or uncategorized-summary
+work.
+
 ## Pull request gates
 
 All backend changes:

@@ -54,7 +54,8 @@ Quality focus:
 
 - match account conflict/error consistency;
 - reconcile the legacy duplicate-update `500`, current OpenAPI `409`, and
-  parent entry `0005` against the final migrated behavior;
+  parent entry `0005` against the final migrated behavior (verified resolved in
+  [`0005-pattern-verification.md`](0005-pattern-verification.md));
 - verify category-to-transaction ownership on transaction mutations;
 - measure `ON DELETE SET NULL` for heavily used categories; and
 - preserve non-disclosing bulk behavior.
@@ -110,15 +111,15 @@ Quality focus:
 
 ## Cross-module priority table
 
-| Priority | Work | Reason |
-| --- | --- | --- |
-| P0 | RLS-scoped unit of work and cross-user tests | Data isolation foundation |
-| P0 | Auth/session cryptographic and cookie/origin policy | Account compromise boundary |
-| P0 | Streamed limits, deadlines, centralized safe errors | Resource exhaustion and failure containment |
-| P0 | Atomic bulk/reference/token workflows | Prevent partial or cross-owner state |
-| P1 | Query benchmarks, pagination, pool tuning, summary plans | Scale and latency |
-| P1 | Contract completeness and generation/drift gates | Client/server correctness |
-| P1 | Telemetry vocabulary, context, redaction seam | Operational readiness |
-| P2 | Date/ID schema convergence and richer bulk responses | Valuable but migration-heavy behavior/schema changes |
+| Priority | Work                                                     | Reason                                               |
+| -------- | -------------------------------------------------------- | ---------------------------------------------------- |
+| P0       | RLS-scoped unit of work and cross-user tests             | Data isolation foundation                            |
+| P0       | Auth/session cryptographic and cookie/origin policy      | Account compromise boundary                          |
+| P0       | Streamed limits, deadlines, centralized safe errors      | Resource exhaustion and failure containment          |
+| P0       | Atomic bulk/reference/token workflows                    | Prevent partial or cross-owner state                 |
+| P1       | Query benchmarks, pagination, pool tuning, summary plans | Scale and latency                                    |
+| P1       | Contract completeness and generation/drift gates         | Client/server correctness                            |
+| P1       | Telemetry vocabulary, context, redaction seam            | Operational readiness                                |
+| P2       | Date/ID schema convergence and richer bulk responses     | Valuable but migration-heavy behavior/schema changes |
 
 P0/P1/P2 indicate sequencing, not permission to bypass active migration parity.

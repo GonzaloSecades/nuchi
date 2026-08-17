@@ -36,8 +36,10 @@ Read in this order:
 6. [`Codex-atomic-multi-chunk-transaction-imports.md`](Codex-atomic-multi-chunk-transaction-imports.md)
    is the first scoped proposal produced from a migration review.
 7. [`Codex-summary-aggregate-contract-range.md`](Codex-summary-aggregate-contract-range.md)
-   records the summary range mismatch that needs an explicit contract decision.
-8. [`templates/`](templates/) contains the required proposal and endpoint
+   proposes the explicit contract behavior for exact summary range overflow.
+8. [`0005-pattern-verification.md`](0005-pattern-verification.md) verifies that
+   predictable create/update unique conflicts no longer escape as generic 500s.
+9. [`templates/`](templates/) contains the required proposal and endpoint
    review templates.
 
 ## Decision hierarchy
