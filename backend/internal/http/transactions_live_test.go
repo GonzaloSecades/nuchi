@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"sync"
 	"testing"
@@ -680,4 +681,64 @@ func TestTransactionsLive_EmptyQueryParamsAreRejected(t *testing.T) {
 			t.Errorf("expected the default range to include the seeded transaction, got %+v", listed.Data)
 		}
 	})
+}
+
+func TestTransactionsLive_KeysetPagination(t *testing.T) {
+	env := newTransactionsTestEnv(t)
+	_, token := env.createAccountsTestUser(t, "txn-pagination")
+	accountID := createTestAccount(t, env.accountsTestEnv, token, "Cash")
+
+	for i := 0; i < 5; i++ {
+		body := validTransactionBody(accountID)
+		body.Payee = fmt.Sprintf("Payee %d", i)
+		createTestTransaction(t, env, token, body)
+	}
+
+	unboundedRec := env.do(t, http.MethodGet, "/api/transactions", token, nil)
+	if unboundedRec.Code != http.StatusOK {
+		t.Fatalf("unbounded list: expected 200, got %d", unboundedRec.Code)
+	}
+	var unbounded openapi.TransactionListResponse
+	if err := json.NewDecoder(unboundedRec.Body).Decode(&unbounded); err != nil {
+		t.Fatalf("decode unbounded list: %v", err)
+	}
+
+	var paged []openapi.TransactionListItem
+	cursor := ""
+	for {
+		path := "/api/transactions?limit=2"
+		if cursor != "" {
+			path += "&cursor=" + url.QueryEscape(cursor)
+		}
+		rec := env.do(t, http.MethodGet, path, token, nil)
+		if rec.Code != http.StatusOK {
+			t.Fatalf("page request: expected 200, got %d (body: %s)", rec.Code, rec.Body.String())
+		}
+		var page openapi.TransactionListResponse
+		if err := json.NewDecoder(rec.Body).Decode(&page); err != nil {
+			t.Fatalf("decode page: %v", err)
+		}
+		if len(page.Data) > 2 {
+			t.Fatalf("page exceeded requested limit: %d", len(page.Data))
+		}
+		paged = append(paged, page.Data...)
+		if page.NextCursor == nil {
+			break
+		}
+		cursor = *page.NextCursor
+	}
+
+	if len(paged) != len(unbounded.Data) {
+		t.Fatalf("paged row count %d differs from unbounded %d", len(paged), len(unbounded.Data))
+	}
+	for i := range unbounded.Data {
+		if paged[i].Id != unbounded.Data[i].Id {
+			t.Fatalf("row %d: paged id %q differs from unbounded %q", i, paged[i].Id, unbounded.Data[i].Id)
+		}
+	}
+
+	for _, query := range []string{"?limit=0", "?limit=501", "?limit=many", "?cursor=bad", "?limit=2&cursor=bad"} {
+		rec := env.do(t, http.MethodGet, "/api/transactions"+query, token, nil)
+		assertTransactionAPIError(t, rec, http.StatusBadRequest, "INVALID_QUERY")
+	}
 }

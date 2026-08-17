@@ -241,14 +241,23 @@ LEFT JOIN categories c ON c.id = t.category_id AND c.user_id = $1
 WHERE t.date >= $2
   AND t.date <= $3
   AND ($4::text IS NULL OR t.account_id = $4)
+  AND (
+    $5::timestamp IS NULL
+    OR t.date < $5::timestamp
+    OR (t.date = $5::timestamp AND t.id < $6::text)
+  )
 ORDER BY t.date DESC, t.id DESC
+LIMIT COALESCE($7::integer, 2147483647)
 `
 
 type ListTransactionsParams struct {
-	UserID    pgtype.UUID
-	StartDate pgtype.Timestamp
-	EndDate   pgtype.Timestamp
-	AccountID pgtype.Text
+	UserID     pgtype.UUID
+	StartDate  pgtype.Timestamp
+	EndDate    pgtype.Timestamp
+	AccountID  pgtype.Text
+	CursorDate pgtype.Timestamp
+	CursorID   pgtype.Text
+	PageLimit  pgtype.Int4
 }
 
 type ListTransactionsRow struct {
@@ -285,6 +294,9 @@ func (q *Queries) ListTransactions(ctx context.Context, arg ListTransactionsPara
 		arg.StartDate,
 		arg.EndDate,
 		arg.AccountID,
+		arg.CursorDate,
+		arg.CursorID,
+		arg.PageLimit,
 	)
 	if err != nil {
 		return nil, err

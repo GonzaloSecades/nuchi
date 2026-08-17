@@ -318,7 +318,7 @@ export interface paths {
         };
         /**
          * List transactions
-         * @description Current Hono behavior: lists transactions joined through owned accounts, supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts by date descending. Intentional migration behavior: each transaction includes required `currency`, which is accepted only as `ARS` and rejected when omitted.
+         * @description Lists transactions joined through owned accounts. Supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts deterministically by date then id descending. Additive keyset pagination is enabled by `limit`; a response with `nextCursor` can be continued by sending that opaque value as `cursor` with the same filters. Omitting `limit` preserves the pre-pagination unbounded response for compatibility. Each transaction includes required `currency`, accepted only as `ARS`.
          */
         get: operations["listTransactions"];
         put?: never;
@@ -641,6 +641,8 @@ export interface components {
         };
         TransactionListResponse: {
             data: components["schemas"]["TransactionListItem"][];
+            /** @description Opaque continuation for the next page. Absent when pagination was not requested or no rows remain. */
+            nextCursor?: string;
         };
         TransactionBulkCreateRequest: components["schemas"]["TransactionInput"][];
         TransactionBulkCreateResponse: {
@@ -932,6 +934,10 @@ export interface components {
         ToDate: components["schemas"]["DateString"];
         /** @description Optional account filter. Missing or unowned accounts produce an empty list/summary because resource queries still require an owned joined account. */
         AccountIdQuery: components["schemas"]["ResourceId"];
+        /** @description Page size for deterministic keyset pagination. Omit to preserve the compatibility unbounded response. */
+        TransactionPageLimit: number;
+        /** @description Opaque continuation returned as `nextCursor`. Requires `limit` and must be reused with the same filters. */
+        TransactionPageCursor: string;
     };
     requestBodies: never;
     headers: {
@@ -1470,6 +1476,10 @@ export interface operations {
                 to?: components["parameters"]["ToDate"];
                 /** @description Optional account filter. Missing or unowned accounts produce an empty list/summary because resource queries still require an owned joined account. */
                 accountId?: components["parameters"]["AccountIdQuery"];
+                /** @description Page size for deterministic keyset pagination. Omit to preserve the compatibility unbounded response. */
+                limit?: components["parameters"]["TransactionPageLimit"];
+                /** @description Opaque continuation returned as `nextCursor`. Requires `limit` and must be reused with the same filters. */
+                cursor?: components["parameters"]["TransactionPageCursor"];
             };
             header?: never;
             path?: never;

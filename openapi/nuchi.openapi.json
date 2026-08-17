@@ -865,7 +865,7 @@
           "transactions"
         ],
         "summary": "List transactions",
-        "description": "Current Hono behavior: lists transactions joined through owned accounts, supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts by date descending. Intentional migration behavior: each transaction includes required `currency`, which is accepted only as `ARS` and rejected when omitted.",
+        "description": "Lists transactions joined through owned accounts. Supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts deterministically by date then id descending. Additive keyset pagination is enabled by `limit`; a response with `nextCursor` can be continued by sending that opaque value as `cursor` with the same filters. Omitting `limit` preserves the pre-pagination unbounded response for compatibility. Each transaction includes required `currency`, accepted only as `ARS`.",
         "security": [
           {
             "bearerAuth": []
@@ -880,6 +880,12 @@
           },
           {
             "$ref": "#/components/parameters/AccountIdQuery"
+          },
+          {
+            "$ref": "#/components/parameters/TransactionPageLimit"
+          },
+          {
+            "$ref": "#/components/parameters/TransactionPageCursor"
           }
         ],
         "responses": {
@@ -1293,6 +1299,29 @@
         "description": "Optional account filter. Missing or unowned accounts produce an empty list/summary because resource queries still require an owned joined account.",
         "schema": {
           "$ref": "#/components/schemas/ResourceId"
+        }
+      },
+      "TransactionPageLimit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "description": "Page size for deterministic keyset pagination. Omit to preserve the compatibility unbounded response.",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500,
+          "example": 100
+        }
+      },
+      "TransactionPageCursor": {
+        "name": "cursor",
+        "in": "query",
+        "required": false,
+        "description": "Opaque continuation returned as `nextCursor`. Requires `limit` and must be reused with the same filters.",
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
         }
       }
     },
@@ -2466,6 +2495,12 @@
             "items": {
               "$ref": "#/components/schemas/TransactionListItem"
             }
+          },
+          "nextCursor": {
+            "type": "string",
+            "description": "Opaque continuation for the next page. Absent when pagination was not requested or no rows remain.",
+            "minLength": 1,
+            "maxLength": 512
           }
         },
         "additionalProperties": false

@@ -360,6 +360,9 @@ type TransactionListItem struct {
 // TransactionListResponse defines model for TransactionListResponse.
 type TransactionListResponse struct {
 	Data []TransactionListItem `json:"data"`
+
+	// NextCursor Opaque continuation for the next page. Absent when pagination was not requested or no rows remain.
+	NextCursor *string `json:"nextCursor,omitempty"`
 }
 
 // TransactionResponse defines model for TransactionResponse.
@@ -375,6 +378,12 @@ type FromDate = DateString
 
 // ToDate defines model for ToDate.
 type ToDate = DateString
+
+// TransactionPageCursor defines model for TransactionPageCursor.
+type TransactionPageCursor = string
+
+// TransactionPageLimit defines model for TransactionPageLimit.
+type TransactionPageLimit = int
 
 // AccountNotFoundError defines model for AccountNotFoundError.
 type AccountNotFoundError = ApiErrorResponse
@@ -458,6 +467,12 @@ type ListTransactionsParams struct {
 
 	// AccountId Optional account filter. Missing or unowned accounts produce an empty list/summary because resource queries still require an owned joined account.
 	AccountId *AccountIdQuery `form:"accountId,omitempty" json:"accountId,omitempty"`
+
+	// Limit Page size for deterministic keyset pagination. Omit to preserve the compatibility unbounded response.
+	Limit *TransactionPageLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Cursor Opaque continuation returned as `nextCursor`. Requires `limit` and must be reused with the same filters.
+	Cursor *TransactionPageCursor `form:"cursor,omitempty" json:"cursor,omitempty"`
 }
 
 // CreateAccountJSONRequestBody defines body for CreateAccount for application/json ContentType.
@@ -1325,6 +1340,32 @@ func (siw *ServerInterfaceWrapper) ListTransactions(w http.ResponseWriter, r *ht
 			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "accountId"})
 		} else {
 			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "accountId", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "limit" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "limit", r.URL.Query(), &params.Limit, runtime.BindQueryParameterOptions{Type: "integer", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "limit"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "limit", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "cursor" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "cursor", r.URL.Query(), &params.Cursor, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "cursor"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "cursor", Err: err})
 		}
 		return
 	}

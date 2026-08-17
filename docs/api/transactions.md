@@ -111,6 +111,23 @@ default in OpenAPI 3.0.3) and each references a schema with a minimum length.
 Clients must therefore **omit unset filters** rather than send `''`. See
 `lib/query-params.ts`.
 
+## Optional keyset pagination
+
+`listTransactions` keeps the compatibility unbounded response when `limit` is
+omitted. Supplying `limit=1..500` enables `(date DESC,id DESC)` keyset
+pagination. When another page exists, the response includes `nextCursor`; send
+that opaque value back as `cursor` with the same `limit` and filters.
+
+The handler requests one extra row and removes it before responding. A cursor
+strictly selects rows after the last returned date/id pair, so equal-date rows
+cannot repeat or disappear between page boundaries. Cursor values are URL-safe
+but opaque: clients must not parse or manufacture them. `cursor` without
+`limit`, an invalid cursor, and limits outside 1-500 are `400 INVALID_QUERY`.
+
+The initial rollout is additive because the current table UI expects the full
+range in one response. Moving the compatibility default to bounded pages
+requires a client migration and fresh query-plan evidence; see Phase 3 #109.
+
 ### The three date errors
 
 Reproduced verbatim from the fixtures; do not paraphrase them.

@@ -7,8 +7,9 @@
 -- name: ListTransactions :many
 -- Matches the legacy list query: join through the owned account for the
 -- name, left join category for its (optional) name, date range inclusive on
--- both ends, optional accountId filter. Handler concerns (date
--- defaulting/validation, 366-day cap) live outside this query.
+-- both ends, optional accountId filter, and optional keyset pagination over
+-- (date, id). Handler concerns (date defaulting/validation, 366-day cap,
+-- cursor decoding, and fetching one lookahead row) live outside this query.
 SELECT
     t.id,
     t.date,
@@ -29,13 +30,19 @@ LEFT JOIN categories c ON c.id = t.category_id AND c.user_id = sqlc.arg(user_id)
 WHERE t.date >= sqlc.arg(start_date)
   AND t.date <= sqlc.arg(end_date)
   AND (sqlc.narg(account_id)::text IS NULL OR t.account_id = sqlc.narg(account_id))
+  AND (
+    sqlc.narg(cursor_date)::timestamp IS NULL
+    OR t.date < sqlc.narg(cursor_date)::timestamp
+    OR (t.date = sqlc.narg(cursor_date)::timestamp AND t.id < sqlc.narg(cursor_id)::text)
+  )
 -- t.id DESC breaks ties deterministically. Legacy orders by date alone, and
 -- most rows share midnight, so the order among same-date rows was arbitrary
 -- and could differ between identical requests. Clients could never rely on
 -- it, so pinning it changes nothing observable while removing the
 -- nondeterminism -- the same behavior-preserving reasoning used for
 -- accounts.sql's ORDER BY name in #40.
-ORDER BY t.date DESC, t.id DESC;
+ORDER BY t.date DESC, t.id DESC
+LIMIT COALESCE(sqlc.narg(page_limit)::integer, 2147483647);
 
 -- name: GetTransaction :one
 -- Legacy GET /:id selects only the transaction's own columns (no joined

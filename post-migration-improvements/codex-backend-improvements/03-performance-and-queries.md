@@ -109,3 +109,55 @@ An endpoint cannot pass with only a green unit test. Required evidence:
 - pool-saturation and cancellation behavior under load;
 - no cross-user or functional regression; and
 - an explicit conclusion against its operation-class objective.
+
+## Phase 3 operation-class budgets
+
+These are the approved engineering budgets for the versioned local/CI baseline.
+They are not production promises; #66 must bind them to a host size,
+concurrency, and database capacity before launch.
+
+| Class | Representative operations | Database round trips | Warm p95 objective | Bound |
+| --- | --- | ---: | ---: | --- |
+| Health | `getHealth` | 0 | 25 ms | constant work |
+| Auth command | register/login/refresh/reset | 1-4, constant | 1.5 s | Argon2/mail handoff class documented separately |
+| Single-resource read/write | account/category/transaction CRUD | 1-3, constant | 250 ms | one resource |
+| Bounded list page | `listTransactions?limit=...` | 1 | 500 ms | 1-500 returned rows |
+| Compatibility list | `listTransactions` without `limit` | 1 | 1 s | 366 days; temporary unbounded response |
+| Bulk mutation | transaction bulk create/delete | constant with batch size | 1 s | 500 rows and documented byte cap |
+| Summary | `getSummary` | 4 | 2 s | 366 days, six accounts, 100k-owner-row baseline |
+
+Infrastructure errors must remain below 1% under the eventual agreed load;
+validation, authorization, conflict, and rate-limit responses are not counted
+as infrastructure faults. A class fails if its query count grows with input
+rows even when latency happens to pass.
+
+## Phase 3 list-pagination delivery
+
+`listTransactions` now offers additive `(date,id)` keyset pagination:
+
+- `limit` is 1-500 and requests one extra row to decide whether a continuation
+  exists;
+- `nextCursor` is an opaque URL-safe encoding of the last returned date/id;
+- `cursor` requires `limit`, is validated before database work, and applies a
+  strict descending tuple boundary;
+- date/account filters and RLS identity stay independent of the cursor; and
+- omitting `limit` preserves the existing unbounded response so the current UI
+  is not silently truncated before it adopts pagination.
+
+Phase 0's 100k-row, two-tenant warm sample returned 50,142 rows in 684 ms and
+spilled an 8.5 MB external merge sort. The first `limit=100` page returned 101
+database rows in 673 ms on the same disposable database: response size became
+bounded and the sort became a 37 kB top-N heapsort, but PostgreSQL still scanned
+the 50,142 qualifying rows. Pagination therefore fixes transfer/memory growth,
+not the all-account scan cost.
+
+Appending `id DESC` to the `(account_id,date DESC)` index remains a measured
+candidate for account-filtered pages, not part of this PR. The local migration
+ledger was already at version 6 while fresh `origin/master` ended at 5, proving
+another schema-owning branch has the next migration number. Phase 3 must
+remeasure after those branches merge instead of creating an out-of-order goose
+migration or claiming another branch's schema as evidence.
+
+No pgxpool limit is changed from a single-host plan. Pool maximum/minimum and
+lifetime settings require #66's database connection budget across all replicas;
+tuning them from CPU count or one serial plan would be speculation.

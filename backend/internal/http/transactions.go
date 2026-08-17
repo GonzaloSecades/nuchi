@@ -92,6 +92,12 @@ func (s *ResourceServer) ListTransactions(w http.ResponseWriter, r *http.Request
 		_ = resp.VisitListTransactionsResponse(w)
 		return
 	}
+	page, pageErr := parseTransactionPage(query)
+	if pageErr != nil {
+		resp := openapi.ListTransactions400JSONResponse{InvalidQueryErrorJSONResponse: invalidQueryError(pageErr.Error())}
+		_ = resp.VisitListTransactionsResponse(w)
+		return
+	}
 
 	accountID, accountErr := accountIDFilter(params.AccountId)
 	if accountErr != nil {
@@ -104,10 +110,13 @@ func (s *ResourceServer) ListTransactions(w http.ResponseWriter, r *http.Request
 	err, ok := s.withUser(w, r, func(userID uuid.UUID, q *dbgen.Queries) error {
 		var err error
 		rows, err = q.ListTransactions(r.Context(), dbgen.ListTransactionsParams{
-			UserID:    pgUserID(userID),
-			StartDate: pgtype.Timestamp{Time: start, Valid: true},
-			EndDate:   pgtype.Timestamp{Time: end, Valid: true},
-			AccountID: accountID,
+			UserID:     pgUserID(userID),
+			StartDate:  pgtype.Timestamp{Time: start, Valid: true},
+			EndDate:    pgtype.Timestamp{Time: end, Valid: true},
+			AccountID:  accountID,
+			CursorDate: page.cursorDate,
+			CursorID:   page.cursorID,
+			PageLimit:  page.queryLimit,
 		})
 		return err
 	})
@@ -121,11 +130,18 @@ func (s *ResourceServer) ListTransactions(w http.ResponseWriter, r *http.Request
 		return
 	}
 
+	var nextCursor *string
+	if page.limit > 0 && len(rows) > page.limit {
+		rows = rows[:page.limit]
+		cursor := encodeTransactionCursor(rows[len(rows)-1].Date.Time, rows[len(rows)-1].ID)
+		nextCursor = &cursor
+	}
+
 	items := make([]openapi.TransactionListItem, 0, len(rows))
 	for _, row := range rows {
 		items = append(items, toTransactionListItem(row))
 	}
-	resp := openapi.ListTransactions200JSONResponse{Data: items}
+	resp := openapi.ListTransactions200JSONResponse{Data: items, NextCursor: nextCursor}
 	_ = resp.VisitListTransactionsResponse(w)
 }
 
