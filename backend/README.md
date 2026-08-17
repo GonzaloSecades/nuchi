@@ -42,7 +42,9 @@ The API listens on `0.0.0.0:8080` by default.
 
 If your existing `.env.local` was copied before the local Compose Postgres port
 changed, update `DATABASE_URL` from `localhost:5432` to `localhost:54329`.
-`bun dev` fails fast when local `DATABASE_URL` and `POSTGRES_PORT` disagree.
+`bun dev` validates the migration target before running goose: it refuses a
+non-local host outright, and fails fast when a local host disagrees with
+`POSTGRES_PORT`.
 
 ## Configuration
 

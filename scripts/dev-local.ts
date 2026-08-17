@@ -101,7 +101,21 @@ async function run(
   }
 }
 
-function validateDatabaseUrlPort() {
+/**
+ * Refuses to run the local stack against anything but the Compose Postgres.
+ *
+ * This script runs `goose up` unattended, so a wrong `DATABASE_URL` is not a
+ * failed connection — it is migrations applied to a database that never asked
+ * for them. Two ways that happens, both from a stale `.env.local`:
+ *
+ * - A **remote** host left over from the pre-#85 Neon stack. Fatal, no
+ *   override: `bun dev` provisions local Docker Postgres, so a remote target is
+ *   always a mistake here. Migrate a remote database deliberately, by hand.
+ * - A **local** host on the wrong port — typically `5432` from before the
+ *   Compose port moved to 54329, which lands on whatever host Postgres happens
+ *   to be listening there.
+ */
+function validateDatabaseTarget() {
   let parsed: URL;
   try {
     parsed = new URL(DATABASE_URL);
@@ -111,16 +125,25 @@ function validateDatabaseUrlPort() {
     );
   }
 
-  const localHosts = new Set(['localhost', '127.0.0.1', '::1']);
+  // `URL.hostname` keeps the brackets on IPv6 literals, so the loopback address
+  // has to be listed in its bracketed form to match at all.
+  const localHosts = new Set(['localhost', '127.0.0.1', '[::1]']);
   if (!localHosts.has(parsed.hostname)) {
-    return;
+    throw new Error(
+      [
+        `DATABASE_URL points at the remote host ${parsed.hostname}, but bun dev only drives the local Docker Postgres.`,
+        'It would have applied backend/migrations/ to that database. Refusing.',
+        'Check DATABASE_URL in .env.local — a Neon URL from before #85 is the usual cause.',
+        `Expected local default: postgres://nuchi:nuchi@localhost:${POSTGRES_PORT}/nuchi?sslmode=disable`,
+      ].join('\n')
+    );
   }
 
   const databasePort = parsed.port || '5432';
   if (databasePort !== POSTGRES_PORT) {
     throw new Error(
       [
-        `DATABASE_URL points at localhost:${databasePort}, but POSTGRES_PORT is ${POSTGRES_PORT}.`,
+        `DATABASE_URL points at ${parsed.hostname}:${databasePort}, but POSTGRES_PORT is ${POSTGRES_PORT}.`,
         'Update your local DATABASE_URL to match POSTGRES_PORT before running migrations.',
         `Expected local default: postgres://nuchi:nuchi@localhost:${POSTGRES_PORT}/nuchi?sslmode=disable`,
       ].join('\n')
@@ -194,7 +217,11 @@ async function waitForApi(api: ReturnType<typeof spawn>) {
     const onExit = (code: number | null) => {
       settle(() =>
         reject(
-          new Error(`Go API exited with code ${code} before becoming healthy`)
+          new Error(
+            stopping
+              ? 'Interrupted before the Go API became healthy'
+              : `Go API exited with code ${code} before becoming healthy`
+          )
         )
       );
     };
@@ -257,7 +284,7 @@ function watchProcess(
 }
 
 async function main() {
-  validateDatabaseUrlPort();
+  validateDatabaseTarget();
 
   const nextBin =
     process.platform === 'win32'
@@ -293,6 +320,13 @@ async function main() {
     { cwd: 'backend' }
   );
 
+  // Registered before the build, not after the spawns: from here on there is a
+  // binary in tmpdir to unlink, and an interrupt during the health wait would
+  // otherwise kill the script with the default handler and skip the cleanup in
+  // `finally`.
+  process.on('SIGINT', stopChildren);
+  process.on('SIGTERM', stopChildren);
+
   log('Building Go API');
   await run(['go', 'build', '-o', API_BIN, './cmd/api'], { cwd: 'backend' });
 
@@ -302,9 +336,6 @@ async function main() {
 
   log('Starting Next dev server');
   const next = spawnLogged([nextBin, 'dev']);
-
-  process.on('SIGINT', stopChildren);
-  process.on('SIGTERM', stopChildren);
 
   return await new Promise<number>((resolve, reject) => {
     watchProcess(api, 'Go API', resolve, reject);

@@ -118,10 +118,16 @@ inside verification and reset emails. Full backend table:
 
 Do not commit `.env.local`. `bun run build` needs no credentials of any kind — that requirement disappeared with Clerk in #85. `AUTH_JWT_SECRET` is required by the Go API at startup, not by the frontend build; `bun dev` supplies a temporary local value, and manual API shells can generate one with `openssl rand -base64 48`.
 
-If your existing `.env.local` was copied before the local Postgres port changed,
-update `DATABASE_URL` from `localhost:5432` to `localhost:54329`. `bun dev`
-fails fast when local `DATABASE_URL` and `POSTGRES_PORT` disagree, before it can
-run migrations against the wrong database.
+**Check `DATABASE_URL` in an `.env.local` that predates this setup.** `bun dev`
+applies the goose migrations unattended, so it validates the target first and
+refuses to start otherwise:
+
+- A **remote** host — a Neon URL left over from before #85 — is rejected
+  outright. `bun dev` only ever drives the local Docker Postgres; migrate a
+  remote database by hand, deliberately.
+- A **local** host whose port disagrees with `POSTGRES_PORT` is rejected too.
+  Update `DATABASE_URL` from `localhost:5432` to `localhost:54329`; the old port
+  lands on whatever host Postgres is listening there.
 
 ## Docker And Local Services
 

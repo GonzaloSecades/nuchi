@@ -34,8 +34,16 @@ Read by **Next**:
 - `NEXT_PUBLIC_API_URL` — optional origin for the API client. Read only on the
   server (`lib/api-base-url.ts`); in the browser the base is always relative so
   requests stay same-origin. Leaving it unset is correct behind the proxy.
-- `POSTGRES_PORT` — host port published by Docker Compose for local Postgres.
-  Defaults to `54329`.
+
+Read by **`bun dev` and Docker Compose** (neither Next nor the Go API reads
+these):
+
+- `POSTGRES_PORT` — host port Compose publishes for local Postgres. Defaults to
+  `54329`. `docker compose` interpolates it from `.env`, while `bun dev` picks
+  it up from `.env.local`.
+- `COMPOSE_PROJECT_NAME` — Compose project the local services belong to.
+  `bun dev` defaults it to `nuchi` so a worktree reuses the same containers
+  instead of standing up a second set named after its directory.
 
 Read by the **Go API**:
 
@@ -51,10 +59,13 @@ Read by the **Go API**:
   origin-only and validated at backend startup.
 - `SMTP_ADDR`, `MAIL_FROM` — outgoing mail. `SMTP_ADDR` is one `host:port`.
 
-`bun dev` fails fast if local `DATABASE_URL` and `POSTGRES_PORT` disagree, to
-avoid running migrations against a stale `localhost:5432` database from an old
-`.env.local`. Reference: [`.env.example`](.env.example), and the full backend
-table in [`backend/README.md`](backend/README.md).
+`bun dev` runs `goose up` unattended, so it checks `DATABASE_URL` before doing
+anything: it refuses a non-local host outright, and fails fast when a local host
+disagrees with `POSTGRES_PORT`. Both cases come from a stale `.env.local` — a
+Neon URL left over from before #85, or `localhost:5432` from before the Compose
+port moved — and both would otherwise migrate a database that never asked for
+it. Reference: [`.env.example`](.env.example), and the full backend table in
+[`backend/README.md`](backend/README.md).
 
 ## Repo Rules
 
