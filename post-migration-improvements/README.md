@@ -89,23 +89,44 @@ gates. Numbering stays global and sequential within
 
 ## Index (claude-backend-improvements/)
 
-| # | Entry | Area | Priority |
-| --- | --- | --- | --- |
-| 0001 | [transactions.date is timestamp without time zone](claude-backend-improvements/0001-transactions-date-timestamp.md) | schema | medium |
-| 0002 | [Finance tables use text cuid IDs; UUID default is v4](claude-backend-improvements/0002-finance-ids-and-uuidv7-default.md) | schema | low |
-| 0003 | [Transaction rate limiting is in-memory](claude-backend-improvements/0003-in-memory-rate-limiting.md) | api/infra | medium |
-| 0004 | [Bulk-delete silently ignores missing/unowned IDs](claude-backend-improvements/0004-bulk-delete-silent-ignore.md) | api | low |
-| 0005 | [Category duplicate update returns 500, create returns 409](claude-backend-improvements/0005-category-duplicate-update-500.md) | api | high |
-| 0006 | [transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS](claude-backend-improvements/0006-amount-int32-milliunit-cap.md) — **resolved in #46** | schema | high |
-| 0007 | [JWT signing is HS256 with a single static secret](claude-backend-improvements/0007-jwt-hs256-single-secret.md) | auth | medium |
-| 0008 | [Access tokens cannot be revoked mid-life](claude-backend-improvements/0008-no-midlife-access-token-revocation.md) | auth | low |
-| 0009 | [No refresh-token reuse detection or session listing](claude-backend-improvements/0009-refresh-reuse-detection-session-listing.md) | auth | low |
-| 0010 | [Auth operations do not declare 500 responses in the contract](claude-backend-improvements/0010-auth-contract-omits-500.md) | api | low |
-| 0011 | [No resend endpoint; email delivery is fire-and-forget](claude-backend-improvements/0011-no-resend-endpoint-fire-and-forget-mail.md) | auth/infra | medium |
-| 0012 | [Residual timing oracle on password-reset request](claude-backend-improvements/0012-reset-request-timing-oracle.md) | auth | low |
-| 0013 | [Resource endpoints accept unbounded request bodies](claude-backend-improvements/0013-no-request-body-size-cap-on-resource-endpoints.md) | http | medium |
-| 0014 | [Date filters are parsed in UTC, not the host timezone](claude-backend-improvements/0014-date-filters-parsed-in-utc.md) | api | low |
-| 0015 | [Out-of-range amounts return 400, where legacy returned 500](claude-backend-improvements/0015-out-of-range-amount-returns-400.md) | api | low |
-| 0016 | [Bulk body limits are enforced against the stream, not just Content-Length](claude-backend-improvements/0016-bulk-body-limit-enforced-against-the-stream.md) | http | low |
-| 0017 | [The summary category chart silently excludes uncategorized spending](claude-backend-improvements/0017-summary-category-chart-excludes-uncategorized.md) | api/product | medium |
-| 0018 | [A transaction's date is serialized as a UTC instant, not a calendar date](claude-backend-improvements/0018-date-response-serialized-as-utc.md) | api/schema | medium |
+Every open entry is tracked on the **PostMigration Backend Improvements**
+board (https://github.com/users/GonzaloSecades/projects/3), alongside the
+phases of the `codex-backend-improvements/` program. A new entry is not
+finished when the file is written: open its issue, add it to the board, and
+add the row here. The `Priority` column is the priority the entry was
+*filed* with — the board's `Priority` field is the one that gets reordered
+by evidence, and Phase 5 of the program (#111) is where that reordering
+happens.
+
+| # | Entry | Area | Priority | Issue |
+| --- | --- | --- | --- | --- |
+| 0001 | [transactions.date is timestamp without time zone](claude-backend-improvements/0001-transactions-date-timestamp.md) | schema | medium | #112 |
+| 0002 | [Finance tables use text cuid IDs; UUID default is v4](claude-backend-improvements/0002-finance-ids-and-uuidv7-default.md) | schema | low | #113 |
+| 0003 | [Transaction rate limiting is in-memory](claude-backend-improvements/0003-in-memory-rate-limiting.md) | api/infra | medium | #114 |
+| 0004 | [Bulk-delete silently ignores missing/unowned IDs](claude-backend-improvements/0004-bulk-delete-silent-ignore.md) | api | low | #115 |
+| 0005 | [Category duplicate update returns 500, create returns 409](claude-backend-improvements/0005-category-duplicate-update-500.md) — **resolved in #45** | api | high | — |
+| 0006 | [transactions.amount is 32-bit, capping a single transaction near ±2.1M ARS](claude-backend-improvements/0006-amount-int32-milliunit-cap.md) — **resolved in #46** | schema | high | — |
+| 0007 | [JWT signing is HS256 with a single static secret](claude-backend-improvements/0007-jwt-hs256-single-secret.md) | auth | medium | #116 |
+| 0008 | [Access tokens cannot be revoked mid-life](claude-backend-improvements/0008-no-midlife-access-token-revocation.md) | auth | low | #117 |
+| 0009 | [No refresh-token reuse detection or session listing](claude-backend-improvements/0009-refresh-reuse-detection-session-listing.md) | auth | low | #118 |
+| 0010 | [Auth operations do not declare 500 responses in the contract](claude-backend-improvements/0010-auth-contract-omits-500.md) | api | low | #119 |
+| 0011 | [No resend endpoint; email delivery is fire-and-forget](claude-backend-improvements/0011-no-resend-endpoint-fire-and-forget-mail.md) | auth/infra | medium | #120 |
+| 0012 | [Residual timing oracle on password-reset request](claude-backend-improvements/0012-reset-request-timing-oracle.md) | auth | low | #121 |
+| 0013 | [Resource endpoints accept unbounded request bodies](claude-backend-improvements/0013-no-request-body-size-cap-on-resource-endpoints.md) | http | medium | #122 |
+| 0014 | [Date filters are parsed in UTC, not the host timezone](claude-backend-improvements/0014-date-filters-parsed-in-utc.md) | api | low | #123 |
+| 0015 | [Out-of-range amounts return 400, where legacy returned 500](claude-backend-improvements/0015-out-of-range-amount-returns-400.md) | api | low | #124 † |
+| 0016 | [Bulk body limits are enforced against the stream, not just Content-Length](claude-backend-improvements/0016-bulk-body-limit-enforced-against-the-stream.md) | http | low | #125 † |
+| 0017 | [The summary category chart silently excludes uncategorized spending](claude-backend-improvements/0017-summary-category-chart-excludes-uncategorized.md) | api/product | medium | #126 |
+| 0018 | [A transaction's date is serialized as a UTC instant, not a calendar date](claude-backend-improvements/0018-date-response-serialized-as-utc.md) | api/schema | medium | #127 |
+
+† 0015 and 0016 both conclude that the Go behavior is the correct one and
+nothing should be undone. Their entry titles name the recorded divergence,
+as every entry title does; their issues are titled and scoped for the
+residual follow-up work instead — contract amount bounds that generate no
+validation (#124), and bulk byte limits that live in prose where they can
+drift from the handler constants (#125). Read the entry for the history and
+the issue for the work.
+
+0001, 0014 and 0018 are three layers of one modelling decision and must land
+together. #127 carries the executable plan, including the row audit that has
+to run before any `ALTER TABLE`.
