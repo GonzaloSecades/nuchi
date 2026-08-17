@@ -14,7 +14,7 @@ import (
 const (
 	defaultHost        = "0.0.0.0"
 	defaultPort        = "8080"
-	defaultDatabaseURL = "postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable"
+	defaultDatabaseURL = "postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable"
 
 	// defaultAccessTokenTTL is the dev default lifetime of a signed JWT
 	// access token (spec: "Initial dev access-token lifetime is 30 minutes

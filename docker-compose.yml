@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - '${POSTGRES_PORT:-54329}:5432'
     volumes:
       - nuchi-postgres-data:/var/lib/postgresql/data
       # Init scripts run only on first initialization of an empty data

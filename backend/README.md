@@ -13,19 +13,38 @@ intentionally left to their own issue (#43+).
 
 ## Local Run
 
+From the repo root, the normal local development command is:
+
+```bash
+bun dev
+```
+
+That starts Docker Compose Postgres and Mailpit, applies the goose migrations,
+builds and starts this Go API, waits for `/api/health`, and then starts the
+Next dev server.
+
+Manual backend-only run:
+
 The API connects to PostgreSQL at startup and exits if it cannot, and it
 requires `AUTH_JWT_SECRET` to be set (also fail-fast — see Auth below), so
-start the database (and Mailpit, for the email flows) and export a secret
-first:
+start the database (and Mailpit, for the email flows), run migrations, and
+export a secret first:
 
 ```bash
 docker compose up -d postgres mailpit
 cd backend
+go run github.com/pressly/goose/v3/cmd/goose@v3.27.2 -dir migrations postgres 'postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable' up
 export AUTH_JWT_SECRET="$(openssl rand -base64 48)"
 go run ./cmd/api
 ```
 
 The API listens on `0.0.0.0:8080` by default.
+
+If your existing `.env.local` was copied before the local Compose Postgres port
+changed, update `DATABASE_URL` from `localhost:5432` to `localhost:54329`.
+`bun dev` validates the migration target before running goose: it refuses a
+non-local host outright, and fails fast when a local host disagrees with
+`POSTGRES_PORT`.
 
 ## Configuration
 
@@ -33,7 +52,7 @@ The API listens on `0.0.0.0:8080` by default.
 | --- | --- | --- |
 | `BACKEND_HOST` | `0.0.0.0` | HTTP listen host |
 | `BACKEND_PORT` | `8080` | HTTP listen port |
-| `DATABASE_URL` | `postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable` | PostgreSQL connection string |
+| `DATABASE_URL` | `postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable` | PostgreSQL connection string |
 | `AUTH_JWT_SECRET` | *(none — required)* | HMAC key for signing/verifying access tokens. Startup exits with a clear error if unset or shorter than 32 bytes. Generate one with `openssl rand -base64 48`. |
 | `AUTH_ACCESS_TOKEN_TTL` | `30m` | Access-token lifetime, as a Go duration (e.g. `30m`, `1h`) |
 | `AUTH_REFRESH_TOKEN_TTL` | `720h` (30 days) | Refresh-token lifetime, as a Go duration |
@@ -316,23 +335,24 @@ Migrations live in `backend/migrations/` and are applied with
 | `00004_transactions_category_owner_rls.sql` | Reject cross-owner transaction/category relationships and repair pre-existing invalid references |
 | `00005_transactions_amount_bigint.sql` | Widen transaction amounts to `bigint` for the JavaScript-safe milliunit range |
 
-Install the pinned CLI version:
+Install the pinned CLI version if you want a `goose` binary:
 
 ```bash
 go install github.com/pressly/goose/v3/cmd/goose@v3.27.2
 ```
 
-Run migrations from `backend/`:
+Or run the pinned version directly from `backend/`:
 
 ```bash
 cd backend
-goose -dir migrations postgres 'postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable' up
+go run github.com/pressly/goose/v3/cmd/goose@v3.27.2 -dir migrations postgres 'postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable' up
 ```
 
 The connection string is explicit because `.env.local` belongs to the Next
 process and does not export `DATABASE_URL` into the shell running goose. If you
 set a different database URL in that shell, pass that exported value here
-instead.
+instead. The root `bun dev` script runs this migration step before starting the
+API.
 
 Resetting the local database is destructive and must be explicit — never
 run `goose down`/`reset` as part of routine startup or automation.
@@ -456,8 +476,9 @@ changes that produced them.
 Most tests run without a database and without `AUTH_JWT_SECRET` set (the
 config package's own fail-fast test sets it per-test). Running the API
 requires PostgreSQL to be up (see Database above) and `AUTH_JWT_SECRET` set
-(see Auth above): startup pings the database and validates configuration,
-exiting with status 1 if either fails.
+(see Auth above): startup pings the database, verifies RLS, and validates
+configuration, exiting with status 1 if any step fails. The root `bun dev`
+command supplies a temporary local secret automatically.
 
 ```bash
 cd backend
@@ -480,7 +501,7 @@ token usable), and the sqlc round-trip / RLS tests in `internal/db`:
 
 ```bash
 cd backend
-TEST_DATABASE_URL="postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable" go test ./...
+TEST_DATABASE_URL="postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable" go test ./...
 ```
 
 `internal/mail`'s tests (`SMTPMailer` against a local fake SMTP listener,

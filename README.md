@@ -93,14 +93,13 @@ bun install
 Copy `.env.example` to `.env.local` and fill local values.
 
 **`.env.local` is read by the Next process only.** Bun loads it; the Go API does
-not — `backend/internal/config/config.go` reads `os.Getenv` and nothing else, so
-the backend variables below are documented here for reference and must be
-*exported* in the shell that runs the API. In practice only `AUTH_JWT_SECRET`
-needs exporting, because it is the sole value with no default; see
-[Running Next and Go Together](#running-next-and-go-together).
+not — `backend/internal/config/config.go` reads `os.Getenv` and nothing else.
+For normal local dev, `bun dev` exports the local defaults below to the Go API
+process and generates an in-memory `AUTH_JWT_SECRET` when you have not set one.
+If you run `go run ./cmd/api` manually, export backend variables in that shell.
 
 ```bash
-DATABASE_URL=postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable
+DATABASE_URL=postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable
 NEXT_PUBLIC_API_URL=http://localhost:3000
 SMTP_ADDR=localhost:1025
 MAILPIT_WEB_URL=http://localhost:8025
@@ -117,7 +116,18 @@ userinfo) — it is validated at startup, because it becomes a clickable link
 inside verification and reset emails. Full backend table:
 [`backend/README.md`](backend/README.md).
 
-Do not commit `.env.local`. `bun run build` needs no credentials of any kind — that requirement disappeared with Clerk in #85. `AUTH_JWT_SECRET` is required by the Go API at startup, not by the frontend build; generate one with `openssl rand -base64 48` and never commit it.
+Do not commit `.env.local`. `bun run build` needs no credentials of any kind — that requirement disappeared with Clerk in #85. `AUTH_JWT_SECRET` is required by the Go API at startup, not by the frontend build; `bun dev` supplies a temporary local value, and manual API shells can generate one with `openssl rand -base64 48`.
+
+**Check `DATABASE_URL` in an `.env.local` that predates this setup.** `bun dev`
+applies the goose migrations unattended, so it validates the target first and
+refuses to start otherwise:
+
+- A **remote** host — a Neon URL left over from before #85 — is rejected
+  outright. `bun dev` only ever drives the local Docker Postgres; migrate a
+  remote database by hand, deliberately.
+- A **local** host whose port disagrees with `POSTGRES_PORT` is rejected too.
+  Update `DATABASE_URL` from `localhost:5432` to `localhost:54329`; the old port
+  lands on whatever host Postgres is listening there.
 
 ## Docker And Local Services
 
@@ -135,9 +145,14 @@ docker compose ps
 
 Local service defaults:
 
-- Postgres: `postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable`.
+- Postgres: `postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable`.
 - Mailpit UI: `http://localhost:8025`.
 - Mailpit SMTP: `localhost:1025`.
+
+`POSTGRES_PORT` defaults to `54329`. `bun dev` reads overrides from
+`.env.local`; plain `docker compose up` reads Compose variables from `.env`
+instead, so keep `DATABASE_URL` and `POSTGRES_PORT` aligned when overriding the
+port manually.
 
 ### Postgres roles
 
@@ -180,12 +195,19 @@ docker compose down --volumes
 
 ```bash
 bun dev
+bun run dev:next
 bun run lint
 bun run build
 bun test
 ```
 
-`bun dev` starts the Docker Compose `postgres` and `mailpit` services, waits for Postgres, then runs the Next dev server. It does not run migrations — goose owns those, from `backend/` — and it does not start the Go API, which you run separately with `cd backend && go run ./cmd/api`. `bun run build` validates the Next.js production build and needs no environment variables.
+`bun dev` starts the full local stack: Docker Compose `postgres` and `mailpit`,
+Postgres readiness, backend goose migrations, the Go API, and the Next dev
+server. It leaves Docker containers running when you stop the dev servers, so
+your local database persists between sessions. `bun run build` validates the
+Next.js production build and needs no environment variables. `bun run dev:next`
+is only for manual debugging when you are already running Docker, migrations,
+and the Go API yourself.
 
 ## Backend Commands
 
@@ -203,24 +225,39 @@ The two run as separate processes: Next serves the UI, Go serves the API. Next
 proxies `/api/*` to Go by default, so the browser only talks to the Next origin,
 cookies stay same-origin, and no CORS setup is required.
 
-Start Postgres:
+The normal local command is:
+
+```bash
+bun dev
+```
+
+It starts Postgres and Mailpit with Docker Compose, waits for Postgres, applies
+`backend/migrations/` with goose, builds and starts the Go API, waits for
+`/api/health`, and then starts the Next dev server. Stop it with `Ctrl-C`; the
+Go and Next processes stop, while Docker Compose services stay up for the next
+session. The script defaults `COMPOSE_PROJECT_NAME` to `nuchi` and
+`POSTGRES_PORT` to `54329`, so this worktree reuses the same local Compose
+services without fighting a host Postgres already bound to `5432`.
+
+Manual flow, useful when debugging one process at a time:
 
 ```bash
 docker compose up -d postgres
 ```
 
-**Apply the migrations before starting the API.** This is not optional on a
-fresh checkout, and nothing does it for you: a new Compose volume runs only
+**Apply the migrations before starting the API.** This is not optional in the
+manual flow: a new Compose volume runs only
 `docker/postgres/init/01-app-role.sql`, which creates the `nuchi` role and the
 `citext` extension and no tables at all. The Go API does not migrate on startup
 — it calls `VerifyRLSActive` first and refuses to serve unless row level
 security is active on `accounts`, `categories` and `transactions`, so against an
-unmigrated database it exits immediately rather than starting.
+unmigrated database it exits immediately rather than starting. `bun dev` does
+run this goose step for you.
 
 ```bash
 cd backend
 go install github.com/pressly/goose/v3/cmd/goose@v3.27.2   # once
-goose -dir migrations postgres 'postgres://nuchi:nuchi@localhost:5432/nuchi?sslmode=disable' up
+goose -dir migrations postgres 'postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable' up
 ```
 
 The connection string is spelled out rather than `"$DATABASE_URL"` because
@@ -238,17 +275,15 @@ go run ./cmd/api
 ```
 
 ```bash
-bun dev
+bun run dev:next
 ```
 
-`AUTH_JWT_SECRET` is the one value with no default: the API exits at startup
-unless it is set and at least 32 bytes. Everything else the API needs —
+`AUTH_JWT_SECRET` is the one value with no backend default: the API exits at
+startup unless it is set and at least 32 bytes. `bun dev` generates a temporary
+local value for the process it starts. Everything else the API needs —
 including `DATABASE_URL`, `SMTP_ADDR`, `MAIL_FROM` and `APP_BASE_URL` — already
-defaults to the local values above, so this is the whole of it. See
-[`backend/README.md`](backend/README.md) for the full table.
-
-`bun dev` deliberately does not run migrations. Schema ownership belongs to the
-backend, and the frontend does not connect to Postgres at all.
+defaults to the local values above. See [`backend/README.md`](backend/README.md)
+for the full table.
 
 ### Go API proxy configuration
 
