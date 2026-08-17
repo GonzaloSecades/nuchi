@@ -3,12 +3,15 @@ package db
 import (
 	"context"
 	"fmt"
+	"time"
 
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
+
+const rollbackTimeout = 5 * time.Second
 
 // WithUserTx begins a transaction on pool, binds the RLS user for the
 // lifetime of that transaction, and runs fn against a *dbgen.Queries bound
@@ -58,7 +61,13 @@ func WithUserTxOptions(
 	committed := false
 	defer func() {
 		if !committed {
-			_ = tx.Rollback(ctx)
+			// The request context is commonly the reason this transaction is
+			// aborting. Rollback must not reuse an already-cancelled context or
+			// the pooled connection can remain in a transaction and starve the
+			// pool. Preserve context values while giving cleanup its own bound.
+			rollbackCtx, cancel := context.WithTimeout(context.WithoutCancel(ctx), rollbackTimeout)
+			defer cancel()
+			_ = tx.Rollback(rollbackCtx)
 		}
 	}()
 

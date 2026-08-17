@@ -112,8 +112,9 @@ long-lived database transactions and gives retries an explicit identity.
 
 ## Decision record
 
-- **Status:** proposed
-- **Decision/date:** pending
-- **Approvers:** pending
-- **Follow-up tickets:** create after the Go migration and legacy teardown are
-  complete
+- **Status:** accepted direction; implementation not started
+- **Decision/date:** 2026-08-17, Phase 2 (#108)
+- **Approvers:** backend optimization program owner
+- **Follow-up tickets:** open one OpenAPI/schema delivery ticket before
+  implementation; keep `bulkCreateTransactions` unchanged and do not combine
+  the staging workflow with #115 or #120

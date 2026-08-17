@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 
 	dbgen "github.com/GonzaloSecades/nuchi/backend/internal/db/gen"
 	"github.com/google/uuid"
@@ -264,6 +265,58 @@ func TestWithUserTx_RollsBackOnError_LiveDatabase(t *testing.T) {
 	})
 	if !errors.Is(err, pgx.ErrNoRows) {
 		t.Errorf("expected the account created before the returned error to have been rolled back, got %v", err)
+	}
+}
+
+// TestWithUserTx_CancelledRequestRollsBackAndReleasesConnection_LiveDatabase
+// proves transaction cleanup does not reuse the cancelled request context.
+// A one-connection pool makes a leaked in-transaction connection observable:
+// the follow-up read would time out instead of acquiring the connection.
+func TestWithUserTx_CancelledRequestRollsBackAndReleasesConnection_LiveDatabase(t *testing.T) {
+	databaseURL := liveDatabaseURL(t, "WithUserTx cancelled-request cleanup test")
+
+	ctx := context.Background()
+	config, err := pgxpool.ParseConfig(databaseURL)
+	if err != nil {
+		t.Fatalf("parse database config: %v", err)
+	}
+	config.MaxConns = 1
+	pool, err := pgxpool.NewWithConfig(ctx, config)
+	if err != nil {
+		t.Fatalf("create one-connection pool: %v", err)
+	}
+	t.Cleanup(pool.Close)
+	if err := pool.Ping(ctx); err != nil {
+		t.Fatalf("ping one-connection pool: %v", err)
+	}
+
+	userID := createRLSTestUser(ctx, t, pool, "withusertx-cancel")
+	t.Cleanup(func() { deleteRLSTestUsers(ctx, t, pool, userID) })
+	owner := pgtype.UUID{Bytes: [16]byte(userID), Valid: true}
+	accountID := "wut-cancel-" + uuid.NewString()
+
+	requestCtx, cancelRequest := context.WithCancel(ctx)
+	err = WithUserTx(requestCtx, pool, userID, func(q *dbgen.Queries) error {
+		if _, err := q.CreateAccount(requestCtx, dbgen.CreateAccountParams{
+			ID: accountID, Name: "Cancelled Request Account", UserID: owner,
+		}); err != nil {
+			return err
+		}
+		cancelRequest()
+		return requestCtx.Err()
+	})
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("expected context cancellation, got %v", err)
+	}
+
+	followUpCtx, cancelFollowUp := context.WithTimeout(ctx, 2*time.Second)
+	defer cancelFollowUp()
+	err = WithUserTx(followUpCtx, pool, userID, func(q *dbgen.Queries) error {
+		_, err := q.GetAccount(followUpCtx, dbgen.GetAccountParams{ID: accountID, UserID: owner})
+		return err
+	})
+	if !errors.Is(err, pgx.ErrNoRows) {
+		t.Fatalf("expected cancelled transaction to roll back and release its connection, got %v", err)
 	}
 }
 

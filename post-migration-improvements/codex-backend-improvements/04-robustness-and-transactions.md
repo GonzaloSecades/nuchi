@@ -91,3 +91,45 @@ response replay. Do not implement an in-memory idempotency map.
 
 Flaky retry-based tests are not robustness evidence. Tests must control clocks,
 seed data, and concurrency barriers wherever practical.
+
+## Phase 2 transaction and retry policy
+
+The shipped handlers use PostgreSQL constraints as the arbiter and perform no
+automatic database retry. That is intentional: no current mutation carries an
+idempotency key, so a connection failure around commit has an unknown outcome
+and must not be replayed inside the server.
+
+| Operation class                         | Isolation                                                 | Atomic boundary                                                      | Retry policy                                                   |
+| --------------------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Account/category/transaction reads      | Read committed, RLS-bound transaction                     | One query plus identity bind                                         | Client may retry safe reads                                    |
+| Summary                                 | Repeatable read, RLS-bound transaction                    | Four aggregate reads share one snapshot                              | Client may retry the whole safe read                           |
+| Account/category create, update, delete | Read committed, RLS-bound transaction                     | One conditional/constraint-backed mutation                           | No server retry; create is not idempotent                      |
+| Transaction create/update               | Read committed, RLS-bound transaction                     | Owned reference checks and write commit together                     | No server retry; unknown commit outcome is surfaced            |
+| Transaction bulk create                 | Read committed, RLS-bound transaction                     | All reference checks, one JSONB insert, and returned-ID verification | No server retry; caller needs an import identity before replay |
+| Bulk delete                             | Read committed, RLS-bound transaction                     | Owned delete and returned IDs                                        | No server retry; #115 owns any response change                 |
+| Refresh                                 | Read committed explicit transaction                       | Old-token consume and replacement insert                             | No server retry; replay of a consumed token fails closed       |
+| Verify/reset confirm                    | Read committed explicit transaction                       | One-time consume and user/session mutation                           | No server retry; rollback leaves token usable                  |
+| Registration/reset request              | Read committed explicit transaction where multi-statement | User/token changes commit before mail handoff                        | No server retry; durable delivery is gated on #120             |
+
+`WithUserTxOptions` now rolls back with a fresh five-second cleanup context
+that preserves request values but ignores cancellation. Reusing a cancelled
+request context can skip rollback and strand a pooled connection in a
+transaction. A live one-connection-pool test proves the cancelled write is
+absent and the connection is immediately reusable.
+
+Per-request bulk and reference atomicity is already covered by the migration's
+live rollback, foreign-key race, cross-user reference, max-size, and concurrent
+token tests. The scope-narrowed phase does not duplicate:
+
+| Checklist area                               | External gate        |
+| -------------------------------------------- | -------------------- |
+| Durable mail/outbox and resend workflow      | #120 (registry 0011) |
+| Bulk-delete response/ignored-count evolution | #115 (registry 0004) |
+
+Whole-import atomicity is a different boundary from one bulk request. The
+accepted direction is the persisted staging/finalization workflow in
+`Codex-atomic-multi-chunk-transaction-imports.md`; it requires its own OpenAPI
+and schema ticket rather than an in-memory idempotency map or a transaction
+held open across requests. Existing auth commands do not gain generic
+idempotency keys: one-time token state and unique constraints already define
+their replay outcomes, while the outbox gate owns durable side effects.
