@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "bun ./scripts/dev-local.ts",
+    "dev:next": "next dev",
     "build": "next build",
     "start": "next start",
     "test": "bun test",

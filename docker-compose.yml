@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - '${POSTGRES_PORT:-54329}:5432'
     volumes:
       - nuchi-postgres-data:/var/lib/postgresql/data
       # Init scripts run only on first initialization of an empty data
@@ -21,7 +21,7 @@ services:
       # `docker compose down --volumes` to pick this up.
       - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d nuchi"]
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d nuchi']
       interval: 2s
       timeout: 5s
       retries: 20
@@ -29,8 +29,8 @@ services:
   mailpit:
     image: axllent/mailpit:latest
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - '1025:1025'
+      - '8025:8025'
 
 volumes:
   nuchi-postgres-data:
