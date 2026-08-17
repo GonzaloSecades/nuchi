@@ -14,8 +14,10 @@ Flag only concrete issues, in this order:
 
 1. Money correctness: transaction amounts are signed integer milliunits. No
    floating-point money math, unit ambiguity, lossy rounding, or partial imports.
-2. Auth and ownership: identity comes from the verified token. User-owned reads
-   and writes must be explicitly scoped by `auth.userId`; RLS is a backstop.
+2. Auth and ownership: identity comes from the verified token, read via
+   `UserIDFromContext` (`backend/internal/http/middleware.go`), never from a
+   request body field. User-owned reads and writes must carry an explicit
+   ownership predicate in SQL; RLS is a backstop, not a substitute.
 3. Contract drift: `openapi/nuchi.openapi.json` owns API shape. Resource success
    responses use `{ "data": ... }`; errors use `{ "error": { "code", "message" } }`;
    transaction `currency` is required and defaults to `ARS`.
@@ -41,6 +43,9 @@ Flag only concrete issues, in this order:
   outputs under generated-only paths.
 - Import changes: `lib/transaction-import.ts`, `features/transactions/api/`,
   and transaction import UI under `app/(dashboard)/transactions/`.
+- Ported endpoint behavior: `docs/specs/18-go-backend-replacement/spec.md` and
+  `docs/specs/18-go-backend-replacement/api-parity-fixtures.md`. These are the
+  behavioral oracle; where they and an opinion disagree, they decide.
 
 ## Output
 

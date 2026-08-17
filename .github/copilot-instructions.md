@@ -1,4 +1,4 @@
-# Copilot Instructions - nuchi
+# Copilot Instructions — nuchi
 
 Personal finance app: a Next.js frontend and a separate Go API (chi, pgxpool,
 sqlc, goose) over Dockerized PostgreSQL, with owned JWT auth and PostgreSQL
@@ -58,7 +58,7 @@ Review comments are valuable when they identify, in descending priority:
 
 ## Repo conventions reviews should assume
 
-- Bun is the package manager; Go 1.23 for `backend/`.
+- Bun is the package manager; Go 1.24 for `backend/`.
 - Branch names `claude/<issue>-<slug>`; PR titles `[Issue - #<number>] ...`.
 - PRs by solo maintainer via agent tooling; review threads are processed by
   an automated cycle capped at 3 iterations.

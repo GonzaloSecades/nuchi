@@ -1,5 +1,5 @@
 ---
-applyTo: 'app/**/*.ts,app/**/*.tsx,features/**/*.ts,features/**/*.tsx,components/**/*.ts,components/**/*.tsx,lib/**/*.ts,lib/**/*.tsx'
+applyTo: 'app/**/*.ts,app/**/*.tsx,features/**/*.ts,features/**/*.tsx,components/**/*.ts,components/**/*.tsx,lib/*.ts,lib/*.tsx,lib/auth/**/*.ts'
 ---
 
 Review frontend changes as a Next.js App Router client over the generated
@@ -15,7 +15,7 @@ Prefer existing `components/ui/*` primitives.
 Money amounts are signed integer milliunits. Dates sent to transaction APIs are
 plain `yyyy-MM-dd` values; avoid timezone shifts from Date serialization.
 
-Do not flag formatting/import order or generated files under `lib/api/generated/`.
+Do not flag formatting or import order. Changes under `lib/api/` are covered by
+the OpenAPI contract instructions instead of this file.
 
-Relevant validation is `bun run lint`, `bunx tsc --noEmit`, `bun test`, and
-`bun run build`.
+Relevant validation is `bun run lint`, `bun test`, and `bun run build`.

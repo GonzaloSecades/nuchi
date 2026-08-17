@@ -1,5 +1,5 @@
 ---
-applyTo: 'openapi/**/*.json,openapi/**/*.yaml,backend/internal/openapi/**,lib/api/generated/**,lib/api/client.ts,lib/api/**/*.ts'
+applyTo: 'openapi/**/*.json,openapi/**/*.yaml,backend/internal/openapi/**,lib/api/generated/**,lib/api/**/*.ts'
 ---
 
 Review OpenAPI changes as contract-first changes. The hand-edited source is
@@ -13,6 +13,10 @@ session/command responses keep their documented shapes. Transactions require
 
 OpenAPI is 3.0.3. Nullable schemas should use the repository's existing 3.0
 patterns instead of 3.1-only type arrays.
+
+Generated output under `backend/internal/openapi/` and `lib/api/generated/` is
+in scope only to confirm it is a mechanical regeneration of the contract; do not
+review it line by line or ask for hand edits there.
 
 Relevant validation is `bun run openapi:validate`, `bun run openapi:gen:go`,
 and `bun run openapi:gen:ts`. Generated diffs should be mechanical.
