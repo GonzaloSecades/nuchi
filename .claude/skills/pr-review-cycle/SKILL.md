@@ -1,6 +1,6 @@
 ---
 name: pr-review-cycle
-description: Process Copilot review comments on a PR - assess findings, fix on-point medium/high ones, push, let Copilot re-review (max 3 automated iterations), and merge on Gonzalo's approval. Use when asked to process a PR's review comments, run the review cycle, or check whether a PR is mergeable.
+description: Process Copilot review comments on a PR - assess findings, fix on-point medium/high ones, push, request any follow-up Copilot review manually (max 3 automated iterations), and merge on Gonzalo's approval. Use when asked to process a PR's review comments, run the review cycle, or check whether a PR is mergeable.
 ---
 
 # PR Review Cycle
@@ -22,10 +22,10 @@ that Gonzalo re-triggers Copilot manually or reviews directly. Stop.
 
 ## Cycle (one iteration)
 
-1. Fetch review state:
+1. Fetch review state, processing only comments newer than the last iteration
+   marker:
    - `gh pr view <n> --json reviews,reviewDecision,statusCheckRollup`
    - `gh api repos/{owner}/{repo}/pulls/<n>/comments` for inline comments.
-   Only process comments newer than the last iteration marker.
 2. Classify each unresolved Copilot comment by severity. Copilot sometimes
    tags severity in the comment body; when untagged, judge it yourself:
    - high: correctness, security, data loss, money math, ownership/auth gaps
@@ -46,8 +46,9 @@ that Gonzalo re-triggers Copilot manually or reviews directly. Stop.
 6. Push to the PR branch. Post a PR comment summarizing: findings addressed,
    findings rebutted (with reasons), verification output, and the marker
    `<!-- claude-review-iteration: N+1 -->`.
-7. Copilot re-reviews automatically on push (repo ruleset). If it does not,
-   re-request: `gh api -X POST repos/{owner}/{repo}/pulls/<n>/requested_reviewers -f "reviewers[]=copilot-pull-request-reviewer[bot]"`.
+7. Copilot reviews are manual-only. If another automated review pass is useful,
+   request it explicitly: `gh pr edit <n> --add-reviewer @copilot` (or use the
+   PR reviewers menu). Do not assume a push will trigger Copilot.
 
 ## Merge protocol
 

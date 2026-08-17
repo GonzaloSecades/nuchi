@@ -1,12 +1,15 @@
-# Copilot Instructions — nuchi
+# Copilot Instructions - nuchi
 
 Personal finance app: a Next.js frontend and a separate Go API (chi, pgxpool,
 sqlc, goose) over Dockerized PostgreSQL, with owned JWT auth and PostgreSQL
 RLS. The migration from Hono/Drizzle/Neon/Clerk is complete — that stack was
-removed in #84, #85 and #90, and none of it exists on disk. OpenAPI (`openapi/nuchi.openapi.json`) is the
-contract source of truth. Behavior parity is defined by
-`docs/specs/18-go-backend-replacement/spec.md` and
-`docs/specs/18-go-backend-replacement/api-parity-fixtures.md`.
+removed in #84, #85 and #90, and none of it exists on disk. OpenAPI
+(`openapi/nuchi.openapi.json`) is the contract source of truth.
+
+For code review, prefer targeted findings over broad commentary. Review only
+changed files plus the smallest directly related context needed to prove a
+finding. Use the `.github/skills/code-review` project skill for PR reviews, and
+load path-specific instructions only when the PR touches matching files.
 
 ## Code review: what to focus on
 
@@ -41,6 +44,9 @@ Review comments are valuable when they identify, in descending priority:
   the current stack.
 - Points already rebutted in a previous review round on the same PR, unless
   you have new evidence; repeating them stalls the merge protocol.
+- Broad architecture suggestions, migration-era cleanup ideas, or future work
+  unless the changed lines create a concrete regression. Existing debt belongs
+  in `post-migration-improvements/`, not as drive-by PR review noise.
 
 ## Comment format
 
@@ -56,3 +62,5 @@ Review comments are valuable when they identify, in descending priority:
 - Branch names `claude/<issue>-<slug>`; PR titles `[Issue - #<number>] ...`.
 - PRs by solo maintainer via agent tooling; review threads are processed by
   an automated cycle capped at 3 iterations.
+- Copilot reviews are requested manually. Do not assume automatic re-review on
+  new pushes.
