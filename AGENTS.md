@@ -76,18 +76,21 @@ it. Reference: [`.env.example`](.env.example), and the full backend table in
 - Keep server-state logic in TanStack Query hooks.
 - The database schema lives in `backend/migrations/` (goose) and is reached
   through sqlc. There is no frontend database access.
-- Scope all auth-sensitive reads and writes by `auth.userId`.
-- Transaction amounts are stored in milliunits.
+- Auth-sensitive reads and writes derive identity from the verified token, never
+  from a request body field. In the Go API that means `UserIDFromContext`
+  (`backend/internal/http/middleware.go`), and the SQL carries an explicit
+  ownership predicate even though RLS also protects the table.
+- Transaction amounts are signed integer milliunits. Never floats for money.
 - Prefer existing `components/ui/*` primitives.
 - Avoid `any` in app code.
 - Do not leave debug routes, raw `console.log`, or dead commented code in production paths.
 
-## Current Risk Areas
+## Risk Areas (resolved — kept as a record)
 
-These described the Hono implementation and were resolved by the Go migration —
-ownership predicates plus RLS, strict date and body validation, and rate
-limiting all live in the Go API now. The remaining frontend items are now
-regression-protected too:
+Nothing here is outstanding. These described the Hono implementation and were
+resolved by the Go migration — ownership predicates plus RLS, strict date and
+body validation, and rate limiting all live in the Go API now. The frontend
+items are regression-protected:
 
 - CSV import rejects parser errors, empty/header-only files, blank internal
   rows, and uneven records before column mapping; row values are strictly typed
@@ -96,7 +99,8 @@ regression-protected too:
   from depending on summary query state.
 
 Known backend limitations are tracked as numbered entries in
-`post-migration-improvements/claude-backend-improvements/`, not here.
+`post-migration-improvements/claude-backend-improvements/`, not here. Most are
+open GitHub issues now, titled `[NNNN]` after their entry.
 
 ## Verify
 
@@ -119,7 +123,14 @@ sqlc queries, and regenerate.
 
 ## Reference
 
-- Active backlog: [`PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`](PR_REVIEW_TECH_DEBT_CONSOLIDATED.md)
+- Active backlog: the open GitHub issues, titled `[NNNN]` after their entry in
+  [`post-migration-improvements/claude-backend-improvements/`](post-migration-improvements/claude-backend-improvements/).
+  Board: https://github.com/users/GonzaloSecades/projects/1
+- API contract, and the behavioral oracle: `openapi/nuchi.openapi.json`.
+- [`PR_REVIEW_TECH_DEBT_CONSOLIDATED.md`](PR_REVIEW_TECH_DEBT_CONSOLIDATED.md)
+  is a March 2026 consolidation of pre-migration PR reviews. It is history, not
+  a backlog — its items were resolved by the migration or superseded by the
+  registry above.
 
 ## graphify
 
