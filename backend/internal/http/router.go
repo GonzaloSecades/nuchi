@@ -1,8 +1,11 @@
 package httpapi
 
 import (
+	"io"
+	"log/slog"
 	"net/http"
 
+	"github.com/GonzaloSecades/nuchi/backend/internal/telemetry"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -21,12 +24,34 @@ import (
 // router level instead of being repeated per handler the way the legacy
 // Hono routes each ran their own clerkMiddleware() + inline check.
 func NewRouter(authServer *AuthServer, resources *ResourceServer) http.Handler {
+	return newRouter(authServer, resources, RouterOptions{})
+}
+
+// NewRouterWithOptions is the production constructor for logging, telemetry,
+// and readiness. NewRouter remains the quiet dependency-free test constructor.
+func NewRouterWithOptions(authServer *AuthServer, resources *ResourceServer, options RouterOptions) http.Handler {
+	return newRouter(authServer, resources, options)
+}
+
+func newRouter(authServer *AuthServer, resources *ResourceServer, options RouterOptions) http.Handler {
+	if options.Logger == nil {
+		options.Logger = slog.New(slog.NewTextHandler(io.Discard, nil))
+	}
+	if options.Recorder == nil {
+		options.Recorder = telemetry.Noop{}
+	}
+	if options.Readiness == nil {
+		options.Readiness = NewReadiness(nil)
+	}
+
 	router := chi.NewRouter()
 	router.Use(middleware.RequestID)
+	router.Use(observeRequests(options.Logger, options.Recorder))
 	router.Use(middleware.RealIP)
 	router.Use(middleware.Recoverer)
 
 	router.Get("/api/health", healthHandler)
+	router.Get("/api/ready", options.Readiness.handler)
 
 	if authServer != nil {
 		router.Post("/api/auth/register", authServer.RegisterUser)

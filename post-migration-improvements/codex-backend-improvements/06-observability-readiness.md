@@ -96,3 +96,20 @@ and ensure it is concurrency-safe and non-blocking under exporter failure.
 - Liveness and readiness semantics are distinct.
 - Endpoint SLO hypotheses and runbook signal requirements exist.
 - The service functions correctly with the no-op telemetry implementation.
+
+## Phase 4 implementation evidence (2026-08-17)
+
+- `internal/telemetry` defines the concurrency-safe, non-blocking adapter
+  contract and a no-op implementation; HTTP integrates request completion
+  without importing a vendor SDK into domain code.
+- Request logs use only request ID, OpenAPI operation ID, method, route
+  template, status, and duration. Tests inject secret-marked authorization,
+  cookie, query, and body values and prove none reach the log.
+- Metric request results carry only operation, method, route template, status
+  class, and duration. Unknown routes collapse to `unmatched`, keeping the
+  dimension bounded. A contract-sync test prevents operation-name drift.
+- `/api/health` is process liveness. `/api/ready` checks accepting/draining
+  state plus a 500 ms database ping, exposes no dependency diagnostic, and
+  flips to 503 before graceful shutdown begins.
+- `APP_ENVIRONMENT`, `APP_VERSION`, and `APP_INSTANCE_ID` enrich boundary logs;
+  defaults remain useful for local execution without configuration.

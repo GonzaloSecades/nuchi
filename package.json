@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "openapi:validate": "bun ./scripts/validate-openapi.ts",
+    "openapi:compat": "bun ./scripts/check-openapi-compatibility.ts",
     "openapi:gen:go": "cd backend && go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen -config ../openapi/oapi-codegen.yaml ../openapi/nuchi.openapi.json",
     "openapi:gen:ts": "openapi-typescript openapi/nuchi.openapi.json -o lib/api/generated/schema.d.ts"
   },

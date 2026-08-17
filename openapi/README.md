@@ -19,6 +19,11 @@ bun run openapi:validate
 
 The validator is intentionally local and dependency-free so contract edits can be checked before generator tooling is pinned.
 
+On pull requests, `bun ./scripts/check-openapi-compatibility.ts <base-ref>`
+also rejects common backward-incompatible edits such as removed operations,
+responses, schemas, properties, or enum values and newly required inputs. This
+focused structural guard complements semantic review; it does not replace it.
+
 ## Shared Contract
 
 - API errors use the structured `{ "error": { "code": "...", "message": "..." } }` shape defined by `ApiErrorResponse`.
@@ -30,7 +35,7 @@ The validator is intentionally local and dependency-free so contract edits can b
 
 `nuchi.openapi.json` covers the full #29 contract surface:
 
-- health: `GET /health`
+- health: liveness `GET /health` and dependency/drain readiness `GET /ready`
 - auth: register, login, refresh, logout, verify email, request password reset, confirm password reset
 - accounts: list, get, create, update, delete, bulk delete
 - categories: list, get, create, update, delete, bulk delete
@@ -47,6 +52,8 @@ Intentional migration changes represented in the contract:
 - API errors use the structured shared error format instead of the mixed current Hono string/Zod shapes.
 - Transactions include required `currency`, defaulting to `ARS`.
 - Category duplicate update returns structured `409` like duplicate create instead of preserving the current Hono `500` mismatch.
+- Readiness is distinct from liveness, and responses carry a public
+  `X-Request-ID` correlation header at runtime.
 
 Current parity decisions preserved in the contract:
 

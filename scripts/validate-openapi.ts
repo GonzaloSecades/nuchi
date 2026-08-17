@@ -37,13 +37,23 @@ function stringField(object: JsonObject, key: string, label: string) {
 
 function validateOperation(path: string, method: string, value: unknown) {
   const operation = asObject(value, `${path}.${method}`);
-  stringField(operation, 'operationId', `${path}.${method}`);
+  const operationId = stringField(
+    operation,
+    'operationId',
+    `${path}.${method}`
+  );
+  stringField(operation, 'summary', `${path}.${method}`);
 
-  const responses = asObject(operation.responses, `${path}.${method}.responses`);
+  const responses = asObject(
+    operation.responses,
+    `${path}.${method}.responses`
+  );
 
   if (Object.keys(responses).length === 0) {
     fail(`${path}.${method}.responses must define at least one response`);
   }
+
+  return operationId;
 }
 
 function main() {
@@ -64,6 +74,7 @@ function main() {
 
   const paths = asObject(document.paths, `${specPath}.paths`);
   let operationCount = 0;
+  const operationIds = new Set<string>();
 
   for (const [path, pathItem] of Object.entries(paths)) {
     if (!path.startsWith('/')) {
@@ -77,7 +88,11 @@ function main() {
         continue;
       }
 
-      validateOperation(path, method, operation);
+      const operationId = validateOperation(path, method, operation);
+      if (operationIds.has(operationId)) {
+        fail(`Duplicate operationId: ${operationId}`);
+      }
+      operationIds.add(operationId);
       operationCount += 1;
     }
   }

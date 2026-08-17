@@ -52,6 +52,24 @@ func (e CurrencyCode) Valid() bool {
 	}
 }
 
+// Defines values for ReadinessResponseStatus.
+const (
+	NotReady ReadinessResponseStatus = "not_ready"
+	Ready    ReadinessResponseStatus = "ready"
+)
+
+// Valid indicates whether the value is a known member of the ReadinessResponseStatus enum.
+func (e ReadinessResponseStatus) Valid() bool {
+	switch e {
+	case NotReady:
+		return true
+	case Ready:
+		return true
+	default:
+		return false
+	}
+}
+
 // Account defines model for Account.
 type Account struct {
 	// Id Opaque resource ID. Legacy resources use cuid-style text IDs; auth users use UUIDs.
@@ -221,6 +239,14 @@ type PasswordResetConfirmRequest struct {
 type PasswordResetRequest struct {
 	Email openapi_types.Email `json:"email"`
 }
+
+// ReadinessResponse defines model for ReadinessResponse.
+type ReadinessResponse struct {
+	Status ReadinessResponseStatus `json:"status"`
+}
+
+// ReadinessResponseStatus defines model for ReadinessResponse.Status.
+type ReadinessResponseStatus string
 
 // RegisterRequest defines model for RegisterRequest.
 type RegisterRequest struct {
@@ -567,6 +593,9 @@ type ServerInterface interface {
 	// Check API health
 	// (GET /health)
 	GetHealth(w http.ResponseWriter, r *http.Request)
+	// Check API readiness
+	// (GET /ready)
+	GetReadiness(w http.ResponseWriter, r *http.Request)
 	// Get dashboard summary
 	// (GET /summary)
 	GetSummary(w http.ResponseWriter, r *http.Request, params GetSummaryParams)
@@ -714,6 +743,12 @@ func (_ Unimplemented) UpdateCategory(w http.ResponseWriter, r *http.Request, id
 // Check API health
 // (GET /health)
 func (_ Unimplemented) GetHealth(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Check API readiness
+// (GET /ready)
+func (_ Unimplemented) GetReadiness(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -1210,6 +1245,20 @@ func (siw *ServerInterfaceWrapper) GetHealth(w http.ResponseWriter, r *http.Requ
 	handler.ServeHTTP(w, r)
 }
 
+// GetReadiness operation middleware
+func (siw *ServerInterfaceWrapper) GetReadiness(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetReadiness(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
 // GetSummary operation middleware
 func (siw *ServerInterfaceWrapper) GetSummary(w http.ResponseWriter, r *http.Request) {
 
@@ -1668,6 +1717,9 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	})
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/health", wrapper.GetHealth)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/ready", wrapper.GetReadiness)
 	})
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/summary", wrapper.GetSummary)
@@ -3017,6 +3069,41 @@ func (response GetHealth200JSONResponse) VisitGetHealthResponse(w http.ResponseW
 	return err
 }
 
+type GetReadinessRequestObject struct {
+}
+
+type GetReadinessResponseObject interface {
+	VisitGetReadinessResponse(w http.ResponseWriter) error
+}
+
+type GetReadiness200JSONResponse ReadinessResponse
+
+func (response GetReadiness200JSONResponse) VisitGetReadinessResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetReadiness503JSONResponse ReadinessResponse
+
+func (response GetReadiness503JSONResponse) VisitGetReadinessResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(503)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
 type GetSummaryRequestObject struct {
 	Params GetSummaryParams
 }
@@ -3803,6 +3890,9 @@ type StrictServerInterface interface {
 	// Check API health
 	// (GET /health)
 	GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error)
+	// Check API readiness
+	// (GET /ready)
+	GetReadiness(ctx context.Context, request GetReadinessRequestObject) (GetReadinessResponseObject, error)
 	// Get dashboard summary
 	// (GET /summary)
 	GetSummary(ctx context.Context, request GetSummaryRequestObject) (GetSummaryResponseObject, error)
@@ -4420,6 +4510,30 @@ func (sh *strictHandler) GetHealth(w http.ResponseWriter, r *http.Request) {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(GetHealthResponseObject); ok {
 		if err := validResponse.VisitGetHealthResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetReadiness operation middleware
+func (sh *strictHandler) GetReadiness(w http.ResponseWriter, r *http.Request) {
+	var request GetReadinessRequestObject
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetReadiness(ctx, request.(GetReadinessRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetReadiness")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetReadinessResponseObject); ok {
+		if err := validResponse.VisitGetReadinessResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

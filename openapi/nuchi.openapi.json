@@ -18,7 +18,7 @@
   "tags": [
     {
       "name": "health",
-      "description": "Local backend health checks"
+      "description": "Process liveness and dependency/drain readiness checks"
     },
     {
       "name": "auth",
@@ -45,9 +45,7 @@
     "/health": {
       "get": {
         "operationId": "getHealth",
-        "tags": [
-          "health"
-        ],
+        "tags": ["health"],
         "summary": "Check API health",
         "responses": {
           "200": {
@@ -72,12 +70,46 @@
         }
       }
     },
+    "/ready": {
+      "get": {
+        "operationId": "getReadiness",
+        "tags": ["health"],
+        "summary": "Check API readiness",
+        "description": "Reports whether the instance is accepting traffic and can reach its required database dependency within a bounded timeout. A draining or dependency-failed instance returns 503 without exposing dependency diagnostics. This is distinct from `/health`, which remains a cheap process-liveness check.",
+        "responses": {
+          "200": {
+            "description": "The instance can accept traffic.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessResponse"
+                },
+                "example": {
+                  "status": "ready"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The instance is draining or a required dependency is unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessResponse"
+                },
+                "example": {
+                  "status": "not_ready"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "operationId": "registerUser",
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "summary": "Register a user",
         "description": "Intentional migration behavior: creates an owned auth user and starts email verification. Current Hono uses Clerk and has no equivalent resource endpoint. The response is an auth shape, not an app resource envelope.",
         "requestBody": {
@@ -113,9 +145,7 @@
     "/auth/login": {
       "post": {
         "operationId": "loginUser",
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "summary": "Log in with email and password",
         "description": "Intentional migration behavior: returns a short-lived Bearer access token and sets the refresh token in an HttpOnly cookie. Current Hono uses Clerk and resource handlers read Clerk auth. The response is not wrapped in `{ data: ... }`.",
         "requestBody": {
@@ -159,9 +189,7 @@
     "/auth/refresh": {
       "post": {
         "operationId": "refreshSession",
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "summary": "Refresh an access token",
         "description": "Intentional migration behavior: uses the HttpOnly refresh-token cookie to issue a new Bearer access token. The refresh cookie may be rotated.",
         "security": [
@@ -194,9 +222,7 @@
     "/auth/logout": {
       "post": {
         "operationId": "logoutUser",
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "summary": "Log out the current session",
         "description": "Intentional migration behavior: revokes the refresh token identified by the refresh-token cookie and clears that cookie.",
         "security": [
@@ -229,9 +255,7 @@
     "/auth/verify-email": {
       "post": {
         "operationId": "verifyEmail",
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "summary": "Verify a user's email address",
         "description": "Intentional migration behavior: consumes a one-time email verification token.",
         "requestBody": {
@@ -267,9 +291,7 @@
     "/auth/password-reset/request": {
       "post": {
         "operationId": "requestPasswordReset",
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "summary": "Request a password reset",
         "description": "Intentional migration behavior: queues a reset email when the account is eligible. The response does not disclose whether the email exists.",
         "requestBody": {
@@ -302,9 +324,7 @@
     "/auth/password-reset/confirm": {
       "post": {
         "operationId": "confirmPasswordReset",
-        "tags": [
-          "auth"
-        ],
+        "tags": ["auth"],
         "summary": "Confirm a password reset",
         "description": "Intentional migration behavior: consumes a valid reset token and replaces the password.",
         "requestBody": {
@@ -340,9 +360,7 @@
     "/accounts": {
       "get": {
         "operationId": "listAccounts",
-        "tags": [
-          "accounts"
-        ],
+        "tags": ["accounts"],
         "summary": "List accounts",
         "description": "Current Hono behavior: lists accounts owned by the authenticated user and returns `{ data: [{ id, name }] }`.",
         "security": [
@@ -371,9 +389,7 @@
       },
       "post": {
         "operationId": "createAccount",
-        "tags": [
-          "accounts"
-        ],
+        "tags": ["accounts"],
         "summary": "Create an account",
         "description": "Current Hono behavior: creates an owned account and returns the full account row in `{ data }`. Duplicate names are case-insensitive per user and return 409.",
         "security": [
@@ -427,9 +443,7 @@
     "/accounts/bulk-delete": {
       "post": {
         "operationId": "bulkDeleteAccounts",
-        "tags": [
-          "accounts"
-        ],
+        "tags": ["accounts"],
         "summary": "Bulk delete accounts",
         "description": "Current Hono behavior: deletes owned accounts matching the requested IDs and ignores missing or unowned IDs. Account deletion cascades transactions through the database foreign key.",
         "security": [
@@ -478,9 +492,7 @@
       ],
       "get": {
         "operationId": "getAccount",
-        "tags": [
-          "accounts"
-        ],
+        "tags": ["accounts"],
         "summary": "Get an account",
         "description": "Current Hono behavior: returns one owned account as `{ data: { id, name } }` or 404 when missing or unowned.",
         "security": [
@@ -515,9 +527,7 @@
       },
       "patch": {
         "operationId": "updateAccount",
-        "tags": [
-          "accounts"
-        ],
+        "tags": ["accounts"],
         "summary": "Update an account",
         "description": "Current Hono behavior: updates an owned account and returns the full account row in `{ data }`. Duplicate names are case-insensitive per user and return 409.",
         "security": [
@@ -565,9 +575,7 @@
       },
       "delete": {
         "operationId": "deleteAccount",
-        "tags": [
-          "accounts"
-        ],
+        "tags": ["accounts"],
         "summary": "Delete an account",
         "description": "Current Hono behavior: deletes one owned account and returns `{ data: { id } }`. Account deletion cascades transactions through the database foreign key.",
         "security": [
@@ -604,9 +612,7 @@
     "/categories": {
       "get": {
         "operationId": "listCategories",
-        "tags": [
-          "categories"
-        ],
+        "tags": ["categories"],
         "summary": "List categories",
         "description": "Current Hono behavior: lists categories owned by the authenticated user and returns `{ data: [{ id, name }] }`.",
         "security": [
@@ -635,9 +641,7 @@
       },
       "post": {
         "operationId": "createCategory",
-        "tags": [
-          "categories"
-        ],
+        "tags": ["categories"],
         "summary": "Create a category",
         "description": "Current Hono behavior: creates an owned category and returns the full category row in `{ data }`. Duplicate names are case-insensitive per user and return 409.",
         "security": [
@@ -684,9 +688,7 @@
     "/categories/bulk-delete": {
       "post": {
         "operationId": "bulkDeleteCategories",
-        "tags": [
-          "categories"
-        ],
+        "tags": ["categories"],
         "summary": "Bulk delete categories",
         "description": "Current Hono behavior: deletes owned categories matching the requested IDs and ignores missing or unowned IDs. Category deletion clears matching transaction `categoryId` values through the database foreign key.",
         "security": [
@@ -735,9 +737,7 @@
       ],
       "get": {
         "operationId": "getCategory",
-        "tags": [
-          "categories"
-        ],
+        "tags": ["categories"],
         "summary": "Get a category",
         "description": "Current Hono behavior: returns one owned category as `{ data: { id, name } }` or 404 when missing or unowned.",
         "security": [
@@ -772,9 +772,7 @@
       },
       "patch": {
         "operationId": "updateCategory",
-        "tags": [
-          "categories"
-        ],
+        "tags": ["categories"],
         "summary": "Update a category",
         "description": "Current Hono behavior: updates an owned category and returns the full category row in `{ data }`. Intentional contract decision: duplicate category updates return the same structured 409 as duplicate creates instead of the current Hono 500 mismatch.",
         "security": [
@@ -822,9 +820,7 @@
       },
       "delete": {
         "operationId": "deleteCategory",
-        "tags": [
-          "categories"
-        ],
+        "tags": ["categories"],
         "summary": "Delete a category",
         "description": "Current Hono behavior: deletes one owned category and returns `{ data: { id } }`. Category deletion clears matching transaction `categoryId` values through the database foreign key.",
         "security": [
@@ -861,9 +857,7 @@
     "/transactions": {
       "get": {
         "operationId": "listTransactions",
-        "tags": [
-          "transactions"
-        ],
+        "tags": ["transactions"],
         "summary": "List transactions",
         "description": "Current Hono behavior: lists transactions joined through owned accounts, supports `from`, `to`, and `accountId`, defaults to the last 30 days, uses inclusive date filtering, rejects ranges over 366 days, and sorts by date descending. Intentional migration behavior: each transaction includes required `currency`, which is accepted only as `ARS` and rejected when omitted.",
         "security": [
@@ -906,9 +900,7 @@
       },
       "post": {
         "operationId": "createTransaction",
-        "tags": [
-          "transactions"
-        ],
+        "tags": ["transactions"],
         "summary": "Create a transaction",
         "description": "Current Hono behavior: validates owned account and optional owned category before inserting and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required and accepted only as `ARS`; an omitted or unknown value is rejected rather than defaulted.",
         "security": [
@@ -958,9 +950,7 @@
     "/transactions/bulk-create": {
       "post": {
         "operationId": "bulkCreateTransactions",
-        "tags": [
-          "transactions"
-        ],
+        "tags": ["transactions"],
         "summary": "Bulk create transactions",
         "description": "Current Hono behavior: accepts 1 to 500 transactions as a JSON array, validates all rows and owned account/category references before inserting, and returns all inserted rows in `{ data }`. Nothing is inserted when any row is invalid.\n\nReturned rows are in the same order as the submitted array, so a client can map each result back to the row that produced it.\n\nIntentional migration behavior: each row includes required `currency`, accepted only as `ARS` and rejected when omitted. The 1,000,000-byte limit is enforced against the request stream, not only a declared `Content-Length`, so a chunked or unknown-length body over the limit is also rejected with 413.",
         "security": [
@@ -1013,9 +1003,7 @@
     "/transactions/bulk-delete": {
       "post": {
         "operationId": "bulkDeleteTransactions",
-        "tags": [
-          "transactions"
-        ],
+        "tags": ["transactions"],
         "summary": "Bulk delete transactions",
         "description": "Current Hono behavior: accepts 1 to 500 IDs, deletes owned transactions matching requested IDs, ignores missing or unowned IDs, and returns deleted IDs in `{ data }`.\n\nIntentional migration behavior: the 100,000-byte limit is enforced against the request stream, not only a declared `Content-Length`, so a chunked or unknown-length body over the limit is also rejected with 413.",
         "security": [
@@ -1070,9 +1058,7 @@
       ],
       "get": {
         "operationId": "getTransaction",
-        "tags": [
-          "transactions"
-        ],
+        "tags": ["transactions"],
         "summary": "Get a transaction",
         "description": "Current Hono behavior: returns one transaction joined through an owned account or 404 when missing or unowned. Intentional migration behavior: each transaction includes required `currency`, which is accepted only as `ARS` and rejected when omitted.",
         "security": [
@@ -1107,9 +1093,7 @@
       },
       "patch": {
         "operationId": "updateTransaction",
-        "tags": [
-          "transactions"
-        ],
+        "tags": ["transactions"],
         "summary": "Update a transaction",
         "description": "Current Hono behavior: validates the target transaction, owned account, and optional owned category before updating and returns the full transaction row in `{ data }`. Intentional migration behavior: `currency` is required and accepted only as `ARS`; an omitted or unknown value is rejected rather than defaulted.",
         "security": [
@@ -1157,9 +1141,7 @@
       },
       "delete": {
         "operationId": "deleteTransaction",
-        "tags": [
-          "transactions"
-        ],
+        "tags": ["transactions"],
         "summary": "Delete a transaction",
         "description": "Current Hono behavior: deletes one owned transaction and returns `{ data: { id } }`.",
         "security": [
@@ -1199,9 +1181,7 @@
     "/summary": {
       "get": {
         "operationId": "getSummary",
-        "tags": [
-          "summary"
-        ],
+        "tags": ["summary"],
         "summary": "Get dashboard summary",
         "description": "Current Hono behavior: returns dashboard totals, change percentages, expense category breakdown, and daily income/expense series for the selected inclusive date range. The endpoint supports the same `from`, `to`, and `accountId` filters as transaction list, defaults to the last 30 days, and rejects ranges over 366 days. Amounts remain integer milliunits; transactions are single-currency ARS until multi-currency UX exists.",
         "security": [
@@ -1853,9 +1833,7 @@
     "schemas": {
       "ApiErrorResponse": {
         "type": "object",
-        "required": [
-          "error"
-        ],
+        "required": ["error"],
         "properties": {
           "error": {
             "$ref": "#/components/schemas/ApiError"
@@ -1865,10 +1843,7 @@
       },
       "ApiError": {
         "type": "object",
-        "required": [
-          "code",
-          "message"
-        ],
+        "required": ["code", "message"],
         "properties": {
           "code": {
             "type": "string",
@@ -1890,9 +1865,7 @@
       "AuthMessageResponse": {
         "type": "object",
         "description": "Auth command success shape. Auth endpoints intentionally do not use the app resource `{ data: ... }` envelope.",
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "properties": {
           "message": {
             "type": "string",
@@ -1904,12 +1877,7 @@
       "AuthSessionResponse": {
         "type": "object",
         "description": "Auth session success shape returned by login and refresh. The refresh token is delivered by HttpOnly cookie, not JSON.",
-        "required": [
-          "accessToken",
-          "expiresIn",
-          "tokenType",
-          "user"
-        ],
+        "required": ["accessToken", "expiresIn", "tokenType", "user"],
         "properties": {
           "accessToken": {
             "type": "string",
@@ -1923,9 +1891,7 @@
           },
           "tokenType": {
             "type": "string",
-            "enum": [
-              "Bearer"
-            ],
+            "enum": ["Bearer"],
             "example": "Bearer"
           },
           "user": {
@@ -1936,11 +1902,7 @@
       },
       "AuthUser": {
         "type": "object",
-        "required": [
-          "id",
-          "email",
-          "emailVerified"
-        ],
+        "required": ["id", "email", "emailVerified"],
         "properties": {
           "id": {
             "type": "string",
@@ -1958,10 +1920,7 @@
       },
       "RegisterRequest": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -1977,10 +1936,7 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -1995,9 +1951,7 @@
       },
       "TokenRequest": {
         "type": "object",
-        "required": [
-          "token"
-        ],
+        "required": ["token"],
         "properties": {
           "token": {
             "type": "string",
@@ -2008,9 +1962,7 @@
       },
       "PasswordResetRequest": {
         "type": "object",
-        "required": [
-          "email"
-        ],
+        "required": ["email"],
         "properties": {
           "email": {
             "type": "string",
@@ -2021,10 +1973,7 @@
       },
       "PasswordResetConfirmRequest": {
         "type": "object",
-        "required": [
-          "token",
-          "password"
-        ],
+        "required": ["token", "password"],
         "properties": {
           "token": {
             "type": "string",
@@ -2040,11 +1989,7 @@
       },
       "HealthResponse": {
         "type": "object",
-        "required": [
-          "service",
-          "status",
-          "time"
-        ],
+        "required": ["service", "status", "time"],
         "properties": {
           "service": {
             "type": "string",
@@ -2057,6 +2002,17 @@
           "time": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReadinessResponse": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["ready", "not_ready"]
           }
         },
         "additionalProperties": false
@@ -2075,15 +2031,11 @@
       "CurrencyCode": {
         "type": "string",
         "description": "Transaction currency. Required on every write and currently limited to ARS: the API rejects an omitted or unknown value rather than defaulting it, so a client that believes it is sending another currency fails loudly. Multi-currency is a later change.",
-        "enum": [
-          "ARS"
-        ]
+        "enum": ["ARS"]
       },
       "AccountInput": {
         "type": "object",
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "properties": {
           "name": {
             "type": "string",
@@ -2095,10 +2047,7 @@
       },
       "AccountSummary": {
         "type": "object",
-        "required": [
-          "id",
-          "name"
-        ],
+        "required": ["id", "name"],
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ResourceId"
@@ -2112,12 +2061,7 @@
       },
       "Account": {
         "type": "object",
-        "required": [
-          "id",
-          "plaidId",
-          "name",
-          "userId"
-        ],
+        "required": ["id", "plaidId", "name", "userId"],
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ResourceId"
@@ -2139,9 +2083,7 @@
       },
       "AccountListResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "type": "array",
@@ -2154,9 +2096,7 @@
       },
       "AccountSummaryResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "$ref": "#/components/schemas/AccountSummary"
@@ -2166,9 +2106,7 @@
       },
       "AccountResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "$ref": "#/components/schemas/Account"
@@ -2178,9 +2116,7 @@
       },
       "CategoryInput": {
         "type": "object",
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "properties": {
           "name": {
             "type": "string",
@@ -2192,10 +2128,7 @@
       },
       "CategorySummary": {
         "type": "object",
-        "required": [
-          "id",
-          "name"
-        ],
+        "required": ["id", "name"],
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ResourceId"
@@ -2209,12 +2142,7 @@
       },
       "Category": {
         "type": "object",
-        "required": [
-          "id",
-          "plaidId",
-          "name",
-          "userId"
-        ],
+        "required": ["id", "plaidId", "name", "userId"],
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ResourceId"
@@ -2236,9 +2164,7 @@
       },
       "CategoryListResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "type": "array",
@@ -2251,9 +2177,7 @@
       },
       "CategorySummaryResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "$ref": "#/components/schemas/CategorySummary"
@@ -2263,9 +2187,7 @@
       },
       "CategoryResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "$ref": "#/components/schemas/Category"
@@ -2275,13 +2197,7 @@
       },
       "TransactionInput": {
         "type": "object",
-        "required": [
-          "amount",
-          "payee",
-          "date",
-          "accountId",
-          "currency"
-        ],
+        "required": ["amount", "payee", "date", "accountId", "currency"],
         "properties": {
           "amount": {
             "type": "integer",
@@ -2445,9 +2361,7 @@
       },
       "TransactionResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "$ref": "#/components/schemas/Transaction"
@@ -2457,9 +2371,7 @@
       },
       "TransactionListResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "type": "array",
@@ -2480,9 +2392,7 @@
       },
       "TransactionBulkCreateResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "type": "array",
@@ -2495,9 +2405,7 @@
       },
       "BulkDeleteRequest": {
         "type": "object",
-        "required": [
-          "ids"
-        ],
+        "required": ["ids"],
         "properties": {
           "ids": {
             "type": "array",
@@ -2511,9 +2419,7 @@
       },
       "TransactionBulkDeleteRequest": {
         "type": "object",
-        "required": [
-          "ids"
-        ],
+        "required": ["ids"],
         "properties": {
           "ids": {
             "type": "array",
@@ -2528,9 +2434,7 @@
       },
       "DeletedResource": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ResourceId"
@@ -2540,9 +2444,7 @@
       },
       "DeletedResourceResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "$ref": "#/components/schemas/DeletedResource"
@@ -2552,9 +2454,7 @@
       },
       "DeletedResourceListResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "type": "array",
@@ -2567,10 +2467,7 @@
       },
       "SummaryCategory": {
         "type": "object",
-        "required": [
-          "name",
-          "value"
-        ],
+        "required": ["name", "value"],
         "properties": {
           "name": {
             "type": "string",
@@ -2589,11 +2486,7 @@
       },
       "SummaryDay": {
         "type": "object",
-        "required": [
-          "date",
-          "income",
-          "expenses"
-        ],
+        "required": ["date", "income", "expenses"],
         "properties": {
           "date": {
             "type": "string",
@@ -2690,9 +2583,7 @@
       },
       "SummaryResponse": {
         "type": "object",
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "properties": {
           "data": {
             "$ref": "#/components/schemas/Summary"

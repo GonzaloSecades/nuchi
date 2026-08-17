@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
+	"runtime/debug"
 	"syscall"
 	"time"
 
@@ -15,10 +16,17 @@ import (
 	"github.com/GonzaloSecades/nuchi/backend/internal/db"
 	httpapi "github.com/GonzaloSecades/nuchi/backend/internal/http"
 	"github.com/GonzaloSecades/nuchi/backend/internal/mail"
+	"github.com/GonzaloSecades/nuchi/backend/internal/telemetry"
 )
 
 func main() {
-	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil)).With(
+		"service", "nuchi-api",
+		"environment", environmentName(),
+		"version", serviceVersion(),
+		"instance", instanceName(),
+	)
+	slog.SetDefault(logger)
 
 	cfg, err := config.Load()
 	if err != nil {
@@ -51,10 +59,13 @@ func main() {
 	mailer := mail.NewSMTPMailer(cfg.SMTPAddr, cfg.MailFrom, cfg.AppBaseURL)
 	authServer := httpapi.NewAuthServer(pool, cfg, mailer)
 	resourceServer := httpapi.NewResourceServer(pool)
+	readiness := httpapi.NewReadiness(pool.Ping)
 
 	server := &http.Server{
-		Addr:    cfg.Addr(),
-		Handler: httpapi.NewRouter(authServer, resourceServer),
+		Addr: cfg.Addr(),
+		Handler: httpapi.NewRouterWithOptions(authServer, resourceServer, httpapi.RouterOptions{
+			Logger: logger, Recorder: telemetry.Noop{}, Readiness: readiness,
+		}),
 		// ReadTimeout bounds the whole request read (headers + body), not
 		// just headers: without it an anonymous client on the public auth
 		// endpoints can hold a connection open indefinitely by streaming a
@@ -83,6 +94,7 @@ func main() {
 		}
 	case sig := <-shutdown:
 		logger.Info("shutting down api", "signal", sig.String())
+		readiness.SetDraining()
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 		if err := server.Shutdown(ctx); err != nil {
@@ -90,6 +102,33 @@ func main() {
 			os.Exit(1)
 		}
 	}
+}
+
+func environmentName() string {
+	if value := os.Getenv("APP_ENVIRONMENT"); value != "" {
+		return value
+	}
+	return "development"
+}
+
+func serviceVersion() string {
+	if value := os.Getenv("APP_VERSION"); value != "" {
+		return value
+	}
+	if info, ok := debug.ReadBuildInfo(); ok && info.Main.Version != "" && info.Main.Version != "(devel)" {
+		return info.Main.Version
+	}
+	return "development"
+}
+
+func instanceName() string {
+	if value := os.Getenv("APP_INSTANCE_ID"); value != "" {
+		return value
+	}
+	if hostname, err := os.Hostname(); err == nil && hostname != "" {
+		return hostname
+	}
+	return "unknown"
 }
 
 // databaseHost extracts the host portion of a database URL for logging.

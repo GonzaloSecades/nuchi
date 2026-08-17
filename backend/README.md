@@ -48,20 +48,23 @@ non-local host outright, and fails fast when a local host disagrees with
 
 ## Configuration
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `BACKEND_HOST` | `0.0.0.0` | HTTP listen host |
-| `BACKEND_PORT` | `8080` | HTTP listen port |
-| `DATABASE_URL` | `postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable` | PostgreSQL connection string |
-| `AUTH_JWT_SECRET` | *(none — required)* | HMAC key for signing/verifying access tokens. Startup exits with a clear error if unset or shorter than 32 bytes. Generate one with `openssl rand -base64 48`. |
-| `AUTH_ACCESS_TOKEN_TTL` | `30m` | Access-token lifetime, as a Go duration (e.g. `30m`, `1h`) |
-| `AUTH_REFRESH_TOKEN_TTL` | `720h` (30 days) | Refresh-token lifetime, as a Go duration |
-| `AUTH_COOKIE_SECURE` | `false` | Sets the refresh cookie's `Secure` attribute. Must be `true` in any deployed environment — `false` only works over plain HTTP, which is fine for local dev but never for a real deployment. |
-| `SMTP_ADDR` | `localhost:1025` | Outbound SMTP server `host:port`. Points at Mailpit in dev; unauthenticated. Validated at startup (both parts present, port numeric and in range). |
-| `MAIL_FROM` | `nuchi@localhost` | From address on outgoing verification/reset mail. Must be a **bare** mailbox (`nuchi@localhost`), not display-name syntax (`Nuchi <nuchi@localhost>`) — it is used as the SMTP envelope sender, which is emitted as `MAIL FROM:<value>` verbatim. Validated at startup. |
-| `APP_BASE_URL` | `http://localhost:3000` | Origin used to build verification/reset links. Must be origin-only — scheme and host, optional trailing `/`, no path, query, or fragment. Parsed and validated at startup, so a malformed or non-origin value fails fast rather than producing a broken link inside an email. Serving the app under a subpath would need `internal/mail` to join paths instead of replacing them. |
-| `AUTH_VERIFICATION_TOKEN_TTL` | `48h` | Email verification token lifetime, as a Go duration. |
-| `AUTH_RESET_TOKEN_TTL` | `30m` | Password reset token lifetime, as a Go duration. |
+| Variable                      | Default                                                        | Purpose                                                                                                                                                                                                                                                                                                                                                                           |
+| ----------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BACKEND_HOST`                | `0.0.0.0`                                                      | HTTP listen host                                                                                                                                                                                                                                                                                                                                                                  |
+| `BACKEND_PORT`                | `8080`                                                         | HTTP listen port                                                                                                                                                                                                                                                                                                                                                                  |
+| `APP_ENVIRONMENT`             | `development`                                                  | Stable deployment environment attached to structured logs (for example `production`)                                                                                                                                                                                                                                                                                              |
+| `APP_VERSION`                 | Go build version or `development`                              | Release identifier attached to structured logs                                                                                                                                                                                                                                                                                                                                    |
+| `APP_INSTANCE_ID`             | Hostname or `unknown`                                          | Non-sensitive instance identifier attached to structured logs                                                                                                                                                                                                                                                                                                                     |
+| `DATABASE_URL`                | `postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable` | PostgreSQL connection string                                                                                                                                                                                                                                                                                                                                                      |
+| `AUTH_JWT_SECRET`             | _(none — required)_                                            | HMAC key for signing/verifying access tokens. Startup exits with a clear error if unset or shorter than 32 bytes. Generate one with `openssl rand -base64 48`.                                                                                                                                                                                                                    |
+| `AUTH_ACCESS_TOKEN_TTL`       | `30m`                                                          | Access-token lifetime, as a Go duration (e.g. `30m`, `1h`)                                                                                                                                                                                                                                                                                                                        |
+| `AUTH_REFRESH_TOKEN_TTL`      | `720h` (30 days)                                               | Refresh-token lifetime, as a Go duration                                                                                                                                                                                                                                                                                                                                          |
+| `AUTH_COOKIE_SECURE`          | `false`                                                        | Sets the refresh cookie's `Secure` attribute. Must be `true` in any deployed environment — `false` only works over plain HTTP, which is fine for local dev but never for a real deployment.                                                                                                                                                                                       |
+| `SMTP_ADDR`                   | `localhost:1025`                                               | Outbound SMTP server `host:port`. Points at Mailpit in dev; unauthenticated. Validated at startup (both parts present, port numeric and in range).                                                                                                                                                                                                                                |
+| `MAIL_FROM`                   | `nuchi@localhost`                                              | From address on outgoing verification/reset mail. Must be a **bare** mailbox (`nuchi@localhost`), not display-name syntax (`Nuchi <nuchi@localhost>`) — it is used as the SMTP envelope sender, which is emitted as `MAIL FROM:<value>` verbatim. Validated at startup.                                                                                                           |
+| `APP_BASE_URL`                | `http://localhost:3000`                                        | Origin used to build verification/reset links. Must be origin-only — scheme and host, optional trailing `/`, no path, query, or fragment. Parsed and validated at startup, so a malformed or non-origin value fails fast rather than producing a broken link inside an email. Serving the app under a subpath would need `internal/mail` to join paths instead of replacing them. |
+| `AUTH_VERIFICATION_TOKEN_TTL` | `48h`                                                          | Email verification token lifetime, as a Go duration.                                                                                                                                                                                                                                                                                                                              |
+| `AUTH_RESET_TOKEN_TTL`        | `30m`                                                          | Password reset token lifetime, as a Go duration.                                                                                                                                                                                                                                                                                                                                  |
 
 ## Health Check
 
@@ -78,6 +81,19 @@ Expected response:
   "time": "2026-06-29T00:00:00Z"
 }
 ```
+
+This endpoint is process liveness only. Traffic routing must use readiness:
+
+```bash
+curl --fail http://localhost:8080/api/ready
+```
+
+`/api/ready` returns `{"status":"ready"}` only while the instance accepts
+traffic and its database responds within 500 ms. It returns 503 with
+`{"status":"not_ready"}` during drain or dependency failure, without exposing
+the underlying diagnostic. Every response also carries `X-Request-ID`; request
+logs are structured and intentionally omit headers, query values, bodies, and
+user/resource identifiers.
 
 ## Auth
 
@@ -123,14 +139,14 @@ never produce a usable token.
 
 The refresh token travels as an HttpOnly cookie, never in a JSON body:
 
-| Attribute | Value |
-| --- | --- |
-| Name | `nuchi_refresh_token` |
-| Path | `/api/auth` |
-| HttpOnly | always |
-| Secure | from `AUTH_COOKIE_SECURE` |
-| SameSite | `Lax` |
-| Max-Age | `AUTH_REFRESH_TOKEN_TTL` on login/refresh; `0` (cleared) on logout or an invalid/expired refresh attempt |
+| Attribute | Value                                                                                                    |
+| --------- | -------------------------------------------------------------------------------------------------------- |
+| Name      | `nuchi_refresh_token`                                                                                    |
+| Path      | `/api/auth`                                                                                              |
+| HttpOnly  | always                                                                                                   |
+| Secure    | from `AUTH_COOKIE_SECURE`                                                                                |
+| SameSite  | `Lax`                                                                                                    |
+| Max-Age   | `AUTH_REFRESH_TOKEN_TTL` on login/refresh; `0` (cleared) on logout or an invalid/expired refresh attempt |
 
 Refresh rotates the token on every use: `POST /api/auth/refresh` atomically
 consumes the presented cookie (`ConsumeRefreshToken` — a single `UPDATE`
@@ -327,13 +343,13 @@ resource endpoints exist.
 Migrations live in `backend/migrations/` and are applied with
 [goose](https://github.com/pressly/goose).
 
-| Migration | Purpose |
-| --- | --- |
-| `00001_auth_base.sql` | `citext` extension; `users`, `email_verification_tokens`, `password_reset_tokens`, `refresh_tokens` tables |
-| `00002_finance_base.sql` | `accounts`, `categories`, `transactions` tables and their indexes |
-| `00003_finance_rls.sql` | Row level security enable/force + ownership policies on `accounts`, `categories`, `transactions` |
-| `00004_transactions_category_owner_rls.sql` | Reject cross-owner transaction/category relationships and repair pre-existing invalid references |
-| `00005_transactions_amount_bigint.sql` | Widen transaction amounts to `bigint` for the JavaScript-safe milliunit range |
+| Migration                                   | Purpose                                                                                                    |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `00001_auth_base.sql`                       | `citext` extension; `users`, `email_verification_tokens`, `password_reset_tokens`, `refresh_tokens` tables |
+| `00002_finance_base.sql`                    | `accounts`, `categories`, `transactions` tables and their indexes                                          |
+| `00003_finance_rls.sql`                     | Row level security enable/force + ownership policies on `accounts`, `categories`, `transactions`           |
+| `00004_transactions_category_owner_rls.sql` | Reject cross-owner transaction/category relationships and repair pre-existing invalid references           |
+| `00005_transactions_amount_bigint.sql`      | Widen transaction amounts to `bigint` for the JavaScript-safe milliunit range                              |
 
 Install the pinned CLI version if you want a `goose` binary:
 
@@ -416,14 +432,14 @@ instead. The generated package is committed to the repo (not gitignored) so
 
 Query files, one per domain:
 
-| File | Covers |
-| --- | --- |
-| `users.sql` | `users` CRUD, email verification marking, password update, `LockUser` (row lock used to serialize password-reset token issuance) |
-| `auth_tokens.sql` | `email_verification_tokens`, `password_reset_tokens` (atomic one-time consume, invalidate-prior, rate-limit counts), `refresh_tokens` (create, get-valid, revoke, revoke-all) |
-| `accounts.sql` | `accounts` CRUD + bulk delete |
-| `categories.sql` | `categories` CRUD + bulk delete (mirrors `accounts.sql`) |
-| `transactions.sql` | `transactions` CRUD, list (joined account/category names), bulk create, bulk delete — every query is scoped through the owning account |
-| `summary.sql` | period totals, category spending, daily totals aggregates |
+| File               | Covers                                                                                                                                                                        |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `users.sql`        | `users` CRUD, email verification marking, password update, `LockUser` (row lock used to serialize password-reset token issuance)                                              |
+| `auth_tokens.sql`  | `email_verification_tokens`, `password_reset_tokens` (atomic one-time consume, invalidate-prior, rate-limit counts), `refresh_tokens` (create, get-valid, revoke, revoke-all) |
+| `accounts.sql`     | `accounts` CRUD + bulk delete                                                                                                                                                 |
+| `categories.sql`   | `categories` CRUD + bulk delete (mirrors `accounts.sql`)                                                                                                                      |
+| `transactions.sql` | `transactions` CRUD, list (joined account/category names), bulk create, bulk delete — every query is scoped through the owning account                                        |
+| `summary.sql`      | period totals, category spending, daily totals aggregates                                                                                                                     |
 
 Every owned-resource **read, update, and delete** carries an explicit
 ownership predicate (`user_id = $N`, or a join/EXISTS through the owning
@@ -433,7 +449,7 @@ backstop, not the mechanism (see RLS above). The transaction **INSERTs**
 exception: handlers validate `account_id`/`category_id` ownership first
 (legacy behavior — friendly 400/404 before insert) and RLS `WITH CHECK`
 hard-rejects anything that slips through. An ownership join inside the bulk
-INSERT would *silently drop* unowned rows — a partial import — whereas the
+INSERT would _silently drop_ unowned rows — a partial import — whereas the
 `WITH CHECK` failure is loud and atomic, which is the safer failure mode
 for financial data.
 

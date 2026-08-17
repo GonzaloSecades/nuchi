@@ -288,7 +288,7 @@ func (s *AuthServer) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	}
 	committed = true
 
-	s.sendAsync(userID, "verification", func(sendCtx context.Context) error {
+	s.sendAsync("verification", func(sendCtx context.Context) error {
 		return s.mailer.SendVerificationEmail(sendCtx, email, rawToken)
 	})
 
@@ -574,15 +574,15 @@ const resetRequestedMessage = "If an account exists for that email, a password r
 // sendAsync runs send in its own goroutine with a fresh sendTimeout-bounded
 // context, decoupled from the request context (which may already be
 // cancelled by the time the goroutine runs). A failure is logged with a
-// message and the user id only — never the token or email body, per #42's
-// send-semantics decision. The caller is responsible for only invoking
+// message and a bounded mail kind only — never a user id, token, email, or
+// body. The caller is responsible for only invoking
 // sendAsync after its own transaction has committed.
-func (s *AuthServer) sendAsync(userID uuid.UUID, kind string, send func(ctx context.Context) error) {
+func (s *AuthServer) sendAsync(kind string, send func(ctx context.Context) error) {
 	go func() {
 		ctx, cancel := context.WithTimeout(context.Background(), sendTimeout)
 		defer cancel()
 		if err := send(ctx); err != nil {
-			slog.Default().ErrorContext(ctx, "async email send failed", "kind", kind, "user_id", userID, "error", err)
+			slog.Default().ErrorContext(ctx, "async email send failed", "kind", kind, "error", err)
 		}
 	}()
 }
@@ -691,8 +691,7 @@ func (s *AuthServer) RequestPasswordReset(w http.ResponseWriter, r *http.Request
 	}
 
 	if rawToken, issued := s.issuePasswordResetToken(ctx, user.ID); issued {
-		userID := uuid.UUID(user.ID.Bytes)
-		s.sendAsync(userID, "password_reset", func(sendCtx context.Context) error {
+		s.sendAsync("password_reset", func(sendCtx context.Context) error {
 			return s.mailer.SendPasswordResetEmail(sendCtx, email, rawToken)
 		})
 	}
@@ -715,7 +714,7 @@ func (s *AuthServer) RequestPasswordReset(w http.ResponseWriter, r *http.Request
 func (s *AuthServer) issuePasswordResetToken(ctx context.Context, userID pgtype.UUID) (rawToken string, issued bool) {
 	tx, err := s.pool.Begin(ctx)
 	if err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: begin failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: begin failed", "error", err)
 		return "", false
 	}
 	committed := false
@@ -728,14 +727,14 @@ func (s *AuthServer) issuePasswordResetToken(ctx context.Context, userID pgtype.
 	q := dbgen.New(tx)
 
 	if _, err := q.LockUser(ctx, userID); err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: lock user failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: lock user failed", "error", err)
 		return "", false
 	}
 
 	since := pgtype.Timestamptz{Time: time.Now().Add(-time.Hour), Valid: true}
 	count, err := q.CountRecentPasswordResetTokens(ctx, dbgen.CountRecentPasswordResetTokensParams{UserID: userID, Since: since})
 	if err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: count recent tokens failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: count recent tokens failed", "error", err)
 		return "", false
 	}
 	if count >= maxResetTokensPerHour {
@@ -743,27 +742,27 @@ func (s *AuthServer) issuePasswordResetToken(ctx context.Context, userID pgtype.
 		// commit (rather than rollback) just to release the row lock
 		// cleanly; the caller's response is unaffected either way.
 		if err := tx.Commit(ctx); err != nil {
-			slog.Default().ErrorContext(ctx, "password reset issuance: commit failed after cap check", "user_id", uuid.UUID(userID.Bytes), "error", err)
+			slog.Default().ErrorContext(ctx, "password reset issuance: commit failed after cap check", "error", err)
 			return "", false
 		}
 		committed = true
-		slog.Default().InfoContext(ctx, "password reset issuance suppressed: hourly cap reached", "user_id", uuid.UUID(userID.Bytes))
+		slog.Default().InfoContext(ctx, "password reset issuance suppressed: hourly cap reached")
 		return "", false
 	}
 
 	if err := q.InvalidateUserPasswordResetTokens(ctx, userID); err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: invalidate prior tokens failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: invalidate prior tokens failed", "error", err)
 		return "", false
 	}
 
 	raw, tokenHash, err := auth.GenerateToken()
 	if err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: generate token failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: generate token failed", "error", err)
 		return "", false
 	}
 	tokenID, err := uuid.NewV7()
 	if err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: generate token id failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: generate token id failed", "error", err)
 		return "", false
 	}
 	if _, err := q.CreatePasswordResetToken(ctx, dbgen.CreatePasswordResetTokenParams{
@@ -772,12 +771,12 @@ func (s *AuthServer) issuePasswordResetToken(ctx context.Context, userID pgtype.
 		TokenHash: tokenHash,
 		ExpiresAt: pgtype.Timestamptz{Time: time.Now().Add(s.resetTokenTTL), Valid: true},
 	}); err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: create token failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: create token failed", "error", err)
 		return "", false
 	}
 
 	if err := tx.Commit(ctx); err != nil {
-		slog.Default().ErrorContext(ctx, "password reset issuance: commit failed", "user_id", uuid.UUID(userID.Bytes), "error", err)
+		slog.Default().ErrorContext(ctx, "password reset issuance: commit failed", "error", err)
 		return "", false
 	}
 	committed = true

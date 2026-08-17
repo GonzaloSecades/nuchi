@@ -21,6 +21,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/ready": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Check API readiness
+         * @description Reports whether the instance is accepting traffic and can reach its required database dependency within a bounded timeout. A draining or dependency-failed instance returns 503 without exposing dependency diagnostics. This is distinct from `/health`, which remains a cheap process-liveness check.
+         */
+        get: operations["getReadiness"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/register": {
         parameters: {
             query?: never;
@@ -509,6 +529,10 @@ export interface components {
             /** Format: date-time */
             time: string;
         };
+        ReadinessResponse: {
+            /** @enum {string} */
+            status: "ready" | "not_ready";
+        };
         /** @description Opaque resource ID. Legacy resources use cuid-style text IDs; auth users use UUIDs. */
         ResourceId: string;
         /**
@@ -962,6 +986,45 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HealthResponse"];
+                };
+            };
+        };
+    };
+    getReadiness: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The instance can accept traffic. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "status": "ready"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["ReadinessResponse"];
+                };
+            };
+            /** @description The instance is draining or a required dependency is unavailable. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "status": "not_ready"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["ReadinessResponse"];
                 };
             };
         };

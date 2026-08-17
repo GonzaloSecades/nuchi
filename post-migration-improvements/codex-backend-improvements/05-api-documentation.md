@@ -70,3 +70,19 @@ clearly marked and never part of routine automation.
 - Endpoint limits, ordering, atomicity, and auth are unambiguous.
 - Internal transaction/query rationale is linked from the implementation.
 - Any behavior-visible change has compatibility, rollout, and rollback notes.
+
+## Phase 4 implementation evidence (2026-08-17)
+
+- CI regenerates and drift-checks Go, TypeScript, and sqlc artifacts.
+- `scripts/check-openapi-compatibility.ts` rejects the common additive-to-
+  breaking structural changes listed in the
+  [Phase 4 audit](reviews/phase-4-contract-audit.md); semantic review remains
+  required.
+- The API changelog and module guides record limits, ordering, retry, and
+  atomicity. Auth internal-error responses are gated on
+  [#119](https://github.com/GonzaloSecades/nuchi/issues/119); bulk body-limit
+  contract normalization is gated on
+  [#125](https://github.com/GonzaloSecades/nuchi/issues/125), so Phase 4 does
+  not duplicate either Claude-owned change.
+- Security, database, performance, deployment, and incident runbooks live in
+  [`docs/runbooks/`](../../docs/runbooks/README.md).
