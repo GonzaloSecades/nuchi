@@ -20,8 +20,8 @@ bun dev
 ```
 
 That starts Docker Compose Postgres and Mailpit, applies the goose migrations,
-starts this Go API, waits for `/api/health`, and then starts the Next dev
-server.
+builds and starts this Go API, waits for `/api/health`, and then starts the
+Next dev server.
 
 Manual backend-only run:
 
@@ -39,6 +39,10 @@ go run ./cmd/api
 ```
 
 The API listens on `0.0.0.0:8080` by default.
+
+If your existing `.env.local` was copied before the local Compose Postgres port
+changed, update `DATABASE_URL` from `localhost:5432` to `localhost:54329`.
+`bun dev` fails fast when local `DATABASE_URL` and `POSTGRES_PORT` disagree.
 
 ## Configuration
 

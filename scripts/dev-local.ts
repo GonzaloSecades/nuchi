@@ -1,6 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, unlinkSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 /**
@@ -20,6 +21,8 @@ const HEALTH_RETRIES = 30;
 const HEALTH_DELAY_MS = 1000;
 const API_HEALTH_RETRIES = 30;
 const API_HEALTH_DELAY_MS = 1000;
+// Keep this aligned with .github/workflows/ci.yml's installed goose version.
+const GOOSE_VERSION = 'v3.27.2';
 const POSTGRES_PORT = process.env.POSTGRES_PORT ?? '54329';
 const DATABASE_URL =
   process.env.DATABASE_URL ??
@@ -27,20 +30,24 @@ const DATABASE_URL =
 const GO_API_URL =
   process.env.GO_API_URL ??
   `http://localhost:${process.env.BACKEND_PORT ?? '8080'}`;
+const GENERATED_AUTH_SECRET = process.env.AUTH_JWT_SECRET === undefined;
+const AUTH_JWT_SECRET =
+  process.env.AUTH_JWT_SECRET ?? randomBytes(48).toString('base64');
+const API_BIN = join(
+  tmpdir(),
+  `nuchi-api-dev-${process.pid}${process.platform === 'win32' ? '.exe' : ''}`
+);
 
 const baseEnv = {
   ...process.env,
   APP_ENV: process.env.APP_ENV ?? 'local',
   APP_BASE_URL: process.env.APP_BASE_URL ?? 'http://localhost:3000',
   AUTH_COOKIE_SECURE: process.env.AUTH_COOKIE_SECURE ?? 'false',
-  AUTH_JWT_SECRET:
-    process.env.AUTH_JWT_SECRET ?? randomBytes(48).toString('base64'),
+  AUTH_JWT_SECRET,
   COMPOSE_PROJECT_NAME: process.env.COMPOSE_PROJECT_NAME ?? 'nuchi',
   DATABASE_URL,
   GO_API_URL,
   MAIL_FROM: process.env.MAIL_FROM ?? 'nuchi@localhost',
-  NEXT_PUBLIC_API_URL:
-    process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000',
   POSTGRES_PORT,
   SMTP_ADDR: process.env.SMTP_ADDR ?? 'localhost:1025',
 };
@@ -58,41 +65,20 @@ function log(message: string) {
 
 function spawnLogged(
   command: [string, ...string[]],
-  label: string,
   options: { cwd?: string } = {}
 ) {
   const proc = spawn(command[0], command.slice(1), {
     cwd: options.cwd,
     env: baseEnv,
-    stdio: ['inherit', 'pipe', 'pipe'],
+    stdio: 'inherit',
   });
 
   children.add(proc);
-
-  proc.stdout?.on('data', (chunk) => {
-    process.stdout.write(prefixLines(label, chunk));
-  });
-  proc.stderr?.on('data', (chunk) => {
-    process.stderr.write(prefixLines(label, chunk));
-  });
   proc.once('exit', () => {
     children.delete(proc);
   });
 
   return proc;
-}
-
-function prefixLines(label: string, chunk: Buffer) {
-  return chunk
-    .toString()
-    .split(/\n/)
-    .map((line, index, lines) => {
-      if (index === lines.length - 1 && line === '') {
-        return '';
-      }
-      return `[${label}] ${line}`;
-    })
-    .join('\n');
 }
 
 async function run(
@@ -113,6 +99,41 @@ async function run(
   if (code !== 0) {
     throw new Error(`Command failed (${code}): ${command.join(' ')}`);
   }
+}
+
+function validateDatabaseUrlPort() {
+  let parsed: URL;
+  try {
+    parsed = new URL(DATABASE_URL);
+  } catch {
+    throw new Error(
+      `DATABASE_URL must be an absolute Postgres URL, got: ${DATABASE_URL}`
+    );
+  }
+
+  const localHosts = new Set(['localhost', '127.0.0.1', '::1']);
+  if (!localHosts.has(parsed.hostname)) {
+    return;
+  }
+
+  const databasePort = parsed.port || '5432';
+  if (databasePort !== POSTGRES_PORT) {
+    throw new Error(
+      [
+        `DATABASE_URL points at localhost:${databasePort}, but POSTGRES_PORT is ${POSTGRES_PORT}.`,
+        'Update your local DATABASE_URL to match POSTGRES_PORT before running migrations.',
+        `Expected local default: postgres://nuchi:nuchi@localhost:${POSTGRES_PORT}/nuchi?sslmode=disable`,
+      ].join('\n')
+    );
+  }
+}
+
+function databaseTarget() {
+  const parsed = new URL(DATABASE_URL);
+  const databaseName =
+    parsed.pathname.replace(/^\//, '') || '(default database)';
+
+  return `${parsed.hostname}:${parsed.port || '5432'}/${databaseName}`;
 }
 
 async function isPostgresReady() {
@@ -155,23 +176,56 @@ async function waitForPostgres() {
   throw new Error('Local Postgres did not become healthy in time');
 }
 
-async function waitForApi() {
+async function waitForApi(api: ReturnType<typeof spawn>) {
   const healthUrl = new URL('/api/health', GO_API_URL);
 
-  for (let attempt = 1; attempt <= API_HEALTH_RETRIES; attempt += 1) {
-    try {
-      const response = await fetch(healthUrl);
-      if (response.ok) {
+  await new Promise<void>((resolve, reject) => {
+    let settled = false;
+
+    const settle = (callback: () => void) => {
+      if (settled) {
         return;
       }
-    } catch {
-      // Keep polling while the Go process starts.
-    }
+      settled = true;
+      api.off('exit', onExit);
+      callback();
+    };
 
-    await sleep(API_HEALTH_DELAY_MS);
-  }
+    const onExit = (code: number | null) => {
+      settle(() =>
+        reject(
+          new Error(`Go API exited with code ${code} before becoming healthy`)
+        )
+      );
+    };
 
-  throw new Error(`Go API did not become healthy at ${healthUrl}`);
+    const poll = async () => {
+      for (let attempt = 1; attempt <= API_HEALTH_RETRIES; attempt += 1) {
+        if (settled) {
+          return;
+        }
+
+        try {
+          const response = await fetch(healthUrl);
+          if (response.ok) {
+            settle(resolve);
+            return;
+          }
+        } catch {
+          // Keep polling while the Go process starts.
+        }
+
+        await sleep(API_HEALTH_DELAY_MS);
+      }
+
+      settle(() =>
+        reject(new Error(`Go API did not become healthy at ${healthUrl}`))
+      );
+    };
+
+    api.once('exit', onExit);
+    void poll();
+  });
 }
 
 function stopChildren() {
@@ -188,7 +242,7 @@ function stopChildren() {
 function watchProcess(
   proc: ReturnType<typeof spawn>,
   label: string,
-  settle: () => void,
+  settle: (code: number) => void,
   reject: (reason: Error) => void
 ) {
   proc.once('error', reject);
@@ -198,35 +252,12 @@ function watchProcess(
       return;
     }
 
-    settle();
+    settle(code ?? 0);
   });
 }
 
 async function main() {
-  log('Starting Postgres and Mailpit');
-  await run(['docker', 'compose', 'up', '-d', ...COMPOSE_SERVICES]);
-  await waitForPostgres();
-
-  log('Applying backend migrations');
-  await run(
-    [
-      'go',
-      'run',
-      'github.com/pressly/goose/v3/cmd/goose@v3.27.2',
-      '-dir',
-      'migrations',
-      'postgres',
-      DATABASE_URL,
-      'up',
-    ],
-    { cwd: 'backend' }
-  );
-
-  log('Starting Go API');
-  const api = spawnLogged(['go', 'run', './cmd/api'], 'api', {
-    cwd: 'backend',
-  });
-  await waitForApi();
+  validateDatabaseUrlPort();
 
   const nextBin =
     process.platform === 'win32'
@@ -237,26 +268,66 @@ async function main() {
     throw new Error('Next binary not found. Run `bun install` first.');
   }
 
+  if (GENERATED_AUTH_SECRET) {
+    log(
+      'Generated an ephemeral AUTH_JWT_SECRET; set one in .env.local to keep access tokens valid across restarts'
+    );
+  }
+
+  log('Starting Postgres and Mailpit');
+  await run(['docker', 'compose', 'up', '-d', ...COMPOSE_SERVICES]);
+  await waitForPostgres();
+
+  log(`Applying backend migrations to ${databaseTarget()}`);
+  await run(
+    [
+      'go',
+      'run',
+      `github.com/pressly/goose/v3/cmd/goose@${GOOSE_VERSION}`,
+      '-dir',
+      'migrations',
+      'postgres',
+      DATABASE_URL,
+      'up',
+    ],
+    { cwd: 'backend' }
+  );
+
+  log('Building Go API');
+  await run(['go', 'build', '-o', API_BIN, './cmd/api'], { cwd: 'backend' });
+
+  log('Starting Go API');
+  const api = spawnLogged([API_BIN]);
+  await waitForApi(api);
+
   log('Starting Next dev server');
-  const next = spawnLogged([nextBin, 'dev'], 'next');
+  const next = spawnLogged([nextBin, 'dev']);
 
   process.on('SIGINT', stopChildren);
   process.on('SIGTERM', stopChildren);
 
-  await new Promise<void>((resolve, reject) => {
+  return await new Promise<number>((resolve, reject) => {
     watchProcess(api, 'Go API', resolve, reject);
     watchProcess(next, 'Next dev server', resolve, reject);
-    process.once('SIGINT', resolve);
-    process.once('SIGTERM', resolve);
+    process.once('SIGINT', () => resolve(0));
+    process.once('SIGTERM', () => resolve(0));
   });
 }
 
 main()
+  .then((code) => {
+    process.exitCode = code;
+  })
   .catch((error) => {
     console.error(error instanceof Error ? error.message : error);
     stopChildren();
-    process.exit(1);
+    process.exitCode = 1;
   })
   .finally(() => {
     stopChildren();
+    try {
+      unlinkSync(API_BIN);
+    } catch {
+      // The binary may not exist if setup failed before the build step.
+    }
   });

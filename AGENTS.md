@@ -13,16 +13,19 @@
 
 ## Commands
 
-- `bun dev`
+- `bun dev` — starts Docker Postgres/Mailpit, applies goose migrations, builds
+  and starts the Go API, waits for `/api/health`, then starts Next.
+- `bun run dev:next` — Next-only manual debugging when Docker, migrations, and
+  the Go API are already running.
 - `bun run lint`
 - `bun run build`
 
 ## Env
 
-`bun run build` and `bun dev` need no environment variables at all. The list
-splits by which process reads them, and **nothing bridges the two**:
-`.env.local` is loaded by Bun for the Next process, while the Go API reads
-`os.Getenv` only, so its values must be exported in the shell that starts it.
+`bun run build` needs no environment variables. `bun dev` reads `.env.local`
+through Bun, supplies local defaults, and passes that environment to the Go API
+child process. If you run `go run ./cmd/api` manually, export backend variables
+in that shell; the Go API itself still reads only `os.Getenv`.
 
 Read by **Next**:
 
@@ -31,24 +34,27 @@ Read by **Next**:
 - `NEXT_PUBLIC_API_URL` — optional origin for the API client. Read only on the
   server (`lib/api-base-url.ts`); in the browser the base is always relative so
   requests stay same-origin. Leaving it unset is correct behind the proxy.
+- `POSTGRES_PORT` — host port published by Docker Compose for local Postgres.
+  Defaults to `54329`.
 
 Read by the **Go API**:
 
-- `AUTH_JWT_SECRET` — required, no default. The API exits at startup if it is
-  unset or shorter than 32 bytes. Generate with `openssl rand -base64 48`;
-  never commit a value.
+- `AUTH_JWT_SECRET` — required by the Go API, no backend default. `bun dev`
+  generates an ephemeral local value when it is unset; manual API runs must
+  export one. Generate with `openssl rand -base64 48`; never commit a value.
 - `AUTH_COOKIE_SECURE` — `false` locally; must be `true` anywhere deployed,
   which requires HTTPS.
 - `DATABASE_URL` — the Go API's connection string. The frontend does not connect
-  to Postgres.
+  to Postgres. Local default:
+  `postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable`.
 - `APP_BASE_URL` — origin used to build links in verification and reset mail;
   origin-only and validated at backend startup.
 - `SMTP_ADDR`, `MAIL_FROM` — outgoing mail. `SMTP_ADDR` is one `host:port`.
 
-`AUTH_JWT_SECRET` is the only one with no default, so it is the only one that
-must be exported for `go run ./cmd/api`. Reference:
-[`.env.example`](.env.example), and the full backend table in
-[`backend/README.md`](backend/README.md).
+`bun dev` fails fast if local `DATABASE_URL` and `POSTGRES_PORT` disagree, to
+avoid running migrations against a stale `localhost:5432` database from an old
+`.env.local`. Reference: [`.env.example`](.env.example), and the full backend
+table in [`backend/README.md`](backend/README.md).
 
 ## Repo Rules
 

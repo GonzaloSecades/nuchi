@@ -118,6 +118,11 @@ inside verification and reset emails. Full backend table:
 
 Do not commit `.env.local`. `bun run build` needs no credentials of any kind — that requirement disappeared with Clerk in #85. `AUTH_JWT_SECRET` is required by the Go API at startup, not by the frontend build; `bun dev` supplies a temporary local value, and manual API shells can generate one with `openssl rand -base64 48`.
 
+If your existing `.env.local` was copied before the local Postgres port changed,
+update `DATABASE_URL` from `localhost:5432` to `localhost:54329`. `bun dev`
+fails fast when local `DATABASE_URL` and `POSTGRES_PORT` disagree, before it can
+run migrations against the wrong database.
+
 ## Docker And Local Services
 
 Start local Postgres and Mailpit:
@@ -137,6 +142,11 @@ Local service defaults:
 - Postgres: `postgres://nuchi:nuchi@localhost:54329/nuchi?sslmode=disable`.
 - Mailpit UI: `http://localhost:8025`.
 - Mailpit SMTP: `localhost:1025`.
+
+`POSTGRES_PORT` defaults to `54329`. `bun dev` reads overrides from
+`.env.local`; plain `docker compose up` reads Compose variables from `.env`
+instead, so keep `DATABASE_URL` and `POSTGRES_PORT` aligned when overriding the
+port manually.
 
 ### Postgres roles
 
@@ -187,11 +197,11 @@ bun test
 
 `bun dev` starts the full local stack: Docker Compose `postgres` and `mailpit`,
 Postgres readiness, backend goose migrations, the Go API, and the Next dev
-server. It leaves Docker volumes running when you stop the dev servers, so your
-local database persists between sessions. `bun run build` validates the Next.js
-production build and needs no environment variables. `bun run dev:next` is only
-for manual debugging when you are already running Docker, migrations, and the Go
-API yourself.
+server. It leaves Docker containers running when you stop the dev servers, so
+your local database persists between sessions. `bun run build` validates the
+Next.js production build and needs no environment variables. `bun run dev:next`
+is only for manual debugging when you are already running Docker, migrations,
+and the Go API yourself.
 
 ## Backend Commands
 
@@ -216,7 +226,7 @@ bun dev
 ```
 
 It starts Postgres and Mailpit with Docker Compose, waits for Postgres, applies
-`backend/migrations/` with goose, starts `go run ./cmd/api`, waits for
+`backend/migrations/` with goose, builds and starts the Go API, waits for
 `/api/health`, and then starts the Next dev server. Stop it with `Ctrl-C`; the
 Go and Next processes stop, while Docker Compose services stay up for the next
 session. The script defaults `COMPOSE_PROJECT_NAME` to `nuchi` and
