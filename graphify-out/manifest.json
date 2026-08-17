@@ -655,8 +655,8 @@
     "semantic_hash": "02fc19ad21338c2ab820a70136310db4"
   },
   "AGENTS.md": {
-    "mtime": 1786937286.4591663,
-    "ast_hash": "6e3f9b4c4e643a3b3248e8f9c8ea0b21",
+    "mtime": 1786937619.5179145,
+    "ast_hash": "4a54b6d674b01855336c7979bcb0c9ee",
     "semantic_hash": ""
   },
   "PR-Reviews/13.Upload-Transactions-Import.md": {
@@ -845,28 +845,28 @@
     "semantic_hash": ""
   },
   ".claude/agents/go-migrator.md": {
-    "mtime": 1786932383.8637803,
-    "ast_hash": "e2a0d1530cfd5594e4575fb71794f92f",
+    "mtime": 1786937619.516708,
+    "ast_hash": "648bc05f93462aece8524713b42fba18",
     "semantic_hash": ""
   },
   ".claude/agents/parity-reviewer.md": {
-    "mtime": 1786932383.864316,
-    "ast_hash": "600cdce7e43ec1386cda547db80d4cdd",
+    "mtime": 1786937619.5172713,
+    "ast_hash": "15a4ccb61767f78b0cfa60b9b200ae33",
     "semantic_hash": ""
   },
   ".claude/agents/researcher.md": {
-    "mtime": 1786932383.864316,
-    "ast_hash": "734052bd3b657c0db31df9e9827a7e8b",
+    "mtime": 1786937619.5172713,
+    "ast_hash": "0e742ee55f1c58eb1104305c4c558f87",
     "semantic_hash": ""
   },
   ".claude/skills/pr-review-cycle/SKILL.md": {
-    "mtime": 1786935668.3053184,
-    "ast_hash": "1a5460a3ea945aa8d875f8781840776b",
+    "mtime": 1786937619.5172713,
+    "ast_hash": "2b08e3197834b20540084091f81461de",
     "semantic_hash": ""
   },
   ".github/copilot-instructions.md": {
-    "mtime": 1786935668.3053184,
-    "ast_hash": "c91a7451a410a9a9f4204245f25589f2",
+    "mtime": 1786937619.5172713,
+    "ast_hash": "451192d49723198a9aa4a41aafa867be",
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
@@ -875,8 +875,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1786932383.8667803,
-    "ast_hash": "ec6c7c66cd5ac41e6d70affddab0b26b",
+    "mtime": 1786937619.5180166,
+    "ast_hash": "c5802c640194212e000178726c66a814",
     "semantic_hash": ""
   },
   "backend/tools.go": {
@@ -1767,6 +1767,31 @@
   "components/filters.test.ts": {
     "mtime": 1786932383.8750384,
     "ast_hash": "f1d0f561c15b709d698ed7134594fbb2",
+    "semantic_hash": ""
+  },
+  ".github/instructions/backend-go.instructions.md": {
+    "mtime": 1786937619.5172713,
+    "ast_hash": "6aa3c85dad249d57e543ce48e2996627",
+    "semantic_hash": ""
+  },
+  ".github/instructions/frontend.instructions.md": {
+    "mtime": 1786937619.5175927,
+    "ast_hash": "c29163bea41fee6fdb34e7592734aa86",
+    "semantic_hash": ""
+  },
+  ".github/instructions/openapi-contract.instructions.md": {
+    "mtime": 1786937619.5175927,
+    "ast_hash": "86cddc65aecdb876febf082396441146",
+    "semantic_hash": ""
+  },
+  ".github/instructions/transaction-import.instructions.md": {
+    "mtime": 1786937619.517701,
+    "ast_hash": "b526137fb1fdf1d621cd58f5ada8215e",
+    "semantic_hash": ""
+  },
+  ".github/skills/code-review/SKILL.md": {
+    "mtime": 1786937619.5177388,
+    "ast_hash": "a0d232a74d976508ee38cd0803e20556",
     "semantic_hash": ""
   }
 }
