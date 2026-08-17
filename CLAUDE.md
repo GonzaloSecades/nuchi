@@ -7,9 +7,9 @@ frontend plus a separate Go API (chi, pgxpool, sqlc, goose) over Dockerized
 PostgreSQL, with owned JWT auth and RLS. The migration was port-not-redesign:
 behavior frozen by fixtures, technology swapped, refactoring only after parity.
 
-The legacy stack is gone — Hono in #84, Drizzle/Neon/Clerk in #85. Only #90
-(retiring the differential parity harness and dropping `pg`) remains before #27
-closes.
+The legacy stack is gone — Hono in #84, Drizzle/Neon/Clerk in #85, and the
+differential parity harness plus `pg` in #90. #27 closed on 2026-08-10, so the
+migration itself is complete; what remains is ordinary work on the Go stack.
 
 Source of truth:
 
@@ -122,12 +122,13 @@ The Drizzle schema (`db/`), the `drizzle/` migrations, the Clerk packages, and
 the `scripts/migrate.ts` / `scripts/seed.ts` helpers were **deleted in #85**.
 The schema lives in `backend/migrations/` under goose now.
 
-Still present: `tests/parity/**` and the `pg` dependency it needs. Both go in
-#90, which is the last teardown ticket.
+The differential parity harness (`tests/parity/**`) and the `pg` dependency it
+needed were **deleted in #90**, the last teardown ticket. Nothing from the
+legacy stack is on disk anymore.
 
 Historical Hono references are deliberately retained in the migration spec,
-`api-parity-fixtures.md`, the improvement registry, and `tests/parity/README.md`
-— those record what the migration ported from and should not be rewritten.
+`api-parity-fixtures.md`, and the improvement registry — those record what the
+migration ported from and should not be rewritten.
 
 ## Post-Migration Improvements
 
