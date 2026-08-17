@@ -34,7 +34,8 @@ unattended lane to gate.
 
 ## Commands
 
-- Frontend: `bun run lint`, `bun run build`, `bun test`
+- Frontend: `bun run lint`, `bunx tsc --noEmit`, `bun test`, `bun run build`
+  (CI's frontend job gates on all four)
 - Backend (run from `backend/`): `cd backend && go test ./...`,
   `cd backend && go vet ./...`, `cd backend && go run ./cmd/api`
 - Contract: `bun run openapi:validate`, `bun run openapi:gen:go`, `bun run openapi:gen:ts`

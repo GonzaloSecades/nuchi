@@ -18,4 +18,5 @@ plain `yyyy-MM-dd` values; avoid timezone shifts from Date serialization.
 Do not flag formatting or import order. Changes under `lib/api/` are covered by
 the OpenAPI contract instructions instead of this file.
 
-Relevant validation is `bun run lint`, `bun test`, and `bun run build`.
+Relevant validation is `bun run lint`, `bunx tsc --noEmit`, `bun test`, and
+`bun run build`. CI's frontend job gates on all four.
