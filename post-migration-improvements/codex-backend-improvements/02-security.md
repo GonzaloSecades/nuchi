@@ -90,3 +90,41 @@ Each endpoint review links its threat cases, authorization tests, RLS test,
 body-limit test, rate-limit policy, sensitive-data classification, and any
 accepted risk. An accepted security risk requires a named owner, compensating
 control, expiry date, and ticket; “follow up later” is not sufficient.
+
+## Phase 1 acceptance record
+
+The post-migration rebaseline found that the RLS unit of work, transaction-
+local identity binding, startup runtime-role check, server timeouts, secure
+cookie switch, JWT algorithm rejection, and cross-user live tests already
+shipped during the migration. Phase 1 accepts those implementations rather
+than replacing them.
+
+The cross-cutting additions are:
+
+- `internal/http.EndpointPolicy` records every OpenAPI operation's credential,
+  ownership, body-limit, timeout, isolation, rate-limit, idempotency, and
+  sensitive-data policy. A contract-sync test fails if an operation is added,
+  removed, or renamed without an explicit entry.
+- `internal/http.Principal` is the only identity value stored in request
+  context. It is constructed only after access-token verification; the legacy
+  UUID accessor now unwraps that typed principal for existing handlers.
+- The existing generated response visitors, shared `writeAPIError`, SQLSTATE
+  helpers, and server-side-only wrapped error logs remain the safe error
+  boundary. A later service-layer extraction may move that boundary without
+  changing response policy; Phase 1 does not add an abstraction solely for
+  package layout.
+
+The scope-narrowed items stay gated on the registry owners and must not be
+duplicated here:
+
+| Phase 1 checklist area                              | Gate                 |
+| --------------------------------------------------- | -------------------- |
+| Stream-enforced limits for non-bulk resource bodies | #122 (registry 0013) |
+| Shared/distributed rate-limit storage               | #114 (registry 0003) |
+| JWT signing and key rotation                        | #116 (registry 0007) |
+| Password-reset request timing oracle                | #121 (registry 0012) |
+
+Until those land, the registry records the shipped limitation explicitly
+(`noBodyLimit`, process-local limiter, single HS256 key, and the current reset
+request timing path). Phase 1's acceptance suite treats them as external gates,
+not as silently completed controls.

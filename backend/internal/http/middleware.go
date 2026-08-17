@@ -12,14 +12,28 @@ import (
 	"github.com/google/uuid"
 )
 
-// userIDContextKey is the unexported context key type RequireAuth stores
-// the authenticated user id under. Being a distinct, unexported type (not a
+// principalContextKey is the unexported context key type RequireAuth stores
+// the authenticated principal under. Being a distinct, unexported type (not a
 // plain string) is the standard context-key-collision guard: no other
 // package can read or overwrite it by accident.
-type userIDContextKey struct{}
+type principalContextKey struct{}
 
-// UserIDFromContext returns the authenticated user id RequireAuth placed on
-// ctx, and true. It returns the zero UUID and false if ctx carries no
+// Principal is the authenticated identity available to protected handlers.
+// Keeping identity in a dedicated type makes it impossible to confuse a
+// verified subject with an arbitrary UUID from request input as the policy
+// registry grows authorization metadata around it.
+type Principal struct {
+	UserID uuid.UUID
+}
+
+// PrincipalFromContext returns the verified principal RequireAuth installed.
+func PrincipalFromContext(ctx context.Context) (Principal, bool) {
+	principal, ok := ctx.Value(principalContextKey{}).(Principal)
+	return principal, ok
+}
+
+// UserIDFromContext is the compatibility accessor for handlers that only need
+// the authenticated user id. It returns the zero UUID and false if ctx carries no
 // authenticated user (RequireAuth never ran, or ran and rejected the
 // request before calling next). Callers must check the boolean: a caller
 // that used the zero UUID without checking ok would bind app.user_id to an
@@ -27,8 +41,8 @@ type userIDContextKey struct{}
 // empty results instead of failing loudly — the boolean makes "no user in
 // context" unmistakable.
 func UserIDFromContext(ctx context.Context) (uuid.UUID, bool) {
-	userID, ok := ctx.Value(userIDContextKey{}).(uuid.UUID)
-	return userID, ok
+	principal, ok := PrincipalFromContext(ctx)
+	return principal.UserID, ok
 }
 
 // RequireAuth returns middleware that validates a Bearer access token,
@@ -71,7 +85,7 @@ func RequireAuth(secret []byte) func(http.Handler) http.Handler {
 				return
 			}
 
-			ctx := context.WithValue(r.Context(), userIDContextKey{}, userID)
+			ctx := context.WithValue(r.Context(), principalContextKey{}, Principal{UserID: userID})
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
