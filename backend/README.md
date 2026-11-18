@@ -517,3 +517,22 @@ in `livedb_test.go`) therefore **fails** rather than skips when
 behavioral coverage sits behind that gate, and a silent skip would take it
 out of CI without turning anything red. Outside CI an unset value still
 skips, so `go test ./...` stays useful with no database running.
+
+### Local database reset and signup email
+
+Stop `bun dev`, then run `bun run db:reset` from the repository root to drop
+and recreate the local `nuchi` database and apply all migrations. This deletes
+all local users and financial data. Restart with `bun dev` afterward. The command
+uses the Compose Postgres container and rejects remote or non-default database
+targets; it does not remove Docker volumes.
+
+Local SMTP delivers to Mailpit at http://localhost:8025, not the signup address's
+real inbox. With `APP_ENV=local`, a loopback `APP_BASE_URL`, and
+`AUTH_COOKIE_SECURE=false`, the API also logs signup verification and password-reset links in
+the terminal, even if SMTP delivery fails. Treat those local links as secrets.
+Manual API runs must export `APP_ENV=local` to enable this behavior.
+
+The Go API is compiled once when `bun dev` starts. After changing backend code,
+stop and restart `bun dev`. Links appear in that terminal, not the browser console,
+and only for newly issued emails. Startup reports `local_link_logging=true` when
+link logging is enabled. Existing messages remain available in Mailpit.
