@@ -16,6 +16,7 @@ import { join } from 'node:path';
  * sequences the backend-owned setup so a fresh checkout can start from one
  * command: `bun dev`.
  */
+const RESET_DATABASE = process.argv.includes('--reset-db');
 const COMPOSE_SERVICES = ['postgres', 'mailpit'] as const;
 const HEALTH_RETRIES = 30;
 const HEALTH_DELAY_MS = 1000;
@@ -285,13 +286,27 @@ function watchProcess(
 
 async function main() {
   validateDatabaseTarget();
+  if (RESET_DATABASE) {
+    const target = new URL(DATABASE_URL);
+    if (
+      !['postgres:', 'postgresql:'].includes(target.protocol) ||
+      target.pathname !== '/nuchi' ||
+      target.username !== 'nuchi' ||
+      target.searchParams.size > 1 ||
+      (target.searchParams.size === 1 && target.search !== '?sslmode=disable')
+    ) {
+      throw new Error(
+        'db:reset requires the local nuchi database and nuchi role, with no connection overrides.'
+      );
+    }
+  }
 
   const nextBin =
     process.platform === 'win32'
       ? join('.', 'node_modules', '.bin', 'next.cmd')
       : join('.', 'node_modules', '.bin', 'next');
 
-  if (!existsSync(nextBin)) {
+  if (!RESET_DATABASE && !existsSync(nextBin)) {
     throw new Error('Next binary not found. Run `bun install` first.');
   }
 
@@ -304,6 +319,41 @@ async function main() {
   log('Starting Postgres and Mailpit');
   await run(['docker', 'compose', 'up', '-d', ...COMPOSE_SERVICES]);
   await waitForPostgres();
+
+  if (RESET_DATABASE) {
+    log(
+      'Dropping and recreating the local nuchi database (all data will be deleted)'
+    );
+    const execPostgres = [
+      'docker',
+      'compose',
+      'exec',
+      '-T',
+      'postgres',
+    ] as const;
+    await run([
+      ...execPostgres,
+      'dropdb',
+      '-U',
+      'postgres',
+      '--if-exists',
+      '--force',
+      'nuchi',
+    ]);
+    await run([...execPostgres, 'createdb', '-U', 'postgres', 'nuchi']);
+    await run([
+      ...execPostgres,
+      'psql',
+      '-U',
+      'postgres',
+      '-d',
+      'nuchi',
+      '-v',
+      'ON_ERROR_STOP=1',
+      '-c',
+      'ALTER SCHEMA public OWNER TO nuchi; CREATE EXTENSION IF NOT EXISTS citext;',
+    ]);
+  }
 
   log(`Applying backend migrations to ${databaseTarget()}`);
   await run(
@@ -319,6 +369,11 @@ async function main() {
     ],
     { cwd: 'backend' }
   );
+
+  if (RESET_DATABASE) {
+    log('Local database reset and migrations complete');
+    return 0;
+  }
 
   // Registered before the build, not after the spawns: from here on there is a
   // binary in tmpdir to unlink, and an interrupt during the health wait would

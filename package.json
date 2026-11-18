@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "bun ./scripts/dev-local.ts",
+    "db:reset": "bun ./scripts/dev-local.ts --reset-db",
     "dev:next": "next dev",
     "build": "next build",
     "start": "next start",
