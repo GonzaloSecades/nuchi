@@ -1,0 +1,502 @@
+/*
+ * Nuchi current product design system — reference tokens
+ * Evidence date: 2026-09-21
+ *
+ * NON-DESTRUCTIVE REFERENCE LAYER
+ * This file defines only --nuchi-* custom properties. It does not replace the
+ * application's existing variables, Tailwind utilities, component classes,
+ * media queries, or inline Recharts/react-select values.
+ *
+ * Classification labels have the same meaning as DESIGN.md:
+ * CANONICAL, CONSISTENT, INCONSISTENT, LEGACY, ONE-OFF.
+ */
+
+:root {
+  /* ========================================================================
+   * COLOR — CANONICAL: centralized light semantic values
+   * ====================================================================== */
+  --nuchi-current-background: oklch(1 0 0);
+  --nuchi-current-foreground: oklch(0.129 0.042 264.695);
+  --nuchi-current-card: oklch(1 0 0);
+  --nuchi-current-card-foreground: oklch(0.129 0.042 264.695);
+  --nuchi-current-popover: oklch(1 0 0);
+  --nuchi-current-popover-foreground: oklch(0.129 0.042 264.695);
+  --nuchi-current-primary: oklch(0.208 0.042 265.755);
+  --nuchi-current-primary-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-secondary: oklch(0.968 0.007 247.896);
+  --nuchi-current-secondary-foreground: oklch(0.208 0.042 265.755);
+  --nuchi-current-muted: oklch(0.968 0.007 247.896);
+  --nuchi-current-muted-foreground: oklch(0.554 0.046 257.417);
+  --nuchi-current-accent: oklch(0.968 0.007 247.896);
+  --nuchi-current-accent-foreground: oklch(0.208 0.042 265.755);
+  --nuchi-current-destructive: oklch(0.577 0.245 27.325);
+  --nuchi-current-border: oklch(0.929 0.013 255.508);
+  --nuchi-current-input: oklch(0.929 0.013 255.508);
+  --nuchi-current-ring: oklch(0.704 0.04 256.788);
+
+  /* CANONICAL: closest semantic aliases; values remain exact aliases. */
+  --nuchi-ref-color-canvas: var(--nuchi-current-background);
+  --nuchi-ref-color-text: var(--nuchi-current-foreground);
+  --nuchi-ref-color-surface-card: var(--nuchi-current-card);
+  --nuchi-ref-color-text-on-card: var(--nuchi-current-card-foreground);
+  --nuchi-ref-color-surface-overlay: var(--nuchi-current-popover);
+  --nuchi-ref-color-text-on-overlay: var(--nuchi-current-popover-foreground);
+  --nuchi-ref-color-action-primary: var(--nuchi-current-primary);
+  --nuchi-ref-color-text-on-primary: var(--nuchi-current-primary-foreground);
+  --nuchi-ref-color-action-secondary: var(--nuchi-current-secondary);
+  --nuchi-ref-color-text-on-secondary: var(--nuchi-current-secondary-foreground);
+  --nuchi-ref-color-surface-muted: var(--nuchi-current-muted);
+  --nuchi-ref-color-text-muted: var(--nuchi-current-muted-foreground);
+  --nuchi-ref-color-surface-interactive: var(--nuchi-current-accent);
+  --nuchi-ref-color-text-on-interactive: var(--nuchi-current-accent-foreground);
+  --nuchi-ref-color-action-destructive: var(--nuchi-current-destructive);
+  --nuchi-ref-color-border-default: var(--nuchi-current-border);
+  --nuchi-ref-color-border-input: var(--nuchi-current-input);
+  --nuchi-ref-color-focus-ring: var(--nuchi-current-ring);
+
+  /* ========================================================================
+   * COLOR — LEGACY: declared chart values disconnected from current charts
+   * ====================================================================== */
+  --nuchi-current-chart-token-1: oklch(0.646 0.222 41.116);
+  --nuchi-current-chart-token-2: oklch(0.6 0.118 184.704);
+  --nuchi-current-chart-token-3: oklch(0.398 0.07 227.392);
+  --nuchi-current-chart-token-4: oklch(0.828 0.189 84.429);
+  --nuchi-current-chart-token-5: oklch(0.769 0.188 70.08);
+  --nuchi-ref-chart-declared-1: var(--nuchi-current-chart-token-1);
+  --nuchi-ref-chart-declared-2: var(--nuchi-current-chart-token-2);
+  --nuchi-ref-chart-declared-3: var(--nuchi-current-chart-token-3);
+  --nuchi-ref-chart-declared-4: var(--nuchi-current-chart-token-4);
+  --nuchi-ref-chart-declared-5: var(--nuchi-current-chart-token-5);
+
+  /* LEGACY: sidebar values exist but no current sidebar consumes them. */
+  --nuchi-current-sidebar: oklch(0.984 0.003 247.858);
+  --nuchi-current-sidebar-foreground: oklch(0.129 0.042 264.695);
+  --nuchi-current-sidebar-primary: oklch(0.208 0.042 265.755);
+  --nuchi-current-sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-sidebar-accent: oklch(0.968 0.007 247.896);
+  --nuchi-current-sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --nuchi-current-sidebar-border: oklch(0.929 0.013 255.508);
+  --nuchi-current-sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* ========================================================================
+   * COLOR — INCONSISTENT: direct Tailwind palette values in current use
+   * These remain parallel to the semantic family; they are not collapsed.
+   * ====================================================================== */
+  --nuchi-current-blue-500: oklch(62.3% 0.214 259.815);
+  --nuchi-current-blue-600: oklch(54.6% 0.245 262.881);
+  --nuchi-current-blue-700: oklch(48.8% 0.243 264.376);
+  --nuchi-current-emerald-500: oklch(69.6% 0.17 162.48);
+  --nuchi-current-emerald-600: oklch(59.6% 0.145 163.225);
+  --nuchi-current-rose-50: oklch(96.9% 0.015 12.422);
+  --nuchi-current-rose-500: oklch(64.5% 0.246 16.439);
+  --nuchi-current-rose-600: oklch(58.6% 0.253 17.585);
+  --nuchi-current-rose-700: oklch(51.4% 0.222 16.935);
+  --nuchi-current-red-50: oklch(97.1% 0.013 17.38);
+  --nuchi-current-red-200: oklch(88.5% 0.062 18.334);
+  --nuchi-current-red-700: oklch(50.5% 0.213 27.518);
+  --nuchi-current-slate-300: oklch(86.9% 0.022 252.894);
+  --nuchi-current-slate-400: oklch(70.4% 0.04 256.788);
+  --nuchi-current-slate-500: oklch(55.4% 0.046 257.417);
+  --nuchi-current-white: #fff;
+  --nuchi-current-black: #000;
+
+  --nuchi-ref-color-brand-blue: var(--nuchi-current-blue-500);
+  --nuchi-ref-color-brand-blue-hover: var(--nuchi-current-blue-600);
+  --nuchi-ref-color-brand-blue-strong: var(--nuchi-current-blue-700);
+  --nuchi-ref-color-domain-income: var(--nuchi-current-emerald-500);
+  --nuchi-ref-color-domain-income-hover: var(--nuchi-current-emerald-600);
+  --nuchi-ref-color-domain-expense-tint: var(--nuchi-current-rose-50);
+  --nuchi-ref-color-domain-expense: var(--nuchi-current-rose-500);
+  --nuchi-ref-color-domain-expense-hover: var(--nuchi-current-rose-600);
+  --nuchi-ref-color-domain-expense-strong: var(--nuchi-current-rose-700);
+  --nuchi-ref-color-error-surface: var(--nuchi-current-red-50);
+  --nuchi-ref-color-error-border: var(--nuchi-current-red-200);
+  --nuchi-ref-color-error-text: var(--nuchi-current-red-700);
+  --nuchi-ref-color-neutral-chrome: var(--nuchi-current-slate-300);
+  --nuchi-ref-color-neutral-spinner: var(--nuchi-current-slate-400);
+  --nuchi-ref-color-neutral-hover: var(--nuchi-current-slate-500);
+  --nuchi-ref-color-on-brand: var(--nuchi-current-white);
+  --nuchi-ref-color-modal-scrim: rgb(0 0 0 / 50%);
+
+  /* ========================================================================
+   * COLOR — INCONSISTENT and ONE-OFF hard-coded values
+   * ====================================================================== */
+  --nuchi-current-auth-text-strong: #2E2A47;
+  --nuchi-current-auth-text-supporting: #7E8CA0;
+  --nuchi-current-header-supporting: #89b6fd;
+  --nuchi-current-react-select-border: #e2e8f0;
+  --nuchi-current-chart-cartesian-blue: #3d82f6;
+  --nuchi-current-chart-radar-blue: #3b82f6;
+  --nuchi-current-chart-negative: #f43f5e;
+  --nuchi-current-chart-category-1: #0062FF;
+  --nuchi-current-chart-category-2: #12C6FF;
+  --nuchi-current-chart-category-3: #FF647F;
+  --nuchi-current-chart-category-4: #FF9354;
+  --nuchi-current-chart-additional: #8884d8;
+
+  --nuchi-ref-color-auth-heading: var(--nuchi-current-auth-text-strong);
+  --nuchi-ref-color-auth-supporting: var(--nuchi-current-auth-text-supporting);
+  --nuchi-ref-color-header-supporting: var(--nuchi-current-header-supporting);
+  --nuchi-ref-color-border-react-select: var(--nuchi-current-react-select-border);
+  --nuchi-ref-chart-rendered-cartesian: var(--nuchi-current-chart-cartesian-blue);
+  --nuchi-ref-chart-rendered-radar: var(--nuchi-current-chart-radar-blue);
+  --nuchi-ref-chart-rendered-negative: var(--nuchi-current-chart-negative);
+  --nuchi-ref-chart-rendered-category-1: var(--nuchi-current-chart-category-1);
+  --nuchi-ref-chart-rendered-category-2: var(--nuchi-current-chart-category-2);
+  --nuchi-ref-chart-rendered-category-3: var(--nuchi-current-chart-category-3);
+  --nuchi-ref-chart-rendered-category-4: var(--nuchi-current-chart-category-4);
+  --nuchi-ref-chart-rendered-additional: var(--nuchi-current-chart-additional);
+
+  /* ========================================================================
+   * TYPOGRAPHY — CANONICAL families and implemented Tailwind scale
+   * ====================================================================== */
+  --nuchi-current-font-sans: var(--font-geist-sans);
+  --nuchi-current-font-mono: var(--font-geist-mono);
+  --nuchi-ref-font-body: var(--nuchi-current-font-sans);
+  --nuchi-ref-font-code: var(--nuchi-current-font-mono);
+
+  --nuchi-ref-font-size-xs: 0.75rem;
+  --nuchi-ref-line-height-xs: 1rem;
+  --nuchi-ref-font-size-sm: 0.875rem;
+  --nuchi-ref-line-height-sm: 1.25rem;
+  --nuchi-ref-font-size-base: 1rem;
+  --nuchi-ref-line-height-base: 1.5rem;
+  --nuchi-ref-font-size-lg: 1.125rem;
+  --nuchi-ref-line-height-lg: 1.75rem;
+  --nuchi-ref-font-size-xl: 1.25rem;
+  --nuchi-ref-line-height-xl: 1.75rem;
+  --nuchi-ref-font-size-2xl: 1.5rem;
+  --nuchi-ref-line-height-2xl: 2rem;
+  --nuchi-ref-font-size-3xl: 1.875rem;
+  --nuchi-ref-line-height-3xl: 2.25rem;
+  --nuchi-ref-font-size-4xl: 2.25rem;
+  --nuchi-ref-line-height-4xl: 2.5rem;
+  --nuchi-ref-line-height-none: 1;
+  --nuchi-ref-font-weight-normal: 400;
+  --nuchi-ref-font-weight-medium: 500;
+  --nuchi-ref-font-weight-semibold: 600;
+  --nuchi-ref-font-weight-bold: 700;
+  --nuchi-ref-letter-spacing-widest: 0.1em;
+
+  /* ========================================================================
+   * SPACING — CANONICAL 4 px basis; CONSISTENT observed scale
+   * ====================================================================== */
+  --nuchi-ref-space-unit: 0.25rem;
+  --nuchi-ref-space-0-5: 0.125rem;
+  --nuchi-ref-space-1: 0.25rem;
+  --nuchi-ref-space-1-5: 0.375rem;
+  --nuchi-ref-space-2: 0.5rem;
+  --nuchi-ref-space-2-5: 0.625rem;
+  --nuchi-ref-space-3: 0.75rem;
+  --nuchi-ref-space-3-5: 0.875rem;
+  --nuchi-ref-space-4: 1rem;
+  --nuchi-ref-space-5: 1.25rem;
+  --nuchi-ref-space-6: 1.5rem;
+  --nuchi-ref-space-7: 1.75rem;
+  --nuchi-ref-space-8: 2rem;
+  --nuchi-ref-space-9: 2.25rem;
+  --nuchi-ref-space-10: 2.5rem;
+  --nuchi-ref-space-12: 3rem;
+  --nuchi-ref-space-14: 3.5rem;
+  --nuchi-ref-space-16: 4rem;
+  --nuchi-ref-space-24: 6rem;
+  --nuchi-ref-space-30: 7.5rem;
+  --nuchi-ref-space-36: 9rem;
+  --nuchi-ref-space-40: 10rem;
+  --nuchi-ref-space-42-5: 10.625rem;
+  --nuchi-ref-space-48: 12rem;
+  --nuchi-ref-space-56: 14rem;
+  --nuchi-ref-space-72: 18rem;
+  --nuchi-ref-space-75: 18.75rem;
+  --nuchi-ref-space-87-5: 21.875rem;
+  --nuchi-ref-space-105: 26.25rem;
+  --nuchi-ref-space-125: 31.25rem;
+
+  /* CONSISTENT: closest named layout uses of exact scale values. */
+  --nuchi-ref-space-page-compact: var(--nuchi-ref-space-3);
+  --nuchi-ref-space-page-wide: var(--nuchi-ref-space-14);
+  --nuchi-ref-space-card-inline: var(--nuchi-ref-space-6);
+  --nuchi-ref-space-auth-inline: var(--nuchi-ref-space-4);
+  --nuchi-ref-space-auth-block: var(--nuchi-ref-space-12);
+  --nuchi-ref-space-dashboard-overlap: var(--nuchi-ref-space-24);
+  --nuchi-ref-space-header-bottom: var(--nuchi-ref-space-36);
+
+  /* ========================================================================
+   * LAYOUT AND SIZING — CONSISTENT unless labeled otherwise
+   * ====================================================================== */
+  --nuchi-ref-size-control-default: 2.25rem;
+  --nuchi-ref-size-control-large: 2.5rem;
+  --nuchi-ref-size-px: 1px;
+  --nuchi-ref-size-half: 50%;
+  --nuchi-ref-size-three-quarters: 75%;
+  --nuchi-ref-size-full: 100%;
+  --nuchi-ref-size-fit: fit-content;
+  --nuchi-ref-size-min: min-content;
+  --nuchi-ref-size-viewport-width: 100vw;
+  --nuchi-ref-size-viewport-min-height: 100vh;
+  --nuchi-ref-size-icon-12: 0.75rem;
+  --nuchi-ref-size-icon-14: 0.875rem;
+  --nuchi-ref-size-icon-16: 1rem;
+  --nuchi-ref-size-icon-20: 1.25rem;
+  --nuchi-ref-size-icon-24: 1.5rem;
+  --nuchi-ref-size-icon-32: 2rem;
+  --nuchi-ref-size-textarea-min: 4rem;
+  --nuchi-ref-size-auth-content-max: 28rem;
+  --nuchi-ref-size-sheet-form-max: 28rem;
+  --nuchi-ref-size-sheet-navigation-max: 24rem;
+  --nuchi-ref-size-dialog-max: 32rem;
+  --nuchi-ref-size-content-max: 96rem;
+  --nuchi-ref-size-dialog-viewport-gutter: 2rem;
+  --nuchi-ref-size-sheet-navigation-width: 75%;
+  --nuchi-ref-size-logo-auth-width: 200px;
+  --nuchi-ref-size-logo-auth-height: 200px;
+  --nuchi-ref-size-logo-header-width: 28px;
+  --nuchi-ref-size-logo-header-height: 28px;
+
+  /* INCONSISTENT: parallel chart and bounded-state heights. */
+  --nuchi-ref-size-chart-area: 18.75rem;
+  --nuchi-ref-size-chart-standard: 21.875rem;
+  --nuchi-ref-size-chart-loading: 21.875rem;
+  --nuchi-ref-size-list-loading: 31.25rem;
+  --nuchi-ref-size-auth-bootstrap-min: 10rem;
+
+  /* ONE-OFF: documented arbitrary fixed dimensions. */
+  --nuchi-ref-size-one-off-170: 10.625rem;
+  --nuchi-ref-size-one-off-420: 26.25rem;
+
+  /* ========================================================================
+   * RADIUS — CANONICAL derived system plus parallel current variants
+   * ====================================================================== */
+  --nuchi-current-radius-base: 0.625rem;
+  --nuchi-ref-radius-sm: 0.375rem;
+  --nuchi-ref-radius-md: 0.5rem;
+  --nuchi-ref-radius-lg: 0.625rem;
+  --nuchi-ref-radius-xl: 0.875rem;
+  --nuchi-ref-radius-2xl: 1.125rem;
+  --nuchi-ref-radius-3xl: 1.375rem;
+  --nuchi-ref-radius-4xl: 1.625rem;
+  --nuchi-ref-radius-control: var(--nuchi-ref-radius-md);
+  --nuchi-ref-radius-card: var(--nuchi-ref-radius-xl);
+  --nuchi-ref-radius-checkbox: var(--nuchi-ref-radius-lg);
+
+  /* INCONSISTENT: independent Tailwind and arbitrary 2 px values coexist. */
+  --nuchi-ref-radius-xs-tailwind: 0.125rem;
+  --nuchi-ref-radius-arbitrary-2px: 2px;
+
+  /* ========================================================================
+   * ELEVATION — CANONICAL values
+   * ====================================================================== */
+  --nuchi-ref-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --nuchi-ref-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --nuchi-ref-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --nuchi-ref-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --nuchi-ref-drop-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.15);
+  --nuchi-ref-shadow-card: var(--nuchi-ref-shadow-sm);
+  --nuchi-ref-shadow-control: var(--nuchi-ref-shadow-xs);
+
+  /* INCONSISTENT: dashboard route cards may apply both values together. */
+  --nuchi-ref-shadow-dashboard-box: var(--nuchi-ref-shadow-sm);
+  --nuchi-ref-shadow-dashboard-filter: var(--nuchi-ref-drop-shadow-sm);
+
+  /* ========================================================================
+   * BORDER AND FOCUS — CANONICAL base; INCONSISTENT parallel treatments
+   * ====================================================================== */
+  --nuchi-ref-border-width-default: 1px;
+  --nuchi-ref-border-style-default: solid;
+  --nuchi-ref-border-style-import: dashed;
+  --nuchi-ref-focus-ring-width-default: 3px;
+  --nuchi-ref-focus-ring-opacity-default: 50%;
+  --nuchi-ref-focus-ring-width-amount: 2px;
+  --nuchi-ref-focus-ring-offset-amount: 2px;
+  --nuchi-ref-color-header-active: rgb(255 255 255 / 10%);
+
+  /* ========================================================================
+   * BREAKPOINT REFERENCES — values do not and cannot activate media queries
+   * Consumers must write @media rules explicitly; custom properties are only
+   * documentation/reference values here.
+   * ====================================================================== */
+  --nuchi-ref-breakpoint-sm: 40rem;
+  --nuchi-ref-breakpoint-md: 48rem;
+  --nuchi-ref-breakpoint-lg: 64rem;
+  --nuchi-ref-breakpoint-xl: 80rem;
+  --nuchi-ref-breakpoint-2xl: 96rem;
+
+  /* INCONSISTENT: inclusive JS maxima overlap Tailwind minima at equality. */
+  --nuchi-ref-breakpoint-date-filter-js-max: 640px;
+  --nuchi-ref-breakpoint-navigation-js-max: 1024px;
+
+  /* ONE-OFF: React Select global CSS boundary. */
+  --nuchi-ref-breakpoint-react-select-css-max: 767px;
+
+  /* ========================================================================
+   * Z-INDEX — CANONICAL observed values
+   * ====================================================================== */
+  --nuchi-ref-z-calendar-active: 10;
+  --nuchi-ref-z-overlay: 50;
+
+  /* ========================================================================
+   * MOTION — CONSISTENT observed mechanisms
+   * No duration or easing tokens are defined because evidence documents no
+   * centralized or exact timing values.
+   * ====================================================================== */
+  --nuchi-ref-motion-loading: spin;
+  --nuchi-ref-motion-skeleton: pulse;
+  --nuchi-ref-motion-overlay-enter: fade, zoom, slide;
+  --nuchi-ref-motion-overlay-exit: fade, zoom, slide;
+  --nuchi-ref-transition-button-properties: all;
+  --nuchi-ref-transition-input-properties: color, box-shadow;
+}
+
+/* ========================================================================== 
+ * COLOR — LEGACY: centralized dark semantic values without a complete
+ * product-owned activation path. The .dark selector mirrors current shape;
+ * all --nuchi-* names remain documentation-only unless this file is imported.
+ * ======================================================================== */
+.dark {
+  --nuchi-current-background: oklch(0.129 0.042 264.695);
+  --nuchi-current-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-card: oklch(0.208 0.042 265.755);
+  --nuchi-current-card-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-popover: oklch(0.208 0.042 265.755);
+  --nuchi-current-popover-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-primary: oklch(0.929 0.013 255.508);
+  --nuchi-current-primary-foreground: oklch(0.208 0.042 265.755);
+  --nuchi-current-secondary: oklch(0.279 0.041 260.031);
+  --nuchi-current-secondary-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-muted: oklch(0.279 0.041 260.031);
+  --nuchi-current-muted-foreground: oklch(0.704 0.04 256.788);
+  --nuchi-current-accent: oklch(0.279 0.041 260.031);
+  --nuchi-current-accent-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-destructive: oklch(0.704 0.191 22.216);
+  --nuchi-current-border: oklch(1 0 0 / 10%);
+  --nuchi-current-input: oklch(1 0 0 / 15%);
+  --nuchi-current-ring: oklch(0.551 0.027 264.364);
+
+  --nuchi-current-chart-token-1: oklch(0.488 0.243 264.376);
+  --nuchi-current-chart-token-2: oklch(0.696 0.17 162.48);
+  --nuchi-current-chart-token-3: oklch(0.769 0.188 70.08);
+  --nuchi-current-chart-token-4: oklch(0.627 0.265 303.9);
+  --nuchi-current-chart-token-5: oklch(0.645 0.246 16.439);
+
+  --nuchi-current-sidebar: oklch(0.208 0.042 265.755);
+  --nuchi-current-sidebar-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-sidebar-primary: oklch(0.488 0.243 264.376);
+  --nuchi-current-sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-sidebar-accent: oklch(0.279 0.041 260.031);
+  --nuchi-current-sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --nuchi-current-sidebar-border: oklch(1 0 0 / 10%);
+  --nuchi-current-sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+/*
+ * MIGRATION MAPPING — reference only, not an instruction to modify the app.
+ * Format: current value -> proposed semantic token -> documented locations/uses
+ *
+ * CANONICAL semantic colors
+ * oklch(1 0 0) -> --nuchi-ref-color-canvas -> page background
+ * oklch(1 0 0) -> --nuchi-ref-color-surface-card -> Card surface
+ * oklch(1 0 0) -> --nuchi-ref-color-surface-overlay -> popover/menu/dialog surface
+ * oklch(0.129 0.042 264.695) -> --nuchi-ref-color-text -> default light-theme text
+ * oklch(0.208 0.042 265.755) -> --nuchi-ref-color-action-primary -> default light-theme buttons and strong actions
+ * oklch(0.577 0.245 27.325) -> --nuchi-ref-color-action-destructive -> light-theme destructive action/error
+ * oklch(0.929 0.013 255.508) -> --nuchi-ref-color-border-default -> light-theme default borders
+ * oklch(0.929 0.013 255.508) -> --nuchi-ref-color-border-input -> light-theme form control borders
+ * oklch(0.704 0.04 256.788) -> --nuchi-ref-color-focus-ring -> light-theme primitive focus ring
+ *
+ * INCONSISTENT direct Tailwind colors
+ * oklch(62.3% 0.214 259.815) -> --nuchi-ref-color-brand-blue -> auth brand panel, header gradient end, primary Badge, chart-adjacent UI
+ * oklch(54.6% 0.245 262.881) -> --nuchi-ref-color-brand-blue-hover -> blue hover/action states
+ * oklch(48.8% 0.243 264.376) -> --nuchi-ref-color-brand-blue-strong -> header gradient start
+ * oklch(69.6% 0.17 162.48) -> --nuchi-ref-color-domain-income -> income/positive states
+ * oklch(59.6% 0.145 163.225) -> --nuchi-ref-color-domain-income-hover -> income hover
+ * oklch(96.9% 0.015 12.422) -> --nuchi-ref-color-domain-expense-tint -> expense/destructive tint
+ * oklch(64.5% 0.246 16.439) -> --nuchi-ref-color-domain-expense -> expense/negative states
+ * oklch(58.6% 0.253 17.585) -> --nuchi-ref-color-domain-expense-hover -> expense hover
+ * oklch(51.4% 0.222 16.935) -> --nuchi-ref-color-domain-expense-strong -> strong expense text
+ * oklch(97.1% 0.013 17.38) -> --nuchi-ref-color-error-surface -> auth and CSV error surface
+ * oklch(88.5% 0.062 18.334) -> --nuchi-ref-color-error-border -> error border
+ * oklch(50.5% 0.213 27.518) -> --nuchi-ref-color-error-text -> error text/icon
+ * oklch(86.9% 0.022 252.894) -> --nuchi-ref-color-neutral-chrome -> light neutral chrome
+ * oklch(70.4% 0.04 256.788) -> --nuchi-ref-color-neutral-spinner -> SessionGuard spinner and neutral amount control
+ * oklch(55.4% 0.046 257.417) -> --nuchi-ref-color-neutral-hover -> neutral hover/text
+ * #fff -> --nuchi-ref-color-on-brand -> header/auth brand text and icons, chart tooltips
+ * #000 at 50% -> --nuchi-ref-color-modal-scrim -> modal overlays
+ *
+ * INCONSISTENT and ONE-OFF hard-coded colors
+ * #2E2A47 -> --nuchi-ref-color-auth-heading -> AuthHeader and auth strong text
+ * #7E8CA0 -> --nuchi-ref-color-auth-supporting -> auth descriptions/supporting text
+ * #89b6fd -> --nuchi-ref-color-header-supporting -> WelcomeMsg dashboard date/supporting text
+ * #e2e8f0 -> --nuchi-ref-color-border-react-select -> React Select control and hover border
+ * #3d82f6 -> --nuchi-ref-chart-rendered-cartesian -> area/bar/line chart stroke and fill
+ * #3b82f6 -> --nuchi-ref-chart-rendered-radar -> radar chart stroke and fill
+ * #f43f5e -> --nuchi-ref-chart-rendered-negative -> negative/expense chart value
+ * #0062FF -> --nuchi-ref-chart-rendered-category-1 -> category chart palette
+ * #12C6FF -> --nuchi-ref-chart-rendered-category-2 -> category chart palette
+ * #FF647F -> --nuchi-ref-chart-rendered-category-3 -> category chart palette
+ * #FF9354 -> --nuchi-ref-chart-rendered-category-4 -> category chart palette
+ * #8884d8 -> --nuchi-ref-chart-rendered-additional -> additional chart color
+ *
+ * LEGACY disconnected chart and sidebar families
+ * light --chart-1..5 exact values -> --nuchi-ref-chart-declared-1..5 -> app/globals.css; not consumed by current Recharts variants
+ * dark --chart-1..5 exact values -> --nuchi-ref-chart-declared-1..5 under .dark -> app/globals.css; not consumed by current Recharts variants
+ * light/dark --sidebar-* exact values -> --nuchi-current-sidebar-* -> app/globals.css; no current sidebar consumer
+ *
+ * CANONICAL typography
+ * Geist Sans -> --nuchi-ref-font-body -> body/Tailwind sans through next/font and preflight
+ * Geist Mono -> --nuchi-ref-font-code -> loaded and mapped; no current component call site
+ * 12px/16px -> --nuchi-ref-font-size-xs / --nuchi-ref-line-height-xs -> help text, badges, table metadata
+ * 14px/20px -> --nuchi-ref-font-size-sm / --nuchi-ref-line-height-sm -> controls, labels, body copy
+ * 16px/24px -> --nuchi-ref-font-size-base / --nuchi-ref-line-height-base -> mobile inputs and select content
+ * 18px/28px -> --nuchi-ref-font-size-lg / --nuchi-ref-line-height-lg -> card/display accents
+ * 20px/28px -> --nuchi-ref-font-size-xl / --nuchi-ref-line-height-xl -> screen/card titles
+ * 24px/32px -> --nuchi-ref-font-size-2xl / --nuchi-ref-line-height-2xl -> auth/status headings and summary values
+ * 30px/36px -> --nuchi-ref-font-size-3xl / --nuchi-ref-line-height-3xl -> dashboard figures/headings
+ * 36px/40px -> --nuchi-ref-font-size-4xl / --nuchi-ref-line-height-4xl -> largest auth/status display
+ *
+ * CONSISTENT and ONE-OFF spacing/layout
+ * 12px -> --nuchi-ref-space-page-compact -> dashboard page padding below lg
+ * 56px -> --nuchi-ref-space-page-wide -> dashboard page/header padding from lg
+ * 24px -> --nuchi-ref-space-card-inline -> Card horizontal padding
+ * 16px / 48px -> --nuchi-ref-space-auth-inline / --nuchi-ref-space-auth-block -> auth form column padding
+ * 96px -> --nuchi-ref-space-dashboard-overlap -> dashboard negative top overlap
+ * 144px -> --nuchi-ref-space-header-bottom -> dashboard Header bottom padding
+ * 36px -> --nuchi-ref-size-control-default -> Input and default Button height
+ * 40px -> --nuchi-ref-size-control-large -> React Select, AmountInput, and large action height
+ * 300px -> --nuchi-ref-size-chart-area -> area chart content height
+ * 350px -> --nuchi-ref-size-chart-standard -> bar/line, chart empty and chart loading height
+ * 500px -> --nuchi-ref-size-list-loading -> accounts/categories/transactions loading region
+ * 1536px -> --nuchi-ref-size-content-max -> Header and dashboard max width via two current expressions
+ *
+ * CANONICAL and INCONSISTENT radius/shadow
+ * 10px base -> --nuchi-current-radius-base -> app/globals.css shadcn radius foundation
+ * 8px -> --nuchi-ref-radius-control -> most controls
+ * 14px -> --nuchi-ref-radius-card -> Card primitive
+ * 10px -> --nuchi-ref-radius-checkbox -> 16px Checkbox
+ * 2px -> --nuchi-ref-radius-xs-tailwind -> Tailwind rounded-xs uses
+ * 2px -> --nuchi-ref-radius-arbitrary-2px -> arbitrary radius uses
+ * shadow-xs exact value -> --nuchi-ref-shadow-control -> inputs and outline controls
+ * shadow-sm exact value -> --nuchi-ref-shadow-card -> Card base and small overlays
+ * drop-shadow-sm exact value -> --nuchi-ref-shadow-dashboard-filter -> dashboard route-card screen wrapper
+ * shadow-sm + drop-shadow-sm -> parallel dashboard shadow tokens -> dashboard route cards may carry both
+ *
+ * CANONICAL and INCONSISTENT focus/breakpoints
+ * 3px at 50% ring -> --nuchi-ref-focus-ring-width-default / --nuchi-ref-focus-ring-opacity-default -> most primitives
+ * 2px ring + 2px offset -> --nuchi-ref-focus-ring-width-amount / --nuchi-ref-focus-ring-offset-amount -> AmountInput
+ * 640px min -> --nuchi-ref-breakpoint-sm -> Tailwind sm layout rules
+ * max-width 640px -> --nuchi-ref-breakpoint-date-filter-js-max -> DateFilter mobile branch, inclusive at sm boundary
+ * max-width 767px -> --nuchi-ref-breakpoint-react-select-css-max -> global React Select 16px text override
+ * 768px min -> --nuchi-ref-breakpoint-md -> standard input/select transition to 14px and calendar row layout
+ * 1024px min -> --nuchi-ref-breakpoint-lg -> auth split, desktop header/nav, layout and padding changes
+ * max-width 1024px -> --nuchi-ref-breakpoint-navigation-js-max -> mobile navigation branch, inclusive at lg boundary
+ * 1280px min -> --nuchi-ref-breakpoint-xl -> overview chart 4/2 proportions
+ * 1536px min -> --nuchi-ref-breakpoint-2xl -> content max-width reference
+ *
+ * CANONICAL layering and CONSISTENT motion
+ * 10 -> --nuchi-ref-z-calendar-active -> calendar focus/selected-day stacking
+ * 50 -> --nuchi-ref-z-overlay -> dialogs, sheets, menus, popovers, selects, tooltips, modal overlays
+ * animate-spin -> --nuchi-ref-motion-loading -> Loader2 loading indicators
+ * animate-pulse -> --nuchi-ref-motion-skeleton -> Skeleton
+ * fade/zoom/directional slide -> --nuchi-ref-motion-overlay-enter/exit -> Radix overlays through tw-animate-css
+ * transition-all -> --nuchi-ref-transition-button-properties -> Button
+ * color and shadow transitions -> --nuchi-ref-transition-input-properties -> Input
+ */
