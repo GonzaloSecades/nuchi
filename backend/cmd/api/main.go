@@ -48,7 +48,16 @@ func main() {
 	}
 	logger.Info("row level security verified active for owned tables")
 
-	mailer := mail.NewSMTPMailer(cfg.SMTPAddr, cfg.MailFrom, cfg.AppBaseURL)
+	var mailer mail.Mailer = mail.NewSMTPMailer(cfg.SMTPAddr, cfg.MailFrom, cfg.AppBaseURL)
+	localLinksEnabled := false
+	if os.Getenv("APP_ENV") == "local" && !cfg.CookieSecure {
+		switch cfg.AppBaseURL.Hostname() {
+		case "localhost", "127.0.0.1", "::1":
+			mailer = mail.NewLocalLinkMailer(mailer, cfg.AppBaseURL, logger)
+			localLinksEnabled = true
+		}
+	}
+	logger.Info("email delivery configured", "smtp", cfg.SMTPAddr, "local_link_logging", localLinksEnabled)
 	authServer := httpapi.NewAuthServer(pool, cfg, mailer)
 	resourceServer := httpapi.NewResourceServer(pool)
 
