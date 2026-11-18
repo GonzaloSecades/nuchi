@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from '@/lib/auth/session';
 import { QueryProvider } from '@/providers/query-provider';
-import { SheetProvider } from '@/providers/sheet-provider';
 import { Toaster } from '@/components/ui/sonner';
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,7 +34,6 @@ export default function RootLayout({
             TanStack Query. */}
         <SessionProvider>
           <QueryProvider>
-            <SheetProvider />
             <Toaster />
             {children}
           </QueryProvider>
